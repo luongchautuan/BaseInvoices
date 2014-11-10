@@ -28,7 +28,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+    NSLog(@"Register");
     [self.btnSignup setBackgroundImage:[UIImage imageNamed:@"bg_hover.png"] forState:UIControlStateNormal];
     [self.btnSignup setBackgroundImage:[UIImage imageNamed:@"bg_state.png"] forState:UIControlStateSelected];
     [self.btnSignup setBackgroundImage:[UIImage imageNamed:@"bg_state.png"] forState:UIControlStateHighlighted];

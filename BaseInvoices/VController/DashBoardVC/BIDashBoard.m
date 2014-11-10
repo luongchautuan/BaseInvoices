@@ -58,4 +58,10 @@
     [self.mm_drawerController toggleDrawerSide:MMDrawerSideLeft animated:YES completion:nil];
 }
 
+//Get invoices info from server
+-(void)getAllInvoice
+{
+    
+}
+
 @end

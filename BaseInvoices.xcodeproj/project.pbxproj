@@ -75,6 +75,7 @@
 		6E4396751A1094B4005EF4C9 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E4396741A1094B4005EF4C9 /* Security.framework */; };
 		6E43967D1A109718005EF4C9 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E43967C1A109718005EF4C9 /* Reachability.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		6E43967F1A109789005EF4C9 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E43967E1A109789005EF4C9 /* libz.dylib */; };
+		6EB9EBEF1A10E4FA001226F8 /* BIInvoice.m in Sources */ = {isa = PBXBuildFile; fileRef = 6EB9EBEE1A10E4FA001226F8 /* BIInvoice.m */; };
 		EA24E9FF1A0E75BD00A92723 /* 10406901_752194848164505_7793186767141070823_n.jpg in Resources */ = {isa = PBXBuildFile; fileRef = EA24E9FE1A0E75BD00A92723 /* 10406901_752194848164505_7793186767141070823_n.jpg */; };
 		EA24EA011A0E77C100A92723 /* no_img.jpg in Resources */ = {isa = PBXBuildFile; fileRef = EA24EA001A0E77C100A92723 /* no_img.jpg */; };
 		EA7E8DEA1A0FA2CF00BBE890 /* bg_hover.png in Resources */ = {isa = PBXBuildFile; fileRef = EA7E8DE71A0FA2CF00BBE890 /* bg_hover.png */; };
@@ -205,6 +206,8 @@
 		6E43967B1A109718005EF4C9 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		6E43967C1A109718005EF4C9 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		6E43967E1A109789005EF4C9 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
+		6EB9EBED1A10E4FA001226F8 /* BIInvoice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BIInvoice.h; sourceTree = "<group>"; };
+		6EB9EBEE1A10E4FA001226F8 /* BIInvoice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BIInvoice.m; sourceTree = "<group>"; };
 		EA24E9FE1A0E75BD00A92723 /* 10406901_752194848164505_7793186767141070823_n.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 10406901_752194848164505_7793186767141070823_n.jpg; sourceTree = "<group>"; };
 		EA24EA001A0E77C100A92723 /* no_img.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = no_img.jpg; sourceTree = "<group>"; };
 		EA7E8DE71A0FA2CF00BBE890 /* bg_hover.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg_hover.png; sourceTree = "<group>"; };
@@ -412,6 +415,8 @@
 		04F3D8A41A0BE972003B10FB /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				6EB9EBED1A10E4FA001226F8 /* BIInvoice.h */,
+				6EB9EBEE1A10E4FA001226F8 /* BIInvoice.m */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -711,6 +716,7 @@
 				6E43964F1A107C3E005EF4C9 /* ASICloudFilesCDNRequest.m in Sources */,
 				6E43964B1A107C3E005EF4C9 /* ASIFormDataRequest.m in Sources */,
 				04F3D8C91A0BF1B2003B10FB /* BLLeftSideVC.m in Sources */,
+				6EB9EBEF1A10E4FA001226F8 /* BIInvoice.m in Sources */,
 				6E43964D1A107C3E005EF4C9 /* ASIInputStream.m in Sources */,
 				04F3D87F1A0BE7CA003B10FB /* BIAppDelegate.m in Sources */,
 				04F3D8C41A0BEF22003B10FB /* BIAddNewBussiness.m in Sources */,
