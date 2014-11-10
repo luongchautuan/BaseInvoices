@@ -33,6 +33,7 @@
     [self.btnSignup setBackgroundImage:[UIImage imageNamed:@"bg_state.png"] forState:UIControlStateSelected];
     [self.btnSignup setBackgroundImage:[UIImage imageNamed:@"bg_state.png"] forState:UIControlStateHighlighted];
 
+    NSLog(@"Gia Su Change anything");
     // Do any additional setup after loading the view from its nib.
 }
 
