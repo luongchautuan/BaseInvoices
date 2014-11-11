@@ -8,8 +8,16 @@
 
 #import <UIKit/UIKit.h>
 
-@interface BIAddNewBussiness : UIViewController
+@interface BIAddNewBussiness : UIViewController<UITextFieldDelegate>
 
 @property (weak, nonatomic) IBOutlet UILabel *txtTitle;
+@property (weak, nonatomic) IBOutlet UITextField *txtNameBussiness;
+@property (weak, nonatomic) IBOutlet UITextField *txtDescription;
+@property (weak, nonatomic) IBOutlet UITextField *txtAddress;
+@property (weak, nonatomic) IBOutlet UITextField *txtCity;
+@property (weak, nonatomic) IBOutlet UITextField *txtPostCode;
+@property (weak, nonatomic) IBOutlet UIButton *btnCheckVat;
+@property (weak, nonatomic) IBOutlet UITextField *txtVat;
+@property (weak, nonatomic) IBOutlet UITextField *txtCurrency;
 
 @end

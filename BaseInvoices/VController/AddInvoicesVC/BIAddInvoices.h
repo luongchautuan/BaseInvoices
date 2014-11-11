@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface BIAddInvoices : UIViewController
+@interface BIAddInvoices : UIViewController<UITextFieldDelegate, UIPickerViewDataSource, UIPickerViewDelegate>
 @property (weak, nonatomic) IBOutlet UIButton *btnAddCustom;
 - (IBAction)onAddCustom:(id)sender;
 
@@ -25,5 +25,13 @@
 
 @property (weak, nonatomic) IBOutlet UIButton *btnSaveSend;
 @property (weak, nonatomic) IBOutlet UIButton *btnSave;
+@property (weak, nonatomic) IBOutlet UILabel *txtBussinessName;
+@property (weak, nonatomic) IBOutlet UILabel *txtInvoiceNumber;
+@property (weak, nonatomic) IBOutlet UITextField *txtDateOn;
+@property (weak, nonatomic) IBOutlet UITextField *txtDueOn;
+@property (weak, nonatomic) IBOutlet UITextField *txtSubTotal;
+@property (weak, nonatomic) IBOutlet UITextField *txtTax;
+@property (weak, nonatomic) IBOutlet UITextField *txtTotal;
 
+@property (weak, nonatomic) IBOutlet UIButton *btnMarkPaid;
 @end
