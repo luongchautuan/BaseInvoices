@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface BIMainScreenViewController : UIViewController
+@interface BIMainScreenViewController : UIViewController<UITextFieldDelegate>
 
 @property (weak, nonatomic) IBOutlet UIButton *btnRegistation;
 @property (weak, nonatomic) IBOutlet UIButton *btnLogin;

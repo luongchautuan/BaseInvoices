@@ -24,10 +24,30 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (IBAction)registation:(id)sender {
+- (IBAction)registation:(id)sender
+{
+    //Go To Register View
+
 }
 
 - (IBAction)login:(id)sender {
+    
+    if([[NSUserDefaults standardUserDefaults]boolForKey:@"LOGIN"]==YES)
+    {
+        //Go to Login View
+    }
+    else
+    {
+        //Go to Main Login
+    }
+}
+
+#pragma mark - Text filed delegates...
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [textField resignFirstResponder];
+    return YES;
 }
 
 /*

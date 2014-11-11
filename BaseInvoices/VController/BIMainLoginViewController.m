@@ -7,6 +7,8 @@
 //
 
 #import "BIMainLoginViewController.h"
+#import "ASIHTTPRequest.h"
+#import "BIAppDelegate.h"
 
 @interface BIMainLoginViewController ()
 
@@ -24,6 +26,37 @@
     // Dispose of any resources that can be recreated.
 }
 
+#pragma mark - Request delegates...
+
+
+- (void)requestFinished:(ASIHTTPRequest *)request
+{
+}
+
+- (void)requestFailed:(ASIHTTPRequest *)request
+{
+    
+}
+
+#pragma mark - Text filed delegates...
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [textField resignFirstResponder];
+    return YES;
+}
+
+#pragma mark - Button
+
+- (IBAction)forgotPassword:(id)sender
+{
+    
+}
+
+- (IBAction)Cancel:(id)sender
+{
+    
+}
 /*
 #pragma mark - Navigation
 

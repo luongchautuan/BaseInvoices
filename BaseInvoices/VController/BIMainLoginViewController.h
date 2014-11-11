@@ -8,8 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
-@interface BIMainLoginViewController : UIViewController
+@interface BIMainLoginViewController : UIViewController<UITextFieldDelegate>
+
 - (IBAction)txtEmail:(id)sender;
 - (IBAction)txtPassword:(id)sender;
+
+@property (nonatomic)NSString *responseString;
 
 @end
