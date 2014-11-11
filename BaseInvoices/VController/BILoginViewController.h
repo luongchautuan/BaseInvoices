@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface BILoginViewController : UIViewController
+@interface BILoginViewController : UIViewController<UITextFieldDelegate>
 
 @end

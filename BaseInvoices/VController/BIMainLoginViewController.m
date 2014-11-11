@@ -57,6 +57,26 @@
 {
     
 }
+
+// User enter number is move to password text field
+
+- (IBAction)userButton:(id)sender
+{
+//    passwordTxtFld.text=[NSString stringWithFormat:@"%@%i",passwordTxtFld.text,((UIButton *)sender).tag];
+    
+    
+//    NSLog(@"in password %@",passwordTxtFld.text );
+    
+}
+
+
+// Delete a character in the string(user name , password).
+- (IBAction)Cleartxt:(id)sender
+{
+//    if ( [passwordTxtFld.text length]  > 0)
+//        passwordTxtFld.text = [passwordTxtFld.text substringToIndex:[passwordTxtFld.text length] - 1];
+}
+
 /*
 #pragma mark - Navigation
 
@@ -67,9 +87,13 @@
 }
 */
 
-- (IBAction)txtEmail:(id)sender {
+- (IBAction)txtEmail:(id)sender
+{
+    
 }
 
-- (IBAction)txtPassword:(id)sender {
+- (IBAction)txtPassword:(id)sender
+{
+    
 }
 @end
