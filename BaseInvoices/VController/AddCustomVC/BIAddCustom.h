@@ -14,5 +14,12 @@
 - (IBAction)onBack:(id)sender;
 
 @property (weak, nonatomic) IBOutlet UILabel *txtTitle;
+@property (weak, nonatomic) IBOutlet UITextField *edtBussinessName;
+@property (weak, nonatomic) IBOutlet UITextField *edtEmail;
+@property (weak, nonatomic) IBOutlet UITextField *edtAddress;
+@property (weak, nonatomic) IBOutlet UITextField *edtCity;
+@property (weak, nonatomic) IBOutlet UITextField *edtPostCode;
+@property (weak, nonatomic) IBOutlet UITextField *edtPhone;
+@property (weak, nonatomic) IBOutlet UITextField *edtKeyContact;
 
 @end

@@ -28,6 +28,7 @@
 {
     [super viewDidLoad];
     [self.txtTitle setText:@"Add Products"];
+    [self initScreen];
     // Do any additional setup after loading the view from its nib.
 }
 
@@ -58,10 +59,10 @@
     self.description.leftView = paddingView2;
     self.description.leftViewMode = UITextFieldViewModeAlways;
     
-    self.edtTaxRate.leftView = paddingView2;
+    self.edtTaxRate.leftView = paddingView3;
     self.edtTaxRate.leftViewMode = UITextFieldViewModeAlways;
     
-    self.edtUnitPrice.leftView = paddingView2;
+    self.edtUnitPrice.leftView = paddingView4;
     self.edtUnitPrice.leftViewMode = UITextFieldViewModeAlways;
 }
 
