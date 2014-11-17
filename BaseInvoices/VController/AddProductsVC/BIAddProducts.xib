@@ -41,10 +41,10 @@
                                 <action selector="onBack:" destination="-1" eventType="touchUpInside" id="v8d-UT-7X1"/>
                             </connections>
                         </button>
-                        <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hij-Kz-Cdq">
-                            <rect key="frame" x="280" y="5" width="30" height="30"/>
+                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hij-Kz-Cdq">
+                            <rect key="frame" x="255" y="7" width="55" height="28"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
-                            <state key="normal" backgroundImage="icon_add.png">
+                            <state key="normal" backgroundImage="addproduct_btn_save.png">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
                         </button>
@@ -111,8 +111,8 @@
         </view>
     </objects>
     <resources>
+        <image name="addproduct_btn_save.png" width="110" height="56"/>
         <image name="bg_edt_login.png" width="226" height="31"/>
         <image name="btn_back.png" width="45" height="45"/>
-        <image name="icon_add.png" width="49" height="49"/>
     </resources>
 </document>
