@@ -84,6 +84,12 @@
 		6EB9EC011A112FA8001226F8 /* BILoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6EB9EBFF1A112FA8001226F8 /* BILoginViewController.xib */; };
 		EA24E9FF1A0E75BD00A92723 /* 10406901_752194848164505_7793186767141070823_n.jpg in Resources */ = {isa = PBXBuildFile; fileRef = EA24E9FE1A0E75BD00A92723 /* 10406901_752194848164505_7793186767141070823_n.jpg */; };
 		EA24EA011A0E77C100A92723 /* no_img.jpg in Resources */ = {isa = PBXBuildFile; fileRef = EA24EA001A0E77C100A92723 /* no_img.jpg */; };
+		EA4A272F1A1A820900304842 /* bg_edt_login.png in Resources */ = {isa = PBXBuildFile; fileRef = EA4A272C1A1A820900304842 /* bg_edt_login.png */; };
+		EA4A27301A1A820900304842 /* bg_login.png in Resources */ = {isa = PBXBuildFile; fileRef = EA4A272D1A1A820900304842 /* bg_login.png */; };
+		EA4A27311A1A820900304842 /* btn_login.png in Resources */ = {isa = PBXBuildFile; fileRef = EA4A272E1A1A820900304842 /* btn_login.png */; };
+		EA4A27331A1A83D300304842 /* btn_login@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EA4A27321A1A83D300304842 /* btn_login@2x.png */; };
+		EA4A27361A1A843800304842 /* bg_edt_login@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EA4A27341A1A843800304842 /* bg_edt_login@2x.png */; };
+		EA4A27371A1A843800304842 /* bg_login@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EA4A27351A1A843800304842 /* bg_login@2x.png */; };
 		EA7E8DEA1A0FA2CF00BBE890 /* bg_hover.png in Resources */ = {isa = PBXBuildFile; fileRef = EA7E8DE71A0FA2CF00BBE890 /* bg_hover.png */; };
 		EA7E8DEB1A0FA2CF00BBE890 /* bg_hover2.png in Resources */ = {isa = PBXBuildFile; fileRef = EA7E8DE81A0FA2CF00BBE890 /* bg_hover2.png */; };
 		EA7E8DEC1A0FA2CF00BBE890 /* bg_state.png in Resources */ = {isa = PBXBuildFile; fileRef = EA7E8DE91A0FA2CF00BBE890 /* bg_state.png */; };
@@ -225,6 +231,12 @@
 		6EB9EBFF1A112FA8001226F8 /* BILoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BILoginViewController.xib; sourceTree = "<group>"; };
 		EA24E9FE1A0E75BD00A92723 /* 10406901_752194848164505_7793186767141070823_n.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 10406901_752194848164505_7793186767141070823_n.jpg; sourceTree = "<group>"; };
 		EA24EA001A0E77C100A92723 /* no_img.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = no_img.jpg; sourceTree = "<group>"; };
+		EA4A272C1A1A820900304842 /* bg_edt_login.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg_edt_login.png; sourceTree = "<group>"; };
+		EA4A272D1A1A820900304842 /* bg_login.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg_login.png; sourceTree = "<group>"; };
+		EA4A272E1A1A820900304842 /* btn_login.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btn_login.png; sourceTree = "<group>"; };
+		EA4A27321A1A83D300304842 /* btn_login@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_login@2x.png"; sourceTree = "<group>"; };
+		EA4A27341A1A843800304842 /* bg_edt_login@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg_edt_login@2x.png"; sourceTree = "<group>"; };
+		EA4A27351A1A843800304842 /* bg_login@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg_login@2x.png"; sourceTree = "<group>"; };
 		EA7E8DE71A0FA2CF00BBE890 /* bg_hover.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg_hover.png; sourceTree = "<group>"; };
 		EA7E8DE81A0FA2CF00BBE890 /* bg_hover2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg_hover2.png; sourceTree = "<group>"; };
 		EA7E8DE91A0FA2CF00BBE890 /* bg_state.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg_state.png; sourceTree = "<group>"; };
@@ -346,6 +358,12 @@
 		04F3D89D1A0BE972003B10FB /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				EA4A27341A1A843800304842 /* bg_edt_login@2x.png */,
+				EA4A27351A1A843800304842 /* bg_login@2x.png */,
+				EA4A27321A1A83D300304842 /* btn_login@2x.png */,
+				EA4A272C1A1A820900304842 /* bg_edt_login.png */,
+				EA4A272D1A1A820900304842 /* bg_login.png */,
+				EA4A272E1A1A820900304842 /* btn_login.png */,
 				EA7E8DE71A0FA2CF00BBE890 /* bg_hover.png */,
 				EA7E8DE81A0FA2CF00BBE890 /* bg_hover2.png */,
 				EA7E8DE91A0FA2CF00BBE890 /* bg_state.png */,
@@ -696,15 +714,18 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EA4A272F1A1A820900304842 /* bg_edt_login.png in Resources */,
 				04F3D8D41A0BF75D003B10FB /* icon_add.png in Resources */,
 				04F3D8DE1A0BF8BC003B10FB /* btn_back.png in Resources */,
 				04F3D8D61A0BF75D003B10FB /* icon_cat.png in Resources */,
 				04F3D8BB1A0BEB9E003B10FB /* BILogin.xib in Resources */,
 				04F3D8791A0BE7CA003B10FB /* InfoPlist.strings in Resources */,
+				EA4A27331A1A83D300304842 /* btn_login@2x.png in Resources */,
 				04F3D8CA1A0BF1B2003B10FB /* BLLeftSideVC.xib in Resources */,
 				6EB9EBFB1A112D98001226F8 /* BIMainLoginViewController.xib in Resources */,
 				6EB9EC011A112FA8001226F8 /* BILoginViewController.xib in Resources */,
 				04F3D8C51A0BEF22003B10FB /* BIAddNewBussiness.xib in Resources */,
+				EA4A27371A1A843800304842 /* bg_login@2x.png in Resources */,
 				04F3D8E81A0BF914003B10FB /* BIAddProducts.xib in Resources */,
 				6EB9EBF51A11236B001226F8 /* BIMainScreenViewController.xib in Resources */,
 				EA24EA011A0E77C100A92723 /* no_img.jpg in Resources */,
@@ -716,8 +737,11 @@
 				04F3D8DC1A0BF857003B10FB /* BIAddInvoices.xib in Resources */,
 				EA24E9FF1A0E75BD00A92723 /* 10406901_752194848164505_7793186767141070823_n.jpg in Resources */,
 				EA7E8DEB1A0FA2CF00BBE890 /* bg_hover2.png in Resources */,
+				EA4A27301A1A820900304842 /* bg_login.png in Resources */,
 				04F3D8C01A0BEE5D003B10FB /* BIRegister.xib in Resources */,
 				04F3D8E31A0BF8D4003B10FB /* BIAddCustom.xib in Resources */,
+				EA4A27361A1A843800304842 /* bg_edt_login@2x.png in Resources */,
+				EA4A27311A1A820900304842 /* btn_login.png in Resources */,
 				EA7E8DEA1A0FA2CF00BBE890 /* bg_hover.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

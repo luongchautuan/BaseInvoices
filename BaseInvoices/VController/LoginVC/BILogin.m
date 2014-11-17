@@ -33,15 +33,40 @@
 {
     [super viewDidLoad];
     
-    [self.btnLogin setBackgroundImage:[UIImage imageNamed:@"bg_hover.png"] forState:UIControlStateNormal];
-    [self.btnLogin setBackgroundImage:[UIImage imageNamed:@"bg_state.png"] forState:UIControlStateSelected];
-    [self.btnLogin setBackgroundImage:[UIImage imageNamed:@"bg_state.png"] forState:UIControlStateHighlighted];
-    
-    [self.btnRegister setBackgroundImage:[UIImage imageNamed:@"bg_hover.png"] forState:UIControlStateNormal];
-    [self.btnRegister setBackgroundImage:[UIImage imageNamed:@"bg_state.png"] forState:UIControlStateSelected];
-    [self.btnRegister setBackgroundImage:[UIImage imageNamed:@"bg_state.png"] forState:UIControlStateHighlighted];
+//    [self.btnLogin setBackgroundImage:[UIImage imageNamed:@"bg_hover.png"] forState:UIControlStateNormal];
+//    [self.btnLogin setBackgroundImage:[UIImage imageNamed:@"bg_state.png"] forState:UIControlStateSelected];
+//    [self.btnLogin setBackgroundImage:[UIImage imageNamed:@"bg_state.png"] forState:UIControlStateHighlighted];
+//    
+//    [self.btnRegister setBackgroundImage:[UIImage imageNamed:@"bg_hover.png"] forState:UIControlStateNormal];
+//    [self.btnRegister setBackgroundImage:[UIImage imageNamed:@"bg_state.png"] forState:UIControlStateSelected];
+//    [self.btnRegister setBackgroundImage:[UIImage imageNamed:@"bg_state.png"] forState:UIControlStateHighlighted];
     // Do any additional setup after loading the view from its nib.
     
+    [self initScreen];
+}
+
+- (void)initScreen
+{
+    [self.edtUsername setValue:[UIColor blackColor] forKeyPath:@"_placeholderLabel.textColor"];
+    [self.edtPassword setValue:[UIColor blackColor] forKeyPath:@"_placeholderLabel.textColor"];
+    
+    //set gesture for return to close soft keyboard
+    UITapGestureRecognizer *tapGeusture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapHandler:)];
+    tapGeusture.numberOfTapsRequired = 1;
+    [self.view addGestureRecognizer:tapGeusture];
+    
+    CGRect screenRect = [[UIScreen mainScreen] bounds];
+    CGFloat screenWidth = screenRect.size.width;
+    CGFloat screenHeight = screenRect.size.height;
+    
+    UIView *paddingView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, screenHeight)];
+    UIView *paddingView2 = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, screenHeight)];
+    
+    self.edtUsername.leftView = paddingView;
+    self.edtUsername.leftViewMode = UITextFieldViewModeAlways;
+    
+    self.edtPassword.leftView = paddingView2;
+    self.edtPassword.leftViewMode = UITextFieldViewModeAlways;
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -101,6 +126,12 @@
         default:
             break;
     }
+}
+
+#pragma mark return to close soft keyboard
+- (void)tapHandler:(UIGestureRecognizer *)ges {
+    [self.edtPassword resignFirstResponder];
+    [self.edtUsername resignFirstResponder];
 }
 
 @end
