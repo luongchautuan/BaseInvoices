@@ -34,10 +34,10 @@
 
 - (void)initScreen
 {
-    [self.edtName setValue:[UIColor blackColor] forKeyPath:@"_placeholderLabel.textColor"];
-    [self.edtUnitPrice setValue:[UIColor blackColor] forKeyPath:@"_placeholderLabel.textColor"];
-    [self.edtTaxRate setValue:[UIColor blackColor] forKeyPath:@"_placeholderLabel.textColor"];
-    [self.description setValue:[UIColor blackColor] forKeyPath:@"_placeholderLabel.textColor"];
+//    [self.edtName setValue:[UIColor blackColor] forKeyPath:@"_placeholderLabel.textColor"];
+//    [self.edtUnitPrice setValue:[UIColor blackColor] forKeyPath:@"_placeholderLabel.textColor"];
+//    [self.edtTaxRate setValue:[UIColor blackColor] forKeyPath:@"_placeholderLabel.textColor"];
+//    [self.description setValue:[UIColor blackColor] forKeyPath:@"_placeholderLabel.textColor"];
     
     //set gesture for return to close soft keyboard
     UITapGestureRecognizer *tapGeusture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapHandler:)];
@@ -56,8 +56,8 @@
     self.edtName.leftView = paddingView;
     self.edtName.leftViewMode = UITextFieldViewModeAlways;
     
-    self.description.leftView = paddingView2;
-    self.description.leftViewMode = UITextFieldViewModeAlways;
+//    self.description.leftView = paddingView2;
+//    self.description.leftViewMode = UITextFieldViewModeAlways;
     
     self.edtTaxRate.leftView = paddingView3;
     self.edtTaxRate.leftViewMode = UITextFieldViewModeAlways;

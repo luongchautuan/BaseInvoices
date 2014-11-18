@@ -15,7 +15,8 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *txtTitle;
 @property (weak, nonatomic) IBOutlet UITextField *edtName;
-@property (weak, nonatomic) IBOutlet UITextField *description;
+
+
 @property (weak, nonatomic) IBOutlet UITextField *edtUnitPrice;
 @property (weak, nonatomic) IBOutlet UITextField *edtTaxRate;
 

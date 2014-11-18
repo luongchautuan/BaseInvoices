@@ -27,7 +27,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self.txtTitle setText:@"Add Custom"];
+    [self.txtTitle setText:@"Add Customer"];
     [self initScreen];
     // Do any additional setup after loading the view from its nib.
 }

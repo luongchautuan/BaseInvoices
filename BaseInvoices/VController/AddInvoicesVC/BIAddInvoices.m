@@ -56,6 +56,7 @@
     BIAddProducts *pushToVC = [[BIAddProducts alloc] initWithNibName:@"BIAddProducts" bundle:nil];
     [self.navigationController pushViewController:pushToVC animated:YES];
 }
+
 - (IBAction)onOpenMenu:(id)sender {
     [self.mm_drawerController toggleDrawerSide:MMDrawerSideLeft animated:YES completion:nil];
 }

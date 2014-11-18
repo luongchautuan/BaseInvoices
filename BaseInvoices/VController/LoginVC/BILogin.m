@@ -47,8 +47,10 @@
 
 - (void)initScreen
 {
-    [self.edtUsername setValue:[UIColor blackColor] forKeyPath:@"_placeholderLabel.textColor"];
-    [self.edtPassword setValue:[UIColor blackColor] forKeyPath:@"_placeholderLabel.textColor"];
+    UIColor* color = [[UIColor alloc] initWithRed:198 green:224 blue:168 alpha:1.0];
+    
+    [self.edtUsername setValue:color forKeyPath:@"_placeholderLabel.textColor"];
+    [self.edtPassword setValue:color forKeyPath:@"_placeholderLabel.textColor"];
     
     //set gesture for return to close soft keyboard
     UITapGestureRecognizer *tapGeusture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapHandler:)];
