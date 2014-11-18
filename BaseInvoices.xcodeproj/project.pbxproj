@@ -78,6 +78,7 @@
 		6EB9EBEF1A10E4FA001226F8 /* BIInvoice.m in Sources */ = {isa = PBXBuildFile; fileRef = 6EB9EBEE1A10E4FA001226F8 /* BIInvoice.m */; };
 		6EBF184A1A1B8E7800CE1A05 /* AddProductBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 6EBF18491A1B8E7800CE1A05 /* AddProductBackground.png */; };
 		6EBF184C1A1B91EA00CE1A05 /* AddCustomerBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 6EBF184B1A1B91EA00CE1A05 /* AddCustomerBackground.png */; };
+		6EBF226C1A1BC61E00CE1A05 /* buttonCreateFirstInvoice.png in Resources */ = {isa = PBXBuildFile; fileRef = 6EBF226B1A1BC61E00CE1A05 /* buttonCreateFirstInvoice.png */; };
 		EA24E9FF1A0E75BD00A92723 /* 10406901_752194848164505_7793186767141070823_n.jpg in Resources */ = {isa = PBXBuildFile; fileRef = EA24E9FE1A0E75BD00A92723 /* 10406901_752194848164505_7793186767141070823_n.jpg */; };
 		EA24EA011A0E77C100A92723 /* no_img.jpg in Resources */ = {isa = PBXBuildFile; fileRef = EA24EA001A0E77C100A92723 /* no_img.jpg */; };
 		EA28F6201A1BB50300D3575E /* RadioButton.m in Sources */ = {isa = PBXBuildFile; fileRef = EA28F61F1A1BB50300D3575E /* RadioButton.m */; };
@@ -257,6 +258,7 @@
 		6EB9EBEE1A10E4FA001226F8 /* BIInvoice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BIInvoice.m; sourceTree = "<group>"; };
 		6EBF18491A1B8E7800CE1A05 /* AddProductBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AddProductBackground.png; sourceTree = "<group>"; };
 		6EBF184B1A1B91EA00CE1A05 /* AddCustomerBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AddCustomerBackground.png; sourceTree = "<group>"; };
+		6EBF226B1A1BC61E00CE1A05 /* buttonCreateFirstInvoice.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = buttonCreateFirstInvoice.png; sourceTree = "<group>"; };
 		EA24E9FE1A0E75BD00A92723 /* 10406901_752194848164505_7793186767141070823_n.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 10406901_752194848164505_7793186767141070823_n.jpg; sourceTree = "<group>"; };
 		EA24EA001A0E77C100A92723 /* no_img.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = no_img.jpg; sourceTree = "<group>"; };
 		EA28F61E1A1BB50300D3575E /* RadioButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RadioButton.h; sourceTree = "<group>"; };
@@ -426,6 +428,7 @@
 		04F3D89D1A0BE972003B10FB /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				6EBF226B1A1BC61E00CE1A05 /* buttonCreateFirstInvoice.png */,
 				EA28F6211A1BB5A600D3575E /* bg_uncheck_radiobutton.png */,
 				EA28F6221A1BB5A600D3575E /* bg_uncheck_radiobutton@2x.png */,
 				EA28F6231A1BB5A600D3575E /* bg_checked_radiobutton.png */,
@@ -813,6 +816,7 @@
 				EA5C4CBF1A1BA79D00BF6F7F /* addinvoice_btn_dialog_custom.png in Resources */,
 				EA5C4CDC1A1BAE9B00BF6F7F /* menu_img_invoice@2x.png in Resources */,
 				04F3D8CA1A0BF1B2003B10FB /* BLLeftSideVC.xib in Resources */,
+				6EBF226C1A1BC61E00CE1A05 /* buttonCreateFirstInvoice.png in Resources */,
 				EA5C4CD81A1BAE9B00BF6F7F /* menu_img_product@2x.png in Resources */,
 				04F3D8C51A0BEF22003B10FB /* BIAddNewBussiness.xib in Resources */,
 				EA5C4CD61A1BAE9B00BF6F7F /* menu_img_settings@2x.png in Resources */,
@@ -1031,6 +1035,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Submitmytax Limited (CCN7EPP75W)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "BaseInvoices/BaseInvoices-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
@@ -1040,6 +1045,7 @@
 				);
 				INFOPLIST_FILE = "BaseInvoices/BaseInvoices-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "c28e8434-e3a0-4160-9cb0-8ff4c3fc3e81";
 				USER_HEADER_SEARCH_PATHS = "";
 				WRAPPER_EXTENSION = app;
 			};
@@ -1051,6 +1057,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Submitmytax Limited (CCN7EPP75W)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "BaseInvoices/BaseInvoices-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
@@ -1060,6 +1067,7 @@
 				);
 				INFOPLIST_FILE = "BaseInvoices/BaseInvoices-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "c28e8434-e3a0-4160-9cb0-8ff4c3fc3e81";
 				USER_HEADER_SEARCH_PATHS = "";
 				WRAPPER_EXTENSION = app;
 			};
