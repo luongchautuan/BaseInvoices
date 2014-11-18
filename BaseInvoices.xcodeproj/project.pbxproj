@@ -76,8 +76,6 @@
 		6E43967D1A109718005EF4C9 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E43967C1A109718005EF4C9 /* Reachability.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		6E43967F1A109789005EF4C9 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E43967E1A109789005EF4C9 /* libz.dylib */; };
 		6EB9EBEF1A10E4FA001226F8 /* BIInvoice.m in Sources */ = {isa = PBXBuildFile; fileRef = 6EB9EBEE1A10E4FA001226F8 /* BIInvoice.m */; };
-		6EB9EBF41A11236B001226F8 /* BIMainScreenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6EB9EBF21A11236B001226F8 /* BIMainScreenViewController.m */; };
-		6EB9EBF51A11236B001226F8 /* BIMainScreenViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6EB9EBF31A11236B001226F8 /* BIMainScreenViewController.xib */; };
 		EA24E9FF1A0E75BD00A92723 /* 10406901_752194848164505_7793186767141070823_n.jpg in Resources */ = {isa = PBXBuildFile; fileRef = EA24E9FE1A0E75BD00A92723 /* 10406901_752194848164505_7793186767141070823_n.jpg */; };
 		EA24EA011A0E77C100A92723 /* no_img.jpg in Resources */ = {isa = PBXBuildFile; fileRef = EA24EA001A0E77C100A92723 /* no_img.jpg */; };
 		EA4A272F1A1A820900304842 /* bg_edt_login.png in Resources */ = {isa = PBXBuildFile; fileRef = EA4A272C1A1A820900304842 /* bg_edt_login.png */; };
@@ -220,9 +218,6 @@
 		6E43967E1A109789005EF4C9 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		6EB9EBED1A10E4FA001226F8 /* BIInvoice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BIInvoice.h; sourceTree = "<group>"; };
 		6EB9EBEE1A10E4FA001226F8 /* BIInvoice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BIInvoice.m; sourceTree = "<group>"; };
-		6EB9EBF11A11236B001226F8 /* BIMainScreenViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BIMainScreenViewController.h; sourceTree = "<group>"; };
-		6EB9EBF21A11236B001226F8 /* BIMainScreenViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BIMainScreenViewController.m; sourceTree = "<group>"; };
-		6EB9EBF31A11236B001226F8 /* BIMainScreenViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BIMainScreenViewController.xib; sourceTree = "<group>"; };
 		EA24E9FE1A0E75BD00A92723 /* 10406901_752194848164505_7793186767141070823_n.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 10406901_752194848164505_7793186767141070823_n.jpg; sourceTree = "<group>"; };
 		EA24EA001A0E77C100A92723 /* no_img.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = no_img.jpg; sourceTree = "<group>"; };
 		EA4A272C1A1A820900304842 /* bg_edt_login.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg_edt_login.png; sourceTree = "<group>"; };
@@ -383,7 +378,6 @@
 		04F3D89E1A0BE972003B10FB /* VController */ = {
 			isa = PBXGroup;
 			children = (
-				6EB9EBF01A11231A001226F8 /* Main Screen */,
 				04F3D8B61A0BEA55003B10FB /* SignUpVC */,
 				04F3D89F1A0BE972003B10FB /* AddBussinessVC */,
 				04F3D8A01A0BE972003B10FB /* AddCustomVC */,
@@ -608,16 +602,6 @@
 			path = Rechability;
 			sourceTree = "<group>";
 		};
-		6EB9EBF01A11231A001226F8 /* Main Screen */ = {
-			isa = PBXGroup;
-			children = (
-				6EB9EBF11A11236B001226F8 /* BIMainScreenViewController.h */,
-				6EB9EBF21A11236B001226F8 /* BIMainScreenViewController.m */,
-				6EB9EBF31A11236B001226F8 /* BIMainScreenViewController.xib */,
-			);
-			name = "Main Screen";
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -705,7 +689,6 @@
 				04F3D8C51A0BEF22003B10FB /* BIAddNewBussiness.xib in Resources */,
 				EA4A27371A1A843800304842 /* bg_login@2x.png in Resources */,
 				04F3D8E81A0BF914003B10FB /* BIAddProducts.xib in Resources */,
-				6EB9EBF51A11236B001226F8 /* BIMainScreenViewController.xib in Resources */,
 				EA24EA011A0E77C100A92723 /* no_img.jpg in Resources */,
 				04F3D8D51A0BF75D003B10FB /* icon_add@2x.png in Resources */,
 				04F3D8811A0BE7CA003B10FB /* Images.xcassets in Resources */,
@@ -753,7 +736,6 @@
 				6E43965A1A107C3E005EF4C9 /* ASIS3Request.m in Sources */,
 				6E4396571A107C3E005EF4C9 /* ASIS3BucketObject.m in Sources */,
 				6E4396541A107C3E005EF4C9 /* ASICloudFilesObjectRequest.m in Sources */,
-				6EB9EBF41A11236B001226F8 /* BIMainScreenViewController.m in Sources */,
 				6E43965B1A107C3E005EF4C9 /* ASIS3ServiceRequest.m in Sources */,
 				6E4396491A107C3E005EF4C9 /* ASIDataDecompressor.m in Sources */,
 				04F3D8DB1A0BF857003B10FB /* BIAddInvoices.m in Sources */,
