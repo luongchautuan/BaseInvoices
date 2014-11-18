@@ -29,14 +29,16 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self.txtTitle setText:@"Add Invoices"];
-    [self.btnSaveSend setBackgroundImage:[UIImage imageNamed:@"bg_hover.png"] forState:UIControlStateNormal];
-    [self.btnSaveSend setBackgroundImage:[UIImage imageNamed:@"bg_state.png"] forState:UIControlStateSelected];
-    [self.btnSaveSend setBackgroundImage:[UIImage imageNamed:@"bg_state.png"] forState:UIControlStateHighlighted];
+    checkBoxSelected = false;
     
-    [self.btnSave setBackgroundImage:[UIImage imageNamed:@"bg_hover.png"] forState:UIControlStateNormal];
-    [self.btnSave setBackgroundImage:[UIImage imageNamed:@"bg_state.png"] forState:UIControlStateSelected];
-    [self.btnSave setBackgroundImage:[UIImage imageNamed:@"bg_state.png"] forState:UIControlStateHighlighted];
+    [self.txtTitle setText:@"Add Invoices"];
+    [self.btnTotal setBackgroundImage:[UIImage imageNamed:@"bg_uncheck_radiobutton.png"] forState:UIControlStateNormal];
+    [self.btnTotal setBackgroundImage:[UIImage imageNamed:@"bg_checked_radiobutton.png"] forState:UIControlStateSelected];
+    [self.btnTotal setBackgroundImage:[UIImage imageNamed:@"bg_checked_radiobutton.png"] forState:UIControlStateHighlighted];
+//
+//    [self.btnSave setBackgroundImage:[UIImage imageNamed:@"bg_hover.png"] forState:UIControlStateNormal];
+//    [self.btnSave setBackgroundImage:[UIImage imageNamed:@"bg_state.png"] forState:UIControlStateSelected];
+//    [self.btnSave setBackgroundImage:[UIImage imageNamed:@"bg_state.png"] forState:UIControlStateHighlighted];
     // Do any additional setup after loading the view from its nib.
 }
 
@@ -63,5 +65,17 @@
 - (IBAction)onBack:(id)sender {
     BIDashBoard *objectiveVC = [[BIDashBoard alloc] initWithNibName:@"BIDashBoard" bundle:nil];
     [self.navigationController pushViewController:objectiveVC animated:YES];
+}
+- (IBAction)onCheckedButton:(id)sender {
+    if(checkBoxSelected)
+    {
+        checkBoxSelected = false;
+    }
+    else
+    {
+        checkBoxSelected = true;
+    }
+    
+    [self.btnTotal setSelected:checkBoxSelected];
 }
 @end

@@ -9,6 +9,9 @@
 #import <UIKit/UIKit.h>
 
 @interface BIAddNewBussiness : UIViewController<UITextFieldDelegate>
+{
+    BOOL onCheckedButton;
+}
 
 @property (weak, nonatomic) IBOutlet UILabel *txtTitle;
 @property (weak, nonatomic) IBOutlet UITextField *txtNameBussiness;
@@ -19,5 +22,6 @@
 @property (weak, nonatomic) IBOutlet UIButton *btnCheckVat;
 @property (weak, nonatomic) IBOutlet UITextField *txtVat;
 @property (weak, nonatomic) IBOutlet UITextField *txtCurrency;
+- (IBAction)onCheckedButton:(id)sender;
 
 @end

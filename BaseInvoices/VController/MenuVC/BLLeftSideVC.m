@@ -30,11 +30,16 @@
     
     self.myTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     
-    NSDictionary *dic1 = [[NSDictionary alloc] initWithObjectsAndKeys:@"Invoices", @"title", @"", @"detail", @"", @"icon", nil];
-    NSDictionary *dic2 = [[NSDictionary alloc] initWithObjectsAndKeys:@"Customers", @"title", @"", @"detail", @"", @"icon", nil];
-    NSDictionary *dic3 = [[NSDictionary alloc] initWithObjectsAndKeys:@"Products", @"title", @"", @"detail", @"", @"icon", nil];
-    NSDictionary *dic4 = [[NSDictionary alloc] initWithObjectsAndKeys:@"Settings", @"title", @"", @"detail", @"", @"icon", nil];
-    NSDictionary *dic5 = [[NSDictionary alloc] initWithObjectsAndKeys:@"Sign Out", @"title", @"", @"detail", @"", @"icon", nil];
+    NSDictionary *dic1 = [[NSDictionary alloc] initWithObjectsAndKeys:@"Invoices", @"title", @"", @"detail", @"menu_img_invoice.png", @"icon", nil];
+    NSDictionary *dic2 = [[NSDictionary alloc] initWithObjectsAndKeys:@"Customers", @"title", @"", @"detail", @"menu_img_customer.png", @"icon", nil];
+    NSDictionary *dic3 = [[NSDictionary alloc] initWithObjectsAndKeys:@"Products", @"title", @"", @"detail", @"menu_img_product.png", @"icon", nil];
+    NSDictionary *dic4 = [[NSDictionary alloc] initWithObjectsAndKeys:@"Settings", @"title", @"", @"detail", @"menu_img_settings.png", @"icon", nil];
+    NSDictionary *dic5 = [[NSDictionary alloc] initWithObjectsAndKeys:@"Sign Out", @"title", @"", @"detail", @"menu_img_logout.png", @"icon", nil];
+    
+    self.img_thumb.layer.borderWidth = 1.0f;
+    self.img_thumb.layer.masksToBounds = NO;
+    self.img_thumb.clipsToBounds = YES;
+    self.img_thumb.layer.cornerRadius = 40;
     
     arrData = [NSArray arrayWithObjects:dic1, dic2, dic3, dic4, dic5, nil];
 }
@@ -63,6 +68,7 @@
         NSDictionary *currData = [arrData objectAtIndex:indexPath.row];
         cell.textLabel.text = [NSString stringWithFormat:@"%@", [currData objectForKey:@"title"]];
         cell.detailTextLabel.text = [NSString stringWithFormat:@"%@", [currData objectForKey:@"detail"]];
+        cell.imageView.image = [UIImage imageNamed:[currData objectForKey:@"icon"]];
     }
     
     return cell;
