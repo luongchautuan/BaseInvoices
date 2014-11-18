@@ -9,6 +9,10 @@
 #import <UIKit/UIKit.h>
 
 @interface BIAddInvoices : UIViewController<UITextFieldDelegate, UIPickerViewDataSource, UIPickerViewDelegate>
+{
+    BOOL checkBoxSelected;
+}
+
 @property (weak, nonatomic) IBOutlet UIButton *btnAddCustom;
 - (IBAction)onAddCustom:(id)sender;
 
@@ -32,6 +36,11 @@
 @property (weak, nonatomic) IBOutlet UITextField *txtSubTotal;
 @property (weak, nonatomic) IBOutlet UITextField *txtTax;
 @property (weak, nonatomic) IBOutlet UITextField *txtTotal;
+@property (weak, nonatomic) IBOutlet UIButton *btnTotal;
 
 @property (weak, nonatomic) IBOutlet UIButton *btnMarkPaid;
+
+- (IBAction)onCheckedButton:(id)sender;
+
+
 @end

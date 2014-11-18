@@ -21,5 +21,6 @@
 
 @property (assign) id<BLLeftSideDelegate> delegate;
 @property (weak, nonatomic) IBOutlet UITableView *myTableView;
+@property (weak, nonatomic) IBOutlet UIImageView *img_thumb;
 
 @end
