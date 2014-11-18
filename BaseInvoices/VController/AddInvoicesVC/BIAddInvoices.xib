@@ -6,6 +6,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="BIAddInvoices">
             <connections>
+                <outlet property="btnAddProduct" destination="M7B-Ht-ind" id="21n-9v-uOd"/>
                 <outlet property="btnBack" destination="FNx-sL-vQM" id="6uJ-tE-Gww"/>
                 <outlet property="btnSave" destination="i2O-49-S2R" id="z8C-4N-9u7"/>
                 <outlet property="btnSaveSend" destination="XDG-NF-sf3" id="RRS-qc-FrG"/>
@@ -178,6 +179,9 @@
                     <state key="normal" backgroundImage="addinvoice_btn_addproduct.png">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
+                    <connections>
+                        <action selector="onAddProduct:" destination="-1" eventType="touchUpInside" id="mDG-Tk-3vL"/>
+                    </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5kL-TH-Tbm">
                     <rect key="frame" x="290" y="401" width="18" height="18"/>

@@ -63,8 +63,9 @@
     [self.mm_drawerController toggleDrawerSide:MMDrawerSideLeft animated:YES completion:nil];
 }
 - (IBAction)onBack:(id)sender {
-    BIDashBoard *objectiveVC = [[BIDashBoard alloc] initWithNibName:@"BIDashBoard" bundle:nil];
-    [self.navigationController pushViewController:objectiveVC animated:YES];
+//    BIDashBoard *objectiveVC = [[BIDashBoard alloc] initWithNibName:@"BIDashBoard" bundle:nil];
+//    [self.navigationController pushViewController:objectiveVC animated:YES];
+     [self.mm_drawerController toggleDrawerSide:MMDrawerSideLeft animated:YES completion:nil];
 }
 - (IBAction)onCheckedButton:(id)sender {
     if(checkBoxSelected)
