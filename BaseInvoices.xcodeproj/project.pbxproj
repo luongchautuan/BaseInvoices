@@ -90,9 +90,31 @@
 		EA4A273D1A1A8D2100304842 /* addproduct_btn_save@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EA4A27391A1A8D2100304842 /* addproduct_btn_save@2x.png */; };
 		EA4A273E1A1A8D2100304842 /* dashboard_btn_create_voice@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EA4A273A1A1A8D2100304842 /* dashboard_btn_create_voice@2x.png */; };
 		EA4A273F1A1A8D2100304842 /* dashboard_btn_create_voice.png in Resources */ = {isa = PBXBuildFile; fileRef = EA4A273B1A1A8D2100304842 /* dashboard_btn_create_voice.png */; };
+		EA5C4CB71A1BA68900BF6F7F /* addinvoice_btn_dialog.png in Resources */ = {isa = PBXBuildFile; fileRef = EA5C4CB51A1BA68900BF6F7F /* addinvoice_btn_dialog.png */; };
+		EA5C4CB81A1BA68900BF6F7F /* addinvoice_btn_dialog@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EA5C4CB61A1BA68900BF6F7F /* addinvoice_btn_dialog@2x.png */; };
+		EA5C4CBD1A1BA79D00BF6F7F /* addinvoice_btn_dialog_date.png in Resources */ = {isa = PBXBuildFile; fileRef = EA5C4CB91A1BA79D00BF6F7F /* addinvoice_btn_dialog_date.png */; };
+		EA5C4CBE1A1BA79D00BF6F7F /* addinvoice_btn_dialog_date@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EA5C4CBA1A1BA79D00BF6F7F /* addinvoice_btn_dialog_date@2x.png */; };
+		EA5C4CBF1A1BA79D00BF6F7F /* addinvoice_btn_dialog_custom.png in Resources */ = {isa = PBXBuildFile; fileRef = EA5C4CBB1A1BA79D00BF6F7F /* addinvoice_btn_dialog_custom.png */; };
+		EA5C4CC01A1BA79D00BF6F7F /* addinvoice_btn_dialog_custom@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EA5C4CBC1A1BA79D00BF6F7F /* addinvoice_btn_dialog_custom@2x.png */; };
+		EA5C4CC31A1BA91700BF6F7F /* addinvoice_btn_addproduct.png in Resources */ = {isa = PBXBuildFile; fileRef = EA5C4CC11A1BA91700BF6F7F /* addinvoice_btn_addproduct.png */; };
+		EA5C4CC41A1BA91700BF6F7F /* addinvoice_btn_addproduct@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EA5C4CC21A1BA91700BF6F7F /* addinvoice_btn_addproduct@2x.png */; };
+		EA5C4CC71A1BA95F00BF6F7F /* addinvoice_btn_total.png in Resources */ = {isa = PBXBuildFile; fileRef = EA5C4CC51A1BA95F00BF6F7F /* addinvoice_btn_total.png */; };
+		EA5C4CC81A1BA95F00BF6F7F /* addinvoice_btn_total@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EA5C4CC61A1BA95F00BF6F7F /* addinvoice_btn_total@2x.png */; };
 		EA7E8DEA1A0FA2CF00BBE890 /* bg_hover.png in Resources */ = {isa = PBXBuildFile; fileRef = EA7E8DE71A0FA2CF00BBE890 /* bg_hover.png */; };
 		EA7E8DEB1A0FA2CF00BBE890 /* bg_hover2.png in Resources */ = {isa = PBXBuildFile; fileRef = EA7E8DE81A0FA2CF00BBE890 /* bg_hover2.png */; };
 		EA7E8DEC1A0FA2CF00BBE890 /* bg_state.png in Resources */ = {isa = PBXBuildFile; fileRef = EA7E8DE91A0FA2CF00BBE890 /* bg_state.png */; };
+		EAE2DA261A1B9D1100DBF8F0 /* addinvoice_img_star.png in Resources */ = {isa = PBXBuildFile; fileRef = EAE2DA1A1A1B9D1000DBF8F0 /* addinvoice_img_star.png */; };
+		EAE2DA271A1B9D1100DBF8F0 /* addinvoice_img_star@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EAE2DA1B1A1B9D1000DBF8F0 /* addinvoice_img_star@2x.png */; };
+		EAE2DA281A1B9D1100DBF8F0 /* addinvoice_btn_selectbox.png in Resources */ = {isa = PBXBuildFile; fileRef = EAE2DA1C1A1B9D1000DBF8F0 /* addinvoice_btn_selectbox.png */; };
+		EAE2DA291A1B9D1100DBF8F0 /* addinvoice_btn_selectbox@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EAE2DA1D1A1B9D1000DBF8F0 /* addinvoice_btn_selectbox@2x.png */; };
+		EAE2DA2A1A1B9D1100DBF8F0 /* addinvoice_btn_datetime.png in Resources */ = {isa = PBXBuildFile; fileRef = EAE2DA1E1A1B9D1000DBF8F0 /* addinvoice_btn_datetime.png */; };
+		EAE2DA2B1A1B9D1100DBF8F0 /* addinvoice_btn_datetime@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EAE2DA1F1A1B9D1000DBF8F0 /* addinvoice_btn_datetime@2x.png */; };
+		EAE2DA2C1A1B9D1100DBF8F0 /* addinvoice_btn_addinvoices.png in Resources */ = {isa = PBXBuildFile; fileRef = EAE2DA201A1B9D1000DBF8F0 /* addinvoice_btn_addinvoices.png */; };
+		EAE2DA2D1A1B9D1100DBF8F0 /* addinvoice_btn_addinvoices@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EAE2DA211A1B9D1000DBF8F0 /* addinvoice_btn_addinvoices@2x.png */; };
+		EAE2DA2E1A1B9D1100DBF8F0 /* addinvoice_btn_save.png in Resources */ = {isa = PBXBuildFile; fileRef = EAE2DA221A1B9D1000DBF8F0 /* addinvoice_btn_save.png */; };
+		EAE2DA2F1A1B9D1100DBF8F0 /* addinvoice_btn_save@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EAE2DA231A1B9D1000DBF8F0 /* addinvoice_btn_save@2x.png */; };
+		EAE2DA301A1B9D1100DBF8F0 /* addinvoice_btn_saveandsend.png in Resources */ = {isa = PBXBuildFile; fileRef = EAE2DA241A1B9D1000DBF8F0 /* addinvoice_btn_saveandsend.png */; };
+		EAE2DA311A1B9D1100DBF8F0 /* addinvoice_btn_saveandsend@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EAE2DA251A1B9D1000DBF8F0 /* addinvoice_btn_saveandsend@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -234,9 +256,31 @@
 		EA4A27391A1A8D2100304842 /* addproduct_btn_save@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "addproduct_btn_save@2x.png"; sourceTree = "<group>"; };
 		EA4A273A1A1A8D2100304842 /* dashboard_btn_create_voice@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dashboard_btn_create_voice@2x.png"; sourceTree = "<group>"; };
 		EA4A273B1A1A8D2100304842 /* dashboard_btn_create_voice.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dashboard_btn_create_voice.png; sourceTree = "<group>"; };
+		EA5C4CB51A1BA68900BF6F7F /* addinvoice_btn_dialog.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = addinvoice_btn_dialog.png; sourceTree = "<group>"; };
+		EA5C4CB61A1BA68900BF6F7F /* addinvoice_btn_dialog@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "addinvoice_btn_dialog@2x.png"; sourceTree = "<group>"; };
+		EA5C4CB91A1BA79D00BF6F7F /* addinvoice_btn_dialog_date.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = addinvoice_btn_dialog_date.png; sourceTree = "<group>"; };
+		EA5C4CBA1A1BA79D00BF6F7F /* addinvoice_btn_dialog_date@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "addinvoice_btn_dialog_date@2x.png"; sourceTree = "<group>"; };
+		EA5C4CBB1A1BA79D00BF6F7F /* addinvoice_btn_dialog_custom.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = addinvoice_btn_dialog_custom.png; sourceTree = "<group>"; };
+		EA5C4CBC1A1BA79D00BF6F7F /* addinvoice_btn_dialog_custom@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "addinvoice_btn_dialog_custom@2x.png"; sourceTree = "<group>"; };
+		EA5C4CC11A1BA91700BF6F7F /* addinvoice_btn_addproduct.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = addinvoice_btn_addproduct.png; sourceTree = "<group>"; };
+		EA5C4CC21A1BA91700BF6F7F /* addinvoice_btn_addproduct@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "addinvoice_btn_addproduct@2x.png"; sourceTree = "<group>"; };
+		EA5C4CC51A1BA95F00BF6F7F /* addinvoice_btn_total.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = addinvoice_btn_total.png; sourceTree = "<group>"; };
+		EA5C4CC61A1BA95F00BF6F7F /* addinvoice_btn_total@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "addinvoice_btn_total@2x.png"; sourceTree = "<group>"; };
 		EA7E8DE71A0FA2CF00BBE890 /* bg_hover.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg_hover.png; sourceTree = "<group>"; };
 		EA7E8DE81A0FA2CF00BBE890 /* bg_hover2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg_hover2.png; sourceTree = "<group>"; };
 		EA7E8DE91A0FA2CF00BBE890 /* bg_state.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg_state.png; sourceTree = "<group>"; };
+		EAE2DA1A1A1B9D1000DBF8F0 /* addinvoice_img_star.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = addinvoice_img_star.png; sourceTree = "<group>"; };
+		EAE2DA1B1A1B9D1000DBF8F0 /* addinvoice_img_star@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "addinvoice_img_star@2x.png"; sourceTree = "<group>"; };
+		EAE2DA1C1A1B9D1000DBF8F0 /* addinvoice_btn_selectbox.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = addinvoice_btn_selectbox.png; sourceTree = "<group>"; };
+		EAE2DA1D1A1B9D1000DBF8F0 /* addinvoice_btn_selectbox@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "addinvoice_btn_selectbox@2x.png"; sourceTree = "<group>"; };
+		EAE2DA1E1A1B9D1000DBF8F0 /* addinvoice_btn_datetime.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = addinvoice_btn_datetime.png; sourceTree = "<group>"; };
+		EAE2DA1F1A1B9D1000DBF8F0 /* addinvoice_btn_datetime@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "addinvoice_btn_datetime@2x.png"; sourceTree = "<group>"; };
+		EAE2DA201A1B9D1000DBF8F0 /* addinvoice_btn_addinvoices.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = addinvoice_btn_addinvoices.png; sourceTree = "<group>"; };
+		EAE2DA211A1B9D1000DBF8F0 /* addinvoice_btn_addinvoices@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "addinvoice_btn_addinvoices@2x.png"; sourceTree = "<group>"; };
+		EAE2DA221A1B9D1000DBF8F0 /* addinvoice_btn_save.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = addinvoice_btn_save.png; sourceTree = "<group>"; };
+		EAE2DA231A1B9D1000DBF8F0 /* addinvoice_btn_save@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "addinvoice_btn_save@2x.png"; sourceTree = "<group>"; };
+		EAE2DA241A1B9D1000DBF8F0 /* addinvoice_btn_saveandsend.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = addinvoice_btn_saveandsend.png; sourceTree = "<group>"; };
+		EAE2DA251A1B9D1000DBF8F0 /* addinvoice_btn_saveandsend@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "addinvoice_btn_saveandsend@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -355,6 +399,28 @@
 		04F3D89D1A0BE972003B10FB /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				EA5C4CC51A1BA95F00BF6F7F /* addinvoice_btn_total.png */,
+				EA5C4CC61A1BA95F00BF6F7F /* addinvoice_btn_total@2x.png */,
+				EA5C4CC11A1BA91700BF6F7F /* addinvoice_btn_addproduct.png */,
+				EA5C4CC21A1BA91700BF6F7F /* addinvoice_btn_addproduct@2x.png */,
+				EA5C4CB91A1BA79D00BF6F7F /* addinvoice_btn_dialog_date.png */,
+				EA5C4CBA1A1BA79D00BF6F7F /* addinvoice_btn_dialog_date@2x.png */,
+				EA5C4CBB1A1BA79D00BF6F7F /* addinvoice_btn_dialog_custom.png */,
+				EA5C4CBC1A1BA79D00BF6F7F /* addinvoice_btn_dialog_custom@2x.png */,
+				EA5C4CB51A1BA68900BF6F7F /* addinvoice_btn_dialog.png */,
+				EA5C4CB61A1BA68900BF6F7F /* addinvoice_btn_dialog@2x.png */,
+				EAE2DA1A1A1B9D1000DBF8F0 /* addinvoice_img_star.png */,
+				EAE2DA1B1A1B9D1000DBF8F0 /* addinvoice_img_star@2x.png */,
+				EAE2DA1C1A1B9D1000DBF8F0 /* addinvoice_btn_selectbox.png */,
+				EAE2DA1D1A1B9D1000DBF8F0 /* addinvoice_btn_selectbox@2x.png */,
+				EAE2DA1E1A1B9D1000DBF8F0 /* addinvoice_btn_datetime.png */,
+				EAE2DA1F1A1B9D1000DBF8F0 /* addinvoice_btn_datetime@2x.png */,
+				EAE2DA201A1B9D1000DBF8F0 /* addinvoice_btn_addinvoices.png */,
+				EAE2DA211A1B9D1000DBF8F0 /* addinvoice_btn_addinvoices@2x.png */,
+				EAE2DA221A1B9D1000DBF8F0 /* addinvoice_btn_save.png */,
+				EAE2DA231A1B9D1000DBF8F0 /* addinvoice_btn_save@2x.png */,
+				EAE2DA241A1B9D1000DBF8F0 /* addinvoice_btn_saveandsend.png */,
+				EAE2DA251A1B9D1000DBF8F0 /* addinvoice_btn_saveandsend@2x.png */,
 				6EBF184B1A1B91EA00CE1A05 /* AddCustomerBackground.png */,
 				6EBF18491A1B8E7800CE1A05 /* AddProductBackground.png */,
 				EA4A27381A1A8D2100304842 /* addproduct_btn_save.png */,
@@ -684,37 +750,59 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EA5C4CC01A1BA79D00BF6F7F /* addinvoice_btn_dialog_custom@2x.png in Resources */,
 				EA4A272F1A1A820900304842 /* bg_edt_login.png in Resources */,
+				EA5C4CBD1A1BA79D00BF6F7F /* addinvoice_btn_dialog_date.png in Resources */,
+				EAE2DA2C1A1B9D1100DBF8F0 /* addinvoice_btn_addinvoices.png in Resources */,
+				EAE2DA311A1B9D1100DBF8F0 /* addinvoice_btn_saveandsend@2x.png in Resources */,
 				04F3D8D41A0BF75D003B10FB /* icon_add.png in Resources */,
+				EAE2DA2B1A1B9D1100DBF8F0 /* addinvoice_btn_datetime@2x.png in Resources */,
+				EA5C4CB81A1BA68900BF6F7F /* addinvoice_btn_dialog@2x.png in Resources */,
 				04F3D8DE1A0BF8BC003B10FB /* btn_back.png in Resources */,
 				04F3D8D61A0BF75D003B10FB /* icon_cat.png in Resources */,
 				04F3D8BB1A0BEB9E003B10FB /* BILogin.xib in Resources */,
 				04F3D8791A0BE7CA003B10FB /* InfoPlist.strings in Resources */,
 				EA4A27331A1A83D300304842 /* btn_login@2x.png in Resources */,
+				EA5C4CC31A1BA91700BF6F7F /* addinvoice_btn_addproduct.png in Resources */,
 				6EBF184C1A1B91EA00CE1A05 /* AddCustomerBackground.png in Resources */,
+				EA5C4CBF1A1BA79D00BF6F7F /* addinvoice_btn_dialog_custom.png in Resources */,
 				04F3D8CA1A0BF1B2003B10FB /* BLLeftSideVC.xib in Resources */,
 				04F3D8C51A0BEF22003B10FB /* BIAddNewBussiness.xib in Resources */,
 				EA4A27371A1A843800304842 /* bg_login@2x.png in Resources */,
 				6EBF184A1A1B8E7800CE1A05 /* AddProductBackground.png in Resources */,
+				EA5C4CC81A1BA95F00BF6F7F /* addinvoice_btn_total@2x.png in Resources */,
 				04F3D8E81A0BF914003B10FB /* BIAddProducts.xib in Resources */,
 				EA24EA011A0E77C100A92723 /* no_img.jpg in Resources */,
+				EAE2DA261A1B9D1100DBF8F0 /* addinvoice_img_star.png in Resources */,
 				04F3D8D51A0BF75D003B10FB /* icon_add@2x.png in Resources */,
 				04F3D8811A0BE7CA003B10FB /* Images.xcassets in Resources */,
 				04F3D8CF1A0BF511003B10FB /* BIDashBoard.xib in Resources */,
 				EA7E8DEC1A0FA2CF00BBE890 /* bg_state.png in Resources */,
+				EAE2DA301A1B9D1100DBF8F0 /* addinvoice_btn_saveandsend.png in Resources */,
+				EA5C4CBE1A1BA79D00BF6F7F /* addinvoice_btn_dialog_date@2x.png in Resources */,
 				EA4A273E1A1A8D2100304842 /* dashboard_btn_create_voice@2x.png in Resources */,
 				04F3D8D71A0BF75D003B10FB /* icon_cat@2x.png in Resources */,
+				EAE2DA291A1B9D1100DBF8F0 /* addinvoice_btn_selectbox@2x.png in Resources */,
 				EA4A273F1A1A8D2100304842 /* dashboard_btn_create_voice.png in Resources */,
+				EA5C4CB71A1BA68900BF6F7F /* addinvoice_btn_dialog.png in Resources */,
+				EAE2DA271A1B9D1100DBF8F0 /* addinvoice_img_star@2x.png in Resources */,
 				04F3D8DC1A0BF857003B10FB /* BIAddInvoices.xib in Resources */,
 				EA24E9FF1A0E75BD00A92723 /* 10406901_752194848164505_7793186767141070823_n.jpg in Resources */,
 				EA7E8DEB1A0FA2CF00BBE890 /* bg_hover2.png in Resources */,
+				EAE2DA2D1A1B9D1100DBF8F0 /* addinvoice_btn_addinvoices@2x.png in Resources */,
+				EA5C4CC71A1BA95F00BF6F7F /* addinvoice_btn_total.png in Resources */,
+				EAE2DA2E1A1B9D1100DBF8F0 /* addinvoice_btn_save.png in Resources */,
 				EA4A273C1A1A8D2100304842 /* addproduct_btn_save.png in Resources */,
 				EA4A273D1A1A8D2100304842 /* addproduct_btn_save@2x.png in Resources */,
 				EA4A27301A1A820900304842 /* bg_login.png in Resources */,
+				EAE2DA2F1A1B9D1100DBF8F0 /* addinvoice_btn_save@2x.png in Resources */,
+				EAE2DA2A1A1B9D1100DBF8F0 /* addinvoice_btn_datetime.png in Resources */,
 				04F3D8C01A0BEE5D003B10FB /* BIRegister.xib in Resources */,
 				04F3D8E31A0BF8D4003B10FB /* BIAddCustom.xib in Resources */,
+				EAE2DA281A1B9D1100DBF8F0 /* addinvoice_btn_selectbox.png in Resources */,
 				EA4A27361A1A843800304842 /* bg_edt_login@2x.png in Resources */,
 				EA4A27311A1A820900304842 /* btn_login.png in Resources */,
+				EA5C4CC41A1BA91700BF6F7F /* addinvoice_btn_addproduct@2x.png in Resources */,
 				EA7E8DEA1A0FA2CF00BBE890 /* bg_hover.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
