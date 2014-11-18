@@ -154,8 +154,8 @@
         </view>
     </objects>
     <resources>
-        <image name="icon_add.png" width="32" height="32"/>
-        <image name="icon_cat.png" width="23" height="23"/>
+        <image name="icon_add.png" width="49" height="49"/>
+        <image name="icon_cat.png" width="49" height="40"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
