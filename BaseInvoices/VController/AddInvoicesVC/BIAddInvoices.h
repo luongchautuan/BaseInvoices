@@ -56,6 +56,15 @@
 @property (weak, nonatomic) IBOutlet UITableView *tbvViewListData;
 - (IBAction)onBackViewListData:(id)sender;
 
+#pragma mark init dialog popup
+@property (weak, nonatomic) IBOutlet UIView *viewPopup;
+@property (weak, nonatomic) IBOutlet UIButton *btnBackDialogPopup;
+- (IBAction)onBackDialogPopup:(id)sender;
+@property (weak, nonatomic) IBOutlet UITextField *txtNoteDesc;
+@property (weak, nonatomic) IBOutlet UIButton *btnCashPopup;
+@property (weak, nonatomic) IBOutlet UIButton *btnChequePopup;
+@property (weak, nonatomic) IBOutlet UIButton *btnCardPopup;
+@property (weak, nonatomic) IBOutlet UIButton *btnOtherPopup;
 
 
 @end

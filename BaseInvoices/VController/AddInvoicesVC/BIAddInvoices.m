@@ -53,6 +53,7 @@
     checkBoxSelected = false;
     [self onVisibleOfViewListData:true];
     [self onVisibleofViewDateTime:true];
+    [self onVisibleOfDialogPopup:true];
     
     [self.txtTitle setText:@"Add Invoices"];
     [self.btnTotal setBackgroundImage:[UIImage imageNamed:@"bg_uncheck_radiobutton.png"] forState:UIControlStateNormal];
@@ -114,6 +115,7 @@
     }
     else
     {
+        [self onVisibleOfDialogPopup:false];
         checkBoxSelected = true;
     }
     
@@ -224,5 +226,14 @@
 - (void)onReloadData
 {
     [self.tbvViewListData reloadData];
+}
+
+#pragma mark init dialog popup
+- (IBAction)onBackDialogPopup:(id)sender {
+    [self onVisibleOfDialogPopup:true];
+}
+
+- (void)onVisibleOfDialogPopup:(bool)isShow{
+    [self.viewPopup setHidden:isShow];
 }
 @end
