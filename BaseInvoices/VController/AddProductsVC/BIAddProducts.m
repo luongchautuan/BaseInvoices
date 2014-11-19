@@ -56,8 +56,8 @@
     self.edtName.leftView = paddingView;
     self.edtName.leftViewMode = UITextFieldViewModeAlways;
     
-//    self.description.leftView = paddingView2;
-//    self.description.leftViewMode = UITextFieldViewModeAlways;
+    self.edtDesc.leftView = paddingView2;
+    self.edtDesc.leftViewMode = UITextFieldViewModeAlways;
     
     self.edtTaxRate.leftView = paddingView3;
     self.edtTaxRate.leftViewMode = UITextFieldViewModeAlways;
@@ -75,5 +75,15 @@
 - (IBAction)onBack:(id)sender {
     BIAddInvoices *pushToVC = [[BIAddInvoices alloc] initWithNibName:@"BIAddInvoices" bundle:nil];
     [self.navigationController pushViewController:pushToVC animated:YES];
+}
+
+#pragma mark return to close soft keyboard
+
+- (void)tapHandler:(UIGestureRecognizer *)ges
+{
+    [self.edtName resignFirstResponder];
+    [self.edtTaxRate resignFirstResponder];
+    [self.edtUnitPrice resignFirstResponder];
+    [self.edtDesc resignFirstResponder];
 }
 @end
