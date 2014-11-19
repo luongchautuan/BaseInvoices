@@ -93,4 +93,51 @@
     BIAddInvoices *pushToVC = [[BIAddInvoices alloc] initWithNibName:@"BIAddInvoices" bundle:nil];
     [self.navigationController pushViewController:pushToVC animated:YES];
 }
+
+#pragma mark return to close soft keyboard
+
+- (void)tapHandler:(UIGestureRecognizer *)ges
+{
+    [self.edtAddress resignFirstResponder];
+    [self.edtBussinessName resignFirstResponder];
+    [self.edtCity resignFirstResponder];
+    [self.edtEmail resignFirstResponder];
+    [self.edtKeyContact resignFirstResponder];
+    [self.edtPhone resignFirstResponder];
+    [self.edtPostCode resignFirstResponder];
+    [self.scrollView setContentOffset:CGPointMake(0,0)];
+}
+
+#pragma mark - Text Field delegates...
+
+-(void)textFieldDidBeginEditing:(UITextField *)textField
+{
+    if (textField.tag==0)
+    {
+        [self.scrollView setContentOffset:CGPointMake(0,50)];
+    }
+    
+    if (textField.tag==1)
+    {
+        [self.scrollView setContentOffset:CGPointMake(0,100)];
+    }
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [textField resignFirstResponder];
+    
+    if(textField== self.edtPhone)
+    {
+        [self.scrollView setContentOffset:CGPointMake(0, 0)];
+    }
+    
+    if(textField == self.edtKeyContact)
+    {
+        [self.scrollView setContentOffset:CGPointMake(0, 0)];
+    }
+    
+    
+    return YES;
+}
 @end
