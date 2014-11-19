@@ -18,5 +18,9 @@
 - (IBAction)onLogin:(id)sender;
 - (IBAction)onRegister:(id)sender;
 
+@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
+
+@property (weak, nonatomic) IBOutlet UIView *viewActivity;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 - (void)closeMenu;
 @end

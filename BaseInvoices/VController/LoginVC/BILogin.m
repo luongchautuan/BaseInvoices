@@ -13,10 +13,14 @@
 #import "BIAddInvoices.h"
 #import "BIAddProducts.h"
 #import "BIAddCustom.h"
+#import "ASIHTTPRequest.h"
+#import "BIAppDelegate.h"
 
 @interface BILogin ()
 
 @end
+
+BIAppDelegate *appdelegate;
 
 @implementation BILogin
 
@@ -32,14 +36,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-//    [self.btnLogin setBackgroundImage:[UIImage imageNamed:@"bg_hover.png"] forState:UIControlStateNormal];
-//    [self.btnLogin setBackgroundImage:[UIImage imageNamed:@"bg_state.png"] forState:UIControlStateSelected];
-//    [self.btnLogin setBackgroundImage:[UIImage imageNamed:@"bg_state.png"] forState:UIControlStateHighlighted];
-//    
-//    [self.btnRegister setBackgroundImage:[UIImage imageNamed:@"bg_hover.png"] forState:UIControlStateNormal];
-//    [self.btnRegister setBackgroundImage:[UIImage imageNamed:@"bg_state.png"] forState:UIControlStateSelected];
-//    [self.btnRegister setBackgroundImage:[UIImage imageNamed:@"bg_state.png"] forState:UIControlStateHighlighted];
     // Do any additional setup after loading the view from its nib.
     
     [self initScreen];
@@ -47,7 +43,7 @@
 
 - (void)initScreen
 {
-    UIColor* color = [[UIColor alloc] initWithRed:198/255 green:224/255 blue:168/255 alpha:1.0];
+    UIColor* color = [[UIColor alloc] initWithRed:198.0/255.0 green:224.0/255.0 blue:168.0/255.0 alpha:1.0];
     
     [self.edtUsername setValue:color forKeyPath:@"_placeholderLabel.textColor"];
     [self.edtPassword setValue:color forKeyPath:@"_placeholderLabel.textColor"];
@@ -58,7 +54,6 @@
     [self.view addGestureRecognizer:tapGeusture];
     
     CGRect screenRect = [[UIScreen mainScreen] bounds];
-    CGFloat screenWidth = screenRect.size.width;
     CGFloat screenHeight = screenRect.size.height;
     
     UIView *paddingView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, screenHeight)];
@@ -84,9 +79,34 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (IBAction)onLogin:(id)sender {
-    BIDashBoard *pushToVC = [[BIDashBoard alloc] initWithNibName:@"BIDashBoard" bundle:nil];
-    [self.navigationController pushViewController:pushToVC animated:YES];
+- (IBAction)onLogin:(id)sender
+{
+    [self.viewActivity setHidden:NO];
+    [self.activityIndicator startAnimating];
+    
+    if([self.edtPassword.text length] <1 ||[self.edtUsername.text length]<1)
+    {
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Warning" message:@"Please fill all text fields" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [alert show];
+        
+        [self.viewActivity setHidden:YES];
+        [self.activityIndicator stopAnimating];
+        
+    }
+    else
+    {
+        ASIHTTPRequest *request = [[ASIHTTPRequest alloc] initWithURL:[NSURL URLWithString:@"https://ec2-46-137-84-201.eu-west-1.compute.amazonaws.com:8443/wTaxmapp/resources/user"]];
+        
+        
+        [request setTag:1];
+        [request addBasicAuthenticationHeaderWithUsername:self.edtUsername.text andPassword:self.edtPassword.text];
+        
+        [request addRequestHeader:@"Content-Type" value:@"application/json"];
+        [request setValidatesSecureCertificate:NO];
+        [request setDelegate:self];
+        [request startAsynchronous];
+    }
+
 }
 
 - (IBAction)onRegister:(id)sender {
@@ -131,9 +151,71 @@
 }
 
 #pragma mark return to close soft keyboard
-- (void)tapHandler:(UIGestureRecognizer *)ges {
+
+- (void)tapHandler:(UIGestureRecognizer *)ges
+{
     [self.edtPassword resignFirstResponder];
     [self.edtUsername resignFirstResponder];
+    [self.scrollView setContentOffset:CGPointMake(0, 0)];
+}
+
+#pragma mark - Text Field delegates...
+
+-(void)textFieldDidBeginEditing:(UITextField *)textField
+{
+    if (textField.tag==0)
+    {
+        [self.scrollView setContentOffset:CGPointMake(0,50)];
+    }
+    
+    if (textField.tag==1)
+    {
+        [self.scrollView setContentOffset:CGPointMake(0,100)];
+    }
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [textField resignFirstResponder];
+    
+    if(textField== self.edtUsername)
+    {
+        [self.scrollView setContentOffset:CGPointMake(0, 0)];
+    }
+    
+    if(textField == self.edtPassword)
+    {
+        [self.scrollView setContentOffset:CGPointMake(0, 0)];
+    }
+
+    
+    return YES;
+}
+
+
+#pragma mark - Request delegates...
+
+
+- (void)requestFinished:(ASIHTTPRequest *)request
+{
+    if(request.tag == 1)
+    {
+        if([request responseStatusCode] == 200)
+        {
+            BIDashBoard *pushToVC = [[BIDashBoard alloc] initWithNibName:@"BIDashBoard" bundle:nil];
+            [self.navigationController pushViewController:pushToVC animated:YES];
+        }
+    }
+}
+
+- (void)requestFailed:(ASIHTTPRequest *)request
+{
+    [self.viewActivity setHidden:YES];
+    [self.activityIndicator stopAnimating];
+    
+    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Authentication failed" message:@"Username and password mismatched" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    [alert show];
+
 }
 
 @end
