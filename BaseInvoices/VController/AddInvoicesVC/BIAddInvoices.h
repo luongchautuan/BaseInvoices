@@ -55,6 +55,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *btnBackViewListData;
 @property (weak, nonatomic) IBOutlet UITableView *tbvViewListData;
 - (IBAction)onBackViewListData:(id)sender;
+@property (weak, nonatomic) IBOutlet UIView *viewChilds;
 
 #pragma mark init dialog popup
 @property (weak, nonatomic) IBOutlet UIView *viewPopup;
@@ -69,4 +70,5 @@
 @property (weak, nonatomic) IBOutlet UIView *viewMarkPaid;
 @property (weak, nonatomic) IBOutlet UITextField *txtDatePaid;
 
+- (void)setNewPositionOfViewListData:(int)type;
 @end

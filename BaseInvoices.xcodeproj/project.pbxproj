@@ -124,6 +124,10 @@
 		EA7E8DEA1A0FA2CF00BBE890 /* bg_hover.png in Resources */ = {isa = PBXBuildFile; fileRef = EA7E8DE71A0FA2CF00BBE890 /* bg_hover.png */; };
 		EA7E8DEB1A0FA2CF00BBE890 /* bg_hover2.png in Resources */ = {isa = PBXBuildFile; fileRef = EA7E8DE81A0FA2CF00BBE890 /* bg_hover2.png */; };
 		EA7E8DEC1A0FA2CF00BBE890 /* bg_state.png in Resources */ = {isa = PBXBuildFile; fileRef = EA7E8DE91A0FA2CF00BBE890 /* bg_state.png */; };
+		EA924B721A1E811B007CBA2A /* btn_close.png in Resources */ = {isa = PBXBuildFile; fileRef = EA924B6E1A1E811B007CBA2A /* btn_close.png */; };
+		EA924B731A1E811B007CBA2A /* btn_close@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EA924B6F1A1E811B007CBA2A /* btn_close@2x.png */; };
+		EA924B741A1E811B007CBA2A /* bg_dialog_view@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EA924B701A1E811B007CBA2A /* bg_dialog_view@2x.png */; };
+		EA924B751A1E811B007CBA2A /* bg_dialog_view.png in Resources */ = {isa = PBXBuildFile; fileRef = EA924B711A1E811B007CBA2A /* bg_dialog_view.png */; };
 		EAAD5C6D1A1D134300289828 /* COPDBManager.m in Sources */ = {isa = PBXBuildFile; fileRef = EAAD5C691A1D134300289828 /* COPDBManager.m */; };
 		EAAD5C6E1A1D134300289828 /* COPGlobalVariables.m in Sources */ = {isa = PBXBuildFile; fileRef = EAAD5C6B1A1D134300289828 /* COPGlobalVariables.m */; };
 		EAE2DA261A1B9D1100DBF8F0 /* addinvoice_img_star.png in Resources */ = {isa = PBXBuildFile; fileRef = EAE2DA1A1A1B9D1000DBF8F0 /* addinvoice_img_star.png */; };
@@ -319,6 +323,10 @@
 		EA7E8DE71A0FA2CF00BBE890 /* bg_hover.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg_hover.png; sourceTree = "<group>"; };
 		EA7E8DE81A0FA2CF00BBE890 /* bg_hover2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg_hover2.png; sourceTree = "<group>"; };
 		EA7E8DE91A0FA2CF00BBE890 /* bg_state.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg_state.png; sourceTree = "<group>"; };
+		EA924B6E1A1E811B007CBA2A /* btn_close.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btn_close.png; sourceTree = "<group>"; };
+		EA924B6F1A1E811B007CBA2A /* btn_close@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_close@2x.png"; sourceTree = "<group>"; };
+		EA924B701A1E811B007CBA2A /* bg_dialog_view@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg_dialog_view@2x.png"; sourceTree = "<group>"; };
+		EA924B711A1E811B007CBA2A /* bg_dialog_view.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg_dialog_view.png; sourceTree = "<group>"; };
 		EAAD5C691A1D134300289828 /* COPDBManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = COPDBManager.m; sourceTree = "<group>"; };
 		EAAD5C6A1A1D134300289828 /* COPDBManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = COPDBManager.h; sourceTree = "<group>"; };
 		EAAD5C6B1A1D134300289828 /* COPGlobalVariables.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = COPGlobalVariables.m; sourceTree = "<group>"; };
@@ -453,6 +461,10 @@
 		04F3D89D1A0BE972003B10FB /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				EA924B6E1A1E811B007CBA2A /* btn_close.png */,
+				EA924B6F1A1E811B007CBA2A /* btn_close@2x.png */,
+				EA924B701A1E811B007CBA2A /* bg_dialog_view@2x.png */,
+				EA924B711A1E811B007CBA2A /* bg_dialog_view.png */,
 				6EE6D8F31A1DCDAB00F11239 /* datebg@2x.png */,
 				6EBF226B1A1BC61E00CE1A05 /* buttonCreateFirstInvoice.png */,
 				EA28F6211A1BB5A600D3575E /* bg_uncheck_radiobutton.png */,
@@ -847,6 +859,8 @@
 				EA28F6251A1BB5A600D3575E /* bg_uncheck_radiobutton.png in Resources */,
 				EA4A272F1A1A820900304842 /* bg_edt_login.png in Resources */,
 				EA5C4CBD1A1BA79D00BF6F7F /* addinvoice_btn_dialog_date.png in Resources */,
+				EA924B741A1E811B007CBA2A /* bg_dialog_view@2x.png in Resources */,
+				EA924B751A1E811B007CBA2A /* bg_dialog_view.png in Resources */,
 				EAE2DA2C1A1B9D1100DBF8F0 /* addinvoice_btn_addinvoices.png in Resources */,
 				EAE2DA311A1B9D1100DBF8F0 /* addinvoice_btn_saveandsend@2x.png in Resources */,
 				04F3D8D41A0BF75D003B10FB /* icon_add.png in Resources */,
@@ -854,6 +868,7 @@
 				EA5C4CB81A1BA68900BF6F7F /* addinvoice_btn_dialog@2x.png in Resources */,
 				04F3D8DE1A0BF8BC003B10FB /* btn_back.png in Resources */,
 				04F3D8D61A0BF75D003B10FB /* icon_cat.png in Resources */,
+				EA924B731A1E811B007CBA2A /* btn_close@2x.png in Resources */,
 				04F3D8BB1A0BEB9E003B10FB /* BILogin.xib in Resources */,
 				04F3D8791A0BE7CA003B10FB /* InfoPlist.strings in Resources */,
 				EA28F6261A1BB5A600D3575E /* bg_uncheck_radiobutton@2x.png in Resources */,
@@ -866,6 +881,7 @@
 				EA5C4CDC1A1BAE9B00BF6F7F /* menu_img_invoice@2x.png in Resources */,
 				04F3D8CA1A0BF1B2003B10FB /* BLLeftSideVC.xib in Resources */,
 				6EBF226C1A1BC61E00CE1A05 /* buttonCreateFirstInvoice.png in Resources */,
+				EA924B721A1E811B007CBA2A /* btn_close.png in Resources */,
 				EA5C4CD81A1BAE9B00BF6F7F /* menu_img_product@2x.png in Resources */,
 				04F3D8C51A0BEF22003B10FB /* BIAddNewBussiness.xib in Resources */,
 				EA5C4CD61A1BAE9B00BF6F7F /* menu_img_settings@2x.png in Resources */,

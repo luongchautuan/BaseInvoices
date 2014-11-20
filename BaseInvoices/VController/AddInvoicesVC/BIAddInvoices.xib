@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6250" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="5056" systemVersion="12F37" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="BIAddInvoices">
@@ -10,7 +9,8 @@
                 <outlet property="btnAddCustom" destination="IPR-6X-hkN" id="QxK-an-S2r"/>
                 <outlet property="btnAddProduct" destination="M7B-Ht-ind" id="21n-9v-uOd"/>
                 <outlet property="btnBack" destination="FNx-sL-vQM" id="6uJ-tE-Gww"/>
-                <outlet property="btnBackViewListData" destination="DhX-u6-2yP" id="eew-ok-6h3"/>
+                <outlet property="btnBackViewDateTime" destination="LlV-ka-ZUS" id="yvI-PH-cqL"/>
+                <outlet property="btnBackViewListData" destination="22s-4s-CKc" id="P7E-tU-KBd"/>
                 <outlet property="btnBusiness" destination="Omd-TU-2qd" id="VJc-Xr-99y"/>
                 <outlet property="btnCardPopup" destination="y2k-oj-h0b" id="bT0-5n-QMx"/>
                 <outlet property="btnCashPopup" destination="glj-wB-vfk" id="xqz-6r-x48"/>
@@ -20,15 +20,17 @@
                 <outlet property="btnOtherPopup" destination="vSj-tA-lU9" id="leZ-VY-J9i"/>
                 <outlet property="btnSave" destination="i2O-49-S2R" id="z8C-4N-9u7"/>
                 <outlet property="btnSaveSend" destination="XDG-NF-sf3" id="RRS-qc-FrG"/>
+                <outlet property="btnSaveViewDateTime" destination="mKw-eo-TAn" id="VAR-Sj-WHi"/>
                 <outlet property="btnTotal" destination="5kL-TH-Tbm" id="bWw-uC-zYi"/>
-                <outlet property="dpViewDateTime" destination="zX5-H0-122" id="FQv-cC-mGF"/>
+                <outlet property="dpViewDateTime" destination="cVd-zr-cL1" id="L1x-Th-vWM"/>
                 <outlet property="tbvViewListData" destination="Bju-D2-8hA" id="4Iy-Us-dHh"/>
                 <outlet property="txtDatePaid" destination="vP2-JM-oij" id="Hvc-kV-GLr"/>
                 <outlet property="txtNoteDesc" destination="x82-lQ-MMI" id="eKQ-s4-BNg"/>
                 <outlet property="txtTitle" destination="rU3-N6-5l0" id="SG1-gm-JoZ"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
                 <outlet property="viewAddInvoices" destination="VXK-j8-8sR" id="g0w-6d-Us0"/>
-                <outlet property="viewDateTime" destination="y7V-Wi-FjU" id="Bw3-67-gZS"/>
+                <outlet property="viewChilds" destination="Hbv-LK-9br" id="laz-Zg-g8B"/>
+                <outlet property="viewDateTime" destination="EgV-Nw-EDK" id="nuG-nZ-i4q"/>
                 <outlet property="viewListData" destination="mzb-MW-OKM" id="aPM-cZ-apy"/>
                 <outlet property="viewMarkPaid" destination="vvx-W0-7Qg" id="w3C-pN-hCf"/>
                 <outlet property="viewPopup" destination="Ubr-it-NKr" id="dRH-1e-RCf"/>
@@ -254,49 +256,8 @@
                     <color key="backgroundColor" red="0.4039215686" green="0.68627450980000004" blue="0.070588235289999995" alpha="1" colorSpace="calibratedRGB"/>
                     <inset key="insetFor6xAndEarlier" minX="0.0" minY="20" maxX="0.0" maxY="-20"/>
                 </view>
-                <view hidden="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mzb-MW-OKM" userLabel="View List Data">
-                    <rect key="frame" x="0.0" y="20" width="320" height="568"/>
-                    <subviews>
-                        <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Hbv-LK-9br">
-                            <rect key="frame" x="10" y="50" width="300" height="450"/>
-                            <subviews>
-                                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vr6-ZA-Ehy">
-                                    <rect key="frame" x="0.0" y="0.0" width="300" height="50"/>
-                                    <subviews>
-                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NxS-8c-WaC">
-                                            <rect key="frame" x="0.0" y="11" width="320" height="21"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DhX-u6-2yP">
-                                            <rect key="frame" x="20" y="12" width="25" height="25"/>
-                                            <state key="normal" backgroundImage="btn_back.png">
-                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                            </state>
-                                            <connections>
-                                                <action selector="onBackViewListData:" destination="-1" eventType="touchUpInside" id="QnR-js-Ezp"/>
-                                            </connections>
-                                        </button>
-                                    </subviews>
-                                    <color key="backgroundColor" red="0.4039215686" green="0.68627450980000004" blue="0.070588235289999995" alpha="1" colorSpace="calibratedRGB"/>
-                                    <inset key="insetFor6xAndEarlier" minX="0.0" minY="20" maxX="0.0" maxY="-20"/>
-                                </view>
-                                <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="Bju-D2-8hA">
-                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    <connections>
-                                        <outlet property="dataSource" destination="-1" id="Z8a-FH-yaF"/>
-                                        <outlet property="delegate" destination="-1" id="DhP-am-eWf"/>
-                                    </connections>
-                                </tableView>
-                            </subviews>
-                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                        </view>
-                    </subviews>
-                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.5" colorSpace="calibratedRGB"/>
-                </view>
                 <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ubr-it-NKr" userLabel="View Pop Up">
-                    <rect key="frame" x="0.0" y="20" width="320" height="568"/>
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                     <subviews>
                         <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vvx-W0-7Qg">
                             <rect key="frame" x="10" y="67" width="300" height="250"/>
@@ -386,44 +347,112 @@
                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                     <textInputTraits key="textInputTraits"/>
                                 </textField>
-                                <view hidden="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="y7V-Wi-FjU">
-                                    <rect key="frame" x="12" y="75" width="280" height="163"/>
-                                    <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" image="datebg.png" translatesAutoresizingMaskIntoConstraints="NO" id="Pb5-KA-Gf5">
-                                            <rect key="frame" x="8" y="0.0" width="270" height="180"/>
-                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        </imageView>
-                                        <datePicker contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="zX5-H0-122">
-                                            <rect key="frame" x="14" y="26" width="258" height="120"/>
-                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                            <date key="date" timeIntervalSinceReferenceDate="389535258.95545101">
-                                                <!--2013-05-06 12:14:18 +0000-->
-                                            </date>
-                                        </datePicker>
-                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NjS-1a-8HL">
-                                            <rect key="frame" x="253" y="-50" width="50" height="30"/>
-                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                            <state key="normal" image="done.png">
-                                                <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
-                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                            </state>
-                                            <state key="highlighted">
-                                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            </state>
-                                        </button>
-                                    </subviews>
-                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                </view>
                             </subviews>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         </view>
                     </subviews>
                     <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.5" colorSpace="calibratedRGB"/>
                 </view>
+                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mzb-MW-OKM" userLabel="View List Data">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Hbv-LK-9br">
+                            <rect key="frame" x="10" y="115" width="300" height="255"/>
+                            <subviews>
+                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="bg_dialog_view.png" translatesAutoresizingMaskIntoConstraints="NO" id="ozu-tl-N3u">
+                                    <rect key="frame" x="0.0" y="0.0" width="300" height="255"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                </imageView>
+                                <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="Bju-D2-8hA">
+                                    <rect key="frame" x="0.0" y="45" width="300" height="210"/>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <connections>
+                                        <outlet property="dataSource" destination="-1" id="Z8a-FH-yaF"/>
+                                        <outlet property="delegate" destination="-1" id="DhP-am-eWf"/>
+                                    </connections>
+                                </tableView>
+                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="22s-4s-CKc">
+                                    <rect key="frame" x="10" y="15" width="25" height="25"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <state key="normal" title="Button" backgroundImage="btn_close.png">
+                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="onBackViewListData:" destination="-1" eventType="touchUpInside" id="PF2-dQ-nwf"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                        </view>
+                    </subviews>
+                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.5" colorSpace="calibratedRGB"/>
+                </view>
+                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="EgV-Nw-EDK" userLabel="View List Datetime">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Viu-Z9-g5t">
+                            <rect key="frame" x="10" y="235" width="300" height="255"/>
+                            <subviews>
+                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="bg_dialog_view.png" translatesAutoresizingMaskIntoConstraints="NO" id="ji1-ef-4zB">
+                                    <rect key="frame" x="0.0" y="0.0" width="300" height="255"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                </imageView>
+                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LlV-ka-ZUS">
+                                    <rect key="frame" x="10" y="15" width="25" height="25"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <state key="normal" title="Button" backgroundImage="btn_close.png">
+                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="onBackViewDateTime:" destination="-1" eventType="touchUpInside" id="ghq-YU-Pue"/>
+                                    </connections>
+                                </button>
+                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mKw-eo-TAn">
+                                    <rect key="frame" x="50" y="17" width="45" height="23"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                    <state key="normal" backgroundImage="addproduct_btn_save.png">
+                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="onSaveDateTime:" destination="-1" eventType="touchUpInside" id="90Z-Fj-QNB"/>
+                                    </connections>
+                                </button>
+                                <datePicker contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="cVd-zr-cL1">
+                                    <rect key="frame" x="0.0" y="45" width="320" height="216"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                    <date key="date" timeIntervalSinceReferenceDate="438211540.03845501">
+                                        <!--2014-11-20 21:25:40 +0000-->
+                                    </date>
+                                    <timeZone key="timeZone" name="America/Los_Angeles">
+                                        <mutableData key="data">
+VFppZgAAAAAAAAAAAAAAAAAAAAAAAAAEAAAABAAAAAAAAAC5AAAABAAAABCepkign7sVkKCGKqChmveQ
+y4kaoNIj9HDSYSYQ1v50INiArZDa/tGg28CQENzes6DdqayQ3r6VoN+JjpDgnneg4WlwkOJ+WaDjSVKQ
+5F47oOUpNJDmR1gg5xJREOgnOiDo8jMQ6gccIOrSFRDr5v4g7LH3EO3G4CDukdkQ76/8oPBxuxDxj96g
+8n/BkPNvwKD0X6OQ9U+ioPY/hZD3L4Sg+CiiEPkPZqD6CIQQ+viDIPvoZhD82GUg/chIEP64RyD/qCoQ
+AJgpIAGIDBACeAsgA3EokARhJ6AFUQqQBkEJoAcw7JAHjUOgCRDOkAmtvyAK8LCQC+CvoAzZzRANwJGg
+DrmvEA+priAQmZEQEYmQIBJ5cxATaXIgFFlVEBVJVCAWOTcQFyk2IBgiU5AZCRggGgI1kBryNKAb4heQ
+HNIWoB3B+ZAesfigH6HbkCB2KyAhgb2QIlYNICNq2hAkNe8gJUq8ECYV0SAnKp4QJ/7toCkKgBAp3s+g
+KupiECu+saAs036QLZ6ToC6zYJAvfnWgMJNCkDFnkiAycySQM0d0IDRTBpA1J1YgNjLokDcHOCA4HAUQ
+OOcaIDn75xA6xvwgO9vJEDywGKA9u6sQPo/6oD+bjRBAb9ygQYSpkEJPvqBDZIuQRC+goEVEbZBF89Mg
+Ry2KEEfTtSBJDWwQSbOXIErtThBLnLOgTNZqkE18laBOtkyQT1x3oFCWLpBRPFmgUnYQkFMcO6BUVfKQ
+VPwdoFY11JBW5TogWB7xEFjFHCBZ/tMQWqT+IFvetRBchOAgXb6XEF5kwiBfnnkQYE3eoGGHlZBiLcCg
+Y2d3kGQNoqBlR1mQZe2EoGcnO5BnzWagaQcdkGmtSKBq5v+Qa5ZlIGzQHBBtdkcgbq/+EG9WKSBwj+AQ
+cTYLIHJvwhBzFe0gdE+kEHT/CaB2OMCQdt7roHgYopB4vs2gefiEkHqer6B72GaQfH6RoH24SJB+XnOg
+f5gqkAABAAECAwEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEA
+AQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEA
+AQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEA
+AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
+</mutableData>
+                                    </timeZone>
+                                </datePicker>
+                            </subviews>
+                        </view>
+                    </subviews>
+                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.5" colorSpace="calibratedRGB"/>
+                </view>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-            <nil key="simulatedStatusBarMetrics"/>
-            <point key="canvasLocation" x="140" y="187"/>
         </view>
     </objects>
     <resources>
@@ -434,17 +463,12 @@
         <image name="addinvoice_btn_save.png" width="123" height="86"/>
         <image name="addinvoice_btn_saveandsend.png" width="245" height="86"/>
         <image name="addinvoice_img_star.png" width="37" height="37"/>
+        <image name="addproduct_btn_save.png" width="110" height="56"/>
+        <image name="bg_dialog_view.png" width="293" height="255"/>
         <image name="bg_edt_login.png" width="226" height="31"/>
         <image name="bg_uncheck_radiobutton.png" width="40" height="40"/>
-        <image name="btn_back.png" width="45" height="45"/>
-        <image name="datebg.png" width="220" height="228"/>
-        <image name="done.png" width="640" height="1045"/>
+        <image name="btn_close.png" width="25" height="25"/>
         <image name="icon_add.png" width="49" height="49"/>
         <image name="icon_cat.png" width="49" height="40"/>
     </resources>
-    <simulatedMetricsContainer key="defaultSimulatedMetrics">
-        <simulatedStatusBarMetrics key="statusBar"/>
-        <simulatedOrientationMetrics key="orientation"/>
-        <simulatedScreenMetrics key="destination" type="retina4"/>
-    </simulatedMetricsContainer>
 </document>

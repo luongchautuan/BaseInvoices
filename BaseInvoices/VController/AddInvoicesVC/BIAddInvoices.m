@@ -131,8 +131,28 @@
 
 - (void)onVisibleOfViewListData:(bool)isShow
 {
+    NSLog(@"onVisibleOfViewListData: %d",typeOfLstData);
+    [self setNewPositionOfViewListData:typeOfLstData];
     [self.viewListData setHidden:isShow];
+}
 
+- (void)setNewPositionOfViewListData:(int)type
+{
+    if(type==0)
+    {
+        [self shiftHorizontallyView:115.0f];
+    }else{
+        [self shiftHorizontallyView:155.0f];
+    }
+}
+
+- (void)shiftHorizontallyView:(float)rangeY
+{
+    CGRect frame = self.viewChilds.bounds;
+    frame.origin.y = frame.origin.y + rangeY;
+    frame.origin.x = 10.0f;
+    //        self.viewChilds.bounds = frame;
+    [self.viewChilds setFrame:frame];
 }
 
 - (void)initDataOfTableView
@@ -142,7 +162,6 @@
         
         [self testData];
     }else{
-        
         [self testData2];
     }
     
@@ -183,11 +202,11 @@
 - (IBAction)onSaveDateTime:(id)sender {
     NSDate *myDate = [self.dpViewDateTime date];
     NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
-    [dateFormat setDateFormat:@"MM/dd/yyyy HH:mm"];
+    [dateFormat setDateFormat:@"MM/dd/yyyy"];
     NSString *time = [dateFormat stringFromDate:myDate];
     
-//    [self.btnDateTime setTitle:time forState:UIControlStateNormal];
-    self.txtDatePaid.text = time;
+    [self.btnDateTime setTitle:time forState:UIControlStateNormal];
+//    self.txtDatePaid.text = time;
     [self.viewDateTime setHidden:true];
 }
 
