@@ -8,6 +8,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="BIAddNewBussiness">
             <connections>
                 <outlet property="btnCheckVat" destination="gHK-PN-5pT" id="BJ5-0N-GgJ"/>
+                <outlet property="scrollView" destination="c7c-mO-GLZ" id="SBb-qr-MAG"/>
                 <outlet property="txtAddress" destination="PGl-YM-Mcl" id="6WA-dK-A0g"/>
                 <outlet property="txtCity" destination="C6d-Ec-gp8" id="3Ph-mD-uA4"/>
                 <outlet property="txtCurrency" destination="Lid-Il-O29" id="D2b-cE-cs3"/>
@@ -27,14 +28,8 @@
                 <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="RMd-0y-MXU">
                     <rect key="frame" x="0.0" y="20" width="320" height="50"/>
                     <subviews>
-                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gMD-qt-apl">
-                            <rect key="frame" x="0.0" y="11" width="320" height="21"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                            <nil key="highlightedColor"/>
-                        </label>
                         <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vdm-gZ-Vji">
-                            <rect key="frame" x="20" y="11" width="25" height="20"/>
+                            <rect key="frame" x="8" y="15" width="25" height="20"/>
                             <state key="normal" backgroundImage="icon_cat.png">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
@@ -45,6 +40,12 @@
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
                         </button>
+                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gMD-qt-apl">
+                            <rect key="frame" x="0.0" y="14" width="320" height="21"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                            <nil key="highlightedColor"/>
+                        </label>
                     </subviews>
                     <color key="backgroundColor" red="0.4039215686" green="0.68627450980000004" blue="0.070588235289999995" alpha="1" colorSpace="calibratedRGB"/>
                     <inset key="insetFor6xAndEarlier" minX="0.0" minY="20" maxX="0.0" maxY="-20"/>
@@ -72,7 +73,7 @@
                                     <color key="textColor" red="0.4039215686" green="0.68627450980000004" blue="0.070588235289999995" alpha="1" colorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
-                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" background="bg_edt_login.png" translatesAutoresizingMaskIntoConstraints="NO" id="TSO-Sb-C3A">
+                                <textField opaque="NO" clipsSubviews="YES" tag="1" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" background="bg_edt_login.png" translatesAutoresizingMaskIntoConstraints="NO" id="TSO-Sb-C3A">
                                     <rect key="frame" x="126" y="92" width="179" height="30"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                     <textInputTraits key="textInputTraits"/>
@@ -83,12 +84,12 @@
                                     <color key="textColor" red="0.4039215686" green="0.68627450980000004" blue="0.070588235289999995" alpha="1" colorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
-                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" background="bg_edt_login.png" translatesAutoresizingMaskIntoConstraints="NO" id="C6d-Ec-gp8">
+                                <textField opaque="NO" clipsSubviews="YES" tag="3" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" background="bg_edt_login.png" translatesAutoresizingMaskIntoConstraints="NO" id="C6d-Ec-gp8">
                                     <rect key="frame" x="125" y="186" width="180" height="30"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                     <textInputTraits key="textInputTraits"/>
                                 </textField>
-                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" background="bg_edt_login.png" translatesAutoresizingMaskIntoConstraints="NO" id="DY8-z0-54e">
+                                <textField opaque="NO" clipsSubviews="YES" tag="5" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" background="bg_edt_login.png" translatesAutoresizingMaskIntoConstraints="NO" id="DY8-z0-54e">
                                     <rect key="frame" x="125" y="336" width="180" height="30"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                     <textInputTraits key="textInputTraits"/>
@@ -111,12 +112,12 @@
                                     <color key="textColor" red="0.4039215686" green="0.68627450980000004" blue="0.070588235289999995" alpha="1" colorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
-                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" background="bg_edt_login.png" translatesAutoresizingMaskIntoConstraints="NO" id="PGl-YM-Mcl">
+                                <textField opaque="NO" clipsSubviews="YES" tag="2" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" background="bg_edt_login.png" translatesAutoresizingMaskIntoConstraints="NO" id="PGl-YM-Mcl">
                                     <rect key="frame" x="125" y="140" width="180" height="30"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                     <textInputTraits key="textInputTraits"/>
                                 </textField>
-                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" background="bg_edt_login.png" translatesAutoresizingMaskIntoConstraints="NO" id="FmJ-Ol-A9M">
+                                <textField opaque="NO" clipsSubviews="YES" tag="4" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" background="bg_edt_login.png" translatesAutoresizingMaskIntoConstraints="NO" id="FmJ-Ol-A9M">
                                     <rect key="frame" x="125" y="235" width="180" height="30"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                     <textInputTraits key="textInputTraits"/>
@@ -136,7 +137,7 @@
                                         <action selector="onCheckedButton:" destination="-1" eventType="touchUpInside" id="blk-t2-Bzo"/>
                                     </connections>
                                 </button>
-                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" background="bg_edt_login.png" translatesAutoresizingMaskIntoConstraints="NO" id="Lid-Il-O29">
+                                <textField opaque="NO" clipsSubviews="YES" tag="6" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" background="bg_edt_login.png" translatesAutoresizingMaskIntoConstraints="NO" id="Lid-Il-O29">
                                     <rect key="frame" x="125" y="386" width="180" height="30"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                     <textInputTraits key="textInputTraits"/>

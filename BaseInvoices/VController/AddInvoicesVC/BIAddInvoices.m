@@ -10,6 +10,8 @@
 #import "BIAddProducts.h"
 #import "UIViewController+MMDrawerController.h"
 #import "BIDashBoard.h"
+#import "ASIHTTPRequest.h"
+#import "BIAppDelegate.h"
 
 @interface BIAddInvoices ()
 

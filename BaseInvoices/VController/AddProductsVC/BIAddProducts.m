@@ -8,6 +8,8 @@
 
 #import "BIAddProducts.h"
 #import "BIAddInvoices.h"
+#import "ASIHTTPRequest.h"
+#import "BIAppDelegate.h"
 
 @interface BIAddProducts ()
 
@@ -76,4 +78,57 @@
     BIAddInvoices *pushToVC = [[BIAddInvoices alloc] initWithNibName:@"BIAddInvoices" bundle:nil];
     [self.navigationController pushViewController:pushToVC animated:YES];
 }
+
+#pragma mark return to close soft keyboard
+
+- (void)tapHandler:(UIGestureRecognizer *)ges
+{
+    [self.edtName resignFirstResponder];
+    [self.edtTaxRate resignFirstResponder];
+    [self.edtUnitPrice resignFirstResponder];
+    [self.txtDescription resignFirstResponder];
+}
+
+#pragma mark - Request delegates...
+
+- (void)requestFinished:(ASIHTTPRequest *)request
+{
+    if(request.tag == 1)
+    {
+        if([request responseStatusCode] == 200)
+        {
+
+        }
+    }
+}
+
+- (void)requestFailed:(ASIHTTPRequest *)request
+{
+    [self.viewActivity setHidden:YES];
+    [self.activityIndicator stopAnimating];
+    
+    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Add Product failed" message:@"Something Wrong, Please Try again" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    [alert show];
+}
+
+- (IBAction)onSaveProduct:(id)sender
+{
+    [self.viewActivity setHidden:NO];
+    [self.activityIndicator startAnimating];
+    
+    if([self.edtName.text length] < 1 ||[self.edtTaxRate.text length] < 1)
+    {
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Warning" message:@"Please fill all text fields" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [alert show];
+        
+        [self.viewActivity setHidden:YES];
+        [self.activityIndicator stopAnimating];
+        
+    }
+    else
+    {
+        
+    }
+}
+
 @end

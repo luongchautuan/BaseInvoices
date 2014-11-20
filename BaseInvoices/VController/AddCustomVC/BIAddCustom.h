@@ -21,5 +21,6 @@
 @property (weak, nonatomic) IBOutlet UITextField *edtPostCode;
 @property (weak, nonatomic) IBOutlet UITextField *edtPhone;
 @property (weak, nonatomic) IBOutlet UITextField *edtKeyContact;
+@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 
 @end

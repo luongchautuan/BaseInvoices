@@ -19,6 +19,9 @@
 
 @property (weak, nonatomic) IBOutlet UITextField *edtUnitPrice;
 @property (weak, nonatomic) IBOutlet UITextField *edtTaxRate;
+@property (weak, nonatomic) IBOutlet UITextField *txtDescription;
 
+@property (weak, nonatomic) IBOutlet UIView *viewActivity;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 
 @end

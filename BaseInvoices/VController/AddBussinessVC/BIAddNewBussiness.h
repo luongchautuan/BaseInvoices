@@ -24,4 +24,5 @@
 @property (weak, nonatomic) IBOutlet UITextField *txtCurrency;
 - (IBAction)onCheckedButton:(id)sender;
 
+@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @end

@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "MMDrawerController.h"
+#import "BIUser.h"
 
 @interface BIAppDelegate : UIResponder <UIApplicationDelegate>
 
@@ -15,5 +16,6 @@
 
 
 @property (nonatomic, strong) MMDrawerController * drawerController;
+@property (nonatomic, retain) BIUser* currentUser;
 
 @end

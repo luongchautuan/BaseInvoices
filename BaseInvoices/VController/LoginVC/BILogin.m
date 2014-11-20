@@ -15,6 +15,7 @@
 #import "BIAddCustom.h"
 #import "ASIHTTPRequest.h"
 #import "BIAppDelegate.h"
+#import "BIUser.h"
 
 @interface BILogin ()
 
@@ -202,6 +203,12 @@ BIAppDelegate *appdelegate;
     {
         if([request responseStatusCode] == 200)
         {
+            BIUser* user = [[BIUser alloc] init];
+            user.userName = self.edtUsername.text;
+            user.password = self.edtPassword.text;
+            
+            appdelegate.currentUser = user;
+            
             BIDashBoard *pushToVC = [[BIDashBoard alloc] initWithNibName:@"BIDashBoard" bundle:nil];
             [self.navigationController pushViewController:pushToVC animated:YES];
         }

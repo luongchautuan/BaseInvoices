@@ -8,6 +8,8 @@
 
 #import "BIAddCustom.h"
 #import "BIAddInvoices.h"
+#import "ASIHTTPRequest.h"
+#import "BIAppDelegate.h"
 
 @interface BIAddCustom ()
 
@@ -89,8 +91,54 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (IBAction)onBack:(id)sender {
+- (IBAction)onBack:(id)sender
+{
     BIAddInvoices *pushToVC = [[BIAddInvoices alloc] initWithNibName:@"BIAddInvoices" bundle:nil];
     [self.navigationController pushViewController:pushToVC animated:YES];
 }
+
+#pragma mark return to close soft keyboard
+
+- (void)tapHandler:(UIGestureRecognizer *)ges
+{
+    [self.edtBussinessName resignFirstResponder];
+    [self.edtAddress resignFirstResponder];
+    
+    [self.scrollView setContentOffset:CGPointMake(0, 0)];
+}
+
+#pragma mark - Text Field delegates...
+
+-(void)textFieldDidBeginEditing:(UITextField *)textField
+{
+    if (textField.tag==5)
+    {
+        [self.scrollView setContentOffset:CGPointMake(0,50)];
+    }
+    
+    if (textField.tag==6)
+    {
+        [self.scrollView setContentOffset:CGPointMake(0,100)];
+    }
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [textField resignFirstResponder];
+    
+    if(textField== self.edtPhone)
+    {
+        [self.scrollView setContentOffset:CGPointMake(0, 0)];
+    }
+    
+    if(textField == self.edtKeyContact)
+    {
+        [self.scrollView setContentOffset:CGPointMake(0, 0)];
+    }
+    
+    
+    return YES;
+}
+
+
 @end
