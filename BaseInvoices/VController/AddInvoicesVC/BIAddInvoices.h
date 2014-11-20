@@ -15,6 +15,12 @@
     NSInteger totalItem;
     NSInteger currSelected;
     int typeOfLstData;
+    
+    //0: lst business, 1:lst invoice number, 2: lst payment type
+    int typeOfLstDatetime;
+    
+    //0: datetime in add invoices, 1: datetime in popup
+    int isCheckTypeInPopup;
 }
 
 #pragma mark init view add invoices
@@ -66,9 +72,16 @@
 @property (weak, nonatomic) IBOutlet UIButton *btnChequePopup;
 @property (weak, nonatomic) IBOutlet UIButton *btnCardPopup;
 @property (weak, nonatomic) IBOutlet UIButton *btnOtherPopup;
+@property (weak, nonatomic) IBOutlet UIButton *btnDateTimeDialogPopup;
+@property (weak, nonatomic) IBOutlet UIButton *btnPayTypeDialogPopup;
+- (IBAction)onShowViewDateTimeFromDialogPopup:(id)sender;
+- (IBAction)onCheckCashPopup:(id)sender;
+- (IBAction)onCheckChequePopup:(id)sender;
+- (IBAction)onCheckCardPopup:(id)sender;
+- (IBAction)onCheckOtherPopup:(id)sender;
+- (IBAction)onShowViewLstDataFromDialogPopup:(id)sender;
 
 @property (weak, nonatomic) IBOutlet UIView *viewMarkPaid;
-@property (weak, nonatomic) IBOutlet UITextField *txtDatePaid;
 
 - (void)setNewPositionOfViewListData:(int)type;
 @end

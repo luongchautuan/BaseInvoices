@@ -9,6 +9,7 @@
                 <outlet property="btnAddCustom" destination="IPR-6X-hkN" id="QxK-an-S2r"/>
                 <outlet property="btnAddProduct" destination="M7B-Ht-ind" id="21n-9v-uOd"/>
                 <outlet property="btnBack" destination="FNx-sL-vQM" id="6uJ-tE-Gww"/>
+                <outlet property="btnBackDialogPopup" destination="1al-Qf-hvQ" id="xUP-Ff-wWf"/>
                 <outlet property="btnBackViewDateTime" destination="LlV-ka-ZUS" id="yvI-PH-cqL"/>
                 <outlet property="btnBackViewListData" destination="22s-4s-CKc" id="P7E-tU-KBd"/>
                 <outlet property="btnBusiness" destination="Omd-TU-2qd" id="VJc-Xr-99y"/>
@@ -16,15 +17,16 @@
                 <outlet property="btnCashPopup" destination="glj-wB-vfk" id="xqz-6r-x48"/>
                 <outlet property="btnChequePopup" destination="Ool-SC-gcD" id="5mA-eW-ovI"/>
                 <outlet property="btnDateTime" destination="wWu-78-XTk" id="8pr-3E-6uS"/>
+                <outlet property="btnDateTimeDialogPopup" destination="hgD-b5-UkG" id="sCu-Ue-DCl"/>
                 <outlet property="btnInvoicesNumber" destination="xsn-li-zAM" id="Qkr-hh-pWj"/>
                 <outlet property="btnOtherPopup" destination="vSj-tA-lU9" id="leZ-VY-J9i"/>
+                <outlet property="btnPayTypeDialogPopup" destination="AHF-GI-pi8" id="G8R-Wb-n8j"/>
                 <outlet property="btnSave" destination="i2O-49-S2R" id="z8C-4N-9u7"/>
                 <outlet property="btnSaveSend" destination="XDG-NF-sf3" id="RRS-qc-FrG"/>
                 <outlet property="btnSaveViewDateTime" destination="mKw-eo-TAn" id="VAR-Sj-WHi"/>
                 <outlet property="btnTotal" destination="5kL-TH-Tbm" id="bWw-uC-zYi"/>
                 <outlet property="dpViewDateTime" destination="cVd-zr-cL1" id="L1x-Th-vWM"/>
                 <outlet property="tbvViewListData" destination="Bju-D2-8hA" id="4Iy-Us-dHh"/>
-                <outlet property="txtDatePaid" destination="vP2-JM-oij" id="Hvc-kV-GLr"/>
                 <outlet property="txtNoteDesc" destination="x82-lQ-MMI" id="eKQ-s4-BNg"/>
                 <outlet property="txtTitle" destination="rU3-N6-5l0" id="SG1-gm-JoZ"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -260,95 +262,114 @@
                     <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                     <subviews>
                         <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vvx-W0-7Qg">
-                            <rect key="frame" x="10" y="67" width="300" height="250"/>
+                            <rect key="frame" x="10" y="160" width="300" height="255"/>
                             <subviews>
-                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Date paid" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rLi-DT-Mry">
-                                    <rect key="frame" x="12" y="46" width="87" height="21"/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                    <color key="textColor" red="0.4039215686" green="0.68627450980000004" blue="0.070588235289999995" alpha="1" colorSpace="calibratedRGB"/>
-                                    <nil key="highlightedColor"/>
-                                </label>
-                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Payment Type" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="87V-Z2-A9d">
-                                    <rect key="frame" x="12" y="88" width="107" height="21"/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                    <color key="textColor" red="0.4039215686" green="0.68627450980000004" blue="0.070588235289999995" alpha="1" colorSpace="calibratedRGB"/>
-                                    <nil key="highlightedColor"/>
-                                </label>
-                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="addinvoice_btn_dialog_date.png" translatesAutoresizingMaskIntoConstraints="NO" id="4Bn-Hn-4tm">
-                                    <rect key="frame" x="127" y="44" width="165" height="25"/>
+                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="bg_dialog_view_flipH.png" translatesAutoresizingMaskIntoConstraints="NO" id="Nc9-bq-klF">
+                                    <rect key="frame" x="0.0" y="0.0" width="300" height="255"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 </imageView>
-                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder=" mm/dd/yyyy" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="vP2-JM-oij">
-                                    <rect key="frame" x="127" y="44" width="165" height="25"/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                    <textInputTraits key="textInputTraits"/>
-                                </textField>
-                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hgD-b5-UkG" userLabel="Button Date">
-                                    <rect key="frame" x="127" y="44" width="165" height="25"/>
-                                    <inset key="contentEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                    <state key="normal">
-                                        <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1al-Qf-hvQ">
+                                    <rect key="frame" x="10" y="10" width="25" height="25"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <state key="normal" title="Button" backgroundImage="btn_close.png">
                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                     </state>
                                     <connections>
-                                        <action selector="onShowViewDateTime:" destination="-1" eventType="touchUpInside" id="PCw-7v-ZYM"/>
+                                        <action selector="onBackDialogPopup:" destination="-1" eventType="touchUpInside" id="ISv-Yf-sSS"/>
                                     </connections>
                                 </button>
-                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AHF-GI-pi8">
-                                    <rect key="frame" x="127" y="84" width="165" height="25"/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                    <inset key="contentEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                    <state key="normal" backgroundImage="bg_edt_login.png">
-                                        <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                    </state>
-                                </button>
-                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="glj-wB-vfk">
-                                    <rect key="frame" x="0.0" y="122" width="75" height="25"/>
-                                    <color key="backgroundColor" red="0.4039215686" green="0.68627450980000004" blue="0.070588235289999995" alpha="1" colorSpace="calibratedRGB"/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                    <inset key="contentEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                    <state key="normal" title="Cash">
-                                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                    </state>
-                                </button>
-                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ool-SC-gcD">
-                                    <rect key="frame" x="75" y="122" width="75" height="25"/>
-                                    <color key="backgroundColor" red="0.4039215686" green="0.68627450980000004" blue="0.070588235289999995" alpha="1" colorSpace="calibratedRGB"/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                    <inset key="contentEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                    <state key="normal" title="Cheque">
-                                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                    </state>
-                                </button>
-                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="y2k-oj-h0b">
-                                    <rect key="frame" x="150" y="122" width="75" height="25"/>
-                                    <color key="backgroundColor" red="0.4039215686" green="0.68627450980000004" blue="0.070588235289999995" alpha="1" colorSpace="calibratedRGB"/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                    <inset key="contentEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                    <state key="normal" title="Card">
-                                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                    </state>
-                                </button>
-                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vSj-tA-lU9">
-                                    <rect key="frame" x="225" y="122" width="75" height="25"/>
-                                    <color key="backgroundColor" red="0.4039215686" green="0.68627450980000004" blue="0.070588235289999995" alpha="1" colorSpace="calibratedRGB"/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                    <inset key="contentEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                    <state key="normal" title="Other">
-                                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                    </state>
-                                </button>
-                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" placeholder="Note/Description" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="x82-lQ-MMI">
-                                    <rect key="frame" x="0.0" y="155" width="300" height="408"/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                    <textInputTraits key="textInputTraits"/>
-                                </textField>
+                                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BVh-3Q-7mh">
+                                    <rect key="frame" x="0.0" y="45" width="300" height="200"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <subviews>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Date paid" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rLi-DT-Mry">
+                                            <rect key="frame" x="10" y="10" width="87" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                            <color key="textColor" red="0.4039215686" green="0.68627450980000004" blue="0.070588235289999995" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Payment Type" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="87V-Z2-A9d">
+                                            <rect key="frame" x="10" y="40" width="107" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                            <color key="textColor" red="0.4039215686" green="0.68627450980000004" blue="0.070588235289999995" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hgD-b5-UkG" userLabel="Button Date">
+                                            <rect key="frame" x="130" y="10" width="160" height="25"/>
+                                            <inset key="contentEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                            <state key="normal" backgroundImage="addinvoice_btn_dialog_date.png">
+                                                <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                            <connections>
+                                                <action selector="onShowViewDateTimeFromDialogPopup:" destination="-1" eventType="touchUpInside" id="Lkv-JS-aAi"/>
+                                            </connections>
+                                        </button>
+                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AHF-GI-pi8">
+                                            <rect key="frame" x="130" y="40" width="160" height="25"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                            <inset key="contentEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                            <state key="normal" backgroundImage="addinvoice_btn_dialog.png">
+                                                <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                            <connections>
+                                                <action selector="onShowViewLstDataFromDialogPopup:" destination="-1" eventType="touchUpInside" id="X5S-k2-dmh"/>
+                                            </connections>
+                                        </button>
+                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="glj-wB-vfk">
+                                            <rect key="frame" x="0.0" y="75" width="75" height="35"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                            <state key="normal" title="Cash" backgroundImage="bg_btn_inactive">
+                                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                            <connections>
+                                                <action selector="onCheckCashPopup:" destination="-1" eventType="touchUpInside" id="UA4-AF-xgX"/>
+                                            </connections>
+                                        </button>
+                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ool-SC-gcD">
+                                            <rect key="frame" x="75" y="75" width="75" height="35"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                            <state key="normal" title="Cheque" backgroundImage="bg_btn_inactive.png">
+                                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                            <connections>
+                                                <action selector="onCheckChequePopup:" destination="-1" eventType="touchUpInside" id="yUG-uV-2fG"/>
+                                            </connections>
+                                        </button>
+                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="y2k-oj-h0b">
+                                            <rect key="frame" x="150" y="75" width="75" height="35"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                            <state key="normal" title="Card" backgroundImage="bg_btn_inactive.png">
+                                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                            <connections>
+                                                <action selector="onCheckCardPopup:" destination="-1" eventType="touchUpInside" id="JHM-AQ-53s"/>
+                                            </connections>
+                                        </button>
+                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vSj-tA-lU9">
+                                            <rect key="frame" x="225" y="75" width="75" height="35"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                            <state key="normal" title="Other" backgroundImage="bg_btn_inactive.png">
+                                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                            <connections>
+                                                <action selector="onCheckOtherPopup:" destination="-1" eventType="touchUpInside" id="e81-Qp-bGn"/>
+                                            </connections>
+                                        </button>
+                                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" placeholder="Note/Description" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="x82-lQ-MMI">
+                                            <rect key="frame" x="0.0" y="110" width="300" height="90"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <textInputTraits key="textInputTraits"/>
+                                        </textField>
+                                    </subviews>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                </view>
                             </subviews>
-                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         </view>
                     </subviews>
                     <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.5" colorSpace="calibratedRGB"/>
@@ -418,7 +439,7 @@
                                     </connections>
                                 </button>
                                 <datePicker contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="cVd-zr-cL1">
-                                    <rect key="frame" x="0.0" y="45" width="320" height="216"/>
+                                    <rect key="frame" x="0.0" y="45" width="320" height="162"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                     <date key="date" timeIntervalSinceReferenceDate="438211540.03845501">
@@ -464,8 +485,10 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
         <image name="addinvoice_btn_saveandsend.png" width="245" height="86"/>
         <image name="addinvoice_img_star.png" width="37" height="37"/>
         <image name="addproduct_btn_save.png" width="110" height="56"/>
+        <image name="bg_btn_inactive" width="1333" height="2367"/>
+        <image name="bg_btn_inactive.png" width="50" height="50"/>
         <image name="bg_dialog_view.png" width="293" height="255"/>
-        <image name="bg_edt_login.png" width="226" height="31"/>
+        <image name="bg_dialog_view_flipH.png" width="293" height="255"/>
         <image name="bg_uncheck_radiobutton.png" width="40" height="40"/>
         <image name="btn_close.png" width="25" height="25"/>
         <image name="icon_add.png" width="49" height="49"/>

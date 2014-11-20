@@ -51,16 +51,48 @@
 #pragma mark init view add invoices
 - (void)initScreen
 {
+    //set gesture for return to close soft keyboard
+    
+    UITapGestureRecognizer *tapGeusture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapHandler:)];
+    tapGeusture.numberOfTapsRequired = 1;
+    [self.view addGestureRecognizer:tapGeusture];
+    [tapGeusture setCancelsTouchesInView:NO];
     
     checkBoxSelected = false;
     [self onVisibleOfViewListData:true];
     [self onVisibleofViewDateTime:true];
     [self onVisibleOfDialogPopup:true];
     
+    [self.txtNoteDesc setValue:[UIColor blackColor] forKeyPath:@"_placeholderLabel.textColor"];
+    
+    CGRect screenRect = [[UIScreen mainScreen] bounds];
+    CGFloat screenWidth = screenRect.size.width;
+    CGFloat screenHeight = screenRect.size.height;
+    
+    UIView *paddingView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, screenHeight)];
+    self.txtNoteDesc.leftView = paddingView;
+    self.txtNoteDesc.leftViewMode = UITextFieldViewModeAlways;
+    
     [self.txtTitle setText:@"Add Invoices"];
     [self.btnTotal setBackgroundImage:[UIImage imageNamed:@"bg_uncheck_radiobutton.png"] forState:UIControlStateNormal];
     [self.btnTotal setBackgroundImage:[UIImage imageNamed:@"bg_checked_radiobutton.png"] forState:UIControlStateSelected];
     [self.btnTotal setBackgroundImage:[UIImage imageNamed:@"bg_checked_radiobutton.png"] forState:UIControlStateHighlighted];
+    
+    [self.btnCardPopup setBackgroundImage:[UIImage imageNamed:@"bg_btn_inactive.png"] forState:UIControlStateNormal];
+    [self.btnCardPopup setBackgroundImage:[UIImage imageNamed:@"bg_btn_active.png"] forState:UIControlStateSelected];
+    [self.btnCardPopup setBackgroundImage:[UIImage imageNamed:@"bg_btn_active.png"] forState:UIControlStateHighlighted];
+    
+    [self.btnCashPopup setBackgroundImage:[UIImage imageNamed:@"bg_btn_inactive.png"] forState:UIControlStateNormal];
+    [self.btnCashPopup setBackgroundImage:[UIImage imageNamed:@"bg_btn_active.png"] forState:UIControlStateSelected];
+    [self.btnCashPopup setBackgroundImage:[UIImage imageNamed:@"bg_btn_active.png"] forState:UIControlStateHighlighted];
+    
+    [self.btnChequePopup setBackgroundImage:[UIImage imageNamed:@"bg_btn_inactive.png"] forState:UIControlStateNormal];
+    [self.btnChequePopup setBackgroundImage:[UIImage imageNamed:@"bg_btn_active.png"] forState:UIControlStateSelected];
+    [self.btnChequePopup setBackgroundImage:[UIImage imageNamed:@"bg_btn_active.png"] forState:UIControlStateHighlighted];
+    
+    [self.btnOtherPopup setBackgroundImage:[UIImage imageNamed:@"bg_btn_inactive.png"] forState:UIControlStateNormal];
+    [self.btnOtherPopup setBackgroundImage:[UIImage imageNamed:@"bg_btn_active.png"] forState:UIControlStateSelected];
+    [self.btnOtherPopup setBackgroundImage:[UIImage imageNamed:@"bg_btn_active.png"] forState:UIControlStateHighlighted];
 }
 
 - (void)initData
@@ -82,6 +114,7 @@
 }
 
 - (IBAction)onShowViewDateTime:(id)sender {
+    typeOfLstDatetime = 0;
     [self onVisibleofViewDateTime:false];
 }
 
@@ -141,8 +174,10 @@
     if(type==0)
     {
         [self shiftHorizontallyView:115.0f];
-    }else{
+    }else if(type==1){
         [self shiftHorizontallyView:155.0f];
+    }else if(type==2){
+        [self shiftHorizontallyView:275.0f];
     }
 }
 
@@ -161,8 +196,10 @@
     if(typeOfLstData==0){
         
         [self testData];
-    }else{
+    }else if(typeOfLstData==1){
         [self testData2];
+    }else if(typeOfLstData==2){
+         [self testData3];
     }
     
     totalItem = arrData.count;
@@ -173,8 +210,10 @@
 {
     if(typeOfLstData==0){
         [self.btnBusiness setTitle:data forState:UIControlStateNormal];
-    }else{
+    }else if(typeOfLstData==1){
         [self.btnInvoicesNumber setTitle:data forState:UIControlStateNormal];
+    }else if(typeOfLstData==2){
+        [self.btnPayTypeDialogPopup setTitle:data forState:UIControlStateNormal];
     }
 }
 
@@ -183,6 +222,14 @@
     for(int i = 0 ; i < 10; i ++)
     {
         [arrData addObject:[NSString stringWithFormat:@"Business : %d",i]];
+    }
+}
+
+- (void)testData3
+{
+    for(int i = 0 ; i < 10; i ++)
+    {
+        [arrData addObject:[NSString stringWithFormat:@"Payment Type : %d",i]];
     }
 }
 
@@ -205,15 +252,19 @@
     [dateFormat setDateFormat:@"MM/dd/yyyy"];
     NSString *time = [dateFormat stringFromDate:myDate];
     
-    [self.btnDateTime setTitle:time forState:UIControlStateNormal];
 //    self.txtDatePaid.text = time;
+    if(typeOfLstDatetime == 0)
+    {
+        [self.btnDateTime setTitle:time forState:UIControlStateNormal];
+    }else{
+        [self.btnDateTimeDialogPopup setTitle:time forState:UIControlStateNormal];
+    }
     [self.viewDateTime setHidden:true];
 }
 
 - (void)onVisibleofViewDateTime:(bool)isShow
 {
     [self.viewDateTime setHidden:isShow];
-
 }
 
 #pragma mark - init tableview of dialog list data
@@ -241,6 +292,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     currSelected = indexPath.row;
+    NSLog(@"didSelectRowAtIndexPath");
     [self setTitleOfInvoices:[arrData objectAtIndex:indexPath.row]];
     [self.viewListData setHidden:true];
 }
@@ -258,10 +310,110 @@
 - (void)onVisibleOfDialogPopup:(bool)isShow
 {
     [self.viewPopup setHidden:isShow];
-    self.viewMarkPaid.frame=CGRectMake(10, 67, 300, 0);
+//    self.viewMarkPaid.frame=CGRectMake(10, 67, 300, 0);
+//    [UIView beginAnimations:@"" context:nil];
+//    [UIView setAnimationDuration:0.5];
+//    self.viewMarkPaid.frame=CGRectMake(10, 67, 300, 255);
+//    [UIView commitAnimations];
+    
+//    [self onAnimationOfPopup:self.viewMarkPaid withX:10 withY:67 withW:300 withH:0 toH:255];
+}
+
+- (void)checkStateOfButtonPopup:(int)type
+{
+    [self checkAllStateUnSelectedOfButtonPopup];
+    switch (type) {
+        case 1:
+            [self.btnCashPopup setBackgroundImage:[UIImage imageNamed:@"bg_btn_active.png"] forState:UIControlStateNormal];
+            break;
+        case 3:
+            [self.btnCardPopup setBackgroundImage:[UIImage imageNamed:@"bg_btn_active.png"] forState:UIControlStateNormal];
+            break;
+        case 2:
+            [self.btnChequePopup setBackgroundImage:[UIImage imageNamed:@"bg_btn_active.png"] forState:UIControlStateNormal];
+            break;
+        case 4:
+            [self.btnOtherPopup setBackgroundImage:[UIImage imageNamed:@"bg_btn_active.png"] forState:UIControlStateNormal];
+            break;
+        default:
+            break;
+    }
+}
+
+- (IBAction)onShowViewDateTimeFromDialogPopup:(id)sender {
+    
+    typeOfLstDatetime = 1;
+    [self onVisibleofViewDateTime:false];
+}
+- (IBAction)onCheckCashPopup:(id)sender {
+    isCheckTypeInPopup = 1;
+    [self checkStateOfButtonPopup:isCheckTypeInPopup];
+}
+
+- (IBAction)onCheckChequePopup:(id)sender {
+    isCheckTypeInPopup = 2;
+    [self checkStateOfButtonPopup:isCheckTypeInPopup];
+}
+
+- (IBAction)onCheckCardPopup:(id)sender {
+    isCheckTypeInPopup = 3;
+    [self checkStateOfButtonPopup:isCheckTypeInPopup];
+}
+
+- (IBAction)onCheckOtherPopup:(id)sender {
+    isCheckTypeInPopup = 4;
+    [self checkStateOfButtonPopup:isCheckTypeInPopup];
+}
+
+- (IBAction)onShowViewLstDataFromDialogPopup:(id)sender {
+    
+    typeOfLstData = 2;
+    [self initDataOfTableView];
+    [self onVisibleOfViewListData:false];
+}
+
+
+- (void)checkAllStateUnSelectedOfButtonPopup
+{
+    
+    [self.btnOtherPopup setBackgroundImage:[UIImage imageNamed:@"bg_btn_inactive.png"] forState:UIControlStateNormal];
+    
+    [self.btnCardPopup setBackgroundImage:[UIImage imageNamed:@"bg_btn_inactive.png"] forState:UIControlStateNormal];
+    
+    [self.btnCashPopup setBackgroundImage:[UIImage imageNamed:@"bg_btn_inactive.png"] forState:UIControlStateNormal];
+    
+    [self.btnChequePopup setBackgroundImage:[UIImage imageNamed:@"bg_btn_inactive.png"] forState:UIControlStateNormal];
+}
+
+#pragma mark animation popup
+- (void)onAnimationOfPopup:(UIView*)view withX:(int)x withY:(int)y withW:(int)w withH:(int)h toH:(int)mH
+{
+    view.frame=CGRectMake(x, y, w, h);
     [UIView beginAnimations:@"" context:nil];
     [UIView setAnimationDuration:0.5];
-    self.viewMarkPaid.frame=CGRectMake(10, 67, 300, 255);
+    view.frame=CGRectMake(x, y, w, mH);
     [UIView commitAnimations];
 }
+
+#pragma mark return to close soft keyboard
+
+- (void)tapHandler:(UIGestureRecognizer *)ges
+{
+    [self.txtNoteDesc resignFirstResponder];
+    [self.tbvViewListData resignFirstResponder];
+}
+
+//#pragma mark UIGestureRecognizerDelegate methods
+//
+//- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
+//{
+//    if ([touch.view isDescendantOfView:self.tbvViewListData]) {
+//        
+//        // Don't let selections of auto-complete entries fire the
+//        // gesture recognizer
+//        return NO;
+//    }
+//    
+//    return YES;
+//}
 @end
