@@ -8,8 +8,6 @@
 
 #import "BIAddProducts.h"
 #import "BIAddInvoices.h"
-#import "ASIHTTPRequest.h"
-#import "BIAppDelegate.h"
 
 @interface BIAddProducts ()
 
@@ -58,8 +56,8 @@
     self.edtName.leftView = paddingView;
     self.edtName.leftViewMode = UITextFieldViewModeAlways;
     
-//    self.description.leftView = paddingView2;
-//    self.description.leftViewMode = UITextFieldViewModeAlways;
+    self.edtDesc.leftView = paddingView2;
+    self.edtDesc.leftViewMode = UITextFieldViewModeAlways;
     
     self.edtTaxRate.leftView = paddingView3;
     self.edtTaxRate.leftViewMode = UITextFieldViewModeAlways;
@@ -86,49 +84,6 @@
     [self.edtName resignFirstResponder];
     [self.edtTaxRate resignFirstResponder];
     [self.edtUnitPrice resignFirstResponder];
-    [self.txtDescription resignFirstResponder];
+    [self.edtDesc resignFirstResponder];
 }
-
-#pragma mark - Request delegates...
-
-- (void)requestFinished:(ASIHTTPRequest *)request
-{
-    if(request.tag == 1)
-    {
-        if([request responseStatusCode] == 200)
-        {
-
-        }
-    }
-}
-
-- (void)requestFailed:(ASIHTTPRequest *)request
-{
-    [self.viewActivity setHidden:YES];
-    [self.activityIndicator stopAnimating];
-    
-    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Add Product failed" message:@"Something Wrong, Please Try again" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-    [alert show];
-}
-
-- (IBAction)onSaveProduct:(id)sender
-{
-    [self.viewActivity setHidden:NO];
-    [self.activityIndicator startAnimating];
-    
-    if([self.edtName.text length] < 1 ||[self.edtTaxRate.text length] < 1)
-    {
-        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Warning" message:@"Please fill all text fields" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-        [alert show];
-        
-        [self.viewActivity setHidden:YES];
-        [self.activityIndicator stopAnimating];
-        
-    }
-    else
-    {
-        
-    }
-}
-
 @end

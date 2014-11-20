@@ -123,6 +123,8 @@
 		EA7E8DEA1A0FA2CF00BBE890 /* bg_hover.png in Resources */ = {isa = PBXBuildFile; fileRef = EA7E8DE71A0FA2CF00BBE890 /* bg_hover.png */; };
 		EA7E8DEB1A0FA2CF00BBE890 /* bg_hover2.png in Resources */ = {isa = PBXBuildFile; fileRef = EA7E8DE81A0FA2CF00BBE890 /* bg_hover2.png */; };
 		EA7E8DEC1A0FA2CF00BBE890 /* bg_state.png in Resources */ = {isa = PBXBuildFile; fileRef = EA7E8DE91A0FA2CF00BBE890 /* bg_state.png */; };
+		EAAD5C6D1A1D134300289828 /* COPDBManager.m in Sources */ = {isa = PBXBuildFile; fileRef = EAAD5C691A1D134300289828 /* COPDBManager.m */; };
+		EAAD5C6E1A1D134300289828 /* COPGlobalVariables.m in Sources */ = {isa = PBXBuildFile; fileRef = EAAD5C6B1A1D134300289828 /* COPGlobalVariables.m */; };
 		EAE2DA261A1B9D1100DBF8F0 /* addinvoice_img_star.png in Resources */ = {isa = PBXBuildFile; fileRef = EAE2DA1A1A1B9D1000DBF8F0 /* addinvoice_img_star.png */; };
 		EAE2DA271A1B9D1100DBF8F0 /* addinvoice_img_star@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EAE2DA1B1A1B9D1000DBF8F0 /* addinvoice_img_star@2x.png */; };
 		EAE2DA281A1B9D1100DBF8F0 /* addinvoice_btn_selectbox.png in Resources */ = {isa = PBXBuildFile; fileRef = EAE2DA1C1A1B9D1000DBF8F0 /* addinvoice_btn_selectbox.png */; };
@@ -315,6 +317,10 @@
 		EA7E8DE71A0FA2CF00BBE890 /* bg_hover.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg_hover.png; sourceTree = "<group>"; };
 		EA7E8DE81A0FA2CF00BBE890 /* bg_hover2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg_hover2.png; sourceTree = "<group>"; };
 		EA7E8DE91A0FA2CF00BBE890 /* bg_state.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg_state.png; sourceTree = "<group>"; };
+		EAAD5C691A1D134300289828 /* COPDBManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = COPDBManager.m; sourceTree = "<group>"; };
+		EAAD5C6A1A1D134300289828 /* COPDBManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = COPDBManager.h; sourceTree = "<group>"; };
+		EAAD5C6B1A1D134300289828 /* COPGlobalVariables.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = COPGlobalVariables.m; sourceTree = "<group>"; };
+		EAAD5C6C1A1D134300289828 /* COPGlobalVariables.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = COPGlobalVariables.h; sourceTree = "<group>"; };
 		EAE2DA1A1A1B9D1000DBF8F0 /* addinvoice_img_star.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = addinvoice_img_star.png; sourceTree = "<group>"; };
 		EAE2DA1B1A1B9D1000DBF8F0 /* addinvoice_img_star@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "addinvoice_img_star@2x.png"; sourceTree = "<group>"; };
 		EAE2DA1C1A1B9D1000DBF8F0 /* addinvoice_btn_selectbox.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = addinvoice_btn_selectbox.png; sourceTree = "<group>"; };
@@ -577,6 +583,10 @@
 		04F3D8A41A0BE972003B10FB /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				EAAD5C691A1D134300289828 /* COPDBManager.m */,
+				EAAD5C6A1A1D134300289828 /* COPDBManager.h */,
+				EAAD5C6B1A1D134300289828 /* COPGlobalVariables.m */,
+				EAAD5C6C1A1D134300289828 /* COPGlobalVariables.h */,
 				6EB9EBED1A10E4FA001226F8 /* BIInvoice.h */,
 				6EB9EBEE1A10E4FA001226F8 /* BIInvoice.m */,
 				6EE6D8D21A1D049500F11239 /* BIUser.h */,
@@ -939,6 +949,7 @@
 				6E4396591A107C3E005EF4C9 /* ASIS3ObjectRequest.m in Sources */,
 				6E4396521A107C3E005EF4C9 /* ASICloudFilesContainerXMLParserDelegate.m in Sources */,
 				6E4396511A107C3E005EF4C9 /* ASICloudFilesContainerRequest.m in Sources */,
+				EAAD5C6E1A1D134300289828 /* COPGlobalVariables.m in Sources */,
 				EA28F6201A1BB50300D3575E /* RadioButton.m in Sources */,
 				04F3D8B31A0BE9F7003B10FB /* MMDrawerController.m in Sources */,
 				6E43964C1A107C3E005EF4C9 /* ASIHTTPRequest.m in Sources */,
@@ -956,6 +967,7 @@
 				04F3D87F1A0BE7CA003B10FB /* BIAppDelegate.m in Sources */,
 				04F3D8C41A0BEF22003B10FB /* BIAddNewBussiness.m in Sources */,
 				6E4396581A107C3E005EF4C9 /* ASIS3BucketRequest.m in Sources */,
+				EAAD5C6D1A1D134300289828 /* COPDBManager.m in Sources */,
 				6E4396531A107C3E005EF4C9 /* ASICloudFilesObject.m in Sources */,
 				6E4396561A107C3E005EF4C9 /* ASIS3Bucket.m in Sources */,
 				6EE6D8DA1A1D06B900F11239 /* BIProduct.m in Sources */,

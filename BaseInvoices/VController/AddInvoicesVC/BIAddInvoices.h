@@ -11,36 +11,60 @@
 @interface BIAddInvoices : UIViewController<UITextFieldDelegate, UIPickerViewDataSource, UIPickerViewDelegate>
 {
     BOOL checkBoxSelected;
+    NSMutableArray *arrData;
+    NSInteger totalItem;
+    NSInteger currSelected;
+    int typeOfLstData;
 }
 
+#pragma mark init view add invoices
 @property (weak, nonatomic) IBOutlet UIButton *btnAddCustom;
-- (IBAction)onAddCustom:(id)sender;
-
 @property (weak, nonatomic) IBOutlet UIButton *btnAddProduct;
-- (IBAction)onAddProduct:(id)sender;
-
 @property (weak, nonatomic) IBOutlet UIButton *btnCategory;
-- (IBAction)onOpenMenu:(id)sender;
-
 @property (weak, nonatomic) IBOutlet UIButton *btnBack;
-- (IBAction)onBack:(id)sender;
-
 @property (weak, nonatomic) IBOutlet UILabel *txtTitle;
-
 @property (weak, nonatomic) IBOutlet UIButton *btnSaveSend;
 @property (weak, nonatomic) IBOutlet UIButton *btnSave;
-@property (weak, nonatomic) IBOutlet UILabel *txtBussinessName;
-@property (weak, nonatomic) IBOutlet UILabel *txtInvoiceNumber;
-@property (weak, nonatomic) IBOutlet UITextField *txtDateOn;
-@property (weak, nonatomic) IBOutlet UITextField *txtDueOn;
-@property (weak, nonatomic) IBOutlet UITextField *txtSubTotal;
-@property (weak, nonatomic) IBOutlet UITextField *txtTax;
-@property (weak, nonatomic) IBOutlet UITextField *txtTotal;
 @property (weak, nonatomic) IBOutlet UIButton *btnTotal;
+@property (weak, nonatomic) IBOutlet UIView *viewAddInvoices;
+@property (weak, nonatomic) IBOutlet UIButton *btnBusiness;
+@property (weak, nonatomic) IBOutlet UIButton *btnInvoicesNumber;
+@property (weak, nonatomic) IBOutlet UIButton *btnDateTime;
 
-@property (weak, nonatomic) IBOutlet UIButton *btnMarkPaid;
-
+- (IBAction)onAddCustom:(id)sender;
+- (IBAction)onOpenMenu:(id)sender;
 - (IBAction)onCheckedButton:(id)sender;
+- (IBAction)onBack:(id)sender;
+- (IBAction)onAddProduct:(id)sender;
+- (IBAction)onShowViewLstBusiness:(id)sender;
+- (IBAction)onShowViewLstInvoicesNumber:(id)sender;
+- (IBAction)onShowViewDateTime:(id)sender;
+- (IBAction)onSaveAndSend:(id)sender;
+- (IBAction)onSave:(id)sender;
+
+#pragma mark init dialog datetime
+@property (weak, nonatomic) IBOutlet UIView *viewDateTime;
+@property (weak, nonatomic) IBOutlet UIButton *btnBackViewDateTime;
+@property (weak, nonatomic) IBOutlet UIButton *btnSaveViewDateTime;
+@property (weak, nonatomic) IBOutlet UIDatePicker *dpViewDateTime;
+- (IBAction)onBackViewDateTime:(id)sender;
+- (IBAction)onSaveDateTime:(id)sender;
+
+#pragma mark init dialog list data
+@property (weak, nonatomic) IBOutlet UIView *viewListData;
+@property (weak, nonatomic) IBOutlet UIButton *btnBackViewListData;
+@property (weak, nonatomic) IBOutlet UITableView *tbvViewListData;
+- (IBAction)onBackViewListData:(id)sender;
+
+#pragma mark init dialog popup
+@property (weak, nonatomic) IBOutlet UIView *viewPopup;
+@property (weak, nonatomic) IBOutlet UIButton *btnBackDialogPopup;
+- (IBAction)onBackDialogPopup:(id)sender;
+@property (weak, nonatomic) IBOutlet UITextField *txtNoteDesc;
+@property (weak, nonatomic) IBOutlet UIButton *btnCashPopup;
+@property (weak, nonatomic) IBOutlet UIButton *btnChequePopup;
+@property (weak, nonatomic) IBOutlet UIButton *btnCardPopup;
+@property (weak, nonatomic) IBOutlet UIButton *btnOtherPopup;
 
 
 @end
