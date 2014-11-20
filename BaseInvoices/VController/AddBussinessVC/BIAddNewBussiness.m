@@ -7,6 +7,7 @@
 //
 
 #import "BIAddNewBussiness.h"
+#define ACCEPTABLE_CHARECTERS @"+0123456789."
 
 @interface BIAddNewBussiness ()
 
@@ -54,4 +55,29 @@
     
     [self.btnCheckVat setSelected:onCheckedButton];
 }
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [textField resignFirstResponder];
+    return YES;
+}
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string  {
+    
+    if(textField.tag == 360)
+    {
+        NSCharacterSet *cs = [[NSCharacterSet characterSetWithCharactersInString:ACCEPTABLE_CHARECTERS] invertedSet];
+        
+        NSString *filtered = [[string componentsSeparatedByCharactersInSet:cs] componentsJoinedByString:@""];
+        
+        return [string isEqualToString:filtered];
+    }
+    
+    if (textField.tag == 21) {
+        NSUInteger newLength = [textField.text length] + [string length] - range.length;
+        return (newLength > 4) ? NO : YES;
+    }
+    return YES;
+}
+
 @end

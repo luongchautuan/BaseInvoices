@@ -93,6 +93,47 @@
         
         if ([pass isEqualToString:conpass])
         {
+            if([self.txtPasscode.text length] > 3 && [self.txtPasscode.text length] < 7)
+            {
+                if ([emailTest evaluateWithObject:self.txtEmail.text] == NO) {
+                    
+                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Please Enter Valid Email Address." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+                    [alert show];
+                    
+                    [self.viewActivity setHidden:YES];
+                    [self.activityIndicator stopAnimating];
+                    
+                    return;
+                }
+                else
+                {
+                    ASIHTTPRequest *request = [[ASIHTTPRequest alloc] initWithURL:[NSURL URLWithString:@"https://ec2-46-137-84-201.eu-west-1.compute.amazonaws.com:8443/wTaxmapp/resources/user"]];
+                    
+                    [request addBasicAuthenticationHeaderWithUsername:@"submitmytax"andPassword:@"T75w63UC"];
+                    
+                    [request addRequestHeader:@"Content-Type" value:@"application/json"];
+                    [request addRequestHeader:@"accept" value:@"application/json"];
+                    
+                    NSString *dataContent =[NSString stringWithFormat:@"{\"email\":\"%@\",\"password\":\"%@\",\"name\":\"%@\",\"active\":true}", self.txtEmail.text, self.txtPasscode.text, self.txtDisplayName.text];
+                    NSLog(@"dataContent: %@", dataContent);
+                    
+                    [request appendPostData:[dataContent dataUsingEncoding:NSUTF8StringEncoding]];
+                    
+                    [request setValidatesSecureCertificate:NO];
+                    [request setRequestMethod:@"POST"];
+                    [request setDelegate:self];
+                    [request startAsynchronous];
+                }
+            }
+            else
+            {
+                UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Password restriction " message:@"password should be 4 to 6" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+                [alert show];
+                
+                [self.viewActivity setHidden:YES];
+                [self.activityIndicator stopAnimating];
+            }
+
         }
         else
         {
@@ -175,8 +216,21 @@
 
 - (void)requestFinished:(ASIHTTPRequest *)request
 {
+    NSString  *responseString = [[NSString alloc] initWithData:[request responseData] encoding:NSUTF8StringEncoding];
+    
     if(request.tag == 1)
     {
+        if ([request responseStatusCode] == 409)
+        {
+            UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Error" message:@"Username Already Exists" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            [alert show];
+        }
+        else if([request responseStatusCode] == 201)
+        {
+            [self.viewActivity setHidden:YES];
+            [self.activityIndicator stopAnimating];
+        }
+        
         if([request responseStatusCode] == 200)
         {
 

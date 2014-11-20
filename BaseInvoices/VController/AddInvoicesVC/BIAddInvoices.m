@@ -186,7 +186,8 @@
     [dateFormat setDateFormat:@"MM/dd/yyyy HH:mm"];
     NSString *time = [dateFormat stringFromDate:myDate];
     
-    [self.btnDateTime setTitle:time forState:UIControlStateNormal];
+//    [self.btnDateTime setTitle:time forState:UIControlStateNormal];
+    self.txtDatePaid.text = time;
     [self.viewDateTime setHidden:true];
 }
 
@@ -235,7 +236,13 @@
     [self onVisibleOfDialogPopup:true];
 }
 
-- (void)onVisibleOfDialogPopup:(bool)isShow{
+- (void)onVisibleOfDialogPopup:(bool)isShow
+{
     [self.viewPopup setHidden:isShow];
+    self.viewMarkPaid.frame=CGRectMake(10, 67, 300, 0);
+    [UIView beginAnimations:@"" context:nil];
+    [UIView setAnimationDuration:0.5];
+    self.viewMarkPaid.frame=CGRectMake(10, 67, 300, 255);
+    [UIView commitAnimations];
 }
 @end

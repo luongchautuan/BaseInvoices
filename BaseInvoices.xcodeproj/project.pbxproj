@@ -85,6 +85,7 @@
 		6EE6D8DF1A1D092200F11239 /* BIProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6EE6D8DD1A1D092200F11239 /* BIProfileViewController.m */; };
 		6EE6D8E01A1D092200F11239 /* BIProfileViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6EE6D8DE1A1D092200F11239 /* BIProfileViewController.xib */; };
 		6EE6D8E31A1D108300F11239 /* Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = 6EE6D8E21A1D108300F11239 /* Helper.m */; };
+		6EE6D8F41A1DCDAB00F11239 /* datebg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6EE6D8F31A1DCDAB00F11239 /* datebg@2x.png */; };
 		EA24E9FF1A0E75BD00A92723 /* 10406901_752194848164505_7793186767141070823_n.jpg in Resources */ = {isa = PBXBuildFile; fileRef = EA24E9FE1A0E75BD00A92723 /* 10406901_752194848164505_7793186767141070823_n.jpg */; };
 		EA24EA011A0E77C100A92723 /* no_img.jpg in Resources */ = {isa = PBXBuildFile; fileRef = EA24EA001A0E77C100A92723 /* no_img.jpg */; };
 		EA28F6201A1BB50300D3575E /* RadioButton.m in Sources */ = {isa = PBXBuildFile; fileRef = EA28F61F1A1BB50300D3575E /* RadioButton.m */; };
@@ -278,6 +279,7 @@
 		6EE6D8DE1A1D092200F11239 /* BIProfileViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BIProfileViewController.xib; sourceTree = "<group>"; };
 		6EE6D8E11A1D108300F11239 /* Helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Helper.h; sourceTree = "<group>"; };
 		6EE6D8E21A1D108300F11239 /* Helper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Helper.m; sourceTree = "<group>"; };
+		6EE6D8F31A1DCDAB00F11239 /* datebg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "datebg@2x.png"; sourceTree = "<group>"; };
 		EA24E9FE1A0E75BD00A92723 /* 10406901_752194848164505_7793186767141070823_n.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 10406901_752194848164505_7793186767141070823_n.jpg; sourceTree = "<group>"; };
 		EA24EA001A0E77C100A92723 /* no_img.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = no_img.jpg; sourceTree = "<group>"; };
 		EA28F61E1A1BB50300D3575E /* RadioButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RadioButton.h; sourceTree = "<group>"; };
@@ -451,6 +453,7 @@
 		04F3D89D1A0BE972003B10FB /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				6EE6D8F31A1DCDAB00F11239 /* datebg@2x.png */,
 				6EBF226B1A1BC61E00CE1A05 /* buttonCreateFirstInvoice.png */,
 				EA28F6211A1BB5A600D3575E /* bg_uncheck_radiobutton.png */,
 				EA28F6221A1BB5A600D3575E /* bg_uncheck_radiobutton@2x.png */,
@@ -869,6 +872,7 @@
 				EA4A27371A1A843800304842 /* bg_login@2x.png in Resources */,
 				6EE6D8E01A1D092200F11239 /* BIProfileViewController.xib in Resources */,
 				6EBF184A1A1B8E7800CE1A05 /* AddProductBackground.png in Resources */,
+				6EE6D8F41A1DCDAB00F11239 /* datebg@2x.png in Resources */,
 				04F3D8E81A0BF914003B10FB /* BIAddProducts.xib in Resources */,
 				EA24EA011A0E77C100A92723 /* no_img.jpg in Resources */,
 				EAE2DA261A1B9D1100DBF8F0 /* addinvoice_img_star.png in Resources */,

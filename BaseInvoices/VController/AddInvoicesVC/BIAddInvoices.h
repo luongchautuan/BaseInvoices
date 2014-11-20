@@ -66,5 +66,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *btnCardPopup;
 @property (weak, nonatomic) IBOutlet UIButton *btnOtherPopup;
 
+@property (weak, nonatomic) IBOutlet UIView *viewMarkPaid;
+@property (weak, nonatomic) IBOutlet UITextField *txtDatePaid;
 
 @end
