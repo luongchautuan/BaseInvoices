@@ -10,4 +10,7 @@
 
 @interface BIProfileViewController : UIViewController
 
+@property (weak, nonatomic) IBOutlet UIImageView *imageProfile;
+@property (weak, nonatomic) IBOutlet UILabel *lblDisplayName;
+@property (weak, nonatomic) IBOutlet UILabel *lblEmail;
 @end

@@ -227,4 +227,22 @@ BIAppDelegate *appdelegate;
 
 }
 
+- (IBAction)onSkipLogin:(id)sender
+{
+    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Authentication Information" message:@"Are you want to login later?" delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil];
+    [alert show];
+
+}
+
+-(void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
+{
+    NSLog(@"SkipLogin: %ld", (long)buttonIndex);
+    
+    if (buttonIndex == 1)
+    {
+        BIDashBoard *pushToVC = [[BIDashBoard alloc] initWithNibName:@"BIDashBoard" bundle:nil];
+        [self.navigationController pushViewController:pushToVC animated:YES];
+    }
+}
+
 @end

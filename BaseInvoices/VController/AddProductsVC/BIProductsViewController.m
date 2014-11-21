@@ -1,18 +1,19 @@
 //
-//  BIProfileViewController.m
+//  BIProductsViewController.m
 //  BaseInvoices
 //
-//  Created by Hung Kiet Ngo on 11/20/14.
+//  Created by Hung Kiet Ngo on 11/21/14.
 //  Copyright (c) 2014 mtoanmy. All rights reserved.
 //
 
-#import "BIProfileViewController.h"
+#import "BIProductsViewController.h"
+#import "BIAddProducts.h"
 
-@interface BIProfileViewController ()
+@interface BIProductsViewController ()
 
 @end
 
-@implementation BIProfileViewController
+@implementation BIProductsViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -24,19 +25,15 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (IBAction)onEditImageProfile:(id)sender
+- (IBAction)onAddProduct:(id)sender
 {
-    
+    BIAddProducts *pushToVC = [[BIAddProducts alloc] initWithNibName:@"BIAddProducts" bundle:nil];
+    [self.navigationController pushViewController:pushToVC animated:YES];
 }
 
-- (IBAction)onEditDisplayName:(id)sender
+- (IBAction)onCloseViewController:(id)sender
 {
-    
-}
-
-- (IBAction)onSaveProfile:(id)sender
-{
-    
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 /*

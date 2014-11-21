@@ -75,6 +75,23 @@
 		6E4396751A1094B4005EF4C9 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E4396741A1094B4005EF4C9 /* Security.framework */; };
 		6E43967D1A109718005EF4C9 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E43967C1A109718005EF4C9 /* Reachability.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		6E43967F1A109789005EF4C9 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E43967E1A109789005EF4C9 /* libz.dylib */; };
+		6EB292E11A1EEF6300F3B263 /* buttonClose.png in Resources */ = {isa = PBXBuildFile; fileRef = 6EB292E01A1EEF6300F3B263 /* buttonClose.png */; };
+		6EB292EA1A1F0E3D00F3B263 /* card button (select).png in Resources */ = {isa = PBXBuildFile; fileRef = 6EB292E21A1F0E3D00F3B263 /* card button (select).png */; };
+		6EB292EB1A1F0E3D00F3B263 /* Card-button.png in Resources */ = {isa = PBXBuildFile; fileRef = 6EB292E31A1F0E3D00F3B263 /* Card-button.png */; };
+		6EB292EC1A1F0E3D00F3B263 /* cash button (select).png in Resources */ = {isa = PBXBuildFile; fileRef = 6EB292E41A1F0E3D00F3B263 /* cash button (select).png */; };
+		6EB292ED1A1F0E3E00F3B263 /* cash button.png in Resources */ = {isa = PBXBuildFile; fileRef = 6EB292E51A1F0E3D00F3B263 /* cash button.png */; };
+		6EB292EE1A1F0E3E00F3B263 /* cheque button ( select).png in Resources */ = {isa = PBXBuildFile; fileRef = 6EB292E61A1F0E3D00F3B263 /* cheque button ( select).png */; };
+		6EB292EF1A1F0E3E00F3B263 /* cheque button.png in Resources */ = {isa = PBXBuildFile; fileRef = 6EB292E71A1F0E3D00F3B263 /* cheque button.png */; };
+		6EB292F01A1F0E3E00F3B263 /* other button (select).png in Resources */ = {isa = PBXBuildFile; fileRef = 6EB292E81A1F0E3D00F3B263 /* other button (select).png */; };
+		6EB292F11A1F0E3E00F3B263 /* other button.png in Resources */ = {isa = PBXBuildFile; fileRef = 6EB292E91A1F0E3D00F3B263 /* other button.png */; };
+		6EB292F31A1F30F200F3B263 /* main screen dialogue bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 6EB292F21A1F30F100F3B263 /* main screen dialogue bg.png */; };
+		6EB292F51A1F4B2000F3B263 /* SkipLogin.png in Resources */ = {isa = PBXBuildFile; fileRef = 6EB292F41A1F4B2000F3B263 /* SkipLogin.png */; };
+		6EB292F91A1F574C00F3B263 /* BICustomerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6EB292F71A1F574C00F3B263 /* BICustomerViewController.m */; };
+		6EB292FA1A1F574C00F3B263 /* BICustomerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6EB292F81A1F574C00F3B263 /* BICustomerViewController.xib */; };
+		6EB292FE1A1F6AD200F3B263 /* BIProductsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6EB292FC1A1F6AD200F3B263 /* BIProductsViewController.m */; };
+		6EB292FF1A1F6AD200F3B263 /* BIProductsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6EB292FD1A1F6AD200F3B263 /* BIProductsViewController.xib */; };
+		6EB293021A1F6E1100F3B263 /* button_editProfile.png in Resources */ = {isa = PBXBuildFile; fileRef = 6EB293001A1F6E1100F3B263 /* button_editProfile.png */; };
+		6EB293031A1F6E1100F3B263 /* profile.png in Resources */ = {isa = PBXBuildFile; fileRef = 6EB293011A1F6E1100F3B263 /* profile.png */; };
 		6EB9EBEF1A10E4FA001226F8 /* BIInvoice.m in Sources */ = {isa = PBXBuildFile; fileRef = 6EB9EBEE1A10E4FA001226F8 /* BIInvoice.m */; };
 		6EBF184A1A1B8E7800CE1A05 /* AddProductBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 6EBF18491A1B8E7800CE1A05 /* AddProductBackground.png */; };
 		6EBF184C1A1B91EA00CE1A05 /* AddCustomerBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 6EBF184B1A1B91EA00CE1A05 /* AddCustomerBackground.png */; };
@@ -271,6 +288,25 @@
 		6E43967B1A109718005EF4C9 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		6E43967C1A109718005EF4C9 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		6E43967E1A109789005EF4C9 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
+		6EB292E01A1EEF6300F3B263 /* buttonClose.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = buttonClose.png; sourceTree = "<group>"; };
+		6EB292E21A1F0E3D00F3B263 /* card button (select).png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "card button (select).png"; sourceTree = "<group>"; };
+		6EB292E31A1F0E3D00F3B263 /* Card-button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Card-button.png"; sourceTree = "<group>"; };
+		6EB292E41A1F0E3D00F3B263 /* cash button (select).png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cash button (select).png"; sourceTree = "<group>"; };
+		6EB292E51A1F0E3D00F3B263 /* cash button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cash button.png"; sourceTree = "<group>"; };
+		6EB292E61A1F0E3D00F3B263 /* cheque button ( select).png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cheque button ( select).png"; sourceTree = "<group>"; };
+		6EB292E71A1F0E3D00F3B263 /* cheque button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cheque button.png"; sourceTree = "<group>"; };
+		6EB292E81A1F0E3D00F3B263 /* other button (select).png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "other button (select).png"; sourceTree = "<group>"; };
+		6EB292E91A1F0E3D00F3B263 /* other button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "other button.png"; sourceTree = "<group>"; };
+		6EB292F21A1F30F100F3B263 /* main screen dialogue bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "main screen dialogue bg.png"; sourceTree = "<group>"; };
+		6EB292F41A1F4B2000F3B263 /* SkipLogin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SkipLogin.png; sourceTree = "<group>"; };
+		6EB292F61A1F574C00F3B263 /* BICustomerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BICustomerViewController.h; sourceTree = "<group>"; };
+		6EB292F71A1F574C00F3B263 /* BICustomerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BICustomerViewController.m; sourceTree = "<group>"; };
+		6EB292F81A1F574C00F3B263 /* BICustomerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BICustomerViewController.xib; sourceTree = "<group>"; };
+		6EB292FB1A1F6AD200F3B263 /* BIProductsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BIProductsViewController.h; sourceTree = "<group>"; };
+		6EB292FC1A1F6AD200F3B263 /* BIProductsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BIProductsViewController.m; sourceTree = "<group>"; };
+		6EB292FD1A1F6AD200F3B263 /* BIProductsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BIProductsViewController.xib; sourceTree = "<group>"; };
+		6EB293001A1F6E1100F3B263 /* button_editProfile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_editProfile.png; sourceTree = "<group>"; };
+		6EB293011A1F6E1100F3B263 /* profile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = profile.png; sourceTree = "<group>"; };
 		6EB9EBED1A10E4FA001226F8 /* BIInvoice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BIInvoice.h; sourceTree = "<group>"; };
 		6EB9EBEE1A10E4FA001226F8 /* BIInvoice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BIInvoice.m; sourceTree = "<group>"; };
 		6EBF18491A1B8E7800CE1A05 /* AddProductBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AddProductBackground.png; sourceTree = "<group>"; };
@@ -469,6 +505,19 @@
 		04F3D89D1A0BE972003B10FB /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				6EB293001A1F6E1100F3B263 /* button_editProfile.png */,
+				6EB293011A1F6E1100F3B263 /* profile.png */,
+				6EB292F41A1F4B2000F3B263 /* SkipLogin.png */,
+				6EB292F21A1F30F100F3B263 /* main screen dialogue bg.png */,
+				6EB292E21A1F0E3D00F3B263 /* card button (select).png */,
+				6EB292E31A1F0E3D00F3B263 /* Card-button.png */,
+				6EB292E41A1F0E3D00F3B263 /* cash button (select).png */,
+				6EB292E51A1F0E3D00F3B263 /* cash button.png */,
+				6EB292E61A1F0E3D00F3B263 /* cheque button ( select).png */,
+				6EB292E71A1F0E3D00F3B263 /* cheque button.png */,
+				6EB292E81A1F0E3D00F3B263 /* other button (select).png */,
+				6EB292E91A1F0E3D00F3B263 /* other button.png */,
+				6EB292E01A1EEF6300F3B263 /* buttonClose.png */,
 				EA39C7851A1E9F5F0054C1C3 /* bg_btn_active.png */,
 				EA39C7861A1E9F5F0054C1C3 /* bg_btn_inactive.png */,
 				EA39C7811A1E98830054C1C3 /* bg_dialog_view_flipH@2x.png */,
@@ -573,6 +622,9 @@
 				04F3D8DF1A0BF8D4003B10FB /* BIAddCustom.h */,
 				04F3D8E01A0BF8D4003B10FB /* BIAddCustom.m */,
 				04F3D8E11A0BF8D4003B10FB /* BIAddCustom.xib */,
+				6EB292F61A1F574C00F3B263 /* BICustomerViewController.h */,
+				6EB292F71A1F574C00F3B263 /* BICustomerViewController.m */,
+				6EB292F81A1F574C00F3B263 /* BICustomerViewController.xib */,
 			);
 			path = AddCustomVC;
 			sourceTree = "<group>";
@@ -593,6 +645,9 @@
 				04F3D8E41A0BF914003B10FB /* BIAddProducts.h */,
 				04F3D8E51A0BF914003B10FB /* BIAddProducts.m */,
 				04F3D8E61A0BF914003B10FB /* BIAddProducts.xib */,
+				6EB292FB1A1F6AD200F3B263 /* BIProductsViewController.h */,
+				6EB292FC1A1F6AD200F3B263 /* BIProductsViewController.m */,
+				6EB292FD1A1F6AD200F3B263 /* BIProductsViewController.xib */,
 			);
 			path = AddProductsVC;
 			sourceTree = "<group>";
@@ -867,6 +922,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6EB292F51A1F4B2000F3B263 /* SkipLogin.png in Resources */,
 				EA5C4CC01A1BA79D00BF6F7F /* addinvoice_btn_dialog_custom@2x.png in Resources */,
 				EA28F6251A1BB5A600D3575E /* bg_uncheck_radiobutton.png in Resources */,
 				EA4A272F1A1A820900304842 /* bg_edt_login.png in Resources */,
@@ -875,13 +931,17 @@
 				EA924B751A1E811B007CBA2A /* bg_dialog_view.png in Resources */,
 				EAE2DA2C1A1B9D1100DBF8F0 /* addinvoice_btn_addinvoices.png in Resources */,
 				EAE2DA311A1B9D1100DBF8F0 /* addinvoice_btn_saveandsend@2x.png in Resources */,
+				6EB292E11A1EEF6300F3B263 /* buttonClose.png in Resources */,
 				04F3D8D41A0BF75D003B10FB /* icon_add.png in Resources */,
+				6EB292F01A1F0E3E00F3B263 /* other button (select).png in Resources */,
 				EAE2DA2B1A1B9D1100DBF8F0 /* addinvoice_btn_datetime@2x.png in Resources */,
 				EA5C4CB81A1BA68900BF6F7F /* addinvoice_btn_dialog@2x.png in Resources */,
 				04F3D8DE1A0BF8BC003B10FB /* btn_back.png in Resources */,
 				04F3D8D61A0BF75D003B10FB /* icon_cat.png in Resources */,
+				6EB293021A1F6E1100F3B263 /* button_editProfile.png in Resources */,
 				EA924B731A1E811B007CBA2A /* btn_close@2x.png in Resources */,
 				04F3D8BB1A0BEB9E003B10FB /* BILogin.xib in Resources */,
+				6EB293031A1F6E1100F3B263 /* profile.png in Resources */,
 				04F3D8791A0BE7CA003B10FB /* InfoPlist.strings in Resources */,
 				EA39C7841A1E98830054C1C3 /* bg_dialog_view_flipH.png in Resources */,
 				EA28F6261A1BB5A600D3575E /* bg_uncheck_radiobutton@2x.png in Resources */,
@@ -894,6 +954,7 @@
 				EA5C4CDC1A1BAE9B00BF6F7F /* menu_img_invoice@2x.png in Resources */,
 				04F3D8CA1A0BF1B2003B10FB /* BLLeftSideVC.xib in Resources */,
 				6EBF226C1A1BC61E00CE1A05 /* buttonCreateFirstInvoice.png in Resources */,
+				6EB292EE1A1F0E3E00F3B263 /* cheque button ( select).png in Resources */,
 				EA924B721A1E811B007CBA2A /* btn_close.png in Resources */,
 				EA5C4CD81A1BAE9B00BF6F7F /* menu_img_product@2x.png in Resources */,
 				04F3D8C51A0BEF22003B10FB /* BIAddNewBussiness.xib in Resources */,
@@ -908,14 +969,18 @@
 				04F3D8D51A0BF75D003B10FB /* icon_add@2x.png in Resources */,
 				04F3D8811A0BE7CA003B10FB /* Images.xcassets in Resources */,
 				04F3D8CF1A0BF511003B10FB /* BIDashBoard.xib in Resources */,
+				6EB292EF1A1F0E3E00F3B263 /* cheque button.png in Resources */,
 				EA7E8DEC1A0FA2CF00BBE890 /* bg_state.png in Resources */,
 				EAE2DA301A1B9D1100DBF8F0 /* addinvoice_btn_saveandsend.png in Resources */,
 				EA5C4CBE1A1BA79D00BF6F7F /* addinvoice_btn_dialog_date@2x.png in Resources */,
+				6EB292EA1A1F0E3D00F3B263 /* card button (select).png in Resources */,
 				EA4A273E1A1A8D2100304842 /* dashboard_btn_create_voice@2x.png in Resources */,
+				6EB292FA1A1F574C00F3B263 /* BICustomerViewController.xib in Resources */,
 				04F3D8D71A0BF75D003B10FB /* icon_cat@2x.png in Resources */,
 				EA5C4CD31A1BAE9B00BF6F7F /* menu_img_logout.png in Resources */,
 				EA5C4CDA1A1BAE9B00BF6F7F /* menu_img_customer@2x.png in Resources */,
 				EAE2DA291A1B9D1100DBF8F0 /* addinvoice_btn_selectbox@2x.png in Resources */,
+				6EB292EC1A1F0E3D00F3B263 /* cash button (select).png in Resources */,
 				EA4A273F1A1A8D2100304842 /* dashboard_btn_create_voice.png in Resources */,
 				EA5C4CB71A1BA68900BF6F7F /* addinvoice_btn_dialog.png in Resources */,
 				EA39C7871A1E9F5F0054C1C3 /* bg_btn_active.png in Resources */,
@@ -925,15 +990,19 @@
 				EA5C4CD91A1BAE9B00BF6F7F /* menu_img_customer.png in Resources */,
 				EA39C7881A1E9F5F0054C1C3 /* bg_btn_inactive.png in Resources */,
 				EA5C4CD71A1BAE9B00BF6F7F /* menu_img_product.png in Resources */,
+				6EB292ED1A1F0E3E00F3B263 /* cash button.png in Resources */,
 				EA24E9FF1A0E75BD00A92723 /* 10406901_752194848164505_7793186767141070823_n.jpg in Resources */,
 				EA7E8DEB1A0FA2CF00BBE890 /* bg_hover2.png in Resources */,
 				EAE2DA2D1A1B9D1100DBF8F0 /* addinvoice_btn_addinvoices@2x.png in Resources */,
 				EA39C7831A1E98830054C1C3 /* bg_dialog_view_flipH@2x.png in Resources */,
+				6EB292F31A1F30F200F3B263 /* main screen dialogue bg.png in Resources */,
 				EAE2DA2E1A1B9D1100DBF8F0 /* addinvoice_btn_save.png in Resources */,
 				EA4A273C1A1A8D2100304842 /* addproduct_btn_save.png in Resources */,
 				EA4A273D1A1A8D2100304842 /* addproduct_btn_save@2x.png in Resources */,
+				6EB292FF1A1F6AD200F3B263 /* BIProductsViewController.xib in Resources */,
 				EA4A27301A1A820900304842 /* bg_login.png in Resources */,
 				EAE2DA2F1A1B9D1100DBF8F0 /* addinvoice_btn_save@2x.png in Resources */,
+				6EB292EB1A1F0E3D00F3B263 /* Card-button.png in Resources */,
 				EAE2DA2A1A1B9D1100DBF8F0 /* addinvoice_btn_datetime.png in Resources */,
 				04F3D8C01A0BEE5D003B10FB /* BIRegister.xib in Resources */,
 				04F3D8E31A0BF8D4003B10FB /* BIAddCustom.xib in Resources */,
@@ -942,6 +1011,7 @@
 				EA4A27311A1A820900304842 /* btn_login.png in Resources */,
 				EA5C4CD41A1BAE9B00BF6F7F /* menu_img_logout@2x.png in Resources */,
 				EA28F6271A1BB5A600D3575E /* bg_checked_radiobutton.png in Resources */,
+				6EB292F11A1F0E3E00F3B263 /* other button.png in Resources */,
 				EA5C4CC41A1BA91700BF6F7F /* addinvoice_btn_addproduct@2x.png in Resources */,
 				EA7E8DEA1A0FA2CF00BBE890 /* bg_hover.png in Resources */,
 			);
@@ -996,6 +1066,8 @@
 				04F3D8BA1A0BEB9E003B10FB /* BILogin.m in Sources */,
 				6E43964F1A107C3E005EF4C9 /* ASICloudFilesCDNRequest.m in Sources */,
 				6EE6D8D41A1D049500F11239 /* BIUser.m in Sources */,
+				6EB292F91A1F574C00F3B263 /* BICustomerViewController.m in Sources */,
+				6EB292FE1A1F6AD200F3B263 /* BIProductsViewController.m in Sources */,
 				6E43964B1A107C3E005EF4C9 /* ASIFormDataRequest.m in Sources */,
 				04F3D8C91A0BF1B2003B10FB /* BLLeftSideVC.m in Sources */,
 				6EB9EBEF1A10E4FA001226F8 /* BIInvoice.m in Sources */,

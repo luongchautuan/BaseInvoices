@@ -7,6 +7,9 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="BIProfileViewController">
             <connections>
+                <outlet property="imageProfile" destination="2Sz-bj-wNt" id="bXd-xb-ibP"/>
+                <outlet property="lblDisplayName" destination="nGz-SF-hAV" id="EYr-rE-Uh0"/>
+                <outlet property="lblEmail" destination="K6Y-Hz-HjL" id="tLt-Jg-Jf6"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -35,6 +38,9 @@
                             <state key="normal" backgroundImage="addproduct_btn_save.png">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
+                            <connections>
+                                <action selector="onSaveProfile:" destination="-1" eventType="touchUpInside" id="ckL-vl-eig"/>
+                            </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2kX-aH-ihG">
                             <rect key="frame" x="8" y="16" width="25" height="20"/>
@@ -46,6 +52,39 @@
                     <color key="backgroundColor" red="0.4039215686" green="0.68627450980000004" blue="0.070588235289999995" alpha="1" colorSpace="calibratedRGB"/>
                     <inset key="insetFor6xAndEarlier" minX="0.0" minY="20" maxX="0.0" maxY="-20"/>
                 </view>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="profile.png" translatesAutoresizingMaskIntoConstraints="NO" id="2Sz-bj-wNt">
+                    <rect key="frame" x="85" y="121" width="150" height="150"/>
+                </imageView>
+                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zgi-sd-ab4">
+                    <rect key="frame" x="200" y="129" width="30" height="30"/>
+                    <state key="normal" image="button_editProfile.png">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="onEditImageProfile:" destination="-1" eventType="touchUpInside" id="Qsz-qg-9eg"/>
+                    </connections>
+                </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Chau Tuan" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nGz-SF-hAV">
+                    <rect key="frame" x="71" y="292" width="179" height="30"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                    <color key="textColor" red="0.231372565" green="0.231372565" blue="0.231372565" alpha="1" colorSpace="deviceRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KuO-G2-2Yl">
+                    <rect key="frame" x="222" y="285" width="20" height="20"/>
+                    <state key="normal" backgroundImage="button_editProfile.png">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="onEditDisplayName:" destination="-1" eventType="touchUpInside" id="qxl-cK-kVa"/>
+                    </connections>
+                </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="skyatnight.luong@gmail.com" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K6Y-Hz-HjL">
+                    <rect key="frame" x="8" y="319" width="304" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
@@ -54,6 +93,8 @@
     </objects>
     <resources>
         <image name="addproduct_btn_save.png" width="110" height="56"/>
+        <image name="button_editProfile.png" width="124" height="124"/>
         <image name="icon_cat.png" width="49" height="40"/>
+        <image name="profile.png" width="736" height="738"/>
     </resources>
 </document>

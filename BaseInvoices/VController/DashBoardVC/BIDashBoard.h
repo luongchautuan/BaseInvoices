@@ -12,6 +12,9 @@
 @interface BIDashBoard : UIViewController
 @property (weak, nonatomic) IBOutlet UIButton *btnCategory;
 @property (weak, nonatomic) IBOutlet UIButton *btnAddinvoice;
+@property (weak, nonatomic) IBOutlet UIView *viewAddMore;
+@property (weak, nonatomic) IBOutlet UIButton *btnAddInvoiceMore;
+@property (weak, nonatomic) IBOutlet UIButton *btnAddBusiness;
 
 - (IBAction)onAddInvoice:(id)sender;
 - (IBAction)showCat:(id)sender;

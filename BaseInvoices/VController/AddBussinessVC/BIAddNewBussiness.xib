@@ -34,18 +34,21 @@
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
                         </button>
-                        <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rt1-OL-LMj">
-                            <rect key="frame" x="280" y="5" width="30" height="30"/>
-                            <state key="normal" backgroundImage="icon_add.png">
-                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                            </state>
-                        </button>
                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gMD-qt-apl">
                             <rect key="frame" x="0.0" y="14" width="320" height="21"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                             <nil key="highlightedColor"/>
                         </label>
+                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rt1-OL-LMj">
+                            <rect key="frame" x="267" y="12" width="45" height="25"/>
+                            <state key="normal" backgroundImage="addproduct_btn_save.png">
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <connections>
+                                <action selector="onSaveBusiness:" destination="-1" eventType="touchUpInside" id="jcj-vl-mFK"/>
+                            </connections>
+                        </button>
                     </subviews>
                     <color key="backgroundColor" red="0.4039215686" green="0.68627450980000004" blue="0.070588235289999995" alpha="1" colorSpace="calibratedRGB"/>
                     <inset key="insetFor6xAndEarlier" minX="0.0" minY="20" maxX="0.0" maxY="-20"/>
@@ -159,9 +162,9 @@
         </view>
     </objects>
     <resources>
+        <image name="addproduct_btn_save.png" width="110" height="56"/>
         <image name="bg_edt_login.png" width="226" height="31"/>
         <image name="bg_uncheck_radiobutton.png" width="40" height="40"/>
-        <image name="icon_add.png" width="49" height="49"/>
         <image name="icon_cat.png" width="49" height="40"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

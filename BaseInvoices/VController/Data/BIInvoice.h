@@ -10,4 +10,5 @@
 
 @interface BIInvoice : NSObject
 
+//@property (nonatomic)NSString* 
 @end

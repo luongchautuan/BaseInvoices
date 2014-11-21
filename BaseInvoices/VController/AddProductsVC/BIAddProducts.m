@@ -72,9 +72,9 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (IBAction)onBack:(id)sender {
-    BIAddInvoices *pushToVC = [[BIAddInvoices alloc] initWithNibName:@"BIAddInvoices" bundle:nil];
-    [self.navigationController pushViewController:pushToVC animated:YES];
+- (IBAction)onBack:(id)sender
+{
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 #pragma mark return to close soft keyboard

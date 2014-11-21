@@ -17,5 +17,6 @@
 
 @property (nonatomic, strong) MMDrawerController * drawerController;
 @property (nonatomic, retain) BIUser* currentUser;
+@property (nonatomic)NSMutableArray* invoicesForUser;
 
 @end

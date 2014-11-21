@@ -53,6 +53,15 @@
                                 <action selector="onLogin:" destination="-1" eventType="touchUpInside" id="0E9-y3-PZy"/>
                             </connections>
                         </button>
+                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zAc-qJ-vgs">
+                            <rect key="frame" x="103" y="415" width="109" height="27"/>
+                            <state key="normal" backgroundImage="SkipLogin.png">
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <connections>
+                                <action selector="onSkipLogin:" destination="-1" eventType="touchUpInside" id="8hR-Je-vfG"/>
+                            </connections>
+                        </button>
                         <view hidden="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="man-fR-mdu">
                             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                             <subviews>
@@ -70,6 +79,7 @@
         </view>
     </objects>
     <resources>
+        <image name="SkipLogin.png" width="542" height="126"/>
         <image name="bg_edt_login.png" width="226" height="31"/>
         <image name="bg_login.png" width="320" height="569"/>
         <image name="btn_login.png" width="226" height="41"/>

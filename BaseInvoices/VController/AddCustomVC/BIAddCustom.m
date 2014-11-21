@@ -89,11 +89,31 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (IBAction)onBack:(id)sender {
-    BIAddInvoices *pushToVC = [[BIAddInvoices alloc] initWithNibName:@"BIAddInvoices" bundle:nil];
-    [self.navigationController pushViewController:pushToVC animated:YES];
+- (IBAction)onBack:(id)sender
+{
+    if (self.edtBussinessName.text.length > 0)
+    {
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Add Customer Information" message:@"Do you want to save customer?" delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil];
+        [alert show];
+    }
+    else
+    {
+        [self.navigationController popViewControllerAnimated:YES];
+    }
+   
 }
 
+-(void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 0)
+    {
+        [self.navigationController popViewControllerAnimated:YES];
+    }
+    else
+    {
+        [self saveCustomerMethod];
+    }
+}
 #pragma mark return to close soft keyboard
 
 - (void)tapHandler:(UIGestureRecognizer *)ges
@@ -139,5 +159,15 @@
     
     
     return YES;
+}
+
+- (IBAction)onSaveCustomer:(id)sender
+{
+    
+}
+
+-(void)saveCustomerMethod
+{
+    //Check and sugesst login first
 }
 @end

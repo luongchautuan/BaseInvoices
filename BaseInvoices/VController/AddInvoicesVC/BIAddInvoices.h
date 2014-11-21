@@ -36,6 +36,16 @@
 @property (weak, nonatomic) IBOutlet UIButton *btnBusiness;
 @property (weak, nonatomic) IBOutlet UIButton *btnInvoicesNumber;
 @property (weak, nonatomic) IBOutlet UIButton *btnDateTime;
+@property (weak, nonatomic) IBOutlet UIView *viewBusiness;
+@property (weak, nonatomic) IBOutlet UITableView *tableViewBusiness;
+@property (weak, nonatomic) IBOutlet UIView *viewInvoices;
+@property (weak, nonatomic) IBOutlet UITableView *tableViewInvoice;
+@property (weak, nonatomic) IBOutlet UIView *viewDatePickerForMain;
+@property (weak, nonatomic) IBOutlet UIDatePicker *datePickerForMain;
+@property (weak, nonatomic) IBOutlet UIDatePicker *datePickerForPopUp;
+@property (weak, nonatomic) IBOutlet UIView *viewDateForPopUp;
+
+@property  (nonatomic)BOOL isEditInvoice;
 
 - (IBAction)onAddCustom:(id)sender;
 - (IBAction)onOpenMenu:(id)sender;
@@ -62,10 +72,20 @@
 @property (weak, nonatomic) IBOutlet UITableView *tbvViewListData;
 - (IBAction)onBackViewListData:(id)sender;
 @property (weak, nonatomic) IBOutlet UIView *viewChilds;
+@property (weak, nonatomic) IBOutlet UIView *viewTotal;
+
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 
 #pragma mark init dialog popup
 @property (weak, nonatomic) IBOutlet UIView *viewPopup;
+@property (weak, nonatomic) IBOutlet UITextField *txtDateMarkPaid;
 @property (weak, nonatomic) IBOutlet UIButton *btnBackDialogPopup;
+
+@property (weak, nonatomic) IBOutlet UITextField *txtPaymentType;
+
+@property (weak, nonatomic) IBOutlet UITextField *txtDateForMain;
+
 - (IBAction)onBackDialogPopup:(id)sender;
 @property (weak, nonatomic) IBOutlet UITextField *txtNoteDesc;
 @property (weak, nonatomic) IBOutlet UIButton *btnCashPopup;
@@ -80,6 +100,7 @@
 - (IBAction)onCheckCardPopup:(id)sender;
 - (IBAction)onCheckOtherPopup:(id)sender;
 - (IBAction)onShowViewLstDataFromDialogPopup:(id)sender;
+@property (weak, nonatomic) IBOutlet UITextField *txtBussiness;
 
 @property (weak, nonatomic) IBOutlet UIView *viewMarkPaid;
 

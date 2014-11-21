@@ -16,6 +16,8 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    self.invoicesForUser = [[NSMutableArray alloc] init];
+    
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
     BILogin *centerSideVC = [[BILogin alloc] initWithNibName:@"BILogin" bundle:nil];

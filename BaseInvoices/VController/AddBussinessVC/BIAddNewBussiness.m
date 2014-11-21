@@ -64,7 +64,7 @@
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string  {
     
-    if(textField.tag == 360)
+    if(textField.tag == 4 || textField.tag == 5)
     {
         NSCharacterSet *cs = [[NSCharacterSet characterSetWithCharactersInString:ACCEPTABLE_CHARECTERS] invertedSet];
         
@@ -80,4 +80,8 @@
     return YES;
 }
 
+- (IBAction)onSaveBusiness:(id)sender
+{
+    //check login and save
+}
 @end

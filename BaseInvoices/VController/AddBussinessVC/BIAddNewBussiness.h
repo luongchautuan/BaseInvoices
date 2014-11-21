@@ -22,6 +22,9 @@
 @property (weak, nonatomic) IBOutlet UIButton *btnCheckVat;
 @property (weak, nonatomic) IBOutlet UITextField *txtVat;
 @property (weak, nonatomic) IBOutlet UITextField *txtCurrency;
+
+@property (nonatomic)BOOL isEditBusiness;
+
 - (IBAction)onCheckedButton:(id)sender;
 
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;

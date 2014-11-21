@@ -1,18 +1,20 @@
 //
-//  BIProfileViewController.m
+//  BICustomerViewController.m
 //  BaseInvoices
 //
-//  Created by Hung Kiet Ngo on 11/20/14.
+//  Created by Hung Kiet Ngo on 11/21/14.
 //  Copyright (c) 2014 mtoanmy. All rights reserved.
 //
 
-#import "BIProfileViewController.h"
+#import "BICustomerViewController.h"
+#import "BIAddCustom.h"
+#import "BIAddInvoices.h"
 
-@interface BIProfileViewController ()
+@interface BICustomerViewController ()
 
 @end
 
-@implementation BIProfileViewController
+@implementation BICustomerViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -24,21 +26,16 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (IBAction)onEditImageProfile:(id)sender
+- (IBAction)onAddCustomer:(id)sender
 {
-    
+    BIAddCustom *pushToVC = [[BIAddCustom alloc] initWithNibName:@"BIAddCustom" bundle:nil];
+    [self.navigationController pushViewController:pushToVC animated:YES];
 }
 
-- (IBAction)onEditDisplayName:(id)sender
+- (IBAction)onCloseViewController:(id)sender
 {
-    
+    [self.navigationController popViewControllerAnimated:YES];
 }
-
-- (IBAction)onSaveProfile:(id)sender
-{
-    
-}
-
 /*
 #pragma mark - Navigation
 
