@@ -39,10 +39,24 @@ BIAppDelegate* appdelegate;
 {
     [super viewDidLoad];
     [self initScreen];
-
     // Do any additional setup after loading the view from its nib.
     
     appdelegate = (BIAppDelegate *)[[UIApplication sharedApplication] delegate];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [self.btnAddCustom setTitle:appdelegate.currentCustomerForAddInvoice.customerBussinessName forState:UIControlStateNormal];
+    
+    if (appdelegate.productsFroAddInvoices.count > 0)
+    {
+        self.tableView.hidden = NO;
+    }
+    else self.tableView.hidden = YES;
+    
+    [self updateFrameTableView];
+    
+    [self.tableView reloadData];    
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -64,7 +78,7 @@ BIAppDelegate* appdelegate;
     
     UITapGestureRecognizer *tapGeusture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapHandler:)];
     tapGeusture.numberOfTapsRequired = 1;
-    [self.view addGestureRecognizer:tapGeusture];
+    [self.scrollView addGestureRecognizer:tapGeusture];
     [tapGeusture setCancelsTouchesInView:NO];
     
     checkBoxSelected = false;
@@ -106,13 +120,35 @@ BIAppDelegate* appdelegate;
 
    
     
-    self.tableView.frame = CGRectMake(27, 277, 0, 0);
+//    self.tableView.frame = CGRectMake(27, 277, 0, 0);
+//    
+//    self.viewTotal.frame = CGRectMake(0, self.tableView.frame.origin.y + self.tableView.frame.size.height, self.viewTotal.frame.size.width, self.viewTotal.frame.size.height);
+//    
+//    self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width, self.viewTotal.frame.origin.y + self.viewTotal.frame.size.height + 80);
+}
+
+- (void)updateFrameTableView
+{
+    self.tableView.frame = CGRectMake(27, 277, self.tableView.frame.size.width, appdelegate.productsFroAddInvoices.count * 28);
     
     self.viewTotal.frame = CGRectMake(0, self.tableView.frame.origin.y + self.tableView.frame.size.height, self.viewTotal.frame.size.width, self.viewTotal.frame.size.height);
     
-    self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width, self.viewTotal.frame.origin.y + self.viewTotal.frame.size.height + 80);
-}
+    if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
+    {
+        CGSize result = [[UIScreen mainScreen] bounds].size;
 
+        if(result.height == 480)
+        {
+            // iPhone Classic
+            self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width, self.viewTotal.frame.origin.y + self.viewTotal.frame.size.height + 160);
+        }
+        else
+        {
+            self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width, self.viewTotal.frame.origin.y + self.viewTotal.frame.size.height + 80);
+        }
+    }
+
+}
 
 - (void)initData
 {
@@ -589,6 +625,9 @@ BIAppDelegate* appdelegate;
 {
     [self.txtNoteDesc resignFirstResponder];
     [self.tbvViewListData resignFirstResponder];
+    [self.txtInvoiceNumber resignFirstResponder];
+    [self.txtNoteDesc resignFirstResponder];   
+    
 }
 
 - (IBAction)selectDateFromPopUp:(id)sender
@@ -621,6 +660,11 @@ BIAppDelegate* appdelegate;
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
     return appdelegate.productsFroAddInvoices.count;
 }
 
@@ -636,7 +680,56 @@ BIAppDelegate* appdelegate;
         customCell = [nib objectAtIndex:0];
     }
     
+    BIProduct* product = [appdelegate.productsFroAddInvoices objectAtIndex:indexPath.row];
+    customCell.lblNameProduct.text = product.productName;
+    customCell.lblPrice.text = product.productUnitPrice;
+    
     return customCell;
+}
+
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    // Return YES if you want the specified item to be editable.
+    return YES;
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (editingStyle == UITableViewCellEditingStyleDelete)
+    {
+        //Delete product
+        BIProduct* product = [appdelegate.productsFroAddInvoices objectAtIndex:indexPath.row];
+        
+        [appdelegate.productsFroAddInvoices removeObjectAtIndex:indexPath.row];
+        
+        [self.tableView deleteRowsAtIndexPaths:@[indexPath]
+                                  withRowAnimation:UITableViewRowAnimationFade];
+        
+        [self updateFrameTableView];
+    }
+}
+
+
+#pragma mark - Text Field delegates...
+
+-(void)textFieldDidBeginEditing:(UITextField *)textField
+{
+    if (textField.tag == 23)
+    {
+        [self.scrollView setContentOffset:CGPointMake(0, 30)];
+    }
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [textField resignFirstResponder];
+    
+    if(textField == self.txtNoteDesc)
+    {
+        [self.scrollView setContentOffset:CGPointMake(0, 0)];
+    }
+    
+    return YES;
 }
 
 //#pragma mark UIGestureRecognizerDelegate methods

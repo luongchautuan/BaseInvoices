@@ -11,4 +11,5 @@
 @interface BICustomerViewController : UIViewController<UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic)BOOL isViewCustomerEdit;
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
 @end

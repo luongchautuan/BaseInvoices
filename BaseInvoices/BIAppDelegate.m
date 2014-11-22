@@ -17,6 +17,9 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     self.invoicesForUser = [[NSMutableArray alloc] init];
+    self.customerForUser = [[NSMutableArray alloc] init];
+    self.productsForUser = [[NSMutableArray alloc] init];
+    self.productsFroAddInvoices = [[NSMutableArray alloc] init];
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     

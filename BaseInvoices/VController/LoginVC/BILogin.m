@@ -130,14 +130,16 @@ BIAppDelegate *appdelegate;
     {
         case 0:
         {
-            BIDashBoard *objectiveVC = [[BIDashBoard alloc] initWithNibName:@"BIDashBoard" bundle:nil];
-            [self.navigationController pushViewController:objectiveVC animated:YES];
+            BIDashBoard *dashboardViewController = [[BIDashBoard alloc] initWithNibName:@"BIDashBoard" bundle:nil];
+            [self.navigationController pushViewController:dashboardViewController animated:YES];
         }
             break;
         case 1:
         {
-            BICustomerViewController *experienceVC = [[BICustomerViewController alloc] initWithNibName:@"BICustomerViewController" bundle:nil];
-            [self.navigationController pushViewController:experienceVC animated:YES];
+            BICustomerViewController *customerViewController = [[BICustomerViewController alloc] initWithNibName:@"BICustomerViewController" bundle:nil];
+            [customerViewController setIsViewCustomerEdit:YES];
+            
+            [self.navigationController pushViewController:customerViewController animated:YES];
         }
             break;
         case 2:
@@ -220,6 +222,8 @@ BIAppDelegate *appdelegate;
             user.password = self.edtPassword.text;
             
             appdelegate.currentUser = user;
+            
+            appdelegate.isLoginSucesss = YES;
             
             BIDashBoard *pushToVC = [[BIDashBoard alloc] initWithNibName:@"BIDashBoard" bundle:nil];
             [self.navigationController pushViewController:pushToVC animated:YES];

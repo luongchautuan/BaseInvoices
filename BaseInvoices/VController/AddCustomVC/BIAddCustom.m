@@ -156,10 +156,17 @@ BIAppDelegate* appdelegate;
     {
         [self.scrollView setContentOffset:CGPointMake(0,50)];
     }
-    
+    if (textField.tag==3)
+    {
+        [self.scrollView setContentOffset:CGPointMake(0,100)];
+    }
     if (textField.tag==1)
     {
         [self.scrollView setContentOffset:CGPointMake(0,100)];
+    }
+    if (textField.tag==2)
+    {
+        [self.scrollView setContentOffset:CGPointMake(0,150)];
     }
 }
 
@@ -185,16 +192,36 @@ BIAppDelegate* appdelegate;
 {
     if (self.edtBussinessName.text.length > 0 && self.edtEmail.text.length > 0 && self.edtKeyContact.text.length > 0)
     {
-        BICustomer* customer = [[BICustomer alloc] init];
-        customer.customerAddress = self.edtAddress.text;
-        customer.customerBussinessName = self.edtBussinessName.text;
-        customer.customerCity = self.edtCity.text;
-        customer.customerEmail = self.edtEmail.text;
-        customer.customerKeyContact = self.edtKeyContact.text;
-        customer.customerPostCode = self.edtPostCode.text;
-        customer.customerTelephone = self.edtPhone.text;
+        NSString *emailRegEx = @"[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}";
+        NSPredicate *emailTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", emailRegEx];
         
-        [appdelegate.customerForUser addObject:customer];
+        if ([emailTest evaluateWithObject:self.edtEmail.text] == NO)
+        {
+            
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Please Enter Valid Email Address." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            [alert show];
+            
+//            [self.viewActivity setHidden:YES];
+//            [self.activityIndicator stopAnimating];
+            
+            return;
+        }
+        else
+        {
+            BICustomer* customer = [[BICustomer alloc] init];
+            customer.customerAddress = self.edtAddress.text;
+            customer.customerBussinessName = self.edtBussinessName.text;
+            customer.customerCity = self.edtCity.text;
+            customer.customerEmail = self.edtEmail.text;
+            customer.customerKeyContact = self.edtKeyContact.text;
+            customer.customerPostCode = self.edtPostCode.text;
+            customer.customerTelephone = self.edtPhone.text;
+            
+            [appdelegate.customerForUser addObject:customer];
+            
+            [self.navigationController popViewControllerAnimated:YES];
+        }
+
     }
 }
 

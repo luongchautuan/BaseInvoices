@@ -26,6 +26,12 @@ BIAppDelegate* appdelegate;
     appdelegate = (BIAppDelegate *)[[UIApplication sharedApplication] delegate];
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    
+    [self.tableView reloadData];
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -43,6 +49,11 @@ BIAppDelegate* appdelegate;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return appdelegate.customerForUser.count;
 }
@@ -76,6 +87,8 @@ BIAppDelegate* appdelegate;
     }
     else
     {
+        appdelegate.currentCustomerForAddInvoice = customer;
+        
         [self.navigationController popViewControllerAnimated:YES];
     }
     

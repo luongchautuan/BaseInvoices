@@ -30,7 +30,8 @@
                 <outlet property="txtBussiness" destination="irx-bn-YZ4" id="zwo-gP-RNN"/>
                 <outlet property="txtDateForMain" destination="fBZ-MV-6pC" id="AXO-Gt-Lar"/>
                 <outlet property="txtDateMarkPaid" destination="aGF-rY-G7T" id="tCu-Tr-7Jl"/>
-                <outlet property="txtNoteDesc" destination="x82-lQ-MMI" id="eKQ-s4-BNg"/>
+                <outlet property="txtInvoiceNumber" destination="wRd-sF-iBy" id="paV-la-Q66"/>
+                <outlet property="txtNoteDesc" destination="qrm-ZS-CEq" id="tiP-us-yRg"/>
                 <outlet property="txtPaymentType" destination="Gjd-pK-TDR" id="pb5-38-zOR"/>
                 <outlet property="txtTitle" destination="rU3-N6-5l0" id="SG1-gm-JoZ"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -187,12 +188,15 @@
                                     <rect key="frame" x="20" y="205" width="292" height="35"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 </imageView>
-                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" id="qrm-ZS-CEq">
+                                <textField opaque="NO" clipsSubviews="YES" tag="23" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" id="qrm-ZS-CEq">
                                     <rect key="frame" x="23" y="205" width="289" height="35"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                     <textInputTraits key="textInputTraits"/>
+                                    <connections>
+                                        <outlet property="delegate" destination="-1" id="klP-MR-WC2"/>
+                                    </connections>
                                 </textField>
                                 <view contentMode="scaleToFill" id="rzt-BS-8g1">
                                     <rect key="frame" x="0.0" y="348" width="324" height="233"/>
@@ -290,10 +294,14 @@
                                     </subviews>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </view>
-                                <tableView hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="Brd-fZ-AY5">
+                                <tableView hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" rowHeight="28" sectionHeaderHeight="22" sectionFooterHeight="22" id="Brd-fZ-AY5">
                                     <rect key="frame" x="27" y="277" width="285" height="71"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <connections>
+                                        <outlet property="dataSource" destination="-1" id="SFw-ai-p4s"/>
+                                        <outlet property="delegate" destination="-1" id="7nw-kb-ZKH"/>
+                                    </connections>
                                 </tableView>
                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Products / Services" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="AUu-ZV-lrV">
                                     <rect key="frame" x="45" y="248" width="187" height="21"/>

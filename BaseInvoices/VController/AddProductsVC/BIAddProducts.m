@@ -128,6 +128,8 @@ BIAppDelegate* appdelegate;
         product.productUnitPrice = self.edtUnitPrice.text;
         
         [appdelegate.productsForUser addObject:product];
+        
+        [self.navigationController popViewControllerAnimated:YES];
     }
     else
     {

@@ -10,4 +10,7 @@
 
 @interface BICustomProductTableViewCell : UITableViewCell
 
+@property (weak, nonatomic) IBOutlet UILabel *lblNameProduct;
+@property (weak, nonatomic) IBOutlet UILabel *lblPrice;
+@property (weak, nonatomic) IBOutlet UIButton *quantity;
 @end

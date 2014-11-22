@@ -73,6 +73,7 @@
 - (IBAction)onBackViewListData:(id)sender;
 @property (weak, nonatomic) IBOutlet UIView *viewChilds;
 @property (weak, nonatomic) IBOutlet UIView *viewTotal;
+@property (weak, nonatomic) IBOutlet UITextField *txtInvoiceNumber;
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;

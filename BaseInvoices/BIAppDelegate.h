@@ -19,11 +19,14 @@
 
 @property (nonatomic, strong) MMDrawerController * drawerController;
 @property (nonatomic, retain) BIUser* currentUser;
+@property (nonatomic, retain) BICustomer* currentCustomerForAddInvoice;
 
 @property (nonatomic)NSMutableArray* productsFroAddInvoices;
 
 @property (nonatomic)NSMutableArray* invoicesForUser;
 @property (nonatomic)NSMutableArray* productsForUser;
 @property (nonatomic)NSMutableArray* customerForUser;
+
+@property (nonatomic)BOOL isLoginSucesss;
 
 @end

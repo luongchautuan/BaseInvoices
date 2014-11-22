@@ -11,5 +11,6 @@
 @interface BIProductsViewController : UIViewController<UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic)BOOL isViewEditProduct;
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @end
