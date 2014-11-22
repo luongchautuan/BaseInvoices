@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "MMDrawerController.h"
 #import "BIUser.h"
+#import "BIProduct.h"
+#import "BICustomer.h"
 
 @interface BIAppDelegate : UIResponder <UIApplicationDelegate>
 
@@ -17,6 +19,11 @@
 
 @property (nonatomic, strong) MMDrawerController * drawerController;
 @property (nonatomic, retain) BIUser* currentUser;
+
+@property (nonatomic)NSMutableArray* productsFroAddInvoices;
+
 @property (nonatomic)NSMutableArray* invoicesForUser;
+@property (nonatomic)NSMutableArray* productsForUser;
+@property (nonatomic)NSMutableArray* customerForUser;
 
 @end

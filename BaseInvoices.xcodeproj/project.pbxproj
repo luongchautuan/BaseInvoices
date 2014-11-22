@@ -92,6 +92,9 @@
 		6EB292FF1A1F6AD200F3B263 /* BIProductsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6EB292FD1A1F6AD200F3B263 /* BIProductsViewController.xib */; };
 		6EB293021A1F6E1100F3B263 /* button_editProfile.png in Resources */ = {isa = PBXBuildFile; fileRef = 6EB293001A1F6E1100F3B263 /* button_editProfile.png */; };
 		6EB293031A1F6E1100F3B263 /* profile.png in Resources */ = {isa = PBXBuildFile; fileRef = 6EB293011A1F6E1100F3B263 /* profile.png */; };
+		6EB293061A20216700F3B263 /* BICustomer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6EB293051A20216700F3B263 /* BICustomer.m */; };
+		6EB2930A1A203A6000F3B263 /* BICustomProductTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6EB293081A203A6000F3B263 /* BICustomProductTableViewCell.m */; };
+		6EB2930B1A203A6000F3B263 /* BICustomProductTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6EB293091A203A6000F3B263 /* BICustomProductTableViewCell.xib */; };
 		6EB9EBEF1A10E4FA001226F8 /* BIInvoice.m in Sources */ = {isa = PBXBuildFile; fileRef = 6EB9EBEE1A10E4FA001226F8 /* BIInvoice.m */; };
 		6EBF184A1A1B8E7800CE1A05 /* AddProductBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 6EBF18491A1B8E7800CE1A05 /* AddProductBackground.png */; };
 		6EBF184C1A1B91EA00CE1A05 /* AddCustomerBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 6EBF184B1A1B91EA00CE1A05 /* AddCustomerBackground.png */; };
@@ -307,6 +310,11 @@
 		6EB292FD1A1F6AD200F3B263 /* BIProductsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BIProductsViewController.xib; sourceTree = "<group>"; };
 		6EB293001A1F6E1100F3B263 /* button_editProfile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_editProfile.png; sourceTree = "<group>"; };
 		6EB293011A1F6E1100F3B263 /* profile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = profile.png; sourceTree = "<group>"; };
+		6EB293041A20216700F3B263 /* BICustomer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BICustomer.h; sourceTree = "<group>"; };
+		6EB293051A20216700F3B263 /* BICustomer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BICustomer.m; sourceTree = "<group>"; };
+		6EB293071A203A6000F3B263 /* BICustomProductTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BICustomProductTableViewCell.h; sourceTree = "<group>"; };
+		6EB293081A203A6000F3B263 /* BICustomProductTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BICustomProductTableViewCell.m; sourceTree = "<group>"; };
+		6EB293091A203A6000F3B263 /* BICustomProductTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BICustomProductTableViewCell.xib; sourceTree = "<group>"; };
 		6EB9EBED1A10E4FA001226F8 /* BIInvoice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BIInvoice.h; sourceTree = "<group>"; };
 		6EB9EBEE1A10E4FA001226F8 /* BIInvoice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BIInvoice.m; sourceTree = "<group>"; };
 		6EBF18491A1B8E7800CE1A05 /* AddProductBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AddProductBackground.png; sourceTree = "<group>"; };
@@ -635,6 +643,9 @@
 				04F3D8D81A0BF857003B10FB /* BIAddInvoices.h */,
 				04F3D8D91A0BF857003B10FB /* BIAddInvoices.m */,
 				04F3D8DA1A0BF857003B10FB /* BIAddInvoices.xib */,
+				6EB293071A203A6000F3B263 /* BICustomProductTableViewCell.h */,
+				6EB293081A203A6000F3B263 /* BICustomProductTableViewCell.m */,
+				6EB293091A203A6000F3B263 /* BICustomProductTableViewCell.xib */,
 			);
 			path = AddInvoicesVC;
 			sourceTree = "<group>";
@@ -679,6 +690,8 @@
 				6EE6D8D91A1D06B900F11239 /* BIProduct.m */,
 				6EE6D8E11A1D108300F11239 /* Helper.h */,
 				6EE6D8E21A1D108300F11239 /* Helper.m */,
+				6EB293041A20216700F3B263 /* BICustomer.h */,
+				6EB293051A20216700F3B263 /* BICustomer.m */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -962,6 +975,7 @@
 				EA4A27371A1A843800304842 /* bg_login@2x.png in Resources */,
 				6EE6D8E01A1D092200F11239 /* BIProfileViewController.xib in Resources */,
 				6EBF184A1A1B8E7800CE1A05 /* AddProductBackground.png in Resources */,
+				6EB2930B1A203A6000F3B263 /* BICustomProductTableViewCell.xib in Resources */,
 				6EE6D8F41A1DCDAB00F11239 /* datebg@2x.png in Resources */,
 				04F3D8E81A0BF914003B10FB /* BIAddProducts.xib in Resources */,
 				EA24EA011A0E77C100A92723 /* no_img.jpg in Resources */,
@@ -1041,6 +1055,7 @@
 				04F3D87B1A0BE7CA003B10FB /* main.m in Sources */,
 				6E43967D1A109718005EF4C9 /* Reachability.m in Sources */,
 				6E43965A1A107C3E005EF4C9 /* ASIS3Request.m in Sources */,
+				6EB293061A20216700F3B263 /* BICustomer.m in Sources */,
 				6EE6D8D71A1D056C00F11239 /* BIBussiness.m in Sources */,
 				6E4396571A107C3E005EF4C9 /* ASIS3BucketObject.m in Sources */,
 				6E4396541A107C3E005EF4C9 /* ASICloudFilesObjectRequest.m in Sources */,
@@ -1078,6 +1093,7 @@
 				EAAD5C6D1A1D134300289828 /* COPDBManager.m in Sources */,
 				6E4396531A107C3E005EF4C9 /* ASICloudFilesObject.m in Sources */,
 				6E4396561A107C3E005EF4C9 /* ASIS3Bucket.m in Sources */,
+				6EB2930A1A203A6000F3B263 /* BICustomProductTableViewCell.m in Sources */,
 				6EE6D8DA1A1D06B900F11239 /* BIProduct.m in Sources */,
 				04F3D8BF1A0BEE5D003B10FB /* BIRegister.m in Sources */,
 			);

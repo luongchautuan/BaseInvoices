@@ -14,12 +14,15 @@
 #import "BIAppDelegate.h"
 #import "BICustomerViewController.h"
 #import "BIProductsViewController.h"
+#import "BICustomProductTableViewCell.h"
 
 @interface BIAddInvoices ()
 
 @end
 
 bool cashBool,otherBool,cardBool,chequeBool, isCurrentDay, isShowViewBusiness, isShowViewDateTimeForMain;
+
+BIAppDelegate* appdelegate;
 
 @implementation BIAddInvoices
 
@@ -38,6 +41,8 @@ bool cashBool,otherBool,cardBool,chequeBool, isCurrentDay, isShowViewBusiness, i
     [self initScreen];
 
     // Do any additional setup after loading the view from its nib.
+    
+    appdelegate = (BIAppDelegate *)[[UIApplication sharedApplication] delegate];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -365,43 +370,43 @@ bool cashBool,otherBool,cardBool,chequeBool, isCurrentDay, isShowViewBusiness, i
     [self.viewDateTime setHidden:isShow];
 }
 
-#pragma mark - init tableview of dialog list data
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    return arrData.count;
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    UITableViewCell *cell = (UITableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"cell"];
-    
-    if (cell == nil)
-    {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
-        cell.backgroundColor = [UIColor clearColor];
-        cell.textLabel.textColor = [UIColor blackColor];
-//        cell.detailTextLabel.textColor = [UIColor whiteColor];
-    }
-    
-    UIView* separatorLineView = [[UIView alloc] initWithFrame:CGRectMake(0, cell.frame.size.height - 2, [[UIScreen mainScreen] bounds].size.height, 1)];/// change size as you need.
-    
-    separatorLineView.backgroundColor = [UIColor cyanColor];// you can also put image here
-    
-    [cell.contentView addSubview:separatorLineView];
-    cell.textLabel.text = [arrData objectAtIndex:indexPath.row];
-    
-    return cell;
-}
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    currSelected = indexPath.row;
-    NSLog(@"didSelectRowAtIndexPath");
-    
-    [self setTitleOfInvoices:[arrData objectAtIndex:indexPath.row]];
-    [self.viewListData setHidden:true];
-}
+//#pragma mark - init tableview of dialog list data
+//
+//- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+//{
+//    return arrData.count;
+//}
+//
+//- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+//{
+//    UITableViewCell *cell = (UITableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"cell"];
+//    
+//    if (cell == nil)
+//    {
+//        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
+//        cell.backgroundColor = [UIColor clearColor];
+//        cell.textLabel.textColor = [UIColor blackColor];
+////        cell.detailTextLabel.textColor = [UIColor whiteColor];
+//    }
+//    
+//    UIView* separatorLineView = [[UIView alloc] initWithFrame:CGRectMake(0, cell.frame.size.height - 2, [[UIScreen mainScreen] bounds].size.height, 1)];/// change size as you need.
+//    
+//    separatorLineView.backgroundColor = [UIColor cyanColor];// you can also put image here
+//    
+//    [cell.contentView addSubview:separatorLineView];
+//    cell.textLabel.text = [arrData objectAtIndex:indexPath.row];
+//    
+//    return cell;
+//}
+//
+//- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+//{
+//    currSelected = indexPath.row;
+//    NSLog(@"didSelectRowAtIndexPath");
+//    
+//    [self setTitleOfInvoices:[arrData objectAtIndex:indexPath.row]];
+//    [self.viewListData setHidden:true];
+//}
 
 - (void)onReloadData
 {
@@ -612,6 +617,26 @@ bool cashBool,otherBool,cardBool,chequeBool, isCurrentDay, isShowViewBusiness, i
 - (IBAction)closeDateForPopUp:(id)sender
 {
     self.viewDateForPopUp.hidden = YES;
+}
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return appdelegate.productsFroAddInvoices.count;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    static NSString *simpleTableIdentifier = @"BICustomProductTableViewCell";
+    
+    BICustomProductTableViewCell *customCell = (BICustomProductTableViewCell *)[tableView dequeueReusableCellWithIdentifier:simpleTableIdentifier];
+    
+    if (customCell == nil)
+    {
+        NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"BICustomProductTableViewCell" owner:self options:nil];
+        customCell = [nib objectAtIndex:0];
+    }
+    
+    return customCell;
 }
 
 //#pragma mark UIGestureRecognizerDelegate methods

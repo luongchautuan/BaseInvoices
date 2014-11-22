@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BICustomer.h"
 
 @interface BIAddCustom : UIViewController<UIAlertViewDelegate>
 
@@ -24,5 +25,5 @@
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 
 @property (nonatomic)BOOL isEditCustomer;
-
+@property (nonatomic, retain)BICustomer* customer;
 @end

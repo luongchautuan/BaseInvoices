@@ -8,16 +8,22 @@
 
 #import "BIProductsViewController.h"
 #import "BIAddProducts.h"
+#import "BIAppDelegate.h"
 
 @interface BIProductsViewController ()
 
 @end
+
+BIAppDelegate* appdelegate;
 
 @implementation BIProductsViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    
+    appdelegate = (BIAppDelegate *)[[UIApplication sharedApplication] delegate];
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -36,6 +42,45 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return appdelegate.productsForUser.count;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    static NSString *CellIdentifier = @"newFriendCell";
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"newFriendCell"];
+    
+    if (cell == nil) {
+        cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
+    }
+    
+    BIProduct* product = [appdelegate.productsForUser objectAtIndex:indexPath.row];
+    cell.textLabel.text = product.productName;
+    
+    return cell;
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    BIProduct* product = [appdelegate.productsForUser objectAtIndex:indexPath.row];
+    
+    if (self.isViewEditProduct)
+    {
+        BIAddProducts *pushToVC = [[BIAddProducts alloc] initWithNibName:@"BIAddProducts" bundle:nil];
+        [pushToVC setIsEditProduct:YES];
+        [pushToVC setProduct:product];
+        
+        [self.navigationController pushViewController:pushToVC animated:YES];
+    }
+    else
+    {
+        [appdelegate.productsFroAddInvoices addObject:product];
+        
+        [self.navigationController popViewControllerAnimated:YES];
+    }
+}
 /*
 #pragma mark - Navigation
 

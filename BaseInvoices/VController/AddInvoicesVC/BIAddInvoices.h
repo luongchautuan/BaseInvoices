@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface BIAddInvoices : UIViewController<UITextFieldDelegate, UIPickerViewDataSource, UIPickerViewDelegate>
+@interface BIAddInvoices : UIViewController<UITextFieldDelegate, UIPickerViewDataSource, UIPickerViewDelegate, UITableViewDelegate, UITableViewDataSource>
 {
     BOOL checkBoxSelected;
     NSMutableArray *arrData;

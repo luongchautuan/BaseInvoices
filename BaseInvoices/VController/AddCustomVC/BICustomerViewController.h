@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface BICustomerViewController : UIViewController
+@interface BICustomerViewController : UIViewController<UITableViewDataSource, UITableViewDelegate>
 
+@property (nonatomic)BOOL isViewCustomerEdit;
 @end

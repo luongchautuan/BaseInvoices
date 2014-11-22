@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BIProduct.h"
 
 @interface BIAddProducts : UIViewController
 
@@ -21,5 +22,8 @@
 @property (weak, nonatomic) IBOutlet UITextField *edtTaxRate;
 @property (weak, nonatomic) IBOutlet UITextField *edtDesc;
 
+@property (nonatomic)BOOL isEditProduct;
+
+@property (nonatomic, retain)BIProduct* product;
 
 @end

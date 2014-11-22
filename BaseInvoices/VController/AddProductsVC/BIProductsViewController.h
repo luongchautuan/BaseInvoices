@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface BIProductsViewController : UIViewController
+@interface BIProductsViewController : UIViewController<UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic)BOOL isViewEditProduct;
 

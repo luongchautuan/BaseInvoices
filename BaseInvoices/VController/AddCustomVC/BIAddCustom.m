@@ -8,10 +8,14 @@
 
 #import "BIAddCustom.h"
 #import "BIAddInvoices.h"
+#import "BICustomer.h"
+#import "BIAppDelegate.h"
 
 @interface BIAddCustom ()
 
 @end
+
+BIAppDelegate* appdelegate;
 
 @implementation BIAddCustom
 
@@ -27,9 +31,25 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self.txtTitle setText:@"Add Customer"];
+
     [self initScreen];
     // Do any additional setup after loading the view from its nib.
+    
+    appdelegate = (BIAppDelegate *)[[UIApplication sharedApplication] delegate];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    if (self.isEditCustomer)
+    {
+        [self loadCustomerDetails];
+        
+        [self.txtTitle setText:@"Edit Customer"];
+    }
+    else
+    {
+        [self.txtTitle setText:@"Add Customer"];
+    }
 }
 
 - (void)initScreen
@@ -163,7 +183,31 @@
 
 - (IBAction)onSaveCustomer:(id)sender
 {
-    
+    if (self.edtBussinessName.text.length > 0 && self.edtEmail.text.length > 0 && self.edtKeyContact.text.length > 0)
+    {
+        BICustomer* customer = [[BICustomer alloc] init];
+        customer.customerAddress = self.edtAddress.text;
+        customer.customerBussinessName = self.edtBussinessName.text;
+        customer.customerCity = self.edtCity.text;
+        customer.customerEmail = self.edtEmail.text;
+        customer.customerKeyContact = self.edtKeyContact.text;
+        customer.customerPostCode = self.edtPostCode.text;
+        customer.customerTelephone = self.edtPhone.text;
+        
+        [appdelegate.customerForUser addObject:customer];
+    }
+}
+
+- (void)loadCustomerDetails
+{
+    self.edtAddress.text = self.customer.customerAddress;
+    self.edtBussinessName.text = self.customer.customerBussinessName;
+    self.edtCity.text = self.customer.customerCity;
+    self.edtEmail.text = self.customer.customerEmail;
+    self.edtKeyContact.text = self.customer.customerKeyContact;
+    self.edtPostCode.text = self.customer.customerPostCode;
+    self.edtPhone.text = self.customer.customerTelephone;
+
 }
 
 -(void)saveCustomerMethod
