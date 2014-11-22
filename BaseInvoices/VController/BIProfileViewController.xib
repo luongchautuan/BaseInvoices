@@ -47,6 +47,9 @@
                             <state key="normal" backgroundImage="icon_cat.png">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
+                            <connections>
+                                <action selector="onMenuSetting:" destination="-1" eventType="touchUpInside" id="JuS-QQ-twY"/>
+                            </connections>
                         </button>
                     </subviews>
                     <color key="backgroundColor" red="0.4039215686" green="0.68627450980000004" blue="0.070588235289999995" alpha="1" colorSpace="calibratedRGB"/>

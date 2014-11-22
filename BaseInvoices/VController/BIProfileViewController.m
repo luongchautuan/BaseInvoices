@@ -7,6 +7,7 @@
 //
 
 #import "BIProfileViewController.h"
+#import "UIViewController+MMDrawerController.h"
 
 @interface BIProfileViewController ()
 
@@ -37,6 +38,10 @@
 - (IBAction)onSaveProfile:(id)sender
 {
     
+}
+- (IBAction)onMenuSetting:(id)sender
+{
+    [self.mm_drawerController toggleDrawerSide:MMDrawerSideLeft animated:YES completion:nil];
 }
 
 /*

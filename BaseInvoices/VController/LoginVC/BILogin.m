@@ -16,6 +16,9 @@
 #import "ASIHTTPRequest.h"
 #import "BIAppDelegate.h"
 #import "BIUser.h"
+#import "BICustomerViewController.h"
+#import "BIProductsViewController.h"
+#import "BIProfileViewController.h"
 
 @interface BILogin ()
 
@@ -39,8 +42,8 @@ BIAppDelegate *appdelegate;
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
-    self.edtUsername.text = @"test@test.com";
-    self.edtPassword.text = @"test";
+//    self.edtUsername.text = @"test@test.com";
+//    self.edtPassword.text = @"test";
     [self initScreen];
 }
 
@@ -121,31 +124,38 @@ BIAppDelegate *appdelegate;
 {
 }
 
-- (void)selectCategory:(int)ID {
-    switch (ID) {
-        case 0: {
-            BIAddInvoices *objectiveVC = [[BIAddInvoices alloc] initWithNibName:@"BIAddInvoices" bundle:nil];
+- (void)selectCategory:(int)ID
+{
+    switch (ID)
+    {
+        case 0:
+        {
+            BIDashBoard *objectiveVC = [[BIDashBoard alloc] initWithNibName:@"BIDashBoard" bundle:nil];
             [self.navigationController pushViewController:objectiveVC animated:YES];
         }
             break;
-        case 1: {
-            BIAddCustom *experienceVC = [[BIAddCustom alloc] initWithNibName:@"BIAddCustom" bundle:nil];
+        case 1:
+        {
+            BICustomerViewController *experienceVC = [[BICustomerViewController alloc] initWithNibName:@"BICustomerViewController" bundle:nil];
             [self.navigationController pushViewController:experienceVC animated:YES];
         }
             break;
-        case 2: {
-            BIAddProducts *educationVC = [[BIAddProducts alloc] initWithNibName:@"BIAddProducts" bundle:nil];
+        case 2:
+        {
+            BIProductsViewController *educationVC = [[BIProductsViewController alloc] initWithNibName:@"BIProductsViewController" bundle:nil];
             [self.navigationController pushViewController:educationVC animated:YES];
         }
             break;
-        case 3: {
-//            BLSkillVC *skillVC = [[BLSkillVC alloc] initWithNibName:@"BLSkillVC" bundle:nil];
-//            [self.navigationController pushViewController:skillVC animated:YES];
+        case 3:
+        {
+            BIProfileViewController *skillVC = [[BIProfileViewController alloc] initWithNibName:@"BIProfileViewController" bundle:nil];
+            [self.navigationController pushViewController:skillVC animated:YES];
         }
             break;
-        case 4: {
-//            BLReferencesVC *referenceVC = [[BLReferencesVC alloc] initWithNibName:@"BLReferencesVC" bundle:nil];
-//            [self.navigationController pushViewController:referenceVC animated:YES];
+        case 4:
+        {
+            BILogin *referenceVC = [[BILogin alloc] initWithNibName:@"BILogin" bundle:nil];
+            [self.navigationController pushViewController:referenceVC animated:YES];
         }
             break;
         default:
