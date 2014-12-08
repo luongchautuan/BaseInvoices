@@ -1,0 +1,894 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<dict>
+		<key>Country and Currency</key>
+		<string>United States Dollar</string>
+		<key>Code2000</key>
+		<string>$</string>
+		<key>Currency Code</key>
+		<string>USD</string>
+	</dict>
+	<dict>
+		<key>Country and Currency</key>
+		<string>United Kingdom Pound</string>
+		<key>Code2000</key>
+		<string>£</string>
+		<key>Currency Code</key>
+		<string>GBP</string>
+	</dict>
+	<dict>
+		<key>Country and Currency</key>
+		<string>Euro Member Countries</string>
+		<key>Code2000</key>
+		<string>€</string>
+		<key>Currency Code</key>
+		<string>EUR</string>
+	</dict>
+	<dict>
+		<key>Country and Currency</key>
+		<string>Canada Dollar</string>
+		<key>Code2000</key>
+		<string>$</string>
+		<key>Currency Code</key>
+		<string>CAD</string>
+	</dict>
+	<dict>
+		<key>Code2000</key>
+		<string>$</string>
+		<key>Country and Currency</key>
+		<string>Australia Dollar</string>
+		<key>Currency Code</key>
+		<string>AUD</string>
+	</dict>
+	<dict>
+		<key>Country and Currency</key>
+		<string>United States Dollar</string>
+		<key>Code2000</key>
+		<string>؋</string>
+		<key>Currency Code</key>
+		<string>AFN</string>
+	</dict>
+	<dict>
+		<key>Country and Currency</key>
+		<string>Japan Yen</string>
+		<key>Code2000</key>
+		<string>¥</string>
+		<key>Currency Code</key>
+		<string>JPY</string>
+	</dict>
+	<dict>
+		<key>Country and Currency</key>
+		<string>Albania Lek</string>
+		<key>Currency Code</key>
+		<string>ALL</string>
+		<key>Code2000</key>
+		<string>Lek</string>
+	</dict>
+	<dict>
+		<key>Country and Currency</key>
+		<string>Argentina Peso</string>
+		<key>Code2000</key>
+		<string>$</string>
+		<key>Currency Code</key>
+		<string>ARS</string>
+	</dict>
+	<dict>
+		<key>Country and Currency</key>
+		<string>Aruba Guilder</string>
+		<key>Code2000</key>
+		<string>ƒ</string>
+		<key>Currency Code</key>
+		<string>AWG</string>
+	</dict>
+	<dict>
+		<key>Country and Currency</key>
+		<string>Azerbaijan New Manat</string>
+		<key>Code2000</key>
+		<string>ман</string>
+		<key>Currency Code</key>
+		<string>AZN</string>
+	</dict>
+	<dict>
+		<key>Country and Currency</key>
+		<string>Bahamas Dollar</string>
+		<key>Code2000</key>
+		<string>$</string>
+		<key>Currency Code</key>
+		<string>BSD</string>
+	</dict>
+	<dict>
+		<key>Country and Currency</key>
+		<string>Barbados Dollar</string>
+		<key>Code2000</key>
+		<string>$</string>
+		<key>Currency Code</key>
+		<string>BBD</string>
+	</dict>
+	<dict>
+		<key>Country and Currency</key>
+		<string>Belarus Ruble</string>
+		<key>Code2000</key>
+		<string>p.</string>
+		<key>Currency Code</key>
+		<string>BYR</string>
+	</dict>
+	<dict>
+		<key>Country and Currency</key>
+		<string>Belize Dollar</string>
+		<key>Code2000</key>
+		<string>BZ$</string>
+		<key>Currency Code</key>
+		<string>BZD</string>
+	</dict>
+	<dict>
+		<key>Country and Currency</key>
+		<string>Bermuda Dollar</string>
+		<key>Code2000</key>
+		<string>$</string>
+		<key>Currency Code</key>
+		<string>BMD</string>
+	</dict>
+	<dict>
+		<key>Country and Currency</key>
+		<string>Bolivia Boliviano</string>
+		<key>Code2000</key>
+		<string>$b</string>
+		<key>Currency Code</key>
+		<string>BOB</string>
+	</dict>
+	<dict>
+		<key>Country and Currency</key>
+		<string>United States Dollar</string>
+		<key>Code2000</key>
+		<string>KM</string>
+		<key>Currency Code</key>
+		<string>BAM</string>
+	</dict>
+	<dict>
+		<key>Country and Currency</key>
+		<string>Botswana Pula</string>
+		<key>Code2000</key>
+		<string>лв</string>
+		<key>Currency Code</key>
+		<string>BGN</string>
+	</dict>
+	<dict>
+		<key>Country and Currency</key>
+		<string>Brazil Real</string>
+		<key>Code2000</key>
+		<string>R$</string>
+		<key>Currency Code</key>
+		<string>BRL</string>
+	</dict>
+	<dict>
+		<key>Country and Currency</key>
+		<string>Brunei Darussalam Dollar</string>
+		<key>Code2000</key>
+		<string>$</string>
+		<key>Currency Code</key>
+		<string>BND</string>
+	</dict>
+	<dict>
+		<key>Country and Currency</key>
+		<string>Cambodia Riel</string>
+		<key>Code2000</key>
+		<string>៛</string>
+		<key>Currency Code</key>
+		<string>KHR</string>
+	</dict>
+	<dict>
+		<key>Country and Currency</key>
+		<string>Cayman Islands Dollar</string>
+		<key>Code2000</key>
+		<string>$</string>
+		<key>Currency Code</key>
+		<string>KYD</string>
+	</dict>
+	<dict>
+		<key>Country and Currency</key>
+		<string>Chile Peso</string>
+		<key>Code2000</key>
+		<string>$</string>
+		<key>Currency Code</key>
+		<string>CLP</string>
+	</dict>
+	<dict>
+		<key>Country and Currency</key>
+		<string>China Yuan Renminbi</string>
+		<key>Code2000</key>
+		<string>¥</string>
+		<key>Currency Code</key>
+		<string>CNY</string>
+	</dict>
+	<dict>
+		<key>Country and Currency</key>
+		<string>Colombia Peso</string>
+		<key>Code2000</key>
+		<string>$</string>
+		<key>Currency Code</key>
+		<string>COP</string>
+	</dict>
+	<dict>
+		<key>Country and Currency</key>
+		<string>Costa Rica Colon</string>
+		<key>Code2000</key>
+		<string>₡</string>
+		<key>Currency Code</key>
+		<string>CRC</string>
+	</dict>
+	<dict>
+		<key>Country and Currency</key>
+		<string>Croatia Kuna</string>
+		<key>Code2000</key>
+		<string>kn</string>
+		<key>Currency Code</key>
+		<string>HRK</string>
+	</dict>
+	<dict>
+		<key>Country and Currency</key>
+		<string>Cuba Peso</string>
+		<key>Code2000</key>
+		<string>₱</string>
+		<key>Currency Code</key>
+		<string>CUP</string>
+	</dict>
+	<dict>
+		<key>Country and Currency</key>
+		<string>Czech Republic Koruna</string>
+		<key>Code2000</key>
+		<string>Kč</string>
+		<key>Currency Code</key>
+		<string>CZK</string>
+	</dict>
+	<dict>
+		<key>Country and Currency</key>
+		<string>Denmark Krone</string>
+		<key>Code2000</key>
+		<string>kr</string>
+		<key>Currency Code</key>
+		<string>DKK</string>
+	</dict>
+	<dict>
+		<key>Country and Currency</key>
+		<string>Dominican Republic Peso</string>
+		<key>Code2000</key>
+		<string>RD$</string>
+		<key>Currency Code</key>
+		<string>DOP</string>
+	</dict>
+	<dict>
+		<key>Country and Currency</key>
+		<string>East Caribbean Dollar</string>
+		<key>Code2000</key>
+		<string>$</string>
+		<key>Currency Code</key>
+		<string>XCD</string>
+	</dict>
+	<dict>
+		<key>Country and Currency</key>
+		<string>Egypt Pound</string>
+		<key>Code2000</key>
+		<string>£</string>
+		<key>Currency Code</key>
+		<string>EGP</string>
+	</dict>
+	<dict>
+		<key>Country and Currency</key>
+		<string>El Salvador Colon</string>
+		<key>Code2000</key>
+		<string>$</string>
+		<key>Currency Code</key>
+		<string>SVC</string>
+	</dict>
+	<dict>
+		<key>Country and Currency</key>
+		<string>Estonia Kroon</string>
+		<key>Code2000</key>
+		<string>kr</string>
+		<key>Currency Code</key>
+		<string>EEK</string>
+	</dict>
+	<dict>
+		<key>Country and Currency</key>
+		<string>Falkland Islands (Malvinas) Pound</string>
+		<key>Code2000</key>
+		<string>£</string>
+		<key>Currency Code</key>
+		<string>FKP</string>
+	</dict>
+	<dict>
+		<key>Country and Currency</key>
+		<string>Fiji Dollar</string>
+		<key>Code2000</key>
+		<string>$</string>
+		<key>Currency Code</key>
+		<string>FJD</string>
+	</dict>
+	<dict>
+		<key>Country and Currency</key>
+		<string>Ghana Cedi</string>
+		<key>Code2000</key>
+		<string>¢</string>
+		<key>Currency Code</key>
+		<string>GHC</string>
+	</dict>
+	<dict>
+		<key>Country and Currency</key>
+		<string>Gibraltar Pound</string>
+		<key>Code2000</key>
+		<string>£</string>
+		<key>Currency Code</key>
+		<string>GIP</string>
+	</dict>
+	<dict>
+		<key>Country and Currency</key>
+		<string>Guatemala Quetzal</string>
+		<key>Code2000</key>
+		<string>Q</string>
+		<key>Currency Code</key>
+		<string>GTQ</string>
+	</dict>
+	<dict>
+		<key>Country and Currency</key>
+		<string>Guernsey Pound</string>
+		<key>Code2000</key>
+		<string>£</string>
+		<key>Currency Code</key>
+		<string>GGP</string>
+	</dict>
+	<dict>
+		<key>Country and Currency</key>
+		<string>Guyana Dollar</string>
+		<key>Code2000</key>
+		<string>$</string>
+		<key>Currency Code</key>
+		<string>GYD</string>
+	</dict>
+	<dict>
+		<key>Country and Currency</key>
+		<string>Honduras Lempira</string>
+		<key>Code2000</key>
+		<string>L</string>
+		<key>Currency Code</key>
+		<string>HNL</string>
+	</dict>
+	<dict>
+		<key>Country and Currency</key>
+		<string>Hong Kong Dollar</string>
+		<key>Code2000</key>
+		<string>$</string>
+		<key>Currency Code</key>
+		<string>HKD</string>
+	</dict>
+	<dict>
+		<key>Country and Currency</key>
+		<string>Hungary Forint</string>
+		<key>Code2000</key>
+		<string>Ft</string>
+		<key>Currency Code</key>
+		<string>HUF</string>
+	</dict>
+	<dict>
+		<key>Country and Currency</key>
+		<string>Iceland Krona</string>
+		<key>Code2000</key>
+		<string>kr</string>
+		<key>Currency Code</key>
+		<string>ISK</string>
+	</dict>
+	<dict>
+		<key>Country and Currency</key>
+		<string>India Rupee</string>
+		<key>Code2000</key>
+		<string>INR</string>
+		<key>Currency Code</key>
+		<string>INR</string>
+	</dict>
+	<dict>
+		<key>Country and Currency</key>
+		<string>Indonesia Rupiah</string>
+		<key>Code2000</key>
+		<string>Rp</string>
+		<key>Currency Code</key>
+		<string>IDR</string>
+	</dict>
+	<dict>
+		<key>Country and Currency</key>
+		<string>Iran Rial</string>
+		<key>Code2000</key>
+		<string>﷼</string>
+		<key>Currency Code</key>
+		<string>IRR</string>
+	</dict>
+	<dict>
+		<key>Country and Currency</key>
+		<string>Isle of Man Pound</string>
+		<key>Code2000</key>
+		<string>£</string>
+		<key>Currency Code</key>
+		<string>IMP</string>
+	</dict>
+	<dict>
+		<key>Country and Currency</key>
+		<string>Israel Shekel</string>
+		<key>Code2000</key>
+		<string>₪</string>
+		<key>Currency Code</key>
+		<string>ILS</string>
+	</dict>
+	<dict>
+		<key>Country and Currency</key>
+		<string>Jamaica Dollar</string>
+		<key>Code2000</key>
+		<string>J$</string>
+		<key>Currency Code</key>
+		<string>JMD</string>
+	</dict>
+	<dict>
+		<key>Country and Currency</key>
+		<string>Jersey Pound</string>
+		<key>Code2000</key>
+		<string>£</string>
+		<key>Currency Code</key>
+		<string>JEP</string>
+	</dict>
+	<dict>
+		<key>Country and Currency</key>
+		<string>Kazakhstan Tenge</string>
+		<key>Code2000</key>
+		<string>лв</string>
+		<key>Currency Code</key>
+		<string>KZT</string>
+	</dict>
+	<dict>
+		<key>Country and Currency</key>
+		<string>Korea (North) Won</string>
+		<key>Code2000</key>
+		<string>₩</string>
+		<key>Currency Code</key>
+		<string>KRW</string>
+	</dict>
+	<dict>
+		<key>Country and Currency</key>
+		<string>Korea (South) Won</string>
+		<key>Code2000</key>
+		<string>₩</string>
+		<key>Currency Code</key>
+		<string>KRW</string>
+	</dict>
+	<dict>
+		<key>Country and Currency</key>
+		<string>Kyrgyzstan Som</string>
+		<key>Code2000</key>
+		<string>лв</string>
+		<key>Currency Code</key>
+		<string>KGS</string>
+	</dict>
+	<dict>
+		<key>Country and Currency</key>
+		<string>Laos Kip</string>
+		<key>Code2000</key>
+		<string>₭</string>
+		<key>Currency Code</key>
+		<string>LAK</string>
+	</dict>
+	<dict>
+		<key>Country and Currency</key>
+		<string>Latvia Lat</string>
+		<key>Code2000</key>
+		<string>LVL</string>
+		<key>Currency Code</key>
+		<string>LVL</string>
+	</dict>
+	<dict>
+		<key>Country and Currency</key>
+		<string>Lebanon Pound</string>
+		<key>Code2000</key>
+		<string>£</string>
+		<key>Currency Code</key>
+		<string>LBP</string>
+	</dict>
+	<dict>
+		<key>Country and Currency</key>
+		<string>Liberia Dollar</string>
+		<key>Code2000</key>
+		<string>$</string>
+		<key>Currency Code</key>
+		<string>LRD</string>
+	</dict>
+	<dict>
+		<key>Country and Currency</key>
+		<string>Lithuania Litas</string>
+		<key>Code2000</key>
+		<string>Lt</string>
+		<key>Currency Code</key>
+		<string>LTL</string>
+	</dict>
+	<dict>
+		<key>Country and Currency</key>
+		<string>Macedonia Denar</string>
+		<key>Code2000</key>
+		<string>ден</string>
+		<key>Currency Code</key>
+		<string>MKD</string>
+	</dict>
+	<dict>
+		<key>Country and Currency</key>
+		<string>Malaysia Ringgit</string>
+		<key>Code2000</key>
+		<string>RM</string>
+		<key>Currency Code</key>
+		<string>MYR</string>
+	</dict>
+	<dict>
+		<key>Country and Currency</key>
+		<string>Mauritius Rupee</string>
+		<key>Code2000</key>
+		<string>₨</string>
+		<key>Currency Code</key>
+		<string>MUR</string>
+	</dict>
+	<dict>
+		<key>Country and Currency</key>
+		<string>Mexico Peso</string>
+		<key>Code2000</key>
+		<string>$</string>
+		<key>Currency Code</key>
+		<string>MXN</string>
+	</dict>
+	<dict>
+		<key>Country and Currency</key>
+		<string>United States Dollar</string>
+		<key>Code2000</key>
+		<string>₮</string>
+		<key>Currency Code</key>
+		<string>MNT</string>
+	</dict>
+	<dict>
+		<key>Country and Currency</key>
+		<string>United States Dollar</string>
+		<key>Code2000</key>
+		<string>MT</string>
+		<key>Currency Code</key>
+		<string>MZN</string>
+	</dict>
+	<dict>
+		<key>Country and Currency</key>
+		<string>Namibia Dollar</string>
+		<key>Code2000</key>
+		<string>$</string>
+		<key>Currency Code</key>
+		<string>NAD</string>
+	</dict>
+	<dict>
+		<key>Country and Currency</key>
+		<string>Nepal Rupee</string>
+		<key>Code2000</key>
+		<string>₨</string>
+		<key>Currency Code</key>
+		<string>NPR</string>
+	</dict>
+	<dict>
+		<key>Country and Currency</key>
+		<string>Netherlands Antilles Guilder</string>
+		<key>Code2000</key>
+		<string>ƒ</string>
+		<key>Currency Code</key>
+		<string>ANG</string>
+	</dict>
+	<dict>
+		<key>Country and Currency</key>
+		<string>New Zealand Dollar</string>
+		<key>Code2000</key>
+		<string>$</string>
+		<key>Currency Code</key>
+		<string>NZD</string>
+	</dict>
+	<dict>
+		<key>Country and Currency</key>
+		<string>Nicaragua Cordoba</string>
+		<key>Code2000</key>
+		<string>C$</string>
+		<key>Currency Code</key>
+		<string>NIO</string>
+	</dict>
+	<dict>
+		<key>Country and Currency</key>
+		<string>Nigeria Naira</string>
+		<key>Code2000</key>
+		<string>₦</string>
+		<key>Currency Code</key>
+		<string>NGN</string>
+	</dict>
+	<dict>
+		<key>Country and Currency</key>
+		<string>Norway Krone</string>
+		<key>Code2000</key>
+		<string>kr</string>
+		<key>Currency Code</key>
+		<string>NOK</string>
+	</dict>
+	<dict>
+		<key>Country and Currency</key>
+		<string>Oman Rial</string>
+		<key>Code2000</key>
+		<string>﷼</string>
+		<key>Currency Code</key>
+		<string>OMR</string>
+	</dict>
+	<dict>
+		<key>Country and Currency</key>
+		<string>Pakistan Rupee</string>
+		<key>Code2000</key>
+		<string>₨</string>
+		<key>Currency Code</key>
+		<string>PKR</string>
+	</dict>
+	<dict>
+		<key>Country and Currency</key>
+		<string>Panama Balboa</string>
+		<key>Code2000</key>
+		<string>B/.</string>
+		<key>Currency Code</key>
+		<string>PAB</string>
+	</dict>
+	<dict>
+		<key>Country and Currency</key>
+		<string>Paraguay Guarani</string>
+		<key>Code2000</key>
+		<string>Gs</string>
+		<key>Currency Code</key>
+		<string>PYG</string>
+	</dict>
+	<dict>
+		<key>Country and Currency</key>
+		<string>Peru Nuevo Sol</string>
+		<key>Code2000</key>
+		<string>S/.</string>
+		<key>Currency Code</key>
+		<string>PEN</string>
+	</dict>
+	<dict>
+		<key>Country and Currency</key>
+		<string>Philippines Peso</string>
+		<key>Code2000</key>
+		<string>₱</string>
+		<key>Currency Code</key>
+		<string>PHP</string>
+	</dict>
+	<dict>
+		<key>Country and Currency</key>
+		<string>Poland Zloty</string>
+		<key>Code2000</key>
+		<string>PLN</string>
+		<key>Currency Code</key>
+		<string>zł</string>
+	</dict>
+	<dict>
+		<key>Country and Currency</key>
+		<string>Qatar Riyal</string>
+		<key>Code2000</key>
+		<string>﷼</string>
+		<key>Currency Code</key>
+		<string>QAR</string>
+	</dict>
+	<dict>
+		<key>Country and Currency</key>
+		<string>Romania New Leu</string>
+		<key>Code2000</key>
+		<string>lei</string>
+		<key>Currency Code</key>
+		<string>RON</string>
+	</dict>
+	<dict>
+		<key>Country and Currency</key>
+		<string>Russia Ruble</string>
+		<key>Code2000</key>
+		<string>руб</string>
+		<key>Currency Code</key>
+		<string>RUB</string>
+	</dict>
+	<dict>
+		<key>Country and Currency</key>
+		<string>Saint Helena Pound</string>
+		<key>Code2000</key>
+		<string>£</string>
+		<key>Currency Code</key>
+		<string>SHP</string>
+	</dict>
+	<dict>
+		<key>Country and Currency</key>
+		<string>Saudi Arabia Riyal</string>
+		<key>Code2000</key>
+		<string>﷼</string>
+		<key>Currency Code</key>
+		<string>SAR</string>
+	</dict>
+	<dict>
+		<key>Country and Currency</key>
+		<string>Serbia Dinar</string>
+		<key>Code2000</key>
+		<string>Дин.</string>
+		<key>Currency Code</key>
+		<string>RSD</string>
+	</dict>
+	<dict>
+		<key>Country and Currency</key>
+		<string>Seychelles Rupee</string>
+		<key>Code2000</key>
+		<string>₨</string>
+		<key>Currency Code</key>
+		<string>SCR</string>
+	</dict>
+	<dict>
+		<key>Country and Currency</key>
+		<string>Singapore Dollar</string>
+		<key>Code2000</key>
+		<string>$</string>
+		<key>Currency Code</key>
+		<string>SGD</string>
+	</dict>
+	<dict>
+		<key>Country and Currency</key>
+		<string>Solomon Islands Dollar</string>
+		<key>Code2000</key>
+		<string>$</string>
+		<key>Currency Code</key>
+		<string>SBD</string>
+	</dict>
+	<dict>
+		<key>Country and Currency</key>
+		<string>Somalia Shilling</string>
+		<key>Code2000</key>
+		<string>S</string>
+		<key>Currency Code</key>
+		<string>SOS</string>
+	</dict>
+	<dict>
+		<key>Country and Currency</key>
+		<string>South Africa Rand</string>
+		<key>Code2000</key>
+		<string>R</string>
+		<key>Currency Code</key>
+		<string>ZAR</string>
+	</dict>
+	<dict>
+		<key>Country and Currency</key>
+		<string>Sri Lanka Rupee</string>
+		<key>Code2000</key>
+		<string>₨</string>
+		<key>Currency Code</key>
+		<string>LKR</string>
+	</dict>
+	<dict>
+		<key>Country and Currency</key>
+		<string>Sweden Krona</string>
+		<key>Code2000</key>
+		<string>kr</string>
+		<key>Currency Code</key>
+		<string>SEK</string>
+	</dict>
+	<dict>
+		<key>Country and Currency</key>
+		<string>Switzerland Franc</string>
+		<key>Code2000</key>
+		<string>CHF</string>
+		<key>Currency Code</key>
+		<string>CHF</string>
+	</dict>
+	<dict>
+		<key>Country and Currency</key>
+		<string>Suriname Dollar</string>
+		<key>Code2000</key>
+		<string>$</string>
+		<key>Currency Code</key>
+		<string>SRD</string>
+	</dict>
+	<dict>
+		<key>Country and Currency</key>
+		<string>Syria Pound</string>
+		<key>Code2000</key>
+		<string>£</string>
+		<key>Currency Code</key>
+		<string>SYP</string>
+	</dict>
+	<dict>
+		<key>Country and Currency</key>
+		<string>Taiwan New Dollar</string>
+		<key>Code2000</key>
+		<string>NT$</string>
+		<key>Currency Code</key>
+		<string>TWD</string>
+	</dict>
+	<dict>
+		<key>Country and Currency</key>
+		<string>Thailand Baht</string>
+		<key>Code2000</key>
+		<string>฿</string>
+		<key>Currency Code</key>
+		<string>THB</string>
+	</dict>
+	<dict>
+		<key>Country and Currency</key>
+		<string>Trinidad and Tobago Dollar</string>
+		<key>Code2000</key>
+		<string>TT$</string>
+		<key>Currency Code</key>
+		<string>TTD</string>
+	</dict>
+	<dict>
+		<key>Country and Currency</key>
+		<string>Turkey Lira</string>
+		<key>Code2000</key>
+		<string>₤</string>
+		<key>Currency Code</key>
+		<string>TRL</string>
+	</dict>
+	<dict>
+		<key>Country and Currency</key>
+		<string>Tuvalu Dollar</string>
+		<key>Code2000</key>
+		<string>$</string>
+		<key>Currency Code</key>
+		<string>TVD</string>
+	</dict>
+	<dict>
+		<key>Country and Currency</key>
+		<string>Ukraine Hryvnia</string>
+		<key>Code2000</key>
+		<string>₴</string>
+		<key>Currency Code</key>
+		<string>UAH</string>
+	</dict>
+	<dict>
+		<key>Country and Currency</key>
+		<string>Uruguay Peso</string>
+		<key>Code2000</key>
+		<string>$U</string>
+		<key>Currency Code</key>
+		<string>UYU</string>
+	</dict>
+	<dict>
+		<key>Country and Currency</key>
+		<string>Uzbekistan Som</string>
+		<key>Code2000</key>
+		<string>лв</string>
+		<key>Currency Code</key>
+		<string>UZS</string>
+	</dict>
+	<dict>
+		<key>Country and Currency</key>
+		<string>Venezuela Bolivar</string>
+		<key>Code2000</key>
+		<string>Bs</string>
+		<key>Currency Code</key>
+		<string>VEF</string>
+	</dict>
+	<dict>
+		<key>Country and Currency</key>
+		<string>Viet Nam Dong</string>
+		<key>Code2000</key>
+		<string>₫</string>
+		<key>Currency Code</key>
+		<string>VND</string>
+	</dict>
+	<dict>
+		<key>Country and Currency</key>
+		<string>Yemen Rial</string>
+		<key>Code2000</key>
+		<string>﷼</string>
+		<key>Currency Code</key>
+		<string>YER</string>
+	</dict>
+	<dict>
+		<key>Country and Currency</key>
+		<string>Zimbabwe Dollar</string>
+		<key>Code2000</key>
+		<string>Z$</string>
+		<key>Currency Code</key>
+		<string>ZWD</string>
+	</dict>
+</array>
+</plist>

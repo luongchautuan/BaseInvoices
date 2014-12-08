@@ -19,6 +19,9 @@
 #import "BICustomerViewController.h"
 #import "BIProductsViewController.h"
 #import "BIProfileViewController.h"
+#import "NSUserDefaults+RMSaveCustomObject.h"
+//#import "RFRateMe.h"
+#import "BIAddNewBussiness.h"
 
 @interface BILogin ()
 
@@ -83,6 +86,11 @@ BIAppDelegate *appdelegate;
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (IBAction)showCat:(id)sender
+{
+    [self.mm_drawerController toggleDrawerSide:MMDrawerSideLeft animated:YES completion:nil];
 }
 
 - (IBAction)onLogin:(id)sender
@@ -254,8 +262,26 @@ BIAppDelegate *appdelegate;
     
     if (buttonIndex == 1)
     {
-        BIDashBoard *pushToVC = [[BIDashBoard alloc] initWithNibName:@"BIDashBoard" bundle:nil];
-        [self.navigationController pushViewController:pushToVC animated:YES];
+        //Check user config or check created bussiness
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        BOOL isExistBussiness = [defaults boolForKey:@"bussiness"];
+
+        if (isExistBussiness)
+        {
+            BIBussiness* bussinessForUser = [defaults rm_customObjectForKey:@"bussinessForUser"];
+            appdelegate.bussinessForUser = bussinessForUser;
+            
+            appdelegate.isLoginSucesss = NO;
+            
+            BIDashBoard *pushToVC = [[BIDashBoard alloc] initWithNibName:@"BIDashBoard" bundle:nil];
+            [self.navigationController pushViewController:pushToVC animated:YES];
+
+        }
+        else
+        {
+            BIAddNewBussiness *pushToVC = [[BIAddNewBussiness alloc] initWithNibName:@"BIAddNewBussiness" bundle:nil];
+            [self.navigationController pushViewController:pushToVC animated:YES];
+        }
     }
 }
 

@@ -9,6 +9,7 @@
 #import "BIProductsViewController.h"
 #import "BIAddProducts.h"
 #import "BIAppDelegate.h"
+#import "NSUserDefaults+RMSaveCustomObject.h"
 
 @interface BIProductsViewController ()
 
@@ -28,6 +29,19 @@ BIAppDelegate* appdelegate;
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSMutableArray* productsForUser = [[NSMutableArray alloc] init];
+    productsForUser = [defaults rm_customObjectForKey:@"productsForUser"];
+//
+    NSLog(@"ProductForuser: %@", productsForUser);
+    
+    if (productsForUser.count > 0) {
+        appdelegate.productsForUser = productsForUser;
+    }
+    
+    BIBussiness* bussinessForUser = [defaults rm_customObjectForKey:@"bussinessForUser"];
+    appdelegate.bussinessForUser = bussinessForUser;
+    
     [self.tableView reloadData];
 }
 
@@ -39,12 +53,21 @@ BIAppDelegate* appdelegate;
 - (IBAction)onAddProduct:(id)sender
 {
     BIAddProducts *pushToVC = [[BIAddProducts alloc] initWithNibName:@"BIAddProducts" bundle:nil];
-    [self.navigationController pushViewController:pushToVC animated:YES];
+    [self presentViewController:pushToVC animated:YES completion:nil];
+//    [self.navigationController pushViewController:pushToVC animated:YES];
 }
 
 - (IBAction)onCloseViewController:(id)sender
 {
-    [self.navigationController popViewControllerAnimated:YES];
+    if (self.isViewEditProduct) {
+        [self.navigationController popViewControllerAnimated:YES];
+    }
+    else
+    {
+       [self dismissViewControllerAnimated:YES completion:nil]; 
+    }
+    
+
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -82,13 +105,17 @@ BIAppDelegate* appdelegate;
         [pushToVC setIsEditProduct:YES];
         [pushToVC setProduct:product];
         
-        [self.navigationController pushViewController:pushToVC animated:YES];
+        [self presentViewController:pushToVC animated:YES completion:nil];
+//        [self.navigationController pushViewController:pushToVC animated:YES];
     }
     else
     {
+        
         [appdelegate.productsFroAddInvoices addObject:product];
         
-        [self.navigationController popViewControllerAnimated:YES];
+        [self dismissViewControllerAnimated:YES completion:nil];
+        [self.delegate checkCallback];
+//        [self.navigationController popViewControllerAnimated:YES];
     }
 }
 /*

@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "BLLeftSideVC.h"
 
-@interface BIDashBoard : UIViewController
+@interface BIDashBoard : UIViewController<BLLeftSideDelegate>
 @property (weak, nonatomic) IBOutlet UIButton *btnCategory;
 @property (weak, nonatomic) IBOutlet UIButton *btnAddinvoice;
 @property (weak, nonatomic) IBOutlet UIView *viewAddMore;
@@ -20,5 +20,7 @@
 - (IBAction)showCat:(id)sender;
 
 @property (weak, nonatomic) IBOutlet UILabel *txtTitle;
+@property (weak, nonatomic) IBOutlet UIView *viewPopUp;
 
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
 @end

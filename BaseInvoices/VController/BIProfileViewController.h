@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <MessageUI/MessageUI.h>
 
-@interface BIProfileViewController : UIViewController<UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate>
+@interface BIProfileViewController : UIViewController<UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate, MFMailComposeViewControllerDelegate, UIAlertViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UIImageView *imageProfile;
 @property (weak, nonatomic) IBOutlet UILabel *lblDisplayName;
@@ -18,5 +19,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *txtEmail;
 @property (weak, nonatomic) IBOutlet UIView *viewPopUp;
 @property (weak, nonatomic) IBOutlet UIView *viewPopUpMain;
+@property (weak, nonatomic) IBOutlet UIButton *btnEditImage;
+@property (weak, nonatomic) IBOutlet UIButton *btnEditDisplayName;
 
 @end

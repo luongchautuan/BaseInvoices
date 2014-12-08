@@ -10,6 +10,9 @@
 #import "BIAddInvoices.h"
 #import "BICustomer.h"
 #import "BIAppDelegate.h"
+#import "NSUserDefaults+RMSaveCustomObject.h"
+
+#define ACCEPTABLE_CHARECTERS @"+0123456789"
 
 @interface BIAddCustom ()
 
@@ -118,7 +121,8 @@ BIAppDelegate* appdelegate;
     }
     else
     {
-        [self.navigationController popViewControllerAnimated:YES];
+        [self dismissViewControllerAnimated:YES completion:nil];
+//        [self.navigationController popViewControllerAnimated:YES];
     }
    
 }
@@ -127,7 +131,8 @@ BIAppDelegate* appdelegate;
 {
     if (buttonIndex == 0)
     {
-        [self.navigationController popViewControllerAnimated:YES];
+        [self dismissViewControllerAnimated:YES completion:nil];
+//        [self.navigationController popViewControllerAnimated:YES];
     }
     else
     {
@@ -162,11 +167,11 @@ BIAppDelegate* appdelegate;
     }
     if (textField.tag==1)
     {
-        [self.scrollView setContentOffset:CGPointMake(0,100)];
+        [self.scrollView setContentOffset:CGPointMake(0,140)];
     }
     if (textField.tag==2)
     {
-        [self.scrollView setContentOffset:CGPointMake(0,150)];
+        [self.scrollView setContentOffset:CGPointMake(0,180)];
     }
 }
 
@@ -188,9 +193,24 @@ BIAppDelegate* appdelegate;
     return YES;
 }
 
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string  {
+    
+    if(textField.tag == 1)
+    {
+        NSCharacterSet *cs = [[NSCharacterSet characterSetWithCharactersInString:ACCEPTABLE_CHARECTERS] invertedSet];
+        
+        NSString *filtered = [[string componentsSeparatedByCharactersInSet:cs] componentsJoinedByString:@""];
+        
+        return [string isEqualToString:filtered];
+    }
+
+    return YES;
+}
+
+
 - (IBAction)onSaveCustomer:(id)sender
 {
-    if (self.edtBussinessName.text.length > 0 && self.edtEmail.text.length > 0 && self.edtKeyContact.text.length > 0)
+    if (self.edtBussinessName.text.length > 0 && self.edtEmail.text.length > 0)
     {
         NSString *emailRegEx = @"[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}";
         NSPredicate *emailTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", emailRegEx];
@@ -208,20 +228,67 @@ BIAppDelegate* appdelegate;
         }
         else
         {
-            BICustomer* customer = [[BICustomer alloc] init];
-            customer.customerAddress = self.edtAddress.text;
-            customer.customerBussinessName = self.edtBussinessName.text;
-            customer.customerCity = self.edtCity.text;
-            customer.customerEmail = self.edtEmail.text;
-            customer.customerKeyContact = self.edtKeyContact.text;
-            customer.customerPostCode = self.edtPostCode.text;
-            customer.customerTelephone = self.edtPhone.text;
-            
-            [appdelegate.customerForUser addObject:customer];
-            
-            [self.navigationController popViewControllerAnimated:YES];
+            NSLog(@"Phone: %lu", (unsigned long)self.edtPhone.text.length);
+            if (self.edtPhone.text.length > 0 && self.edtPhone.text.length < 5)
+            {
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"The phone number must at least 5 characters. Please insert again" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+                [alert show];
+                
+                return;
+            }
+            else
+            {
+                if (self.isEditCustomer)
+                {
+                    BICustomer* customer = [appdelegate.customerForUser objectAtIndex:self.indexPathSelected.row];
+                    customer.customerAddress = self.edtAddress.text;
+                    customer.customerBussinessName = self.edtBussinessName.text;
+                    customer.customerCity = self.edtCity.text;
+                    customer.customerEmail = self.edtEmail.text;
+                    customer.customerKeyContact = self.edtKeyContact.text;
+                    customer.customerPostCode = self.edtPostCode.text;
+                    customer.customerTelephone = self.edtPhone.text;
+                    
+                    NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
+                    [defaults rm_setCustomObject:appdelegate.customerForUser forKey:@"customerForUser"];
+                }
+                else
+                {
+                    BICustomer* customer = [[BICustomer alloc] init];
+                    customer.customerAddress = self.edtAddress.text;
+                    customer.customerBussinessName = self.edtBussinessName.text;
+                    customer.customerCity = self.edtCity.text;
+                    customer.customerEmail = self.edtEmail.text;
+                    customer.customerKeyContact = self.edtKeyContact.text;
+                    customer.customerPostCode = self.edtPostCode.text;
+                    customer.customerTelephone = self.edtPhone.text;
+                    
+                    [appdelegate.customerForUser addObject:customer];
+                    
+                    NSMutableArray* arrayTosave = [[NSMutableArray alloc] init];
+                    arrayTosave = appdelegate.customerForUser;
+                    
+                    NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
+                    [defaults rm_setCustomObject:appdelegate.customerForUser forKey:@"customerForUser"];
+
+                    
+                }
+                
+//                if (self.isEditCustomer) {
+//                    [self.navigationController popViewControllerAnimated:YES];
+//                }
+//                else
+                    [self dismissViewControllerAnimated:YES completion:nil];
+                
+
+            }
         }
 
+    }
+    else
+    {
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Warning" message:@"Please fill all text fields" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [alert show];
     }
 }
 

@@ -10,6 +10,8 @@
 #import "BIAddInvoices.h"
 #import "BIProduct.h"
 #import "BIAppDelegate.h"
+#import "NSUserDefaults+RMSaveCustomObject.h"
+#define ACCEPTABLE_CHARECTERS @"+0123456789."
 
 @interface BIAddProducts ()
 
@@ -96,15 +98,24 @@ BIAppDelegate* appdelegate;
 
 - (void)loadProductDetail
 {
+    
+    self.unitPrice = self.product.productUnitPrice;
+    
+    NSLog(@"Currency symbol: %@", self.product.productUnitPrice );
+    NSString* amountAfterFormat = [[NSString stringWithFormat:@"%@ ", appdelegate.bussinessForUser.currencySymbol] stringByAppendingString:self.unitPrice];
+
+    NSString* taxAfterFormat = [NSString stringWithFormat:@"%@ %%", self.product.productTaxRate];
+    
     self.edtName.text = self.product.productName;
     self.edtDesc.text = self.product.productDescription;
-    self.edtTaxRate.text = self.product.productTaxRate;
-    self.edtUnitPrice.text = self.product.productUnitPrice;
+    self.edtTaxRate.text = taxAfterFormat;
+    self.edtUnitPrice.text = amountAfterFormat;
 }
 
 - (IBAction)onBack:(id)sender
 {
-    [self.navigationController popViewControllerAnimated:YES];
+    [self dismissViewControllerAnimated:YES completion:nil];
+//    [self.navigationController popViewControllerAnimated:YES];
 }
 
 #pragma mark return to close soft keyboard
@@ -119,17 +130,92 @@ BIAppDelegate* appdelegate;
 
 - (IBAction)onSaveProduct:(id)sender
 {
-    if (self.edtName.text.length > 0 && self.edtTaxRate.text.length > 0 && self.edtUnitPrice.text.length > 0)
+    if (self.edtName.text.length > 0 && self.edtUnitPrice.text.length > 0)
     {
-        BIProduct* product = [[BIProduct alloc] init];
-        product.productName = self.edtName.text;
-        product.productDescription = self.edtDesc.text;
-        product.productTaxRate = self.edtTaxRate.text;
-        product.productUnitPrice = self.edtUnitPrice.text;
+        if (self.edtTaxRate.text.length <= 0) {
+            self.tax = @"0";
+            self.edtTaxRate.text = @" 0 %";
+        }
         
-        [appdelegate.productsForUser addObject:product];
+       
+        if (!self.isEditProduct)
+        {
+            NSLog(@"Number: %@", self.edtUnitPrice.text);
+            
+            if ([self.edtUnitPrice.text rangeOfString:[NSString stringWithFormat:@"%@", appdelegate.bussinessForUser.currencySymbol]].length == 0)
+            {
+                NSLog(@"Number 1: %@", self.edtUnitPrice.text);
+                if ([self.edtUnitPrice.text rangeOfString:@","].length != 0) {
+                    
+                    NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
+                    NSLocale *localeCurrency = [[NSLocale alloc]
+                                                initWithLocaleIdentifier:@"en"];
+                    [formatter setLocale:localeCurrency];
+                    [formatter setNumberStyle:NSNumberFormatterCurrencyStyle];
+                    
+                    NSString *groupingSeparator = [[NSLocale currentLocale] objectForKey:NSLocaleGroupingSeparator];
+                    [formatter setGroupingSeparator:groupingSeparator];
+                    [formatter setGroupingSize:3];
+                    [formatter setAlwaysShowsDecimalSeparator:NO];
+                    [formatter setUsesGroupingSeparator:YES];
+
+                    
+                    self.edtUnitPrice.text = [self.edtUnitPrice.text stringByReplacingOccurrencesOfString:@"," withString:@""];
+                    
+                    self.unitPrice = self.edtUnitPrice.text;
+                    
+                    NSString* amt = [[formatter stringFromNumber:[NSNumber numberWithFloat:[self.edtUnitPrice.text floatValue]]] substringFromIndex:1];
+                    
+                    self.price = amt;
+                }
+                else{
+                    self.price = self.edtUnitPrice.text;
+                }
+               
+            }
+           
+            
+            BIProduct* product = [[BIProduct alloc] init];
+            product.productName = self.edtName.text;
+            product.productDescription = self.edtDesc.text;
+            product.productTaxRate = self.tax;
+            product.productUnitPrice = self.price;
+            product.numberOfUnit = 1;
+            
+            [appdelegate.productsForUser addObject:product];
+        }
+        else
+        {
+            NSPredicate *resultPredicate = [NSPredicate predicateWithFormat:@"productName contains[c] %@", self.edtName.text];
+            
+            for (BIProduct* product in [appdelegate.productsForUser filteredArrayUsingPredicate:resultPredicate])
+            {
+                product.productName = self.edtName.text;
+                product.productDescription = self.edtDesc.text;
+                product.productTaxRate = self.edtTaxRate.text;
+                product.productUnitPrice = self.unitPrice;
+//                product.numberOfUnit = 1;
+            }
+        }
         
-        [self.navigationController popViewControllerAnimated:YES];
+        NSLog(@"ProductForuser: %@", appdelegate.productsForUser);
+//
+//        NSMutableArray* arrayTosave = [[NSMutableArray alloc] init];
+//        arrayTosave = appdelegate.productsForUser;
+//        
+        NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
+        [defaults rm_setCustomObject:appdelegate.productsForUser forKey:@"productsForUser"];
+//        [defaults synchronize];
+        
+        if (self.isEditProduct)
+        {
+            [self.navigationController popViewControllerAnimated:YES];
+        }
+        else
+        {
+            [self dismissViewControllerAnimated:YES completion:nil];
+        }
+        
     }
     else
     {
@@ -137,4 +223,116 @@ BIAppDelegate* appdelegate;
         [alert show];
     }
 }
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string  {
+    
+    if(textField.tag == 5 || textField.tag == 10)
+    {
+        NSLog(@"String: %@", string);
+        
+        NSCharacterSet *cs = [[NSCharacterSet characterSetWithCharactersInString:ACCEPTABLE_CHARECTERS] invertedSet];
+        
+        NSString *filtered = [[string componentsSeparatedByCharactersInSet:cs] componentsJoinedByString:@""];
+        
+        return [string isEqualToString:filtered];
+    }
+
+    return YES;
+}
+
+
+-(void)textFieldDidEndEditing:(UITextField *)textField
+{
+    
+    if (textField.tag == 5)
+    {
+        NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
+        NSLocale *localeCurrency = [[NSLocale alloc]
+                                    initWithLocaleIdentifier:@"en"];
+        [formatter setLocale:localeCurrency];
+        [formatter setNumberStyle:NSNumberFormatterCurrencyStyle];
+        
+        NSString *groupingSeparator = [[NSLocale currentLocale] objectForKey:NSLocaleGroupingSeparator];
+        [formatter setGroupingSeparator:groupingSeparator];
+        [formatter setGroupingSize:3];
+        [formatter setAlwaysShowsDecimalSeparator:NO];
+        [formatter setUsesGroupingSeparator:YES];
+        
+        if ([textField.text rangeOfString:@","].length != 0) {
+            textField.text = [textField.text stringByReplacingOccurrencesOfString:@"," withString:@""];
+        }
+//        if ([textField.text containsString:@","] ) {
+//            textField.text = [textField.text stringByReplacingOccurrencesOfString:@"," withString:@""];
+//        }
+       
+        self.unitPrice = textField.text;
+        
+        NSString* amt = [[formatter stringFromNumber:[NSNumber numberWithFloat:[textField.text floatValue]]] substringFromIndex:1];
+        
+        self.price = amt;
+        
+        NSLog(@"Currency symbol: %@", amt);
+        NSString* amountAfterFormat = [[NSString stringWithFormat:@"%@ ", appdelegate.bussinessForUser.currencySymbol] stringByAppendingString:amt];
+        
+        if (textField.text.length) {
+            self.edtUnitPrice.text = amountAfterFormat;
+        }     
+    }
+    
+    if (textField.tag == 10)
+    {
+        if ([textField.text rangeOfString:@"%%"].length != 0) {
+            textField.text = [textField.text stringByReplacingOccurrencesOfString:@"%%" withString:@""];
+        }
+        
+//        if ([textField.text containsString:@"%%"]) {
+//            textField.text = [textField.text stringByReplacingOccurrencesOfString:@"%%" withString:@""];
+//        }
+        self.tax = textField.text;
+        
+        if (textField.text.length > 0)
+        {
+            self.edtTaxRate.text = [NSString stringWithFormat:@"%@ %%",self.tax];
+        }
+    }
+}
+
+- (void)textFieldDidBeginEditing:(UITextField *)textField
+{
+    if (textField.tag == 5)
+    {
+        if ([self.unitPrice rangeOfString:@","].length != 0) {
+            self.unitPrice = [self.unitPrice stringByReplacingOccurrencesOfString:@"," withString:@""];
+        }
+        
+//        if ([self.unitPrice containsString:@","] )
+//        {
+//            self.unitPrice = [self.unitPrice stringByReplacingOccurrencesOfString:@"," withString:@""];
+//        }
+        
+        if (textField.text.length > 0)
+        {
+                self.edtUnitPrice.text = [NSString stringWithFormat:@"%.2f", [self.unitPrice floatValue]];
+        }
+    }
+    
+    if (textField.tag == 10)
+    {
+        if ([textField.text rangeOfString:@"%%"].length != 0) {
+            textField.text = [textField.text stringByReplacingOccurrencesOfString:@"%%" withString:@""];
+            NSLog(@"Tax: %@", textField.text );
+            self.tax = textField.text;
+            
+            self.edtTaxRate.text = self.tax;
+        }
+//        if ([textField.text containsString:@"%%"])
+//        {
+//            textField.text = [textField.text stringByReplacingOccurrencesOfString:@"%%" withString:@""];
+//            NSLog(@"Tax: %@", textField.text );
+//            self.tax = textField.text;
+//            
+//            self.edtTaxRate.text = self.tax;
+//        }
+    }
+}
+
 @end

@@ -10,6 +10,7 @@
 #import "BIAddCustom.h"
 #import "BIAddInvoices.h"
 #import "BIAppDelegate.h"
+#import "NSUserDefaults+RMSaveCustomObject.h"
 
 @interface BICustomerViewController ()
 
@@ -28,6 +29,17 @@ BIAppDelegate* appdelegate;
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSMutableArray* customerForUser = [[NSMutableArray alloc] init];
+    
+    customerForUser = [defaults rm_customObjectForKey:@"customerForUser"];
+    
+    if (customerForUser.count > 0)
+    {
+        appdelegate.customerForUser = customerForUser;
+    }
+    
+    
     
     [self.tableView reloadData];
 }
@@ -40,12 +52,28 @@ BIAppDelegate* appdelegate;
 - (IBAction)onAddCustomer:(id)sender
 {
     BIAddCustom *pushToVC = [[BIAddCustom alloc] initWithNibName:@"BIAddCustom" bundle:nil];
-    [self.navigationController pushViewController:pushToVC animated:YES];
+    
+    if (self.isViewCustomerEdit)
+    {
+        [self presentViewController:pushToVC animated:YES completion:nil];
+//        [self.navigationController pushViewController:pushToVC animated:YES];
+    }
+    else
+    {
+        [self presentViewController:pushToVC animated:YES completion:nil];
+    }
+    
 }
 
 - (IBAction)onCloseViewController:(id)sender
 {
-    [self.navigationController popViewControllerAnimated:YES];
+    if (self.isViewCustomerEdit) {
+//        [self dismissViewControllerAnimated:YES completion:nil];
+        [self.navigationController popViewControllerAnimated:YES];
+    }
+    else
+        [self dismissViewControllerAnimated:YES completion:nil];
+    
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -82,14 +110,17 @@ BIAppDelegate* appdelegate;
         BIAddCustom *pushToVC = [[BIAddCustom alloc] initWithNibName:@"BIAddCustom" bundle:nil];
         [pushToVC setIsEditCustomer:YES];
         [pushToVC setCustomer:customer];
+        [pushToVC setIndexPathSelected:indexPath];
         
-        [self.navigationController pushViewController:pushToVC animated:YES];
+        [self presentViewController:pushToVC animated:YES completion:nil];
+//        [self.navigationController pushViewController:pushToVC animated:YES];
     }
     else
     {
         appdelegate.currentCustomerForAddInvoice = customer;
         
-        [self.navigationController popViewControllerAnimated:YES];
+        [self dismissViewControllerAnimated:YES completion:nil];
+//        [self.navigationController popViewControllerAnimated:YES];
     }
     
 }

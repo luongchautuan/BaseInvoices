@@ -7,8 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BIInvoice.h"
+#import <MessageUI/MessageUI.h>
+#import "NDHTMLtoPDF.h"
+#import "BIProductsViewController.h"
 
-@interface BIAddInvoices : UIViewController<UITextFieldDelegate, UIPickerViewDataSource, UIPickerViewDelegate, UITableViewDelegate, UITableViewDataSource>
+@interface BIAddInvoices : UIViewController<UITextFieldDelegate, UIPickerViewDataSource, UIPickerViewDelegate, UITableViewDelegate, UITableViewDataSource, NDHTMLtoPDFDelegate,MFMailComposeViewControllerDelegate, UIAlertViewDelegate, BIProductsViewControllerDelegate>
 {
     BOOL checkBoxSelected;
     NSMutableArray *arrData;
@@ -21,9 +25,39 @@
     
     //0: datetime in add invoices, 1: datetime in popup
     int isCheckTypeInPopup;
+    
+    MFMailComposeViewController *mailComposer;
+    NSString *currFile;
 }
 
 #pragma mark init view add invoices
+
+@property (nonatomic)float subTotal;
+@property (nonatomic)float taxes;
+@property (nonatomic)float total;
+@property (nonatomic)float totalAmount;
+@property (nonatomic)NSString* amountPaid;
+@property (nonatomic)NSString* html;
+
+@property (strong, nonatomic) IBOutlet UIView *viewPdfPreview;
+@property (weak, nonatomic) IBOutlet UIWebView *webViewPdf;
+@property (weak, nonatomic) IBOutlet UIView *viewPdfPreviewMain;
+
+@property (weak, nonatomic) IBOutlet UITextField *txtNoteDescriptionPayment;
+@property (weak, nonatomic) IBOutlet UITableView *tableViewPaymentTerms;
+@property (weak, nonatomic) IBOutlet UIView *viewForPaymentTermsChild;
+@property (weak, nonatomic) IBOutlet UIView *viewForTablePayments;
+@property (weak, nonatomic) IBOutlet UITextField *txtPaymentTerm;
+
+@property (weak, nonatomic) IBOutlet UIView *viewForPaymentTerms;
+@property (nonatomic, strong) NDHTMLtoPDF *PDFCreator;
+@property (nonatomic)NSMutableArray* paymentTerms;
+
+@property (nonatomic)NSIndexPath* indexPathSelected;
+
+@property (nonatomic, retain)BIInvoice* invoiceEdit;
+@property (nonatomic, retain)BIBussiness* bussinessSelected;
+
 @property (weak, nonatomic) IBOutlet UIButton *btnAddCustom;
 @property (weak, nonatomic) IBOutlet UIButton *btnAddProduct;
 @property (weak, nonatomic) IBOutlet UIButton *btnCategory;
@@ -102,8 +136,17 @@
 - (IBAction)onCheckOtherPopup:(id)sender;
 - (IBAction)onShowViewLstDataFromDialogPopup:(id)sender;
 @property (weak, nonatomic) IBOutlet UITextField *txtBussiness;
+@property (weak, nonatomic) IBOutlet UILabel *lblSubTotal;
+@property (weak, nonatomic) IBOutlet UILabel *lblTaxes;
+@property (weak, nonatomic) IBOutlet UILabel *lblTotal;
+@property (weak, nonatomic) IBOutlet UILabel *lblOutStanding;
 
 @property (weak, nonatomic) IBOutlet UIView *viewMarkPaid;
+@property (weak, nonatomic) IBOutlet UIView *viewPopUpAddUnitMain;
+@property (weak, nonatomic) IBOutlet UITextField *txtProductName;
+@property (weak, nonatomic) IBOutlet UITextField *txtNumberOfUnit;
+@property (weak, nonatomic) IBOutlet UIButton *btnClosePopUpUnit;
 
+@property (weak, nonatomic) IBOutlet UIView *viewPopUpAddNumberUnit;
 - (void)setNewPositionOfViewListData:(int)type;
 @end

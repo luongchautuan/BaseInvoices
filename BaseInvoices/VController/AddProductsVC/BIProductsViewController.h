@@ -8,8 +8,15 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol BIProductsViewControllerDelegate <NSObject>
+
+- (void)checkCallback;
+
+@end
+
 @interface BIProductsViewController : UIViewController<UITableViewDataSource, UITableViewDelegate>
 
+@property (nonatomic) id<BIProductsViewControllerDelegate> delegate;
 @property (nonatomic)BOOL isViewEditProduct;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 

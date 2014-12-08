@@ -8,10 +8,13 @@
 
 #import "BLLeftSideVC.h"
 #import "UIViewController+MMDrawerController.h"
+#import "BIAppDelegate.h"
 
 @interface BLLeftSideVC ()
 
 @end
+
+BIAppDelegate* appdelegate;
 
 @implementation BLLeftSideVC
 
@@ -24,24 +27,49 @@
     return self;
 }
 
-- (void)viewDidLoad
+- (void)viewWillAppear:(BOOL)animated
 {
-    [super viewDidLoad];
-    
+    if (!appdelegate.isLoginSucesss)
+    {
+        self.img_thumb.image = [UIImage imageNamed:@"no_img.jpg"];
+        self.lblDisplayName.text = @"User Default";
+    }
+    else
+    {
+        self.img_thumb.image = appdelegate.currentUser.imageUser;
+        self.lblDisplayName.text = appdelegate.currentUser.displayName;
+    }
+      
     self.myTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     
-    NSDictionary *dic1 = [[NSDictionary alloc] initWithObjectsAndKeys:@"Invoices", @"title", @"", @"detail", @"menu_img_invoice.png", @"icon", nil];
-    NSDictionary *dic2 = [[NSDictionary alloc] initWithObjectsAndKeys:@"Customers", @"title", @"", @"detail", @"menu_img_customer.png", @"icon", nil];
-    NSDictionary *dic3 = [[NSDictionary alloc] initWithObjectsAndKeys:@"Products", @"title", @"", @"detail", @"menu_img_product.png", @"icon", nil];
-    NSDictionary *dic4 = [[NSDictionary alloc] initWithObjectsAndKeys:@"Settings", @"title", @"", @"detail", @"menu_img_settings.png", @"icon", nil];
-    NSDictionary *dic5 = [[NSDictionary alloc] initWithObjectsAndKeys:@"Sign Out", @"title", @"", @"detail", @"menu_img_logout.png", @"icon", nil];
+    NSDictionary *invoice = [[NSDictionary alloc] initWithObjectsAndKeys:@"Invoices", @"title", @"", @"detail", @"menu_img_invoice.png", @"icon", nil];
+    NSDictionary *customers = [[NSDictionary alloc] initWithObjectsAndKeys:@"Customers", @"title", @"", @"detail", @"menu_img_customer.png", @"icon", nil];
+    NSDictionary *products = [[NSDictionary alloc] initWithObjectsAndKeys:@"Products", @"title", @"", @"detail", @"menu_img_product.png", @"icon", nil];
+    NSDictionary *settings = [[NSDictionary alloc] initWithObjectsAndKeys:@"Settings", @"title", @"", @"detail", @"menu_img_settings.png", @"icon", nil];
+    NSDictionary *signout = [[NSDictionary alloc] initWithObjectsAndKeys:@"Sign Out", @"title", @"", @"detail", @"menu_img_logout.png", @"icon", nil];
+    NSDictionary *bussines = [[NSDictionary alloc] initWithObjectsAndKeys:@"Business", @"title", @"", @"detail", @"business_icon.png", @"icon", nil];
     
-    self.img_thumb.layer.borderWidth = 1.0f;
+    if (!appdelegate.isLoginSucesss) {
+        signout = [[NSDictionary alloc] initWithObjectsAndKeys:@"Login", @"title", @"", @"detail", @"menu_img_logout.png", @"icon", nil];
+    }
+    
+    //    self.img_thumb.layer.borderWidth = 1.0f;
     self.img_thumb.layer.masksToBounds = NO;
     self.img_thumb.clipsToBounds = YES;
     self.img_thumb.layer.cornerRadius = 40;
     
-    arrData = [NSArray arrayWithObjects:dic1, dic2, dic3, dic4, dic5, nil];
+    arrData = [NSArray arrayWithObjects:invoice, customers, products, bussines, settings, signout, nil];
+    
+    
+    [self.myTableView reloadData];
+}
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    
+    appdelegate = (BIAppDelegate *)[[UIApplication sharedApplication] delegate];
+    
 }
 
 - (void)didReceiveMemoryWarning
@@ -74,7 +102,8 @@
     return cell;
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
     [self.delegate selectCategory:indexPath.row];
     [self.mm_drawerController closeDrawerAnimated:YES completion:nil];
 }

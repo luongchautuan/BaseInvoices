@@ -26,4 +26,8 @@
 @property (nonatomic)NSString* totalInvoices;
 @property (nonatomic)NSString* outStanding;
 
+@property (nonatomic)float totalOutSanding;
+
+@property (nonatomic)BOOL isPaided;
+
 @end

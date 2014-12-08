@@ -7,6 +7,8 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="BIProfileViewController">
             <connections>
+                <outlet property="btnEditDisplayName" destination="KuO-G2-2Yl" id="hqc-pB-yBO"/>
+                <outlet property="btnEditImage" destination="zgi-sd-ab4" id="8by-zq-udl"/>
                 <outlet property="imageProfile" destination="2Sz-bj-wNt" id="bXd-xb-ibP"/>
                 <outlet property="lblDisplayName" destination="nGz-SF-hAV" id="EYr-rE-Uh0"/>
                 <outlet property="lblEmail" destination="K6Y-Hz-HjL" id="tLt-Jg-Jf6"/>
@@ -38,7 +40,7 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DnM-y8-ech">
-                            <rect key="frame" x="267" y="13" width="45" height="23"/>
+                            <rect key="frame" x="263" y="10" width="50" height="29"/>
                             <state key="normal" backgroundImage="addproduct_btn_save.png">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
@@ -47,7 +49,7 @@
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2kX-aH-ihG">
-                            <rect key="frame" x="8" y="16" width="25" height="20"/>
+                            <rect key="frame" x="8" y="12" width="30" height="25"/>
                             <state key="normal" backgroundImage="icon_cat.png">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
@@ -59,7 +61,7 @@
                     <color key="backgroundColor" red="0.4039215686" green="0.68627450980000004" blue="0.070588235289999995" alpha="1" colorSpace="calibratedRGB"/>
                     <inset key="insetFor6xAndEarlier" minX="0.0" minY="20" maxX="0.0" maxY="-20"/>
                 </view>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="profile.png" translatesAutoresizingMaskIntoConstraints="NO" id="2Sz-bj-wNt">
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="no_img.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="2Sz-bj-wNt">
                     <rect key="frame" x="85" y="121" width="150" height="150"/>
                 </imageView>
                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zgi-sd-ab4">
@@ -86,12 +88,21 @@
                         <action selector="onEditDisplayName:" destination="-1" eventType="touchUpInside" id="qxl-cK-kVa"/>
                     </connections>
                 </button>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="skyatnight.luong@gmail.com" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K6Y-Hz-HjL">
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="support@baseinvoices.com" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K6Y-Hz-HjL">
                     <rect key="frame" x="8" y="319" width="304" height="21"/>
                     <fontDescription key="fontDescription" type="system" pointSize="11"/>
                     <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LLM-ni-ala">
+                    <rect key="frame" x="104" y="503" width="123" height="30"/>
+                    <state key="normal" title="Contact Support">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="onSendEmailContactSupport:" destination="-1" eventType="touchUpInside" id="nE8-hw-0bQ"/>
+                    </connections>
+                </button>
                 <view hidden="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Cbo-Qd-N85" userLabel="View Pop Up">
                     <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                     <subviews>
@@ -99,7 +110,7 @@
                             <rect key="frame" x="8" y="170" width="300" height="119"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="leI-9d-TKr">
-                                    <rect key="frame" x="8" y="8" width="13" height="13"/>
+                                    <rect key="frame" x="8" y="8" width="18" height="18"/>
                                     <state key="normal" backgroundImage="buttonClose.png">
                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                     </state>
@@ -108,30 +119,21 @@
                                     </connections>
                                 </button>
                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="bg_edt_login.png" translatesAutoresizingMaskIntoConstraints="NO" id="9Ng-fd-9dH">
-                                    <rect key="frame" x="132" y="41" width="160" height="25"/>
+                                    <rect key="frame" x="126" y="36" width="167" height="30"/>
                                 </imageView>
                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="1nd-2U-YEQ">
-                                    <rect key="frame" x="135" y="41" width="157" height="25"/>
+                                    <rect key="frame" x="126" y="36" width="167" height="30"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                     <textInputTraits key="textInputTraits"/>
                                 </textField>
                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="bg_edt_login.png" translatesAutoresizingMaskIntoConstraints="NO" id="aWv-9f-ovN">
-                                    <rect key="frame" x="133" y="74" width="160" height="25"/>
+                                    <rect key="frame" x="126" y="74" width="167" height="30"/>
                                 </imageView>
                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="7ul-Dz-Q47">
-                                    <rect key="frame" x="135" y="74" width="157" height="25"/>
+                                    <rect key="frame" x="126" y="74" width="167" height="30"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                     <textInputTraits key="textInputTraits"/>
                                 </textField>
-                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Mmi-iJ-DJP">
-                                    <rect key="frame" x="247" y="3" width="45" height="23"/>
-                                    <state key="normal" backgroundImage="addproduct_btn_save.png">
-                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                    </state>
-                                    <connections>
-                                        <action selector="onSaveChangeDisplayName:" destination="-1" eventType="touchUpInside" id="H9G-Wm-Kf2"/>
-                                    </connections>
-                                </button>
                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Display Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1hg-gU-WK7">
                                     <rect key="frame" x="17" y="41" width="105" height="21"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
@@ -139,11 +141,20 @@
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Email" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4CV-Eb-0DV">
-                                    <rect key="frame" x="17" y="77" width="107" height="22"/>
+                                    <rect key="frame" x="17" y="79" width="107" height="22"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                     <color key="textColor" red="0.4039215686" green="0.68627450980000004" blue="0.070588235289999995" alpha="1" colorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
+                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Mmi-iJ-DJP">
+                                    <rect key="frame" x="242" y="3" width="50" height="28"/>
+                                    <state key="normal" backgroundImage="save button.png">
+                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="onSaveChangeDisplayName:" destination="-1" eventType="touchUpInside" id="H9G-Wm-Kf2"/>
+                                    </connections>
+                                </button>
                             </subviews>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </view>
@@ -162,6 +173,7 @@
         <image name="buttonClose.png" width="50" height="50"/>
         <image name="button_editProfile.png" width="124" height="124"/>
         <image name="icon_cat.png" width="49" height="40"/>
-        <image name="profile.png" width="736" height="738"/>
+        <image name="no_img.jpg" width="256" height="256"/>
+        <image name="save button.png" width="188" height="94"/>
     </resources>
 </document>

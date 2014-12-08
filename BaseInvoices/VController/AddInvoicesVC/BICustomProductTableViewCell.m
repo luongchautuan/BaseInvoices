@@ -12,6 +12,10 @@
 
 - (void)awakeFromNib {
     // Initialization code
+    
+    [[self.quantity layer] setCornerRadius:4.0f];
+    
+    [[self.quantity layer] setMasksToBounds:YES];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

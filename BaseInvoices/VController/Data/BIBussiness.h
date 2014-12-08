@@ -18,5 +18,12 @@
 @property (nonatomic)NSString* bussinessVat;
 @property (nonatomic)BOOL isVatRegistered;
 @property (nonatomic)NSString* bussinessCurrency;
+@property (nonatomic)NSString* currencySymbol;
+@property (nonatomic)NSString* bankDetails;
+
+@property (nonatomic)NSString* bankAccountName;
+@property (nonatomic)NSString* bankName;
+@property (nonatomic)NSString* bankSortCode;
+@property (nonatomic)NSString* bankAccountNumber;
 
 @end

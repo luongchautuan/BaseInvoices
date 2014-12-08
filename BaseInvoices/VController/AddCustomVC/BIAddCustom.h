@@ -26,4 +26,6 @@
 
 @property (nonatomic)BOOL isEditCustomer;
 @property (nonatomic, retain)BICustomer* customer;
+@property (nonatomic)NSIndexPath* indexPathSelected;
+
 @end

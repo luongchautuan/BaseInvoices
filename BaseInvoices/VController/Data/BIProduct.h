@@ -14,5 +14,6 @@
 @property (nonatomic)NSString* productDescription;
 @property (nonatomic)NSString* productUnitPrice;
 @property (nonatomic)NSString* productTaxRate;
+@property (nonatomic)float numberOfUnit;
 
 @end

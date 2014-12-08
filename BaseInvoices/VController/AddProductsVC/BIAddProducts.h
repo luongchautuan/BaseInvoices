@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "BIProduct.h"
 
-@interface BIAddProducts : UIViewController
+@interface BIAddProducts : UIViewController<UITextFieldDelegate>
 
 @property (weak, nonatomic) IBOutlet UIButton *btnBack;
 - (IBAction)onBack:(id)sender;
@@ -25,5 +25,9 @@
 @property (nonatomic)BOOL isEditProduct;
 
 @property (nonatomic, retain)BIProduct* product;
+
+@property (nonatomic)NSString* unitPrice;
+@property (nonatomic)NSString* price;
+@property (nonatomic)NSString* tax;
 
 @end

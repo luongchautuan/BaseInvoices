@@ -7,11 +7,14 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
 @interface BIUser : NSObject
 
 @property (nonatomic)NSString* userName;
 @property (nonatomic)NSString* password;
 @property (nonatomic)NSString* displayName;
+@property (nonatomic)NSString* email;
+@property (nonatomic)UIImage* imageUser;
 
 @end

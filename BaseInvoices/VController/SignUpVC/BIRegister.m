@@ -183,7 +183,7 @@
     [self.txtDisplayName resignFirstResponder];
     [self.txtEmail resignFirstResponder];
     [self.txtPasscode resignFirstResponder];
-
+    
     [self.scrollView setContentOffset:CGPointMake(0, 0)];
 }
 
