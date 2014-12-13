@@ -35,6 +35,7 @@
     [self.btnSignup setBackgroundImage:[UIImage imageNamed:@"bg_state.png"] forState:UIControlStateSelected];
     [self.btnSignup setBackgroundImage:[UIImage imageNamed:@"bg_state.png"] forState:UIControlStateHighlighted];
 
+    [self initScreen];
     NSLog(@"Gia Su Change anything");
     // Do any additional setup after loading the view from its nib.
 }
@@ -60,7 +61,7 @@
     //set gesture for return to close soft keyboard
     UITapGestureRecognizer *tapGeusture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapHandler:)];
     tapGeusture.numberOfTapsRequired = 1;
-    [self.view addGestureRecognizer:tapGeusture];
+    [self.scrollView addGestureRecognizer:tapGeusture];
     
     CGRect screenRect = [[UIScreen mainScreen] bounds];
     CGFloat screenHeight = screenRect.size.height;
@@ -179,33 +180,38 @@
 
 - (void)tapHandler:(UIGestureRecognizer *)ges
 {
+    NSLog(@"Tap");
     [self.txtConfirmPasscode resignFirstResponder];
     [self.txtDisplayName resignFirstResponder];
     [self.txtEmail resignFirstResponder];
     [self.txtPasscode resignFirstResponder];
     
-    [self.scrollView setContentOffset:CGPointMake(0, 0)];
+    [self.scrollView setContentOffset:CGPointMake(0, -20)];
 }
 
 #pragma mark - Text Field delegates...
 
 -(void)textFieldDidBeginEditing:(UITextField *)textField
 {
-    if (textField.tag==0)
+    if (textField.tag == 0)
     {
         [self.scrollView setContentOffset:CGPointMake(0,50)];
     }
-    
-    if (textField.tag==1)
+    if (textField.tag == 2)
     {
-        [self.scrollView setContentOffset:CGPointMake(0,100)];
+        [self.scrollView setContentOffset:CGPointMake(0,150)];
+    }
+
+    if (textField.tag == 3)
+    {
+        [self.scrollView setContentOffset:CGPointMake(0,160)];
     }
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
     [textField resignFirstResponder];
-    [self.scrollView setContentOffset:CGPointMake(0, 0)];
+    [self.scrollView setContentOffset:CGPointMake(0, -20)];
     
     return YES;
 }

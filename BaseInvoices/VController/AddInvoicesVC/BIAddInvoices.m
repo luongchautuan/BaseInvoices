@@ -333,7 +333,7 @@ BIAppDelegate* appdelegate;
         }
         else
         {
-            self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width, self.viewTotal.frame.origin.y + self.viewTotal.frame.size.height + 80);
+            self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width, self.viewTotal.frame.origin.y + self.viewTotal.frame.size.height + 160);
         }
     }
 
@@ -1069,6 +1069,8 @@ BIAppDelegate* appdelegate;
     [self.txtInvoiceNumber resignFirstResponder];
     [self.txtPaymentType resignFirstResponder];
     [self.txtNoteDescriptionPayment resignFirstResponder];
+    
+     [self.scrollView setContentOffset:CGPointMake(0, -20)];
 }
 
 - (IBAction)selectDateFromPopUp:(id)sender

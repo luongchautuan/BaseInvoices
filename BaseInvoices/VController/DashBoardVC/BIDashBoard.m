@@ -149,17 +149,61 @@ BIAppDelegate* appdelegate;
 
 - (IBAction)onAddInvoice:(id)sender
 {
-    self.viewPopUp.hidden = YES;
-    self.viewAddMore.hidden = YES;
-    
-    //Check user config or check created bussiness
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    BOOL isExistBussiness = [defaults boolForKey:@"bussiness"];
-    
-    if (isExistBussiness)
+    if (appdelegate.invoicesForUser.count == 0)
     {
-//        BIBussiness* bussinessForUser = [defaults rm_customObjectForKey:@"bussinessForUser"];
-//        appdelegate.bussinessForUser = bussinessForUser;
+        self.viewPopUp.hidden = YES;
+        self.viewAddMore.hidden = YES;
+        
+        //Check user config or check created bussiness
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        BOOL isExistBussiness = [defaults boolForKey:@"bussiness"];
+        
+        if (isExistBussiness)
+        {
+            //        BIBussiness* bussinessForUser = [defaults rm_customObjectForKey:@"bussinessForUser"];
+            //        appdelegate.bussinessForUser = bussinessForUser;
+            
+            NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+            NSMutableArray* bussinessForUser = [[NSMutableArray alloc] init];
+            
+            bussinessForUser = [defaults rm_customObjectForKey:@"bussinessesForUser"];
+            
+            if (bussinessForUser.count > 0)
+            {
+                appdelegate.businessForUser = bussinessForUser;
+            }
+            
+            appdelegate.productsFroAddInvoices = [[NSMutableArray alloc] init];
+            
+            BIAddInvoices *pushToVC = [[BIAddInvoices alloc] initWithNibName:@"BIAddInvoices" bundle:nil];
+            [self.navigationController pushViewController:pushToVC animated:YES];
+        }
+        else
+        {
+            appdelegate.isLaunchAppFirstTime = YES;
+            BIAddNewBussiness *pushToVC = [[BIAddNewBussiness alloc] initWithNibName:@"BIAddNewBussiness" bundle:nil];
+            [pushToVC setAddFrom:1];
+            
+            [self.navigationController pushViewController:pushToVC animated:YES];
+        }
+
+    }
+    else if (!appdelegate.isLoginSucesss)
+    {
+        self.viewAddMore.hidden = YES;
+        self.viewPopUp.hidden = YES;
+        
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Warning" message:@"Please login or Register to add more invoices" delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Login now", nil];
+        
+        [alert setTag:1];
+        [alert show];
+        
+        return;
+    }
+    else
+    {
+        self.viewAddMore.hidden = YES;
+        self.viewPopUp.hidden = YES;
         
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
         NSMutableArray* bussinessForUser = [[NSMutableArray alloc] init];
@@ -169,37 +213,58 @@ BIAppDelegate* appdelegate;
         if (bussinessForUser.count > 0)
         {
             appdelegate.businessForUser = bussinessForUser;
-        }   
-
+        }
+        
         appdelegate.productsFroAddInvoices = [[NSMutableArray alloc] init];
         
         BIAddInvoices *pushToVC = [[BIAddInvoices alloc] initWithNibName:@"BIAddInvoices" bundle:nil];
         [self.navigationController pushViewController:pushToVC animated:YES];
+
     }
-    else
-    {
-        appdelegate.isLaunchAppFirstTime = YES;
-        BIAddNewBussiness *pushToVC = [[BIAddNewBussiness alloc] initWithNibName:@"BIAddNewBussiness" bundle:nil];
-        [pushToVC setAddFrom:1];
-        
-        [self.navigationController pushViewController:pushToVC animated:YES];
-    }
-    
 
 }
 
 - (IBAction)onAddBusiness:(id)sender
 {
-    self.viewAddMore.hidden = YES;
-    self.viewPopUp.hidden = YES;
-    BIAddNewBussiness *pushToVC = [[BIAddNewBussiness alloc] initWithNibName:@"BIAddNewBussiness" bundle:nil];
-    [pushToVC setAddFrom:0];
+    if (appdelegate.businessForUser.count == 0)
+    {
+        self.viewAddMore.hidden = YES;
+        self.viewPopUp.hidden = YES;
+        BIAddNewBussiness *pushToVC = [[BIAddNewBussiness alloc] initWithNibName:@"BIAddNewBussiness" bundle:nil];
+        [pushToVC setAddFrom:0];
+        
+        [self.navigationController pushViewController:pushToVC animated:YES];
+    }
+    else if (!appdelegate.isLoginSucesss)
+    {
+        self.viewAddMore.hidden = YES;
+        self.viewPopUp.hidden = YES;
+
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Warning" message:@"Please login or Register to add more business" delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Login now", nil];
+        [alert show];
+        
+        return;
+    }
     
-    [self.navigationController pushViewController:pushToVC animated:YES];
+    if (appdelegate.isLoginSucesss)
+    {
+        self.viewAddMore.hidden = YES;
+        self.viewPopUp.hidden = YES;
+        BIAddNewBussiness *pushToVC = [[BIAddNewBussiness alloc] initWithNibName:@"BIAddNewBussiness" bundle:nil];
+        [pushToVC setAddFrom:0];
+        
+        [self.navigationController pushViewController:pushToVC animated:YES];
+
+    }
+    else
+    {
+        
+    }
 }
 
-- (IBAction)showCat:(id)sender {
-    [self.mm_drawerController toggleDrawerSide:MMDrawerSideRight animated:YES completion:nil];
+- (IBAction)showCat:(id)sender
+{
+    [self.mm_drawerController toggleDrawerSide:MMDrawerSideLeft animated:YES completion:nil];
 }
 
 - (void)tapHandler:(UIGestureRecognizer *)ges
@@ -268,6 +333,22 @@ BIAppDelegate* appdelegate;
 -(void)getAllInvoice
 {
     
+}
+
+-(void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
+{
+    NSLog(@"SkipLogin: %ld", (long)buttonIndex);
+    
+    if (buttonIndex == 0)
+    {
+        NSLog(@"Cancel");
+    }
+    else
+    {
+        NSLog(@"LOgin");
+        BILogin *referenceVC = [[BILogin alloc] initWithNibName:@"BILogin" bundle:nil];
+        [self.navigationController pushViewController:referenceVC animated:YES];
+    }
 }
 
 @end

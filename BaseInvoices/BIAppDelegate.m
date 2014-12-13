@@ -47,6 +47,11 @@ static NSString *const kAllowTracking = @"allowTracking";
     NSMutableArray* productsForUser = [[NSMutableArray alloc] init];
     productsForUser = [defaults rm_customObjectForKey:@"productsForUser"];
     
+    NSMutableArray* businessForUser = [[NSMutableArray alloc] init];
+    businessForUser =  [defaults rm_customObjectForKey:@"bussinessesForUser"];
+    
+    self.businessForUser = businessForUser;
+    
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
     BIDashBoard *centerSideVC = [[BIDashBoard alloc] initWithNibName:@"BIDashBoard" bundle:nil];

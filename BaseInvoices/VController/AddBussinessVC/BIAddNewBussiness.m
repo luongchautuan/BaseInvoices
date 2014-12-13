@@ -13,12 +13,14 @@
 #import "NSUserDefaults+RMSaveCustomObject.h"
 #import "BIDashBoard.h"
 #import "BIAddInvoices.h"
+#import "ASIHTTPRequest.h"
 
 @interface BIAddNewBussiness ()
 
 @end
 
 BIAppDelegate* appdelegate;
+NSString* vatRegistered;
 
 @implementation BIAddNewBussiness
 
@@ -161,7 +163,7 @@ BIAppDelegate* appdelegate;
     [self.txtPostCode resignFirstResponder];
     [self.txtBankDetails resignFirstResponder];
     
-    [self.scrollView setContentOffset:CGPointMake(0,0)];
+    [self.scrollView setContentOffset:CGPointMake(0, -20)];
 }
 
 - (void)didReceiveMemoryWarning
@@ -183,10 +185,12 @@ BIAppDelegate* appdelegate;
     if(onCheckedButton)
     {
         onCheckedButton = false;
+        vatRegistered = @"True";
     }
     else
     {
         onCheckedButton = true;
+        vatRegistered = @"False";
     }
     
     [self.btnCheckVat setSelected:onCheckedButton];
@@ -247,8 +251,88 @@ BIAppDelegate* appdelegate;
 - (IBAction)onSaveBusiness:(id)sender
 {
     //check login and save
+    NSString* cisRegistered = @"False";
+    
     if (self.txtNameBussiness.text.length > 0 && self.txtVat.text.length > 0 && self.txtCurrency.text.length > 0)
     {
+        if (appdelegate.isLoginSucesss)
+        {
+            NSString* nameBusiness = self.txtNameBussiness.text;
+            NSString* descriptionsBusiness = self.txtDescription.text;
+            NSString* addressBussiness = self.txtAddress.text;
+            NSString* postCodeBusiness = self.txtPostCode.text;
+            
+            NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
+            
+            [dateFormatter setDateFormat:@"dd-MM-YYYY"];
+            
+            NSString *date_String = [dateFormatter stringFromDate:[NSDate date]];
+
+            NSDate *date  = [dateFormatter dateFromString:date_String];
+            
+            NSLocale *locale = [[NSLocale alloc]
+                                initWithLocaleIdentifier:@"en"];
+            [dateFormatter setLocale:locale];
+            
+            [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+            NSString* dateConvert = [dateFormatter stringFromDate:date];
+
+            if (self.isEditBusiness)
+            {
+                NSString* dataRequest =[NSString stringWithFormat:@"{\"id\":\"%d\",\"name\":\"%@\",\"description\":\"%@\",\"address\":\"%@\",\"postcode\":\"%@\",\"dateStarted\":\"%@\",\"cisRegistered\":%@, \"vatRegistered\":%@\"}", [appdelegate.currentUser.userID  intValue], nameBusiness, descriptionsBusiness, addressBussiness, postCodeBusiness, dateConvert, cisRegistered, vatRegistered];
+                
+                NSLog(@"Data Request Add Business: %@", dataRequest);
+                
+                
+                ASIHTTPRequest *request = [[ASIHTTPRequest alloc] initWithURL:[NSURL URLWithString:@"https://ec2-46-137-84-201.eu-west-1.compute.amazonaws.com:8443/wTaxmapp/resources/business"]];
+                
+                [request addBasicAuthenticationHeaderWithUsername:[[NSUserDefaults standardUserDefaults]valueForKey:@"Username"]andPassword:[[NSUserDefaults standardUserDefaults]valueForKey:@"Pass"]];
+                
+                
+                [request setTag:4];
+                [request addRequestHeader:@"Content-Type" value:@"application/json"];
+                [request addRequestHeader:@"accept" value:@"application/json"];
+                
+                
+                [request appendPostData:[dataRequest dataUsingEncoding:NSUTF8StringEncoding]];
+                [request setValidatesSecureCertificate:NO];
+                [request setRequestMethod:@"PUT"];
+                [request startSynchronous];
+                
+                
+                NSString  *responseString = [[NSString alloc] initWithData:[request responseData] encoding:NSUTF8StringEncoding];
+                
+                NSLog(@"Respone : %@", responseString);
+
+            }
+            else
+            {
+                NSString* dataRequest =[NSString stringWithFormat:@"{\"user\":{\"id\":\"%@\"},\"name\":\"%@\",\"description\":\"%@\",\"address\":\"%@\",\"postcode\":\"%@\",\"dateStarted\":\"%@\",\"cisRegistered\":%@, \"vatRegistered\":%@\"}", appdelegate.currentUser.userID, nameBusiness, descriptionsBusiness, addressBussiness, postCodeBusiness, dateConvert, cisRegistered, vatRegistered];
+                
+                NSLog(@"Data Request Add Business: %@", dataRequest);
+                
+                
+                ASIHTTPRequest *request = [[ASIHTTPRequest alloc] initWithURL:[NSURL URLWithString:@"https://ec2-46-137-84-201.eu-west-1.compute.amazonaws.com:8443/wTaxmapp/resources/business"]];
+                
+                [request addBasicAuthenticationHeaderWithUsername:[[NSUserDefaults standardUserDefaults]valueForKey:@"Username"]andPassword:[[NSUserDefaults standardUserDefaults]valueForKey:@"Pass"]];
+                
+                
+                [request setTag:4];
+                [request addRequestHeader:@"Content-Type" value:@"application/json"];
+                [request addRequestHeader:@"accept" value:@"application/json"];
+                
+                
+                [request appendPostData:[dataRequest dataUsingEncoding:NSUTF8StringEncoding]];
+                [request setValidatesSecureCertificate:NO];
+                [request setRequestMethod:@"POST"];
+                [request startSynchronous];
+                
+                
+                NSString  *responseString = [[NSString alloc] initWithData:[request responseData] encoding:NSUTF8StringEncoding];
+
+            }
+        }
+        
         if (self.isEditBusiness)
         {
             BIBussiness* bussiness = [appdelegate.businessForUser objectAtIndex:self.indexPathSelected.row];

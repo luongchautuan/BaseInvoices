@@ -16,5 +16,6 @@
 @property (nonatomic)NSString* displayName;
 @property (nonatomic)NSString* email;
 @property (nonatomic)UIImage* imageUser;
+@property (nonatomic)NSString* userID;
 
 @end

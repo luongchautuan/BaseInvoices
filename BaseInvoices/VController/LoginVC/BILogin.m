@@ -20,7 +20,7 @@
 #import "BIProductsViewController.h"
 #import "BIProfileViewController.h"
 #import "NSUserDefaults+RMSaveCustomObject.h"
-//#import "RFRateMe.h"
+#import "SBJson.h"
 #import "BIAddNewBussiness.h"
 
 @interface BILogin ()
@@ -28,6 +28,7 @@
 @end
 
 BIAppDelegate *appdelegate;
+NSMutableArray *feeds;
 
 @implementation BILogin
 
@@ -179,7 +180,7 @@ BIAppDelegate *appdelegate;
 {
     [self.edtPassword resignFirstResponder];
     [self.edtUsername resignFirstResponder];
-    [self.scrollView setContentOffset:CGPointMake(0, 0)];
+    [self.scrollView setContentOffset:CGPointMake(0, -20)];
 }
 
 #pragma mark - Text Field delegates...
@@ -203,12 +204,12 @@ BIAppDelegate *appdelegate;
     
     if(textField== self.edtUsername)
     {
-        [self.scrollView setContentOffset:CGPointMake(0, 0)];
+        [self.scrollView setContentOffset:CGPointMake(0, -20)];
     }
     
     if(textField == self.edtPassword)
     {
-        [self.scrollView setContentOffset:CGPointMake(0, 0)];
+        [self.scrollView setContentOffset:CGPointMake(0, -20)];
     }
 
     
@@ -225,6 +226,77 @@ BIAppDelegate *appdelegate;
     {
         if([request responseStatusCode] == 200)
         {
+            if (appdelegate.businessForUser.count == 1) {
+                //Send first invoice and first businees
+                NSString* cisRegistered = @"False";
+                
+                NSString* nameBusiness = [[appdelegate.businessForUser objectAtIndex:0] bussinessName];
+                NSString* descriptionsBusiness = [[appdelegate.businessForUser objectAtIndex:0] bussinessDescription];
+                NSString* addressBussiness = [[appdelegate.businessForUser objectAtIndex:0] bussinessAddress];
+                NSString* postCodeBusiness = [[appdelegate.businessForUser objectAtIndex:0] bussinessPostCode];
+                
+                NSString* vatRegistered;
+                
+                if ([[appdelegate.businessForUser objectAtIndex:0] isVatRegistered])
+                {
+                    vatRegistered = @"True";
+                }
+                else
+                {
+                    vatRegistered = @"False";
+                }
+                
+                NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
+                
+                [dateFormatter setDateFormat:@"dd-MM-YYYY"];
+                
+                NSString *date_String = [dateFormatter stringFromDate:[NSDate date]];
+                
+                NSDate *date  = [dateFormatter dateFromString:date_String];
+                
+                NSLocale *locale = [[NSLocale alloc]
+                                    initWithLocaleIdentifier:@"en"];
+                [dateFormatter setLocale:locale];
+                
+                [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+                NSString* dateConvert = [dateFormatter stringFromDate:date];
+                
+                NSString* dataRequest =[NSString stringWithFormat:@"{\"user\":{\"id\":\"%@\"},\"name\":\"%@\",\"description\":\"%@\",\"address\":\"%@\",\"postcode\":\"%@\",\"dateStarted\":\"%@\",\"cisRegistered\":%@, \"vatRegistered\":%@\"}", appdelegate.currentUser.userID, nameBusiness, descriptionsBusiness, addressBussiness, postCodeBusiness, dateConvert, cisRegistered, vatRegistered];
+                
+                NSLog(@"Data Request Add Business: %@", dataRequest);
+                
+                
+                ASIHTTPRequest *requestBusiness = [[ASIHTTPRequest alloc] initWithURL:[NSURL URLWithString:@"https://ec2-46-137-84-201.eu-west-1.compute.amazonaws.com:8443/wTaxmapp/resources/business"]];
+                
+                [requestBusiness addBasicAuthenticationHeaderWithUsername:[[NSUserDefaults standardUserDefaults]valueForKey:@"Username"]andPassword:[[NSUserDefaults standardUserDefaults]valueForKey:@"Pass"]];
+                
+                
+                [requestBusiness setTag:4];
+                [requestBusiness addRequestHeader:@"Content-Type" value:@"application/json"];
+                [requestBusiness addRequestHeader:@"accept" value:@"application/json"];
+                
+                
+                [requestBusiness appendPostData:[dataRequest dataUsingEncoding:NSUTF8StringEncoding]];
+                [requestBusiness setValidatesSecureCertificate:NO];
+                [requestBusiness setRequestMethod:@"POST"];
+                [requestBusiness startSynchronous];
+                
+                
+                NSString  *responseStringBussiness = [[NSString alloc] initWithData:[requestBusiness responseData] encoding:NSUTF8StringEncoding];
+
+            }
+
+            
+            NSString* responseString = [[NSString alloc] initWithData:[request responseData] encoding:NSUTF8StringEncoding];
+            NSLog(@"response string in web service-->%@",responseString);
+            SBJsonParser *json = [SBJsonParser new];
+            feeds = [json objectWithString:responseString];
+            NSLog(@"Feeds = %@",feeds);
+            NSString *data;
+            data =[feeds valueForKey:@"id"];
+
+            appdelegate.currentUser.userID = data;
+            
             BIUser* user = [[BIUser alloc] init];
             user.userName = self.edtUsername.text;
             user.password = self.edtPassword.text;
