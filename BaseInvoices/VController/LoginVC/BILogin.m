@@ -204,20 +204,18 @@ NSMutableArray *feeds;
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
-    [textField resignFirstResponder];
-    
-    if(textField== self.edtUsername)
-    {
+    NSInteger nextTag = textField.tag + 1;
+    // Try to find next responder
+    UIResponder* nextResponder = [textField.superview viewWithTag:nextTag];
+    if (nextResponder) {
+        // Found next responder, so set it.
+        [nextResponder becomeFirstResponder];
+    } else {
+        // Not found, so remove keyboard.
+        [textField resignFirstResponder];
         [self.scrollView setContentOffset:CGPointMake(0, -20)];
     }
-    
-    if(textField == self.edtPassword)
-    {
-        [self.scrollView setContentOffset:CGPointMake(0, -20)];
-    }
-
-    
-    return YES;
+    return NO; // We do not want UITextField to insert line-breaks.
 }
 
 

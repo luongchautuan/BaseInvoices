@@ -473,7 +473,7 @@ BIAppDelegate* appdelegate;
     }
     else
     {
-        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Warning" message:@"Please fill all text fields" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:nil message:@"Please fill all text fields" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [alert show];
         
     }
@@ -589,12 +589,12 @@ BIAppDelegate* appdelegate;
     else
     {
         if (appdelegate.productsFroAddInvoices.count <= 0) {
-            UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Warning" message:@"Please Insert Products For Invoice" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            UIAlertView *alert = [[UIAlertView alloc]initWithTitle:nil message:@"Please Insert Products For Invoice" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
             [alert show];
         }
         else
         {
-            UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Warning" message:@"Please fill all text fields" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            UIAlertView *alert = [[UIAlertView alloc]initWithTitle:nil message:@"Please fill all text fields" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
             [alert show];
 
         }
@@ -625,7 +625,7 @@ BIAppDelegate* appdelegate;
     }
     else
     {
-        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Warning" message:@"Please select your business first" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:nil message:@"Please select your business first" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [alert show];
     }
   
@@ -1475,7 +1475,7 @@ BIAppDelegate* appdelegate;
     {
         
         UIAlertView *alert = [[UIAlertView alloc]
-                              initWithTitle:@"Failure"
+                              initWithTitle:nil
                               message:@"Your device doesn't support the composer sheet"
                               delegate:nil
                               cancelButtonTitle:@"OK"
@@ -1503,7 +1503,7 @@ BIAppDelegate* appdelegate;
     NSLog(@"%@",result);
     
     NSString *title = [NSString stringWithFormat:@"Data exported error"];
-    UIAlertView *av = [[UIAlertView alloc] initWithTitle:@"" message:title delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+    UIAlertView *av = [[UIAlertView alloc] initWithTitle:nil message:title delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
     [av show];
 }
 
@@ -1540,7 +1540,7 @@ BIAppDelegate* appdelegate;
         case MFMailComposeResultCancelled:
             /*	NSLog(@"Mail cancelled: you cancelled the operation and no email message was queued");*/
         {
-            UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Deleted" message:@"Your mail has been Deleted" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            UIAlertView *alert=[[UIAlertView alloc]initWithTitle:nil message:@"Your mail has been Deleted" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
             [alert show];
             
         }
@@ -1548,7 +1548,7 @@ BIAppDelegate* appdelegate;
         case MFMailComposeResultSaved:
             //  NSLog(@"Mail saved: you saved the email message in the Drafts folder");
         {
-            UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Saved" message:@"Your Conversation has been saved to Draft" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            UIAlertView *alert=[[UIAlertView alloc]initWithTitle:nil message:@"Your Conversation has been saved to Draft" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
             [alert show];
             
             
@@ -1559,7 +1559,7 @@ BIAppDelegate* appdelegate;
         {
             NSLog(@"Mail send: the email message is queued in the outbox. It is ready to send the next time the user connects to email");
             
-            UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Success" message:@"The export file has been successfully sent to the recipient." delegate:self cancelButtonTitle:@"Thank you!" otherButtonTitles:nil];
+            UIAlertView *alert=[[UIAlertView alloc]initWithTitle:nil message:@"The export file has been successfully sent to the recipient." delegate:self cancelButtonTitle:@"Thank you!" otherButtonTitles:nil];
             [alert show];
             
             
@@ -1569,7 +1569,7 @@ BIAppDelegate* appdelegate;
             
         {
             NSLog(@"Mail failed: the email message was nog saved or queued, possibly due to an error");
-            UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Failed" message:@"Your valuable FeedBack has been Failed" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            UIAlertView *alert=[[UIAlertView alloc]initWithTitle:nil message:@"Your valuable FeedBack has been Failed" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
             [alert show];
             
             

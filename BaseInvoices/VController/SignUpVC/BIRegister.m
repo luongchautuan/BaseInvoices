@@ -239,10 +239,18 @@
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
-    [textField resignFirstResponder];
-    [self.scrollView setContentOffset:CGPointMake(0, -20)];
-    
-    return YES;
+    NSInteger nextTag = textField.tag + 1;
+    // Try to find next responder
+    UIResponder* nextResponder = [textField.superview viewWithTag:nextTag];
+    if (nextResponder) {
+        // Found next responder, so set it.
+        [nextResponder becomeFirstResponder];
+    } else {
+        // Not found, so remove keyboard.
+        [textField resignFirstResponder];
+        [self.scrollView setContentOffset:CGPointMake(0, -20)];
+    }
+    return NO; // We do not want UITextField to insert line-breaks.
 }
 
 

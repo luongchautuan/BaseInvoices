@@ -116,7 +116,7 @@ BIAppDelegate* appdelegate;
 {
     if (self.edtBussinessName.text.length > 0)
     {
-        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Add Customer Information" message:@"Do you want to save customer?" delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil];
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:nil message:@"Do you want to save customer?" delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil];
         [alert show];
     }
     else
@@ -157,19 +157,19 @@ BIAppDelegate* appdelegate;
 
 -(void)textFieldDidBeginEditing:(UITextField *)textField
 {
-    if (textField.tag==0)
+    if (textField.tag==3)
     {
         [self.scrollView setContentOffset:CGPointMake(0,50)];
     }
-    if (textField.tag==3)
+    if (textField.tag==4)
     {
         [self.scrollView setContentOffset:CGPointMake(0,100)];
     }
-    if (textField.tag==1)
+    if (textField.tag==5)
     {
         [self.scrollView setContentOffset:CGPointMake(0,140)];
     }
-    if (textField.tag==2)
+    if (textField.tag==6)
     {
         [self.scrollView setContentOffset:CGPointMake(0,180)];
     }
@@ -177,25 +177,23 @@ BIAppDelegate* appdelegate;
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
-    [textField resignFirstResponder];
-    
-    if(textField== self.edtPhone)
-    {
-        [self.scrollView setContentOffset:CGPointMake(0, 0)];
+    NSInteger nextTag = textField.tag + 1;
+    // Try to find next responder
+    UIResponder* nextResponder = [textField.superview viewWithTag:nextTag];
+    if (nextResponder) {
+        // Found next responder, so set it.
+        [nextResponder becomeFirstResponder];
+    } else {
+        // Not found, so remove keyboard.
+        [textField resignFirstResponder];
+        [self.scrollView setContentOffset:CGPointMake(0, -20)];
     }
-    
-    if(textField == self.edtKeyContact)
-    {
-        [self.scrollView setContentOffset:CGPointMake(0, 0)];
-    }
-    
-    
-    return YES;
+    return NO; // We do not want UITextField to insert line-breaks.
 }
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string  {
     
-    if(textField.tag == 1)
+    if(textField.tag == 5)
     {
         NSCharacterSet *cs = [[NSCharacterSet characterSetWithCharactersInString:ACCEPTABLE_CHARECTERS] invertedSet];
         
@@ -218,7 +216,7 @@ BIAppDelegate* appdelegate;
         if ([emailTest evaluateWithObject:self.edtEmail.text] == NO)
         {
             
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Please Enter Valid Email Address." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"Please Enter Valid Email Address." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
             [alert show];
             
 //            [self.viewActivity setHidden:YES];
@@ -231,7 +229,7 @@ BIAppDelegate* appdelegate;
             NSLog(@"Phone: %lu", (unsigned long)self.edtPhone.text.length);
             if (self.edtPhone.text.length > 0 && self.edtPhone.text.length < 5)
             {
-                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"The phone number must at least 5 characters. Please insert again" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"The phone number must at least 5 characters. Please insert again" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
                 [alert show];
                 
                 return;
@@ -287,7 +285,7 @@ BIAppDelegate* appdelegate;
     }
     else
     {
-        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Warning" message:@"Please fill all text fields" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:nil message:@"Please fill all text fields" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [alert show];
     }
 }

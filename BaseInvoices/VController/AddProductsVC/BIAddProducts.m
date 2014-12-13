@@ -219,13 +219,13 @@ BIAppDelegate* appdelegate;
     }
     else
     {
-        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Warning" message:@"Please fill all text fields" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:nil message:@"Please fill all text fields" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [alert show];
     }
 }
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string  {
     
-    if(textField.tag == 5 || textField.tag == 10)
+    if(textField.tag == 2 || textField.tag == 3)
     {
         NSLog(@"String: %@", string);
         
@@ -243,7 +243,7 @@ BIAppDelegate* appdelegate;
 -(void)textFieldDidEndEditing:(UITextField *)textField
 {
     
-    if (textField.tag == 5)
+    if (textField.tag == 2)
     {
         NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
         NSLocale *localeCurrency = [[NSLocale alloc]
@@ -278,7 +278,7 @@ BIAppDelegate* appdelegate;
         }     
     }
     
-    if (textField.tag == 10)
+    if (textField.tag == 3)
     {
         if ([textField.text rangeOfString:@"%%"].length != 0) {
             textField.text = [textField.text stringByReplacingOccurrencesOfString:@"%%" withString:@""];
@@ -296,9 +296,25 @@ BIAppDelegate* appdelegate;
     }
 }
 
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    NSInteger nextTag = textField.tag + 1;
+    // Try to find next responder
+    UIResponder* nextResponder = [textField.superview viewWithTag:nextTag];
+    if (nextResponder) {
+        // Found next responder, so set it.
+        [nextResponder becomeFirstResponder];
+    } else {
+        // Not found, so remove keyboard.
+        [textField resignFirstResponder];
+    }
+    return NO; // We do not want UITextField to insert line-breaks.
+}
+
+
 - (void)textFieldDidBeginEditing:(UITextField *)textField
 {
-    if (textField.tag == 5)
+    if (textField.tag == 2)
     {
         if ([self.unitPrice rangeOfString:@","].length != 0) {
             self.unitPrice = [self.unitPrice stringByReplacingOccurrencesOfString:@"," withString:@""];
@@ -315,7 +331,7 @@ BIAppDelegate* appdelegate;
         }
     }
     
-    if (textField.tag == 10)
+    if (textField.tag == 3)
     {
         if ([textField.text rangeOfString:@"%%"].length != 0) {
             textField.text = [textField.text stringByReplacingOccurrencesOfString:@"%%" withString:@""];

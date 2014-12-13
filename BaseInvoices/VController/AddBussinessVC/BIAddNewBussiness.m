@@ -208,20 +208,27 @@ NSString* vatRegistered;
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
-    [textField resignFirstResponder];
-    
-    if (appdelegate.result.height == 480) {
-        self.viewPopUpMain.frame = CGRectMake(10, 77, 300, 183);
+    NSInteger nextTag = textField.tag + 1;
+    // Try to find next responder
+    UIResponder* nextResponder = [textField.superview viewWithTag:nextTag];
+    if (nextResponder) {
+        // Found next responder, so set it.
+        [nextResponder becomeFirstResponder];
+    } else {
+        // Not found, so remove keyboard.
+        [textField resignFirstResponder];
+        if (appdelegate.result.height == 480) {
+            self.viewPopUpMain.frame = CGRectMake(10, 77, 300, 183);
+        }
     }
-
-    
-    return YES;
+    return NO; // We do not want UITextField to insert line-breaks.
 }
 
 #pragma mark - Text Field delegates...
 
 -(void)textFieldDidBeginEditing:(UITextField *)textField
 {
+    
     if (textField.tag == 4)
     {
         [self.scrollView setContentOffset:CGPointMake(0,100)];
@@ -262,7 +269,7 @@ NSString* vatRegistered;
         return [string isEqualToString:filtered];
     }
     
-    if (textField.tag == 21) {
+    if (textField.tag == 0) {
         NSUInteger newLength = [textField.text length] + [string length] - range.length;
         return (newLength > 4) ? NO : YES;
     }
@@ -450,7 +457,7 @@ NSString* vatRegistered;
     }
     else
     {
-        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Warning" message:@"Please fill all text fields" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:nil message:@"Please fill all text fields" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [alert show];
     }
   

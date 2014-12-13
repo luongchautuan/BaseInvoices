@@ -193,7 +193,7 @@ BIAppDelegate* appdelegate;
         self.viewAddMore.hidden = YES;
         self.viewPopUp.hidden = YES;
         
-        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Warning" message:@"Please login or Register to add more invoices" delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Login now", nil];
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:nil message:@"Please log in or register to add more invoice" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:@"Cancel", nil];
         
         [alert setTag:1];
         [alert show];
@@ -240,7 +240,7 @@ BIAppDelegate* appdelegate;
         self.viewAddMore.hidden = YES;
         self.viewPopUp.hidden = YES;
 
-        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Warning" message:@"Please login or Register to add more business" delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Login now", nil];
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:nil message:@"Please log in or register to add more invoice" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:@"Cancel", nil];
         [alert show];
         
         return;
@@ -339,7 +339,7 @@ BIAppDelegate* appdelegate;
 {
     NSLog(@"SkipLogin: %ld", (long)buttonIndex);
     
-    if (buttonIndex == 0)
+    if (buttonIndex != 0)
     {
         NSLog(@"Cancel");
     }
