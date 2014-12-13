@@ -187,9 +187,13 @@ NSMutableArray *feeds;
 
 -(void)textFieldDidBeginEditing:(UITextField *)textField
 {
+   
     if (textField.tag==0)
     {
-        [self.scrollView setContentOffset:CGPointMake(0,50)];
+        if (appdelegate.result.height == 480) {
+            [self.scrollView setContentOffset:CGPointMake(0,150)];
+        }
+        else [self.scrollView setContentOffset:CGPointMake(0,50)];
     }
     
     if (textField.tag==1)

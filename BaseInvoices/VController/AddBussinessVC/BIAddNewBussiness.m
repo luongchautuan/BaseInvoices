@@ -57,6 +57,11 @@ NSString* vatRegistered;
     [self.scrollView addGestureRecognizer:tapGeusture];
     [tapGeusture setCancelsTouchesInView:NO];
     
+    UITapGestureRecognizer *tapGeustureBank = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapHandler:)];
+    tapGeustureBank.numberOfTapsRequired = 1;
+    [self.viewPopUpMain addGestureRecognizer:tapGeustureBank];
+    [tapGeustureBank setCancelsTouchesInView:NO];
+    
     NSLocale *locale = [NSLocale currentLocale];
     
     
@@ -128,7 +133,7 @@ NSString* vatRegistered;
     self.viewPopUpMain.frame=CGRectMake(10, -110, 300, 183);
     [UIView beginAnimations:@"" context:nil];
     [UIView setAnimationDuration:0.5];
-    self.viewPopUpMain.frame=CGRectMake(10, 110, 300, 183);
+    self.viewPopUpMain.frame=CGRectMake(10, 77, 300, 183);
     [UIView commitAnimations];
 
 }
@@ -154,6 +159,7 @@ NSString* vatRegistered;
 
 - (void)tapHandler:(UIGestureRecognizer *)ges
 {
+    NSLog(@"Tap");
     [self.txtCity resignFirstResponder];
     [self.txtAddress resignFirstResponder];
     [self.txtCurrency resignFirstResponder];
@@ -162,6 +168,10 @@ NSString* vatRegistered;
     [self.txtVat resignFirstResponder];
     [self.txtPostCode resignFirstResponder];
     [self.txtBankDetails resignFirstResponder];
+    [self.txtBankAccountName resignFirstResponder];
+    [self.txtBankAccountNumber resignFirstResponder];
+    [self.txtBankName resignFirstResponder];
+    [self.txtBankSortCode resignFirstResponder];
     
     [self.scrollView setContentOffset:CGPointMake(0, -20)];
 }
@@ -199,6 +209,12 @@ NSString* vatRegistered;
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
     [textField resignFirstResponder];
+    
+    if (appdelegate.result.height == 480) {
+        self.viewPopUpMain.frame = CGRectMake(10, 77, 300, 183);
+    }
+
+    
     return YES;
 }
 
@@ -223,10 +239,15 @@ NSString* vatRegistered;
         [self.scrollView setContentOffset:CGPointMake(0,50)];
     }
     
-    if (textField.tag == 12)
+    if (appdelegate.result.height == 480)
     {
-        [self.scrollView setContentOffset:CGPointMake(0,230)];
+        if (textField == self.txtBankAccountNumber) {
+            if (appdelegate.result.height == 480) {
+                self.viewPopUpMain.frame = CGRectMake(self.viewPopUpMain.frame.origin.x, self.viewPopUpMain.frame.origin.y - 50, self.viewPopUpMain.frame.size.width, self.viewPopUpMain.frame.size.height);
+            }
+        }
     }
+  
     
 }
 

@@ -74,6 +74,8 @@
     
     self.txtPasscode.leftView = paddingView2;
     self.txtPasscode.leftViewMode = UITextFieldViewModeAlways;
+    
+    [self.scrollView setContentSize:CGSizeMake(self.scrollView.frame.size.width, self.scrollView.frame.size.height + 100)];
 }
 
 - (IBAction)onRegister:(id)sender
@@ -193,18 +195,45 @@
 
 -(void)textFieldDidBeginEditing:(UITextField *)textField
 {
+    CGSize result;
+    if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
+    {
+        result = [[UIScreen mainScreen] bounds].size;
+    }
+
+    
     if (textField.tag == 0)
     {
-        [self.scrollView setContentOffset:CGPointMake(0,50)];
+        if (result.height == 480) {
+            [self.scrollView setContentOffset:CGPointMake(0,150)];
+        }
+        else
+            [self.scrollView setContentOffset:CGPointMake(0,50)];
+    }
+    if (textField.tag == 1)
+    {
+        if (result.height == 480) {
+            [self.scrollView setContentOffset:CGPointMake(0,150)];
+        }
+        else
+            [self.scrollView setContentOffset:CGPointMake(0,150)];
     }
     if (textField.tag == 2)
     {
-        [self.scrollView setContentOffset:CGPointMake(0,150)];
+        if (result.height == 480) {
+            [self.scrollView setContentOffset:CGPointMake(0,160)];
+        }
+        else
+            [self.scrollView setContentOffset:CGPointMake(0,150)];
     }
 
     if (textField.tag == 3)
     {
-        [self.scrollView setContentOffset:CGPointMake(0,160)];
+        if (result.height == 480) {
+            [self.scrollView setContentOffset:CGPointMake(0,250)];
+        }
+        else
+            [self.scrollView setContentOffset:CGPointMake(0,160)];
     }
 }
 

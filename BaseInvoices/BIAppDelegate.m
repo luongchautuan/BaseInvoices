@@ -71,6 +71,12 @@ static NSString *const kAllowTracking = @"allowTracking";
     
     [nav.navigationBar setHidden:YES];
 //    self.window.rootViewController = nav;
+
+    if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
+    {
+        self.result = [[UIScreen mainScreen] bounds].size;
+    }
+
     
     // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor whiteColor];

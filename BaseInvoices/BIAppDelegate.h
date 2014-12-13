@@ -41,4 +41,6 @@
 @property (nonatomic)BOOL isLaunchAppFirstTime;
 
 @property (nonatomic, retain)BICurrency* currency;
+
+@property (nonatomic) CGSize result;
 @end
