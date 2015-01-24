@@ -236,6 +236,8 @@ BIAppDelegate* appdelegate;
             }
             else
             {
+                //Save Customer into Server
+                
                 if (self.isEditCustomer)
                 {
                     BICustomer* customer = [appdelegate.customerForUser objectAtIndex:self.indexPathSelected.row];
