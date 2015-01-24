@@ -17,4 +17,14 @@
 
 @property (weak, nonatomic) IBOutlet UIButton *btnSignup;
 
+@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
+@property (weak, nonatomic) IBOutlet UITextField *txtDisplayName;
+@property (weak, nonatomic) IBOutlet UITextField *txtEmail;
+@property (weak, nonatomic) IBOutlet UITextField *txtPasscode;
+@property (weak, nonatomic) IBOutlet UITextField *txtConfirmPasscode;
+@property (weak, nonatomic) IBOutlet UIButton *btnRegister;
+
+@property (weak, nonatomic) IBOutlet UIView *viewActivity;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
+
 @end

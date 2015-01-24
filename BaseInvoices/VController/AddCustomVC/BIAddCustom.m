@@ -8,10 +8,17 @@
 
 #import "BIAddCustom.h"
 #import "BIAddInvoices.h"
+#import "BICustomer.h"
+#import "BIAppDelegate.h"
+#import "NSUserDefaults+RMSaveCustomObject.h"
+
+#define ACCEPTABLE_CHARECTERS @"+0123456789"
 
 @interface BIAddCustom ()
 
 @end
+
+BIAppDelegate* appdelegate;
 
 @implementation BIAddCustom
 
@@ -27,9 +34,25 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self.txtTitle setText:@"Add Custom"];
+
     [self initScreen];
     // Do any additional setup after loading the view from its nib.
+    
+    appdelegate = (BIAppDelegate *)[[UIApplication sharedApplication] delegate];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    if (self.isEditCustomer)
+    {
+        [self loadCustomerDetails];
+        
+        [self.txtTitle setText:@"Edit Customer"];
+    }
+    else
+    {
+        [self.txtTitle setText:@"Add Customer"];
+    }
 }
 
 - (void)initScreen
@@ -89,8 +112,198 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (IBAction)onBack:(id)sender {
-    BIAddInvoices *pushToVC = [[BIAddInvoices alloc] initWithNibName:@"BIAddInvoices" bundle:nil];
-    [self.navigationController pushViewController:pushToVC animated:YES];
+- (IBAction)onBack:(id)sender
+{
+    if (self.edtBussinessName.text.length > 0)
+    {
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:nil message:@"Do you want to save customer?" delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil];
+        [alert show];
+    }
+    else
+    {
+        [self dismissViewControllerAnimated:YES completion:nil];
+//        [self.navigationController popViewControllerAnimated:YES];
+    }
+   
+}
+
+-(void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 0)
+    {
+        [self dismissViewControllerAnimated:YES completion:nil];
+//        [self.navigationController popViewControllerAnimated:YES];
+    }
+    else
+    {
+        [self saveCustomerMethod];
+    }
+}
+#pragma mark return to close soft keyboard
+
+- (void)tapHandler:(UIGestureRecognizer *)ges
+{
+    [self.edtAddress resignFirstResponder];
+    [self.edtBussinessName resignFirstResponder];
+    [self.edtCity resignFirstResponder];
+    [self.edtEmail resignFirstResponder];
+    [self.edtKeyContact resignFirstResponder];
+    [self.edtPhone resignFirstResponder];
+    [self.edtPostCode resignFirstResponder];
+    [self.scrollView setContentOffset:CGPointMake(0,0)];
+}
+
+#pragma mark - Text Field delegates...
+
+-(void)textFieldDidBeginEditing:(UITextField *)textField
+{
+    if (textField.tag==3)
+    {
+        [self.scrollView setContentOffset:CGPointMake(0,50)];
+    }
+    if (textField.tag==4)
+    {
+        [self.scrollView setContentOffset:CGPointMake(0,100)];
+    }
+    if (textField.tag==5)
+    {
+        [self.scrollView setContentOffset:CGPointMake(0,140)];
+    }
+    if (textField.tag==6)
+    {
+        [self.scrollView setContentOffset:CGPointMake(0,180)];
+    }
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    NSInteger nextTag = textField.tag + 1;
+    // Try to find next responder
+    UIResponder* nextResponder = [textField.superview viewWithTag:nextTag];
+    if (nextResponder) {
+        // Found next responder, so set it.
+        [nextResponder becomeFirstResponder];
+    } else {
+        // Not found, so remove keyboard.
+        [textField resignFirstResponder];
+        [self.scrollView setContentOffset:CGPointMake(0, -20)];
+    }
+    return NO; // We do not want UITextField to insert line-breaks.
+}
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string  {
+    
+    if(textField.tag == 5)
+    {
+        NSCharacterSet *cs = [[NSCharacterSet characterSetWithCharactersInString:ACCEPTABLE_CHARECTERS] invertedSet];
+        
+        NSString *filtered = [[string componentsSeparatedByCharactersInSet:cs] componentsJoinedByString:@""];
+        
+        return [string isEqualToString:filtered];
+    }
+
+    return YES;
+}
+
+
+- (IBAction)onSaveCustomer:(id)sender
+{
+    if (self.edtBussinessName.text.length > 0 && self.edtEmail.text.length > 0)
+    {
+        NSString *emailRegEx = @"[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}";
+        NSPredicate *emailTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", emailRegEx];
+        
+        if ([emailTest evaluateWithObject:self.edtEmail.text] == NO)
+        {
+            
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"Please Enter Valid Email Address." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            [alert show];
+            
+//            [self.viewActivity setHidden:YES];
+//            [self.activityIndicator stopAnimating];
+            
+            return;
+        }
+        else
+        {
+            NSLog(@"Phone: %lu", (unsigned long)self.edtPhone.text.length);
+            if (self.edtPhone.text.length > 0 && self.edtPhone.text.length < 5)
+            {
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"The phone number must at least 5 characters. Please insert again" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+                [alert show];
+                
+                return;
+            }
+            else
+            {
+                if (self.isEditCustomer)
+                {
+                    BICustomer* customer = [appdelegate.customerForUser objectAtIndex:self.indexPathSelected.row];
+                    customer.customerAddress = self.edtAddress.text;
+                    customer.customerBussinessName = self.edtBussinessName.text;
+                    customer.customerCity = self.edtCity.text;
+                    customer.customerEmail = self.edtEmail.text;
+                    customer.customerKeyContact = self.edtKeyContact.text;
+                    customer.customerPostCode = self.edtPostCode.text;
+                    customer.customerTelephone = self.edtPhone.text;
+                    
+                    NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
+                    [defaults rm_setCustomObject:appdelegate.customerForUser forKey:@"customerForUser"];
+                }
+                else
+                {
+                    BICustomer* customer = [[BICustomer alloc] init];
+                    customer.customerAddress = self.edtAddress.text;
+                    customer.customerBussinessName = self.edtBussinessName.text;
+                    customer.customerCity = self.edtCity.text;
+                    customer.customerEmail = self.edtEmail.text;
+                    customer.customerKeyContact = self.edtKeyContact.text;
+                    customer.customerPostCode = self.edtPostCode.text;
+                    customer.customerTelephone = self.edtPhone.text;
+                    
+                    [appdelegate.customerForUser addObject:customer];
+                    
+                    NSMutableArray* arrayTosave = [[NSMutableArray alloc] init];
+                    arrayTosave = appdelegate.customerForUser;
+                    
+                    NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
+                    [defaults rm_setCustomObject:appdelegate.customerForUser forKey:@"customerForUser"];
+
+                    
+                }
+                
+//                if (self.isEditCustomer) {
+//                    [self.navigationController popViewControllerAnimated:YES];
+//                }
+//                else
+                    [self dismissViewControllerAnimated:YES completion:nil];
+                
+
+            }
+        }
+
+    }
+    else
+    {
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:nil message:@"Please fill all text fields" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [alert show];
+    }
+}
+
+- (void)loadCustomerDetails
+{
+    self.edtAddress.text = self.customer.customerAddress;
+    self.edtBussinessName.text = self.customer.customerBussinessName;
+    self.edtCity.text = self.customer.customerCity;
+    self.edtEmail.text = self.customer.customerEmail;
+    self.edtKeyContact.text = self.customer.customerKeyContact;
+    self.edtPostCode.text = self.customer.customerPostCode;
+    self.edtPhone.text = self.customer.customerTelephone;
+
+}
+
+-(void)saveCustomerMethod
+{
+    //Check and sugesst login first
 }
 @end

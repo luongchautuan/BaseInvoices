@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BICustomer.h"
 
-@interface BIAddCustom : UIViewController
+@interface BIAddCustom : UIViewController<UIAlertViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UIButton *btnBack;
 - (IBAction)onBack:(id)sender;
@@ -21,5 +22,10 @@
 @property (weak, nonatomic) IBOutlet UITextField *edtPostCode;
 @property (weak, nonatomic) IBOutlet UITextField *edtPhone;
 @property (weak, nonatomic) IBOutlet UITextField *edtKeyContact;
+@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
+
+@property (nonatomic)BOOL isEditCustomer;
+@property (nonatomic, retain)BICustomer* customer;
+@property (nonatomic)NSIndexPath* indexPathSelected;
 
 @end

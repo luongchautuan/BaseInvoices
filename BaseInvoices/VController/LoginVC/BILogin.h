@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "BLLeftSideVC.h"
 
-@interface BILogin : UIViewController<BLLeftSideDelegate>
+@interface BILogin : UIViewController<BLLeftSideDelegate, UIAlertViewDelegate>
 @property (weak, nonatomic) IBOutlet UIButton *btnLogin;
 @property (weak, nonatomic) IBOutlet UIButton *btnRegister;
 @property (weak, nonatomic) IBOutlet UITextField *edtUsername;
@@ -18,5 +18,9 @@
 - (IBAction)onLogin:(id)sender;
 - (IBAction)onRegister:(id)sender;
 
+@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
+
+@property (weak, nonatomic) IBOutlet UIView *viewActivity;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 - (void)closeMenu;
 @end

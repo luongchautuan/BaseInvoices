@@ -9,16 +9,52 @@
 #import "BIAppDelegate.h"
 #import "BILogin.h"
 #import "BIDashBoard.h"
-
+#import "NSUserDefaults+RMSaveCustomObject.h"
 #import "BLLeftSideVC.h"
+#import "GAI.h"
 
 @implementation BIAppDelegate
 
+/******* Set your tracking ID here *******/
+static NSString *const kTrackingId = @"UA-42741504-2";
+static NSString *const kAllowTracking = @"allowTracking";
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    NSDictionary *appDefaults = @{kAllowTracking: @(YES)};
+    [[NSUserDefaults standardUserDefaults] registerDefaults:appDefaults];
+    // User must be able to opt out of tracking
+    [GAI sharedInstance].optOut =
+    ![[NSUserDefaults standardUserDefaults] boolForKey:kAllowTracking];
+    // Initialize Google Analytics with a 120-second dispatch interval. There is a
+    // tradeoff between battery usage and timely dispatch.
+    [GAI sharedInstance].dispatchInterval = 120;
+    [GAI sharedInstance].trackUncaughtExceptions = YES;
+    self.tracker = [[GAI sharedInstance] trackerWithName:@"BaseTax"
+                                              trackingId:kTrackingId];
+    
+    self.invoicesForUser = [[NSMutableArray alloc] init];
+    self.customerForUser = [[NSMutableArray alloc] init];
+    self.businessForUser = [[NSMutableArray alloc] init];
+    
+    self.productsForUser = [[NSMutableArray alloc] init];
+    self.productsFroAddInvoices = [[NSMutableArray alloc] init];
+    self.currencies = [[NSMutableArray alloc] init];
+    self.currentUser = [[BIUser alloc] init];
+    
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    
+    NSMutableArray* productsForUser = [[NSMutableArray alloc] init];
+    productsForUser = [defaults rm_customObjectForKey:@"productsForUser"];
+    
+    NSMutableArray* businessForUser = [[NSMutableArray alloc] init];
+    businessForUser =  [defaults rm_customObjectForKey:@"bussinessesForUser"];
+    
+    self.businessForUser = businessForUser;
+    
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
-    BILogin *centerSideVC = [[BILogin alloc] initWithNibName:@"BILogin" bundle:nil];
+    BIDashBoard *centerSideVC = [[BIDashBoard alloc] initWithNibName:@"BIDashBoard" bundle:nil];
     
     BLLeftSideVC *leftSideVC = [[BLLeftSideVC alloc] initWithNibName:@"BLLeftSideVC" bundle:nil];
     
@@ -35,6 +71,12 @@
     
     [nav.navigationBar setHidden:YES];
 //    self.window.rootViewController = nav;
+
+    if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
+    {
+        self.result = [[UIScreen mainScreen] bounds].size;
+    }
+
     
     // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor whiteColor];
@@ -62,6 +104,8 @@
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+    [GAI sharedInstance].optOut =
+    ![[NSUserDefaults standardUserDefaults] boolForKey:kAllowTracking];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application
