@@ -489,8 +489,33 @@ BIAppDelegate* appdelegate;
 
 - (void)saveInvoice
 {
+    appdelegate.activityIndicatorView = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    appdelegate.activityIndicatorView.mode = MBProgressHUDAnimationFade;
+    appdelegate.activityIndicatorView.labelText = @"";
+    
     if (appdelegate.productsFroAddInvoices.count > 0 && self.txtInvoiceNumber.text.length > 0 && self.txtDateForMain.text.length > 0  && self.btnAddCustom.titleLabel.text.length > 0)
     {
+        //Save invoice into Server
+//        ASIHTTPRequest *request = [[ASIHTTPRequest alloc] initWithURL:[NSURL URLWithString:@" https://ec2-46-137-84-201.eu-west-1.compute.amazonaws.com:8443/wsBasetaxInv/resources/customer"]];
+//        
+//        [request addBasicAuthenticationHeaderWithUsername:@"submitmytax"andPassword:@"T75w63UC"];
+//        
+//        [request addRequestHeader:@"Content-Type" value:@"application/json"];
+//        [request addRequestHeader:@"accept" value:@"application/json"];
+//        
+//        NSString *dataContent =[NSString stringWithFormat:@"{\"user\":{\"id\":%i},\"customers\":{\"id\":%i},\"business\":{\"id\":%i},\"product\":{\"id\":%i},\"paymentType\":{\"id\":%i},\"date\":\"%@\",\"dueOn\":\"%@\",\"amount\":%f,\"vat\":%f,\"total\":%f,\"notes\":\"%@\",\"paid\":%@}",[appdelegate.currentUser.userID intValue] ,[appdelegate.country intValue],appdelegate.companyName, @"description", self.edtAddress.text, self.edtCity.text, self.edtPostCode.text, self.edtPhone.text, self.edtEmail.text, self.edtKeyContact.text];
+//        
+//        NSLog(@"dataContent: %@", dataContent);
+//        
+//        [request appendPostData:[dataContent dataUsingEncoding:NSUTF8StringEncoding]];
+//        
+//        
+//        [request setValidatesSecureCertificate:NO];
+//        [request setRequestMethod:@"POST"];
+//        [request setDelegate:self];
+//        [request startAsynchronous];
+
+        
         if (!self.isEditInvoice)
         {
             BIInvoice* invoice = [[BIInvoice alloc] init];
@@ -591,13 +616,18 @@ BIAppDelegate* appdelegate;
         if (appdelegate.productsFroAddInvoices.count <= 0) {
             UIAlertView *alert = [[UIAlertView alloc]initWithTitle:nil message:@"Please Insert Products For Invoice" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
             [alert show];
+            
+            
         }
         else
         {
+            
             UIAlertView *alert = [[UIAlertView alloc]initWithTitle:nil message:@"Please fill all text fields" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
             [alert show];
 
         }
+        
+        [appdelegate.activityIndicatorView hide:YES];
        
     }
     
@@ -1195,7 +1225,6 @@ BIAppDelegate* appdelegate;
     [self calculateAmout];
     
     [self updateFrameTableView];
-
     
 }
 

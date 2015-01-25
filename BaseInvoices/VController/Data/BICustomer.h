@@ -17,5 +17,6 @@
 @property (nonatomic)NSString* customerPostCode;
 @property (nonatomic)NSString* customerTelephone;
 @property (nonatomic)NSString* customerKeyContact;
+@property (nonatomic)NSString* customerID;
 
 @end

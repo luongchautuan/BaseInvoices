@@ -11,6 +11,7 @@
 #import "BICustomer.h"
 #import "BIAppDelegate.h"
 #import "NSUserDefaults+RMSaveCustomObject.h"
+#import "ASIHTTPRequest.h"
 
 #define ACCEPTABLE_CHARECTERS @"+0123456789"
 
@@ -208,6 +209,10 @@ BIAppDelegate* appdelegate;
 
 - (IBAction)onSaveCustomer:(id)sender
 {
+    appdelegate.activityIndicatorView = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    appdelegate.activityIndicatorView.mode = MBProgressHUDAnimationFade;
+    appdelegate.activityIndicatorView.labelText = @"";
+    
     if (self.edtBussinessName.text.length > 0 && self.edtEmail.text.length > 0)
     {
         NSString *emailRegEx = @"[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}";
@@ -219,8 +224,7 @@ BIAppDelegate* appdelegate;
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"Please Enter Valid Email Address." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
             [alert show];
             
-//            [self.viewActivity setHidden:YES];
-//            [self.activityIndicator stopAnimating];
+            [appdelegate.activityIndicatorView hide:YES];
             
             return;
         }
@@ -232,54 +236,30 @@ BIAppDelegate* appdelegate;
                 UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"The phone number must at least 5 characters. Please insert again" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
                 [alert show];
                 
+                [appdelegate.activityIndicatorView hide:YES];
+                
                 return;
             }
             else
             {
                 //Save Customer into Server
+                ASIHTTPRequest *request = [[ASIHTTPRequest alloc] initWithURL:[NSURL URLWithString:@"https://ec2-46-137-84-201.eu-west-1.compute.amazonaws.com:8443/wsBasetaxInv/resources/customer"]];
                 
-                if (self.isEditCustomer)
-                {
-                    BICustomer* customer = [appdelegate.customerForUser objectAtIndex:self.indexPathSelected.row];
-                    customer.customerAddress = self.edtAddress.text;
-                    customer.customerBussinessName = self.edtBussinessName.text;
-                    customer.customerCity = self.edtCity.text;
-                    customer.customerEmail = self.edtEmail.text;
-                    customer.customerKeyContact = self.edtKeyContact.text;
-                    customer.customerPostCode = self.edtPostCode.text;
-                    customer.customerTelephone = self.edtPhone.text;
-                    
-                    NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
-                    [defaults rm_setCustomObject:appdelegate.customerForUser forKey:@"customerForUser"];
-                }
-                else
-                {
-                    BICustomer* customer = [[BICustomer alloc] init];
-                    customer.customerAddress = self.edtAddress.text;
-                    customer.customerBussinessName = self.edtBussinessName.text;
-                    customer.customerCity = self.edtCity.text;
-                    customer.customerEmail = self.edtEmail.text;
-                    customer.customerKeyContact = self.edtKeyContact.text;
-                    customer.customerPostCode = self.edtPostCode.text;
-                    customer.customerTelephone = self.edtPhone.text;
-                    
-                    [appdelegate.customerForUser addObject:customer];
-                    
-                    NSMutableArray* arrayTosave = [[NSMutableArray alloc] init];
-                    arrayTosave = appdelegate.customerForUser;
-                    
-                    NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
-                    [defaults rm_setCustomObject:appdelegate.customerForUser forKey:@"customerForUser"];
-
-                    
-                }
+                [request addBasicAuthenticationHeaderWithUsername:@"test@test.com"andPassword:@"test"];
                 
-//                if (self.isEditCustomer) {
-//                    [self.navigationController popViewControllerAnimated:YES];
-//                }
-//                else
-                    [self dismissViewControllerAnimated:YES completion:nil];
+                [request addRequestHeader:@"Content-Type" value:@"application/json"];
+                [request addRequestHeader:@"accept" value:@"application/json"];
                 
+                NSString *dataContent =[NSString stringWithFormat:@"{\"user\":{\"id\":%i},\"country\":{\"id\":%i},\"companyName\":\"%@\",\"description\":\"%@\",\"address\":\"%@\",\"addressLine1\":\"addressLine1\",\"addressLine2\":\"addressLine2\",\"city\":\"%@\",\"postcode\":\"%@\",\"telephone\":\"%@\",\"email\":\"%@\",\"contact\":\"%@\"}",[appdelegate.currentUser.userID intValue] ,[appdelegate.country intValue],@"companyName", @"description", self.edtAddress.text, self.edtCity.text, self.edtPostCode.text, self.edtPhone.text, self.edtEmail.text, self.edtKeyContact.text];
+                
+                NSLog(@"dataContent: %@", dataContent);
+                
+                [request appendPostData:[dataContent dataUsingEncoding:NSUTF8StringEncoding]];
+                
+                [request setValidatesSecureCertificate:NO];
+                [request setRequestMethod:@"POST"];
+                [request setDelegate:self];
+                [request startAsynchronous];
 
             }
         }
@@ -289,7 +269,73 @@ BIAppDelegate* appdelegate;
     {
         UIAlertView *alert = [[UIAlertView alloc]initWithTitle:nil message:@"Please fill all text fields" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [alert show];
+        
+        [appdelegate.activityIndicatorView hide:YES];
     }
+}
+
+#pragma mark - Request Delegates...
+
+
+- (void)requestFinished:(ASIHTTPRequest *)request
+{
+    [appdelegate.activityIndicatorView hide:YES];
+    
+    NSString* responseString = [[NSString alloc] initWithData:[request responseData] encoding:NSUTF8StringEncoding];
+    NSLog(@"ReponseString Afer Add Photo: %@", responseString);
+    
+    if (self.isEditCustomer)
+    {
+        BICustomer* customer = [appdelegate.customerForUser objectAtIndex:self.indexPathSelected.row];
+        customer.customerAddress = self.edtAddress.text;
+        customer.customerBussinessName = self.edtBussinessName.text;
+        customer.customerCity = self.edtCity.text;
+        customer.customerEmail = self.edtEmail.text;
+        customer.customerKeyContact = self.edtKeyContact.text;
+        customer.customerPostCode = self.edtPostCode.text;
+        customer.customerTelephone = self.edtPhone.text;
+        
+        NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
+        [defaults rm_setCustomObject:appdelegate.customerForUser forKey:@"customerForUser"];
+    }
+    else
+    {
+        BICustomer* customer = [[BICustomer alloc] init];
+        customer.customerAddress = self.edtAddress.text;
+        customer.customerBussinessName = self.edtBussinessName.text;
+        customer.customerCity = self.edtCity.text;
+        customer.customerEmail = self.edtEmail.text;
+        customer.customerKeyContact = self.edtKeyContact.text;
+        customer.customerPostCode = self.edtPostCode.text;
+        customer.customerTelephone = self.edtPhone.text;
+        
+        [appdelegate.customerForUser addObject:customer];
+        
+        NSMutableArray* arrayTosave = [[NSMutableArray alloc] init];
+        arrayTosave = appdelegate.customerForUser;
+        
+        NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
+        [defaults rm_setCustomObject:appdelegate.customerForUser forKey:@"customerForUser"];
+        
+        
+    }
+    
+    //                if (self.isEditCustomer) {
+    //                    [self.navigationController popViewControllerAnimated:YES];
+    //                }
+    //                else
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)requestFailed:(ASIHTTPRequest *)request
+{
+    NSString* responseString = [[NSString alloc] initWithData:[request responseData] encoding:NSUTF8StringEncoding];
+    NSLog(@"ReponseString Afer Add Photo: %@", responseString);
+    
+    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:nil message:@"Cannot save customer" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    [alert show];
+    
+    [appdelegate.activityIndicatorView hide:YES];
 }
 
 - (void)loadCustomerDetails

@@ -14,6 +14,7 @@
 #import "BIBussiness.h"
 #import "BICurrency.h"
 #import "GAITracker.h"
+#import "MBProgressHUD.h"
 
 @interface BIAppDelegate : UIResponder <UIApplicationDelegate>
 {
@@ -25,6 +26,8 @@
 @property(nonatomic, strong) id<GAITracker> tracker;
 
 @property (nonatomic, strong) MMDrawerController * drawerController;
+@property (nonatomic)MBProgressHUD* activityIndicatorView;
+
 @property (nonatomic, retain) BIUser* currentUser;
 @property (nonatomic, retain) BICustomer* currentCustomerForAddInvoice;
 @property (nonatomic, retain) BIBussiness* bussinessForUser;
@@ -36,6 +39,9 @@
 @property (nonatomic, retain)NSMutableArray* customerForUser;
 @property (nonatomic, retain)NSMutableArray* businessForUser;
 @property (nonatomic)NSMutableArray* currencies;
+
+@property (nonatomic)NSString* country;
+@property (nonatomic)NSString* companyName;
 
 @property (nonatomic)BOOL isLoginSucesss;
 @property (nonatomic)BOOL isLaunchAppFirstTime;

@@ -57,6 +57,7 @@
 		6E1B7C691A239C7600AE4421 /* backbutton.png in Resources */ = {isa = PBXBuildFile; fileRef = 6E1B7C681A239C7600AE4421 /* backbutton.png */; };
 		6E1B7CA91A25063000AE4421 /* BIInvoiceTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E1B7CA71A25063000AE4421 /* BIInvoiceTableViewCell.m */; };
 		6E1B7CAA1A25063000AE4421 /* BIInvoiceTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6E1B7CA81A25063000AE4421 /* BIInvoiceTableViewCell.xib */; };
+		6E2841201A75485600B303E1 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E28411F1A75485600B303E1 /* MBProgressHUD.m */; };
 		6E4396461A107C3E005EF4C9 /* ASIWebPageRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E4395FB1A107C3E005EF4C9 /* ASIWebPageRequest.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		6E4396471A107C3E005EF4C9 /* ASIAuthenticationDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E4395FE1A107C3E005EF4C9 /* ASIAuthenticationDialog.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		6E4396481A107C3E005EF4C9 /* ASIDataCompressor.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E4396011A107C3E005EF4C9 /* ASIDataCompressor.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -293,6 +294,8 @@
 		6E1B7CA61A25063000AE4421 /* BIInvoiceTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BIInvoiceTableViewCell.h; sourceTree = "<group>"; };
 		6E1B7CA71A25063000AE4421 /* BIInvoiceTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BIInvoiceTableViewCell.m; sourceTree = "<group>"; };
 		6E1B7CA81A25063000AE4421 /* BIInvoiceTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BIInvoiceTableViewCell.xib; sourceTree = "<group>"; };
+		6E28411E1A75485500B303E1 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
+		6E28411F1A75485600B303E1 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
 		6E4395FA1A107C3E005EF4C9 /* ASIWebPageRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIWebPageRequest.h; sourceTree = "<group>"; };
 		6E4395FB1A107C3E005EF4C9 /* ASIWebPageRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASIWebPageRequest.m; sourceTree = "<group>"; };
 		6E4395FD1A107C3E005EF4C9 /* ASIAuthenticationDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIAuthenticationDialog.h; sourceTree = "<group>"; };
@@ -575,6 +578,8 @@
 		04F3D8741A0BE7CA003B10FB /* BaseInvoices */ = {
 			isa = PBXGroup;
 			children = (
+				6E28411E1A75485500B303E1 /* MBProgressHUD.h */,
+				6E28411F1A75485600B303E1 /* MBProgressHUD.m */,
 				6EAFE69C1A22C8AD00C9A1CE /* RMMapper */,
 				04F3D89D1A0BE972003B10FB /* Resources */,
 				04F3D89E1A0BE972003B10FB /* VController */,
@@ -1337,6 +1342,7 @@
 				6E4396501A107C3E005EF4C9 /* ASICloudFilesContainer.m in Sources */,
 				6E4396481A107C3E005EF4C9 /* ASIDataCompressor.m in Sources */,
 				6ED742881A3A148F00F92A0E /* SBJsonStreamParser.m in Sources */,
+				6E2841201A75485600B303E1 /* MBProgressHUD.m in Sources */,
 				04F3D8BA1A0BEB9E003B10FB /* BILogin.m in Sources */,
 				6EAFE6A61A22C8AD00C9A1CE /* NSObject+RMCopyable.m in Sources */,
 				6E43964F1A107C3E005EF4C9 /* ASICloudFilesCDNRequest.m in Sources */,
