@@ -16,6 +16,8 @@
 
 @end
 
+BIAppDelegate* appdelegate;
+
 @implementation BIRegister
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -30,6 +32,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    appdelegate = (BIAppDelegate*)[[UIApplication sharedApplication] delegate];
+    
     NSLog(@"Register");
     [self.btnSignup setBackgroundImage:[UIImage imageNamed:@"bg_hover.png"] forState:UIControlStateNormal];
     [self.btnSignup setBackgroundImage:[UIImage imageNamed:@"bg_state.png"] forState:UIControlStateSelected];
@@ -80,6 +85,10 @@
 
 - (IBAction)onRegister:(id)sender
 {
+    appdelegate.activityIndicatorView = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    appdelegate.activityIndicatorView.mode = MBProgressHUDAnimationFade;
+    appdelegate.activityIndicatorView.labelText = @"";
+    
     [self.viewActivity setHidden:NO];
     [self.activityIndicator startAnimating];
     
@@ -106,6 +115,8 @@
                     [self.viewActivity setHidden:YES];
                     [self.activityIndicator stopAnimating];
                     
+                    [appdelegate.activityIndicatorView hide:YES];
+                    
                     return;
                 }
                 else
@@ -116,6 +127,8 @@
                     
                     [request addRequestHeader:@"Content-Type" value:@"application/json"];
                     [request addRequestHeader:@"accept" value:@"application/json"];
+                    
+                    [request setTag:1];
                     
                     NSString *dataContent =[NSString stringWithFormat:@"{\"email\":\"%@\",\"password\":\"%@\",\"name\":\"%@\",\"active\":true}", self.txtEmail.text, self.txtPasscode.text, self.txtDisplayName.text];
                     NSLog(@"dataContent: %@", dataContent);
@@ -132,7 +145,7 @@
             {
                 UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Password restriction " message:@"password should be 4 to 6" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
                 [alert show];
-                
+                [appdelegate.activityIndicatorView hide:YES];
                 [self.viewActivity setHidden:YES];
                 [self.activityIndicator stopAnimating];
             }
@@ -142,7 +155,7 @@
         {
             UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Password mismatched" message:@"password and conform password are not same" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
             [alert show];
-            
+            [appdelegate.activityIndicatorView hide:YES];
             [self.viewActivity setHidden:YES];
             [self.activityIndicator stopAnimating];
         }
@@ -154,7 +167,7 @@
         UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Fill All" message:@"Fill all the fields" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [alert show];
         
-        
+        [appdelegate.activityIndicatorView hide:YES];
         [self.viewActivity setHidden:YES];
         [self.activityIndicator stopAnimating];
 
@@ -270,8 +283,12 @@
         }
         else if([request responseStatusCode] == 201)
         {
+            [appdelegate.activityIndicatorView hide:YES];
             [self.viewActivity setHidden:YES];
             [self.activityIndicator stopAnimating];
+            
+            BILogin *objectiveVC = [[BILogin alloc] initWithNibName:@"BILogin" bundle:nil];
+            [self.navigationController pushViewController:objectiveVC animated:YES];
         }
         
         if([request responseStatusCode] == 200)
