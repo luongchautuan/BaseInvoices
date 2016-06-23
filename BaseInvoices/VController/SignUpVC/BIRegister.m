@@ -11,6 +11,7 @@
 #import "UIViewController+MMDrawerController.h"
 #import "ASIHTTPRequest.h"
 #import "BIAppDelegate.h"
+#import "SBJson.h"
 
 @interface BIRegister ()
 
@@ -62,6 +63,9 @@ BIAppDelegate* appdelegate;
     
     [self.txtEmail setValue:color forKeyPath:@"_placeholderLabel.textColor"];
     [self.txtPasscode setValue:color forKeyPath:@"_placeholderLabel.textColor"];
+    [self.txtConfirmPasscode setValue:color forKeyPath:@"_placeholderLabel.textColor"];
+    [self.txtDisplayName setValue:color forKeyPath:@"_placeholderLabel.textColor"];
+    [self.txtUserType setValue:color forKeyPath:@"_placeholderLabel.textColor"];
     
     //set gesture for return to close soft keyboard
     UITapGestureRecognizer *tapGeusture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapHandler:)];
@@ -73,15 +77,75 @@ BIAppDelegate* appdelegate;
     
     UIView *paddingView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, screenHeight)];
     UIView *paddingView2 = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, screenHeight)];
-    
+    UIView *paddingView3 = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, screenHeight)];
+    UIView *paddingView4 = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, screenHeight)];
+
+    UIView *paddingView5 = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, screenHeight)];
+
     self.txtEmail.leftView = paddingView;
     self.txtEmail.leftViewMode = UITextFieldViewModeAlways;
     
     self.txtPasscode.leftView = paddingView2;
     self.txtPasscode.leftViewMode = UITextFieldViewModeAlways;
     
+    self.txtDisplayName.leftView = paddingView3;
+    self.txtDisplayName.leftViewMode = UITextFieldViewModeAlways;
+//
+    self.txtConfirmPasscode.leftView = paddingView4;
+    self.txtConfirmPasscode.leftViewMode = UITextFieldViewModeAlways;
+
+    self.txtUserType.leftView = paddingView5;
+    self.txtUserType.leftViewMode = UITextFieldViewModeAlways;
+
+    
     [self.scrollView setContentSize:CGSizeMake(self.scrollView.frame.size.width, self.scrollView.frame.size.height + 100)];
+    
+    UIToolbar *toolbar = [[UIToolbar alloc] init];
+    [toolbar setBarStyle:UIBarStyleBlackTranslucent];
+    [toolbar sizeToFit];
+    UIBarButtonItem *buttonflexible = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
+    UIBarButtonItem *buttonDone = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(doneClicked:)];
+[toolbar setItems:[NSArray arrayWithObjects:buttonflexible,buttonDone, nil]];
+    self.txtUserType.inputAccessoryView = toolbar;
+    self.txtUserType.isOptionalDropDown = NO;
+    [self.txtUserType setItemList:[NSArray arrayWithObjects:@"Select user type", @"Individual", @"Limited Company", @"Limited Liability Partnership", @"Partnership", @"Sole trader", nil]];
 }
+
+-(void)textField:(nonnull IQDropDownTextField*)textField didSelectItem:(nullable NSString*)item
+{
+    _strUserType = item;
+    
+    NSLog(@"%@: %@",NSStringFromSelector(_cmd),item);
+}
+
+-(void)textField:(IQDropDownTextField *)textField didSelectDate:(NSDate *)date
+{
+    NSLog(@"%@: %@",NSStringFromSelector(_cmd),date);
+}
+
+-(BOOL)textField:(nonnull IQDropDownTextField*)textField canSelectItem:(nullable NSString*)item
+{
+    NSLog(@"%@: %@",NSStringFromSelector(_cmd),item);
+    return YES;
+}
+
+-(IQProposedSelection)textField:(nonnull IQDropDownTextField*)textField proposedSelectionModeForItem:(nullable NSString*)item
+{
+    NSLog(@"%@: %@",NSStringFromSelector(_cmd),item);
+    return IQProposedSelectionBoth;
+}
+
+-(void)textFieldDidEndEditing:(UITextField *)textField
+{
+    NSLog(@"%@",NSStringFromSelector(_cmd));
+}
+
+-(void)doneClicked:(UIBarButtonItem*)button
+{
+    [self.view endEditing:YES];
+    [self.scrollView setContentOffset:CGPointMake(0, -20)];
+}
+
 
 - (IBAction)onRegister:(id)sender
 {
@@ -105,7 +169,7 @@ BIAppDelegate* appdelegate;
         
         if ([pass isEqualToString:conpass])
         {
-            if([self.txtPasscode.text length] > 3 && [self.txtPasscode.text length] < 7)
+            if([self.txtPasscode.text length] > 5)
             {
                 if ([emailTest evaluateWithObject:self.txtEmail.text] == NO) {
                     
@@ -121,29 +185,74 @@ BIAppDelegate* appdelegate;
                 }
                 else
                 {
-                    ASIHTTPRequest *request = [[ASIHTTPRequest alloc] initWithURL:[NSURL URLWithString:@"https://ec2-46-137-84-201.eu-west-1.compute.amazonaws.com:8443/wTaxmapp/resources/user"]];
+                    NSInteger userTypeID = 0;
                     
-                    [request addBasicAuthenticationHeaderWithUsername:@"submitmytax"andPassword:@"T75w63UC"];
+                    if ([_strUserType isEqualToString:@"Individual"]) {
+                        userTypeID = 5;
+                    }
+                    else if ([_strUserType isEqualToString:@"Limited Company"]) {
+                        userTypeID = 4;
+                    }
+                    else if ([_strUserType isEqualToString:@"Limited Liability Partnership"]) {
+                        userTypeID = 3;
+                    }
+                    else if ([_strUserType isEqualToString:@"Partnership"]) {
+                        userTypeID = 2;
+                    }
+                    else if ([_strUserType isEqualToString:@"Sole trader"]) {
+                        userTypeID = 1;
+                    }
                     
-                    [request addRequestHeader:@"Content-Type" value:@"application/json"];
-                    [request addRequestHeader:@"accept" value:@"application/json"];
                     
-                    [request setTag:1];
+                    NSString* paramsURL = [NSString stringWithFormat:@"/register?name=%@&email=%@&password=%@&confirm_password=%@&user_type_id=%ld", self.txtDisplayName.text, self.txtEmail.text, self.txtPasscode.text, self.txtConfirmPasscode.text, (long)userTypeID];
                     
-                    NSString *dataContent =[NSString stringWithFormat:@"{\"email\":\"%@\",\"password\":\"%@\",\"name\":\"%@\",\"active\":true}", self.txtEmail.text, self.txtPasscode.text, self.txtDisplayName.text];
-                    NSLog(@"dataContent: %@", dataContent);
+                    paramsURL = [paramsURL stringByAddingPercentEscapesUsingEncoding:NSASCIIStringEncoding];
                     
-                    [request appendPostData:[dataContent dataUsingEncoding:NSUTF8StringEncoding]];
                     
-                    [request setValidatesSecureCertificate:NO];
-                    [request setRequestMethod:@"POST"];
-                    [request setDelegate:self];
-                    [request startAsynchronous];
+                    if ([paramsURL containsString:@"@"]) {
+                        paramsURL = [paramsURL stringByReplacingOccurrencesOfString:@"@" withString:@"%40"];
+                    }
+                    
+                    [[ServiceRequest getShareInstance] serviceRequestActionName:paramsURL result:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+                        NSHTTPURLResponse* httpResponse = (NSHTTPURLResponse*)response;
+                        NSInteger statusCode = [httpResponse statusCode];
+                        
+                        if (statusCode == 200)
+                        {
+                            NSString *responeString = [[NSString alloc] initWithData:data
+                                                                            encoding:NSUTF8StringEncoding];
+                            
+                            NSLog(@"RESPIONSE: %@", responeString);
+                            NSDictionary* data = [[NSDictionary alloc] init];
+                            SBJsonParser *json = [SBJsonParser new];
+                            data = [json objectWithString:[NSString stringWithFormat:@"%@", responeString]];
+                            
+                            if ([data valueForKey:@"data"] != nil)
+                            {
+                                [appdelegate.activityIndicatorView hide:YES];
+                                [self.viewActivity setHidden:YES];
+                                [self.activityIndicator stopAnimating];
+                                
+                                BILogin *objectiveVC = [[BILogin alloc] initWithNibName:@"BILogin" bundle:nil];
+                                [self.navigationController pushViewController:objectiveVC animated:YES];
+
+                            }
+                        }
+                        else if (statusCode == 400)
+                        {
+                            UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Error" message:@"The email has been existed" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+                            [alert show];
+                            [appdelegate.activityIndicatorView hide:YES];
+                            [self.viewActivity setHidden:YES];
+                            [self.activityIndicator stopAnimating];
+                        }
+                    }];
+                    
                 }
             }
             else
             {
-                UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Password restriction " message:@"password should be 4 to 6" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+                UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Password restriction " message:@"The password must be at least 6 characters" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
                 [alert show];
                 [appdelegate.activityIndicatorView hide:YES];
                 [self.viewActivity setHidden:YES];
@@ -153,7 +262,7 @@ BIAppDelegate* appdelegate;
         }
         else
         {
-            UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Password mismatched" message:@"password and conform password are not same" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Password mismatched" message:@"Password and Confirm password are not same" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
             [alert show];
             [appdelegate.activityIndicatorView hide:YES];
             [self.viewActivity setHidden:YES];
@@ -200,7 +309,7 @@ BIAppDelegate* appdelegate;
     [self.txtDisplayName resignFirstResponder];
     [self.txtEmail resignFirstResponder];
     [self.txtPasscode resignFirstResponder];
-    
+    [self.view endEditing:YES];
     [self.scrollView setContentOffset:CGPointMake(0, -20)];
 }
 

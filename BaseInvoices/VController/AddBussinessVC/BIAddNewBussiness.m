@@ -307,56 +307,49 @@ NSString* vatRegistered;
 
             if (self.isEditBusiness)
             {
-                NSString* dataRequest =[NSString stringWithFormat:@"{\"id\":\"%d\",\"name\":\"%@\",\"description\":\"%@\",\"address\":\"%@\",\"postcode\":\"%@\",\"dateStarted\":\"%@\",\"cisRegistered\":%@, \"vatRegistered\":%@\"}", [appdelegate.currentUser.userID  intValue], nameBusiness, descriptionsBusiness, addressBussiness, postCodeBusiness, dateConvert, cisRegistered, vatRegistered];
+                NSString* dataRequest =[NSString stringWithFormat:@"name=%@&description=%@&address=%@&postcode=%@&date_started=%@&cis_registered=%@&vat_registered=%@", nameBusiness, descriptionsBusiness, addressBussiness, postCodeBusiness, dateConvert, cisRegistered, vatRegistered];
                 
                 NSLog(@"Data Request Add Business: %@", dataRequest);
+                dataRequest = [dataRequest stringByAddingPercentEscapesUsingEncoding:NSASCIIStringEncoding];
                 
                 
-                ASIHTTPRequest *request = [[ASIHTTPRequest alloc] initWithURL:[NSURL URLWithString:@"https://ec2-46-137-84-201.eu-west-1.compute.amazonaws.com:8443/wTaxmapp/resources/business"]];
+                if ([dataRequest containsString:@"@"]) {
+                    dataRequest = [dataRequest stringByReplacingOccurrencesOfString:@"@" withString:@"%40"];
+                }
                 
-                [request addBasicAuthenticationHeaderWithUsername:[[NSUserDefaults standardUserDefaults]valueForKey:@"Username"]andPassword:[[NSUserDefaults standardUserDefaults]valueForKey:@"Pass"]];
-                
-                
-                [request setTag:4];
-                [request addRequestHeader:@"Content-Type" value:@"application/json"];
-                [request addRequestHeader:@"accept" value:@"application/json"];
-                
-                
-                [request appendPostData:[dataRequest dataUsingEncoding:NSUTF8StringEncoding]];
-                [request setValidatesSecureCertificate:NO];
-                [request setRequestMethod:@"PUT"];
-                [request startSynchronous];
-                
-                
-                NSString  *responseString = [[NSString alloc] initWithData:[request responseData] encoding:NSUTF8StringEncoding];
-                
-                NSLog(@"Respone : %@", responseString);
+                [[ServiceRequest getShareInstance] serviceRequestActionName:[NSString stringWithFormat:@"/business/%@?%@",self.bussinessEdit.businessID, dataRequest] accessToken:appdelegate.currentUser.token method:@"PUT" result:^(NSURLResponse *response, NSData *dataResponse, NSError *connectionError) {
+                    NSHTTPURLResponse* httpResponse = (NSHTTPURLResponse*)response;
+                    NSInteger statusCode = [httpResponse statusCode];
+                    if (statusCode == 200)
+                    {
+                        
+                    }
+                }];
 
             }
             else
             {
-                NSString* dataRequest =[NSString stringWithFormat:@"{\"user\":{\"id\":\"%@\"},\"name\":\"%@\",\"description\":\"%@\",\"address\":\"%@\",\"postcode\":\"%@\",\"dateStarted\":\"%@\",\"cisRegistered\":%@, \"vatRegistered\":%@\"}", appdelegate.currentUser.userID, nameBusiness, descriptionsBusiness, addressBussiness, postCodeBusiness, dateConvert, cisRegistered, vatRegistered];
+                NSString* dataRequest =[NSString stringWithFormat:@"name=%@&description=%@&address=%@&postcode=%@&date_started=%@&cis_registered=%@&vat_registered=%@", nameBusiness, descriptionsBusiness, addressBussiness, postCodeBusiness, dateConvert, cisRegistered, vatRegistered];
                 
                 NSLog(@"Data Request Add Business: %@", dataRequest);
                 
-                
-                ASIHTTPRequest *request = [[ASIHTTPRequest alloc] initWithURL:[NSURL URLWithString:@"https://ec2-46-137-84-201.eu-west-1.compute.amazonaws.com:8443/wTaxmapp/resources/business"]];
-                
-                [request addBasicAuthenticationHeaderWithUsername:[[NSUserDefaults standardUserDefaults]valueForKey:@"Username"]andPassword:[[NSUserDefaults standardUserDefaults]valueForKey:@"Pass"]];
+                dataRequest = [dataRequest stringByAddingPercentEscapesUsingEncoding:NSASCIIStringEncoding];
                 
                 
-                [request setTag:4];
-                [request addRequestHeader:@"Content-Type" value:@"application/json"];
-                [request addRequestHeader:@"accept" value:@"application/json"];
+                if ([dataRequest containsString:@"@"]) {
+                    dataRequest = [dataRequest stringByReplacingOccurrencesOfString:@"@" withString:@"%40"];
+                }
                 
                 
-                [request appendPostData:[dataRequest dataUsingEncoding:NSUTF8StringEncoding]];
-                [request setValidatesSecureCertificate:NO];
-                [request setRequestMethod:@"POST"];
-                [request startSynchronous];
-                
-                
-                NSString  *responseString = [[NSString alloc] initWithData:[request responseData] encoding:NSUTF8StringEncoding];
+                [[ServiceRequest getShareInstance] serviceRequestActionName:[NSString stringWithFormat:@"/business?%@", dataRequest] accessToken:appdelegate.currentUser.token result:^(NSURLResponse *response, NSData *dataResponse, NSError *connectionError) {
+                    NSHTTPURLResponse* httpResponse = (NSHTTPURLResponse*)response;
+                    NSInteger statusCode = [httpResponse statusCode];
+                    
+                    if (statusCode == 200)
+                    {
+
+                    }
+                }];
 
             }
         }

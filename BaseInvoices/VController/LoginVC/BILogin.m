@@ -110,16 +110,113 @@ NSMutableArray *feeds;
     }
     else
     {
-        ASIHTTPRequest *request = [[ASIHTTPRequest alloc] initWithURL:[NSURL URLWithString:@"https://ec2-46-137-84-201.eu-west-1.compute.amazonaws.com:8443/wTaxmapp/resources/user"]];
+        NSString* strData = [NSString stringWithFormat:@"{\"email\": \"%@\",\"password\": \"%@\"}", self.edtUsername.text, self.edtPassword.text];
         
+        [[ServiceRequest getShareInstance] serviceRequestWithData:strData actionName:@"/login" result:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+            
+            NSHTTPURLResponse* httpResponse = (NSHTTPURLResponse*)response;
+            NSInteger statusCode = [httpResponse statusCode];
+            
+            if (statusCode == 200)
+            {
+                NSString *responeString = [[NSString alloc] initWithData:data
+                                                                encoding:NSUTF8StringEncoding];
+                
+                NSLog(@"RESPIONSE: %@", responeString);
+                NSDictionary* data = [[NSDictionary alloc] init];
+                SBJsonParser *json = [SBJsonParser new];
+                data = [json objectWithString:[NSString stringWithFormat:@"%@", responeString]];
+                
+                if ([data valueForKey:@"data"] != nil)
+                {
+                    if (appdelegate.businessForUser.count == 1) {
+                        //Send first invoice and first businees
+                        NSString* cisRegistered = @"False";
+                        
+                        NSString* nameBusiness = [[appdelegate.businessForUser objectAtIndex:0] bussinessName];
+                        NSString* descriptionsBusiness = [[appdelegate.businessForUser objectAtIndex:0] bussinessDescription];
+                        NSString* addressBussiness = [[appdelegate.businessForUser objectAtIndex:0] bussinessAddress];
+                        NSString* postCodeBusiness = [[appdelegate.businessForUser objectAtIndex:0] bussinessPostCode];
+                        
+                        NSString* vatRegistered;
+                        
+                        if ([[appdelegate.businessForUser objectAtIndex:0] isVatRegistered])
+                        {
+                            vatRegistered = @"True";
+                        }
+                        else
+                        {
+                            vatRegistered = @"False";
+                        }
+                        
+                        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
+                        
+                        [dateFormatter setDateFormat:@"dd-MM-YYYY"];
+                        
+                        NSString *date_String = [dateFormatter stringFromDate:[NSDate date]];
+                        
+                        NSDate *date  = [dateFormatter dateFromString:date_String];
+                        
+                        NSLocale *locale = [[NSLocale alloc]
+                                            initWithLocaleIdentifier:@"en"];
+                        [dateFormatter setLocale:locale];
+                        
+                        [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+                        NSString* dateConvert = [dateFormatter stringFromDate:date];
+                        
+                        NSString* dataRequest =[NSString stringWithFormat:@"{\"user\":{\"id\":\"%@\"},\"name\":\"%@\",\"description\":\"%@\",\"address\":\"%@\",\"postcode\":\"%@\",\"dateStarted\":\"%@\",\"cisRegistered\":%@, \"vatRegistered\":%@\"}", appdelegate.currentUser.userID, nameBusiness, descriptionsBusiness, addressBussiness, postCodeBusiness, dateConvert, cisRegistered, vatRegistered];
+                        
+                        NSLog(@"Data Request Add Business: %@", dataRequest);
+                        
+                        
+                        ASIHTTPRequest *requestBusiness = [[ASIHTTPRequest alloc] initWithURL:[NSURL URLWithString:@"https://ec2-46-137-84-201.eu-west-1.compute.amazonaws.com:8443/wTaxmapp/resources/business"]];
+                        
+                        [requestBusiness addBasicAuthenticationHeaderWithUsername:[[NSUserDefaults standardUserDefaults]valueForKey:@"Username"]andPassword:[[NSUserDefaults standardUserDefaults]valueForKey:@"Pass"]];
+                        
+                        
+                        [requestBusiness setTag:4];
+                        [requestBusiness addRequestHeader:@"Content-Type" value:@"application/json"];
+                        [requestBusiness addRequestHeader:@"accept" value:@"application/json"];
+                        
+                        
+                        [requestBusiness appendPostData:[dataRequest dataUsingEncoding:NSUTF8StringEncoding]];
+                        [requestBusiness setValidatesSecureCertificate:NO];
+                        [requestBusiness setRequestMethod:@"POST"];
+                        [requestBusiness startSynchronous];
+                        
+                    }
+
+                    NSString *data;
+                    data =[[[data valueForKey:@"data"] valueForKey:@"user"] valueForKey:@"id"];
+                    
+                    appdelegate.currentUser.userID = data;
+                    
+                    BIUser* user = [[BIUser alloc] init];
+                    user.userName = self.edtUsername.text;
+                    user.password = self.edtPassword.text;
+                    user.token = [[data valueForKey:@"data"] valueForKey:@"token"];
+                    
+                    appdelegate.currentUser = user;
+                    
+                    appdelegate.isLoginSucesss = YES;
+                    
+                    BIDashBoard *pushToVC = [[BIDashBoard alloc] initWithNibName:@"BIDashBoard" bundle:nil];
+                    [self.navigationController pushViewController:pushToVC animated:YES];
+
+                }
+            }
+        }];
         
-        [request setTag:1];
-        [request addBasicAuthenticationHeaderWithUsername:self.edtUsername.text andPassword:self.edtPassword.text];
-        
-        [request addRequestHeader:@"Content-Type" value:@"application/json"];
-        [request setValidatesSecureCertificate:NO];
-        [request setDelegate:self];
-        [request startAsynchronous];
+//        ASIHTTPRequest *request = [[ASIHTTPRequest alloc] initWithURL:[NSURL URLWithString:@"https://ec2-46-137-84-201.eu-west-1.compute.amazonaws.com:8443/wTaxmapp/resources/user"]];
+//        
+//        
+//        [request setTag:1];
+//        [request addBasicAuthenticationHeaderWithUsername:self.edtUsername.text andPassword:self.edtPassword.text];
+//        
+//        [request addRequestHeader:@"Content-Type" value:@"application/json"];
+//        [request setValidatesSecureCertificate:NO];
+//        [request setDelegate:self];
+//        [request startAsynchronous];
     }
 
 }

@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "BLLeftSideVC.h"
+#import "IQDropDownTextField.h"
 
-@interface BIRegister : UIViewController
+@interface BIRegister : UIViewController<IQDropDownTextFieldDelegate>
 
 @property (weak, nonatomic) IBOutlet UILabel *txtTitle;
 @property (weak, nonatomic) IBOutlet UIButton *btnBack;
@@ -23,8 +24,11 @@
 @property (weak, nonatomic) IBOutlet UITextField *txtPasscode;
 @property (weak, nonatomic) IBOutlet UITextField *txtConfirmPasscode;
 @property (weak, nonatomic) IBOutlet UIButton *btnRegister;
+@property (weak, nonatomic) IBOutlet IQDropDownTextField *txtUserType;
 
 @property (weak, nonatomic) IBOutlet UIView *viewActivity;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
+
+@property (nonatomic, strong) NSString* strUserType;
 
 @end

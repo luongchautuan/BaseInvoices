@@ -147,6 +147,12 @@
 		6EE6D8E01A1D092200F11239 /* BIProfileViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6EE6D8DE1A1D092200F11239 /* BIProfileViewController.xib */; };
 		6EE6D8E31A1D108300F11239 /* Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = 6EE6D8E21A1D108300F11239 /* Helper.m */; };
 		6EE6D8F41A1DCDAB00F11239 /* datebg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6EE6D8F31A1DCDAB00F11239 /* datebg@2x.png */; };
+		9AB9380B1D17908D00A5F54C /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9AB938091D17908D00A5F54C /* Default-568h@2x.png */; };
+		9AB9380C1D17908D00A5F54C /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9AB9380A1D17908D00A5F54C /* Default@2x.png */; };
+		9AB9380F1D17945C00A5F54C /* ServiceRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AB9380E1D17945C00A5F54C /* ServiceRequest.m */; };
+		9AB938121D17947400A5F54C /* Common.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AB938111D17947400A5F54C /* Common.m */; };
+		9AB938151D1A6EA200A5F54C /* IQDropDownTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AB938141D1A6EA200A5F54C /* IQDropDownTextField.m */; };
+		9AB938181D1AA5CD00A5F54C /* MyUITextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AB938171D1AA5CD00A5F54C /* MyUITextField.m */; };
 		EA24E9FF1A0E75BD00A92723 /* 10406901_752194848164505_7793186767141070823_n.jpg in Resources */ = {isa = PBXBuildFile; fileRef = EA24E9FE1A0E75BD00A92723 /* 10406901_752194848164505_7793186767141070823_n.jpg */; };
 		EA24EA011A0E77C100A92723 /* no_img.jpg in Resources */ = {isa = PBXBuildFile; fileRef = EA24EA001A0E77C100A92723 /* no_img.jpg */; };
 		EA28F6201A1BB50300D3575E /* RadioButton.m in Sources */ = {isa = PBXBuildFile; fileRef = EA28F61F1A1BB50300D3575E /* RadioButton.m */; };
@@ -442,6 +448,16 @@
 		6EE6D8E11A1D108300F11239 /* Helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Helper.h; sourceTree = "<group>"; };
 		6EE6D8E21A1D108300F11239 /* Helper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Helper.m; sourceTree = "<group>"; };
 		6EE6D8F31A1DCDAB00F11239 /* datebg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "datebg@2x.png"; sourceTree = "<group>"; };
+		9AB938091D17908D00A5F54C /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		9AB9380A1D17908D00A5F54C /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
+		9AB9380D1D17945C00A5F54C /* ServiceRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServiceRequest.h; sourceTree = "<group>"; };
+		9AB9380E1D17945C00A5F54C /* ServiceRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServiceRequest.m; sourceTree = "<group>"; };
+		9AB938101D17947400A5F54C /* Common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Common.h; sourceTree = "<group>"; };
+		9AB938111D17947400A5F54C /* Common.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Common.m; sourceTree = "<group>"; };
+		9AB938131D1A6EA200A5F54C /* IQDropDownTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IQDropDownTextField.h; sourceTree = "<group>"; };
+		9AB938141D1A6EA200A5F54C /* IQDropDownTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IQDropDownTextField.m; sourceTree = "<group>"; };
+		9AB938161D1AA5CD00A5F54C /* MyUITextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyUITextField.h; sourceTree = "<group>"; };
+		9AB938171D1AA5CD00A5F54C /* MyUITextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyUITextField.m; sourceTree = "<group>"; };
 		EA24E9FE1A0E75BD00A92723 /* 10406901_752194848164505_7793186767141070823_n.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 10406901_752194848164505_7793186767141070823_n.jpg; sourceTree = "<group>"; };
 		EA24EA001A0E77C100A92723 /* no_img.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = no_img.jpg; sourceTree = "<group>"; };
 		EA28F61E1A1BB50300D3575E /* RadioButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RadioButton.h; sourceTree = "<group>"; };
@@ -580,6 +596,12 @@
 			children = (
 				6E28411E1A75485500B303E1 /* MBProgressHUD.h */,
 				6E28411F1A75485600B303E1 /* MBProgressHUD.m */,
+				9AB938101D17947400A5F54C /* Common.h */,
+				9AB938111D17947400A5F54C /* Common.m */,
+				9AB9380D1D17945C00A5F54C /* ServiceRequest.h */,
+				9AB9380E1D17945C00A5F54C /* ServiceRequest.m */,
+				9AB938161D1AA5CD00A5F54C /* MyUITextField.h */,
+				9AB938171D1AA5CD00A5F54C /* MyUITextField.m */,
 				6EAFE69C1A22C8AD00C9A1CE /* RMMapper */,
 				04F3D89D1A0BE972003B10FB /* Resources */,
 				04F3D89E1A0BE972003B10FB /* VController */,
@@ -701,6 +723,8 @@
 				EA4A272C1A1A820900304842 /* bg_edt_login.png */,
 				EA4A272D1A1A820900304842 /* bg_login.png */,
 				EA4A272E1A1A820900304842 /* btn_login.png */,
+				9AB938091D17908D00A5F54C /* Default-568h@2x.png */,
+				9AB9380A1D17908D00A5F54C /* Default@2x.png */,
 				EA7E8DE71A0FA2CF00BBE890 /* bg_hover.png */,
 				EA7E8DE81A0FA2CF00BBE890 /* bg_hover2.png */,
 				EA7E8DE91A0FA2CF00BBE890 /* bg_state.png */,
@@ -873,6 +897,8 @@
 		04F3D8B61A0BEA55003B10FB /* SignUpVC */ = {
 			isa = PBXGroup;
 			children = (
+				9AB938131D1A6EA200A5F54C /* IQDropDownTextField.h */,
+				9AB938141D1A6EA200A5F54C /* IQDropDownTextField.m */,
 				04F3D8BC1A0BEE5D003B10FB /* BIRegister.h */,
 				04F3D8BD1A0BEE5D003B10FB /* BIRegister.m */,
 				04F3D8BE1A0BEE5D003B10FB /* BIRegister.xib */,
@@ -1192,6 +1218,7 @@
 				04F3D8D61A0BF75D003B10FB /* icon_cat.png in Resources */,
 				6EB293021A1F6E1100F3B263 /* button_editProfile.png in Resources */,
 				EA924B731A1E811B007CBA2A /* btn_close@2x.png in Resources */,
+				9AB9380B1D17908D00A5F54C /* Default-568h@2x.png in Resources */,
 				6E0EDF951A274D1800CB1F3F /* BIBusinessesViewController.xib in Resources */,
 				04F3D8BB1A0BEB9E003B10FB /* BILogin.xib in Resources */,
 				6EB293031A1F6E1100F3B263 /* profile.png in Resources */,
@@ -1261,6 +1288,7 @@
 				EAE2DA2E1A1B9D1100DBF8F0 /* addinvoice_btn_save.png in Resources */,
 				EA4A273C1A1A8D2100304842 /* addproduct_btn_save.png in Resources */,
 				EA4A273D1A1A8D2100304842 /* addproduct_btn_save@2x.png in Resources */,
+				9AB9380C1D17908D00A5F54C /* Default@2x.png in Resources */,
 				6EB292FF1A1F6AD200F3B263 /* BIProductsViewController.xib in Resources */,
 				EA4A27301A1A820900304842 /* bg_login.png in Resources */,
 				EAE2DA2F1A1B9D1100DBF8F0 /* addinvoice_btn_save@2x.png in Resources */,
@@ -1322,10 +1350,12 @@
 				6EAD50E81A2AF282002B340F /* BICustomCurrencyTableViewCell.m in Sources */,
 				04F3D8CE1A0BF510003B10FB /* BIDashBoard.m in Sources */,
 				04F3D8B21A0BE9F7003B10FB /* MMDrawerBarButtonItem.m in Sources */,
+				9AB938151D1A6EA200A5F54C /* IQDropDownTextField.m in Sources */,
 				04F3D8B51A0BE9F7003B10FB /* UIViewController+MMDrawerController.m in Sources */,
 				6E43964E1A107C3E005EF4C9 /* ASINetworkQueue.m in Sources */,
 				6EE6D8E31A1D108300F11239 /* Helper.m in Sources */,
 				6E4396591A107C3E005EF4C9 /* ASIS3ObjectRequest.m in Sources */,
+				9AB938121D17947400A5F54C /* Common.m in Sources */,
 				6E4396521A107C3E005EF4C9 /* ASICloudFilesContainerXMLParserDelegate.m in Sources */,
 				6E4396511A107C3E005EF4C9 /* ASICloudFilesContainerRequest.m in Sources */,
 				6E0EDF941A274D1700CB1F3F /* BIBusinessesViewController.m in Sources */,
@@ -1334,6 +1364,7 @@
 				6ED7428C1A3A148F00F92A0E /* SBJsonStreamWriter.m in Sources */,
 				04F3D8B31A0BE9F7003B10FB /* MMDrawerController.m in Sources */,
 				6ED742861A3A148F00F92A0E /* NSObject+SBJson.m in Sources */,
+				9AB938181D1AA5CD00A5F54C /* MyUITextField.m in Sources */,
 				6ED7428E1A3A148F00F92A0E /* SBJsonStreamWriterState.m in Sources */,
 				6ED742871A3A148F00F92A0E /* SBJsonParser.m in Sources */,
 				6E43964C1A107C3E005EF4C9 /* ASIHTTPRequest.m in Sources */,
@@ -1349,6 +1380,7 @@
 				6EE6D8D41A1D049500F11239 /* BIUser.m in Sources */,
 				6EB292F91A1F574C00F3B263 /* BICustomerViewController.m in Sources */,
 				6EAFE6A81A22C8AD00C9A1CE /* RMMapper.m in Sources */,
+				9AB9380F1D17945C00A5F54C /* ServiceRequest.m in Sources */,
 				6ED7428F1A3A148F00F92A0E /* SBJsonTokeniser.m in Sources */,
 				6EB292FE1A1F6AD200F3B263 /* BIProductsViewController.m in Sources */,
 				6E43964B1A107C3E005EF4C9 /* ASIFormDataRequest.m in Sources */,
@@ -1488,7 +1520,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Kah Tan (6A96HB5DPZ)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Kah Tan (6A96HB5DPZ)";
@@ -1517,7 +1548,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Kah Tan (6A96HB5DPZ)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Kah Tan (6A96HB5DPZ)";

@@ -25,5 +25,6 @@
 @property (nonatomic)NSString* bankName;
 @property (nonatomic)NSString* bankSortCode;
 @property (nonatomic)NSString* bankAccountNumber;
+@property (nonatomic, strong) NSString* businessID;
 
 @end

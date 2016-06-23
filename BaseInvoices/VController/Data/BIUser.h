@@ -18,4 +18,6 @@
 @property (nonatomic)UIImage* imageUser;
 @property (nonatomic)NSString* userID;
 
+@property (nonatomic, strong) NSString* token;
+
 @end
