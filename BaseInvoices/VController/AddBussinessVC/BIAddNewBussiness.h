@@ -10,7 +10,7 @@
 #import "BIBussiness.h"
 #import "BICurrencyViewController.h"
 
-@interface BIAddNewBussiness : UIViewController<UITextFieldDelegate, BICurrencyViewControllerDelegate>
+@interface BIAddNewBussiness : UIViewController<UITextFieldDelegate, BICurrencyViewControllerDelegate, UIGestureRecognizerDelegate>
 {
     BOOL onCheckedButton;
 }
@@ -40,6 +40,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *txtBankDetails;
 
 - (IBAction)onCheckedButton:(id)sender;
+@property (weak, nonatomic) IBOutlet UIButton *btnSave;
 
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @end

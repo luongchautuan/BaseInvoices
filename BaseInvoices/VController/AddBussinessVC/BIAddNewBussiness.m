@@ -54,6 +54,7 @@ NSString* vatRegistered;
     
     UITapGestureRecognizer *tapGeusture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapHandler:)];
     tapGeusture.numberOfTapsRequired = 1;
+    tapGeusture.delegate = self;
     [self.scrollView addGestureRecognizer:tapGeusture];
     [tapGeusture setCancelsTouchesInView:NO];
     
@@ -130,10 +131,10 @@ NSString* vatRegistered;
 - (IBAction)onShowBankDetails:(id)sender
 {
     [self.viewPopUpBanking setHidden:NO];
-    self.viewPopUpMain.frame=CGRectMake(10, -110, 300, 183);
+    self.viewPopUpMain.frame=CGRectMake(10, -110, 300, 218);
     [UIView beginAnimations:@"" context:nil];
     [UIView setAnimationDuration:0.5];
-    self.viewPopUpMain.frame=CGRectMake(10, 77, 300, 183);
+    self.viewPopUpMain.frame=CGRectMake(10, 77, 300, 218);
     [UIView commitAnimations];
 
 }
@@ -155,6 +156,13 @@ NSString* vatRegistered;
     [self.txtBankName resignFirstResponder];
     [self.txtBankSortCode resignFirstResponder];
    
+}
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
+{
+    if ([touch.view isDescendantOfView:self.btnSave])
+        return NO;
+    return YES;
 }
 
 - (void)tapHandler:(UIGestureRecognizer *)ges
@@ -322,7 +330,30 @@ NSString* vatRegistered;
                     NSInteger statusCode = [httpResponse statusCode];
                     if (statusCode == 200)
                     {
+                        BIBussiness* bussiness = [appdelegate.businessForUser objectAtIndex:self.indexPathSelected.row];
+                        bussiness.bussinessAddress = self.txtAddress.text;
+                        bussiness.bussinessCity = self.txtCity.text;
+                        bussiness.bussinessCurrency = self.txtCurrency.text;
+                        bussiness.bussinessDescription = self.txtDescription.text;
+                        bussiness.bussinessName = self.txtNameBussiness.text;
+                        bussiness.bussinessPostCode  = self.txtPostCode.text;
+                        bussiness.bussinessVat = self.txtVat.text;
+                        bussiness.isVatRegistered = onCheckedButton;
+                        bussiness.currencySymbol = self.currencySymbol;
+                        bussiness.bankDetails = self.txtBankDetails.text;
+                        bussiness.bankAccountName = self.txtBankAccountName.text;
+                        bussiness.bankAccountNumber = self.txtBankAccountNumber.text;
+                        bussiness.bankName = self.txtBankName.text;
+                        bussiness.bankSortCode = self.txtBankSortCode.text;
                         
+                        NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
+                        
+                        [defaults rm_setCustomObject:bussiness forKey:@"bussinessForUser"];
+                        [defaults rm_setCustomObject:appdelegate.businessForUser forKey:@"bussinessesForUser"];
+                        
+                        [defaults setBool:YES forKey:@"bussiness"];
+                        
+                        [self.navigationController popViewControllerAnimated:YES];
                     }
                 }];
 
@@ -347,106 +378,178 @@ NSString* vatRegistered;
                     
                     if (statusCode == 200)
                     {
+                        if (self.addFrom == 0 || self.addFrom == 2)
+                        {
+                            BIBussiness* bussiness = [[BIBussiness alloc] init];
+                            bussiness.bussinessAddress = self.txtAddress.text;
+                            bussiness.bussinessCity = self.txtCity.text;
+                            bussiness.bussinessCurrency = self.txtCurrency.text;
+                            bussiness.bussinessDescription = self.txtDescription.text;
+                            bussiness.bussinessName = self.txtNameBussiness.text;
+                            bussiness.bussinessPostCode  = self.txtPostCode.text;
+                            bussiness.bussinessVat = self.txtVat.text;
+                            bussiness.isVatRegistered = onCheckedButton;
+                            bussiness.currencySymbol = self.currencySymbol;
+                            bussiness.bankDetails = self.txtBankDetails.text;
+                            bussiness.bankAccountName = self.txtBankAccountName.text;
+                            bussiness.bankAccountNumber = self.txtBankAccountNumber.text;
+                            bussiness.bankName = self.txtBankName.text;
+                            bussiness.bankSortCode = self.txtBankSortCode.text;
+                            
+                            
+                            appdelegate.bussinessForUser = bussiness;
+                            
+                            [appdelegate.businessForUser addObject:bussiness];
+                            
+                            
+                            NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
+                            [defaults rm_setCustomObject:bussiness forKey:@"bussinessForUser"];
+                            [defaults rm_setCustomObject:appdelegate.businessForUser forKey:@"bussinessesForUser"];
+                            [defaults setBool:YES forKey:@"bussiness"];
+                            
+                            [self.navigationController popViewControllerAnimated:YES];
+                        }
+                        else if (self.addFrom == 1)
+                        {
+                            BIBussiness* bussiness = [[BIBussiness alloc] init];
+                            bussiness.bussinessAddress = self.txtAddress.text;
+                            bussiness.bussinessCity = self.txtCity.text;
+                            bussiness.bussinessCurrency = self.txtCurrency.text;
+                            bussiness.bussinessDescription = self.txtDescription.text;
+                            bussiness.bussinessName = self.txtNameBussiness.text;
+                            bussiness.bussinessPostCode  = self.txtPostCode.text;
+                            bussiness.bussinessVat = self.txtVat.text;
+                            bussiness.isVatRegistered = onCheckedButton;
+                            bussiness.currencySymbol = self.currencySymbol;
+                            bussiness.bankDetails = self.txtBankDetails.text;
+                            bussiness.bankAccountName = self.txtBankAccountName.text;
+                            bussiness.bankAccountNumber = self.txtBankAccountNumber.text;
+                            bussiness.bankName = self.txtBankName.text;
+                            bussiness.bankSortCode = self.txtBankSortCode.text;
+                            
+                            
+                            appdelegate.bussinessForUser = bussiness;
+                            
+                            [appdelegate.businessForUser addObject:bussiness];
+                            
+                            
+                            NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
+                            [defaults rm_setCustomObject:bussiness forKey:@"bussinessForUser"];
+                            [defaults rm_setCustomObject:appdelegate.businessForUser forKey:@"bussinessesForUser"];
+                            
+                            [defaults setBool:YES forKey:@"bussiness"];
+                            
+                            BIAddInvoices *pushToVC = [[BIAddInvoices alloc] initWithNibName:@"BIAddInvoices" bundle:nil];
+                            [self.navigationController pushViewController:pushToVC animated:YES];
+                        }
 
                     }
                 }];
 
             }
         }
-        
-        if (self.isEditBusiness)
+        else
         {
-            BIBussiness* bussiness = [appdelegate.businessForUser objectAtIndex:self.indexPathSelected.row];
-            bussiness.bussinessAddress = self.txtAddress.text;
-            bussiness.bussinessCity = self.txtCity.text;
-            bussiness.bussinessCurrency = self.txtCurrency.text;
-            bussiness.bussinessDescription = self.txtDescription.text;
-            bussiness.bussinessName = self.txtNameBussiness.text;
-            bussiness.bussinessPostCode  = self.txtPostCode.text;
-            bussiness.bussinessVat = self.txtVat.text;
-            bussiness.isVatRegistered = onCheckedButton;
-            bussiness.currencySymbol = self.currencySymbol;
-            bussiness.bankDetails = self.txtBankDetails.text;
-            bussiness.bankAccountName = self.txtBankAccountName.text;
-            bussiness.bankAccountNumber = self.txtBankAccountNumber.text;
-            bussiness.bankName = self.txtBankName.text;
-            bussiness.bankSortCode = self.txtBankSortCode.text;
-            
-            NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
-            
-            [defaults rm_setCustomObject:bussiness forKey:@"bussinessForUser"];
-            [defaults rm_setCustomObject:appdelegate.businessForUser forKey:@"bussinessesForUser"];
-            
-            [defaults setBool:YES forKey:@"bussiness"];
-            
-            [self.navigationController popViewControllerAnimated:YES];
-        }
-        else if (self.addFrom == 0 || self.addFrom == 2)
-        {
-            BIBussiness* bussiness = [[BIBussiness alloc] init];
-            bussiness.bussinessAddress = self.txtAddress.text;
-            bussiness.bussinessCity = self.txtCity.text;
-            bussiness.bussinessCurrency = self.txtCurrency.text;
-            bussiness.bussinessDescription = self.txtDescription.text;
-            bussiness.bussinessName = self.txtNameBussiness.text;
-            bussiness.bussinessPostCode  = self.txtPostCode.text;
-            bussiness.bussinessVat = self.txtVat.text;
-            bussiness.isVatRegistered = onCheckedButton;
-            bussiness.currencySymbol = self.currencySymbol;
-            bussiness.bankDetails = self.txtBankDetails.text;
-            bussiness.bankAccountName = self.txtBankAccountName.text;
-            bussiness.bankAccountNumber = self.txtBankAccountNumber.text;
-            bussiness.bankName = self.txtBankName.text;
-            bussiness.bankSortCode = self.txtBankSortCode.text;
+            if (self.isEditBusiness) {
+                BIBussiness* bussiness = [appdelegate.businessForUser objectAtIndex:self.indexPathSelected.row];
+                bussiness.bussinessAddress = self.txtAddress.text;
+                bussiness.bussinessCity = self.txtCity.text;
+                bussiness.bussinessCurrency = self.txtCurrency.text;
+                bussiness.bussinessDescription = self.txtDescription.text;
+                bussiness.bussinessName = self.txtNameBussiness.text;
+                bussiness.bussinessPostCode  = self.txtPostCode.text;
+                bussiness.bussinessVat = self.txtVat.text;
+                bussiness.isVatRegistered = onCheckedButton;
+                bussiness.currencySymbol = self.currencySymbol;
+                bussiness.bankDetails = self.txtBankDetails.text;
+                bussiness.bankAccountName = self.txtBankAccountName.text;
+                bussiness.bankAccountNumber = self.txtBankAccountNumber.text;
+                bussiness.bankName = self.txtBankName.text;
+                bussiness.bankSortCode = self.txtBankSortCode.text;
+                
+                NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
+                
+                [defaults rm_setCustomObject:bussiness forKey:@"bussinessForUser"];
+                [defaults rm_setCustomObject:appdelegate.businessForUser forKey:@"bussinessesForUser"];
+                
+                [defaults setBool:YES forKey:@"bussiness"];
+                
+                [self.navigationController popViewControllerAnimated:YES];
 
-            
-            appdelegate.bussinessForUser = bussiness;
-            
-            [appdelegate.businessForUser addObject:bussiness];
-            
-            
-            NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
-            [defaults rm_setCustomObject:bussiness forKey:@"bussinessForUser"];
-            [defaults rm_setCustomObject:appdelegate.businessForUser forKey:@"bussinessesForUser"];
-            [defaults setBool:YES forKey:@"bussiness"];
-            
-            [self.navigationController popViewControllerAnimated:YES];
-        }
-        else if (self.addFrom == 1)
-        {
-            BIBussiness* bussiness = [[BIBussiness alloc] init];
-            bussiness.bussinessAddress = self.txtAddress.text;
-            bussiness.bussinessCity = self.txtCity.text;
-            bussiness.bussinessCurrency = self.txtCurrency.text;
-            bussiness.bussinessDescription = self.txtDescription.text;
-            bussiness.bussinessName = self.txtNameBussiness.text;
-            bussiness.bussinessPostCode  = self.txtPostCode.text;
-            bussiness.bussinessVat = self.txtVat.text;
-            bussiness.isVatRegistered = onCheckedButton;
-            bussiness.currencySymbol = self.currencySymbol;
-            bussiness.bankDetails = self.txtBankDetails.text;
-            bussiness.bankAccountName = self.txtBankAccountName.text;
-            bussiness.bankAccountNumber = self.txtBankAccountNumber.text;
-            bussiness.bankName = self.txtBankName.text;
-            bussiness.bankSortCode = self.txtBankSortCode.text;
+            }
+            else if (self.addFrom == 0 || self.addFrom == 2)
+            {
+                BIBussiness* bussiness = [[BIBussiness alloc] init];
+                bussiness.bussinessAddress = self.txtAddress.text;
+                bussiness.bussinessCity = self.txtCity.text;
+                bussiness.bussinessCurrency = self.txtCurrency.text;
+                bussiness.bussinessDescription = self.txtDescription.text;
+                bussiness.bussinessName = self.txtNameBussiness.text;
+                bussiness.bussinessPostCode  = self.txtPostCode.text;
+                bussiness.bussinessVat = self.txtVat.text;
+                bussiness.isVatRegistered = onCheckedButton;
+                bussiness.currencySymbol = self.currencySymbol;
+                bussiness.bankDetails = self.txtBankDetails.text;
+                bussiness.bankAccountName = self.txtBankAccountName.text;
+                bussiness.bankAccountNumber = self.txtBankAccountNumber.text;
+                bussiness.bankName = self.txtBankName.text;
+                bussiness.bankSortCode = self.txtBankSortCode.text;
+                
+                
+                appdelegate.bussinessForUser = bussiness;
+                
+                if (appdelegate.businessForUser == nil)
+                {
+                    appdelegate.businessForUser = [[NSMutableArray alloc] init];
+                    [appdelegate.businessForUser addObject:bussiness];
+                }
+                
+                
+                NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
+                [defaults rm_setCustomObject:bussiness forKey:@"bussinessForUser"];
+                [defaults rm_setCustomObject:appdelegate.businessForUser forKey:@"bussinessesForUser"];
+                [defaults setBool:YES forKey:@"bussiness"];
+                
+                [self.navigationController popViewControllerAnimated:YES];
+            }
+            else if (self.addFrom == 1)
+            {
+                BIBussiness* bussiness = [[BIBussiness alloc] init];
+                bussiness.bussinessAddress = self.txtAddress.text;
+                bussiness.bussinessCity = self.txtCity.text;
+                bussiness.bussinessCurrency = self.txtCurrency.text;
+                bussiness.bussinessDescription = self.txtDescription.text;
+                bussiness.bussinessName = self.txtNameBussiness.text;
+                bussiness.bussinessPostCode  = self.txtPostCode.text;
+                bussiness.bussinessVat = self.txtVat.text;
+                bussiness.isVatRegistered = onCheckedButton;
+                bussiness.currencySymbol = self.currencySymbol;
+                bussiness.bankDetails = self.txtBankDetails.text;
+                bussiness.bankAccountName = self.txtBankAccountName.text;
+                bussiness.bankAccountNumber = self.txtBankAccountNumber.text;
+                bussiness.bankName = self.txtBankName.text;
+                bussiness.bankSortCode = self.txtBankSortCode.text;
+                
+                
+                appdelegate.bussinessForUser = bussiness;
+                
+                if (appdelegate.businessForUser == nil)
+                {
+                    appdelegate.businessForUser = [[NSMutableArray alloc] init];
+                    [appdelegate.businessForUser addObject:bussiness];
+                }
+                
+                NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
+                [defaults rm_setCustomObject:bussiness forKey:@"bussinessForUser"];
+                [defaults rm_setCustomObject:appdelegate.businessForUser forKey:@"bussinessesForUser"];
+                
+                [defaults setBool:YES forKey:@"bussiness"];
+                
+                BIAddInvoices *pushToVC = [[BIAddInvoices alloc] initWithNibName:@"BIAddInvoices" bundle:nil];
+                [self.navigationController pushViewController:pushToVC animated:YES];
+            }
 
-            
-            appdelegate.bussinessForUser = bussiness;
-            
-            [appdelegate.businessForUser addObject:bussiness];
-            
-            
-            NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
-            [defaults rm_setCustomObject:bussiness forKey:@"bussinessForUser"];
-            [defaults rm_setCustomObject:appdelegate.businessForUser forKey:@"bussinessesForUser"];
-            
-            [defaults setBool:YES forKey:@"bussiness"];
-            
-            BIAddInvoices *pushToVC = [[BIAddInvoices alloc] initWithNibName:@"BIAddInvoices" bundle:nil];
-//            [self.navigationController popViewControllerAnimated:YES];
-            [self.navigationController pushViewController:pushToVC animated:YES];
         }
-
     }
     else
     {

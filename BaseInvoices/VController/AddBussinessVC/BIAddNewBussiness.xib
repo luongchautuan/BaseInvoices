@@ -29,6 +29,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="BIAddNewBussiness">
             <connections>
                 <outlet property="btnCheckVat" destination="gHK-PN-5pT" id="BJ5-0N-GgJ"/>
+                <outlet property="btnSave" destination="rt1-OL-LMj" id="nAq-t8-NR3"/>
                 <outlet property="scrollView" destination="c7c-mO-GLZ" id="SBb-qr-MAG"/>
                 <outlet property="txtAddress" destination="PGl-YM-Mcl" id="6WA-dK-A0g"/>
                 <outlet property="txtBankAccountName" destination="nEU-PH-dSM" id="4vr-SQ-IMn"/>
@@ -81,7 +82,7 @@
                                     </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rt1-OL-LMj">
-                                    <rect key="frame" x="262" y="10" width="50" height="29"/>
+                                    <rect key="frame" x="262" y="14" width="50" height="25"/>
                                     <state key="normal" backgroundImage="addproduct_btn_save.png">
                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                     </state>
@@ -103,10 +104,10 @@
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="bg_edt_login.png" translatesAutoresizingMaskIntoConstraints="NO" id="SBT-P6-PFI">
-                                    <rect key="frame" x="118" y="23" width="194" height="35"/>
+                                    <rect key="frame" x="118" y="23" width="194" height="40"/>
                                 </imageView>
                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="8g8-rW-Qme" customClass="MyUITextField">
-                                    <rect key="frame" x="121" y="23" width="194" height="35"/>
+                                    <rect key="frame" x="118" y="23" width="194" height="40"/>
                                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
                                     <textInputTraits key="textInputTraits" returnKeyType="next"/>
                                     <connections>
@@ -114,16 +115,16 @@
                                     </connections>
                                 </textField>
                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Address" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4qV-BF-KOw">
-                                    <rect key="frame" x="15" y="124" width="73" height="21"/>
+                                    <rect key="frame" x="15" y="125" width="73" height="21"/>
                                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
                                     <color key="textColor" red="0.4039215686" green="0.68627450980000004" blue="0.070588235289999995" alpha="1" colorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="bg_edt_login.png" translatesAutoresizingMaskIntoConstraints="NO" id="ddH-6b-B5Z">
-                                    <rect key="frame" x="118" y="70" width="194" height="35"/>
+                                    <rect key="frame" x="118" y="70" width="194" height="40"/>
                                 </imageView>
                                 <textField opaque="NO" clipsSubviews="YES" tag="1" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="TSO-Sb-C3A" customClass="MyUITextField">
-                                    <rect key="frame" x="121" y="70" width="194" height="35"/>
+                                    <rect key="frame" x="118" y="70" width="194" height="40"/>
                                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
                                     <textInputTraits key="textInputTraits" returnKeyType="next"/>
                                     <connections>
@@ -137,10 +138,10 @@
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="bg_edt_login.png" translatesAutoresizingMaskIntoConstraints="NO" id="u0s-vm-a8t">
-                                    <rect key="frame" x="118" y="165" width="194" height="35"/>
+                                    <rect key="frame" x="118" y="165" width="194" height="40"/>
                                 </imageView>
                                 <textField opaque="NO" clipsSubviews="YES" tag="3" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="C6d-Ec-gp8" customClass="MyUITextField">
-                                    <rect key="frame" x="121" y="165" width="194" height="35"/>
+                                    <rect key="frame" x="118" y="165" width="194" height="40"/>
                                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
                                     <textInputTraits key="textInputTraits" returnKeyType="next"/>
                                     <connections>
@@ -151,7 +152,7 @@
                                     <rect key="frame" x="118" y="316" width="194" height="35"/>
                                 </imageView>
                                 <textField opaque="NO" clipsSubviews="YES" tag="5" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="DY8-z0-54e" customClass="MyUITextField">
-                                    <rect key="frame" x="121" y="316" width="194" height="35"/>
+                                    <rect key="frame" x="118" y="316" width="194" height="40"/>
                                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
                                     <textInputTraits key="textInputTraits" keyboardType="numberPad" returnKeyType="next"/>
                                     <connections>
@@ -159,7 +160,7 @@
                                     </connections>
                                 </textField>
                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YmT-7R-kPr">
-                                    <rect key="frame" x="15" y="33" width="73" height="21"/>
+                                    <rect key="frame" x="15" y="32" width="73" height="21"/>
                                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
                                     <color key="textColor" red="0.4039215686" green="0.68627450980000004" blue="0.070588235289999995" alpha="1" colorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
@@ -177,10 +178,10 @@
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="bg_edt_login.png" translatesAutoresizingMaskIntoConstraints="NO" id="zN9-BP-MS7">
-                                    <rect key="frame" x="118" y="117" width="194" height="35"/>
+                                    <rect key="frame" x="118" y="117" width="194" height="40"/>
                                 </imageView>
                                 <textField opaque="NO" clipsSubviews="YES" tag="2" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="PGl-YM-Mcl" customClass="MyUITextField">
-                                    <rect key="frame" x="121" y="117" width="194" height="35"/>
+                                    <rect key="frame" x="118" y="117" width="194" height="40"/>
                                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
                                     <textInputTraits key="textInputTraits" returnKeyType="next"/>
                                     <connections>
@@ -188,10 +189,10 @@
                                     </connections>
                                 </textField>
                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="bg_edt_login.png" translatesAutoresizingMaskIntoConstraints="NO" id="oI6-nr-C6u">
-                                    <rect key="frame" x="118" y="214" width="194" height="35"/>
+                                    <rect key="frame" x="118" y="214" width="194" height="40"/>
                                 </imageView>
                                 <textField opaque="NO" clipsSubviews="YES" tag="4" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="FmJ-Ol-A9M" customClass="MyUITextField">
-                                    <rect key="frame" x="121" y="214" width="194" height="35"/>
+                                    <rect key="frame" x="118" y="214" width="194" height="40"/>
                                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
                                     <textInputTraits key="textInputTraits" returnKeyType="next"/>
                                     <connections>
@@ -199,7 +200,7 @@
                                     </connections>
                                 </textField>
                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="VAT Number" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NBp-dj-IsR">
-                                    <rect key="frame" x="15" y="321" width="106" height="21"/>
+                                    <rect key="frame" x="15" y="323" width="106" height="21"/>
                                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
                                     <color key="textColor" red="0.4039215686" green="0.68627450980000004" blue="0.070588235289999995" alpha="1" colorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
@@ -216,16 +217,16 @@
                                     </connections>
                                 </button>
                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Currency" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XCa-rP-niq">
-                                    <rect key="frame" x="15" y="370" width="98" height="21"/>
+                                    <rect key="frame" x="15" y="372" width="98" height="21"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                     <color key="textColor" red="0.4039215686" green="0.68627450980000004" blue="0.070588235289999995" alpha="1" colorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="bg_edt_login.png" translatesAutoresizingMaskIntoConstraints="NO" id="7VI-lF-bau">
-                                    <rect key="frame" x="118" y="363" width="194" height="35"/>
+                                    <rect key="frame" x="118" y="363" width="194" height="40"/>
                                 </imageView>
                                 <textField opaque="NO" clipsSubviews="YES" tag="6" contentMode="scaleToFill" fixedFrame="YES" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Lid-Il-O29" customClass="MyUITextField">
-                                    <rect key="frame" x="121" y="363" width="194" height="35"/>
+                                    <rect key="frame" x="118" y="363" width="194" height="40"/>
                                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
                                     <textInputTraits key="textInputTraits"/>
                                     <connections>
@@ -233,12 +234,32 @@
                                     </connections>
                                 </textField>
                                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MqV-gX-AYJ">
-                                    <rect key="frame" x="118" y="363" width="194" height="35"/>
+                                    <rect key="frame" x="118" y="363" width="194" height="40"/>
                                     <state key="normal">
                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                     </state>
                                     <connections>
                                         <action selector="onCurrencyShow:" destination="-1" eventType="touchUpInside" id="mSx-ik-aCS"/>
+                                    </connections>
+                                </button>
+                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="bg_edt_login.png" translatesAutoresizingMaskIntoConstraints="NO" id="DGm-tL-DC9">
+                                    <rect key="frame" x="118" y="412" width="194" height="40"/>
+                                </imageView>
+                                <textField opaque="NO" clipsSubviews="YES" tag="12" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="97U-8u-e5L" customClass="MyUITextField">
+                                    <rect key="frame" x="118" y="412" width="194" height="40"/>
+                                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
+                                    <textInputTraits key="textInputTraits"/>
+                                    <connections>
+                                        <outlet property="delegate" destination="-1" id="DcL-vD-MgH"/>
+                                    </connections>
+                                </textField>
+                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8OG-nL-f62">
+                                    <rect key="frame" x="118" y="412" width="194" height="40"/>
+                                    <state key="normal">
+                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="onShowBankDetails:" destination="-1" eventType="touchUpInside" id="0Ss-D6-RXF"/>
                                     </connections>
                                 </button>
                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Bank Account" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kkj-EH-k9Y">
@@ -247,26 +268,6 @@
                                     <color key="textColor" red="0.4039215686" green="0.68627450980000004" blue="0.070588235289999995" alpha="1" colorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
-                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="bg_edt_login.png" translatesAutoresizingMaskIntoConstraints="NO" id="DGm-tL-DC9">
-                                    <rect key="frame" x="118" y="412" width="194" height="35"/>
-                                </imageView>
-                                <textField opaque="NO" clipsSubviews="YES" tag="12" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="97U-8u-e5L" customClass="MyUITextField">
-                                    <rect key="frame" x="121" y="412" width="194" height="35"/>
-                                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
-                                    <textInputTraits key="textInputTraits"/>
-                                    <connections>
-                                        <outlet property="delegate" destination="-1" id="DcL-vD-MgH"/>
-                                    </connections>
-                                </textField>
-                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8OG-nL-f62">
-                                    <rect key="frame" x="121" y="412" width="194" height="35"/>
-                                    <state key="normal">
-                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                    </state>
-                                    <connections>
-                                        <action selector="onShowBankDetails:" destination="-1" eventType="touchUpInside" id="0Ss-D6-RXF"/>
-                                    </connections>
-                                </button>
                             </subviews>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         </view>
@@ -276,10 +277,10 @@
                     <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                     <subviews>
                         <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="flL-b0-8Yx">
-                            <rect key="frame" x="10" y="77" width="300" height="183"/>
+                            <rect key="frame" x="10" y="77" width="300" height="218"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8kt-HW-AKt">
-                                    <rect key="frame" x="254" y="5" width="38" height="19"/>
+                                    <rect key="frame" x="246" y="5" width="46" height="24"/>
                                     <state key="normal" backgroundImage="save button.png">
                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                     </state>
@@ -288,16 +289,16 @@
                                     </connections>
                                 </button>
                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Bank name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="64d-gK-rRY">
-                                    <rect key="frame" x="8" y="72" width="107" height="22"/>
+                                    <rect key="frame" x="8" y="90" width="107" height="22"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                     <color key="textColor" red="0.4039215686" green="0.68627450980000004" blue="0.070588235289999995" alpha="1" colorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="bg_edt_login.png" translatesAutoresizingMaskIntoConstraints="NO" id="QLB-A2-9U0">
-                                    <rect key="frame" x="123" y="31" width="170" height="30"/>
+                                    <rect key="frame" x="123" y="36" width="170" height="40"/>
                                 </imageView>
                                 <textField opaque="NO" clipsSubviews="YES" tag="9" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="nEU-PH-dSM" customClass="MyUITextField">
-                                    <rect key="frame" x="126" y="31" width="170" height="30"/>
+                                    <rect key="frame" x="123" y="36" width="170" height="40"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                     <textInputTraits key="textInputTraits" returnKeyType="next"/>
                                     <connections>
@@ -305,10 +306,10 @@
                                     </connections>
                                 </textField>
                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="bg_edt_login.png" translatesAutoresizingMaskIntoConstraints="NO" id="R8Z-CR-fdI">
-                                    <rect key="frame" x="123" y="67" width="170" height="30"/>
+                                    <rect key="frame" x="123" y="81" width="170" height="40"/>
                                 </imageView>
                                 <textField opaque="NO" clipsSubviews="YES" tag="10" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="qJe-Ol-Ah7" customClass="MyUITextField">
-                                    <rect key="frame" x="126" y="67" width="170" height="30"/>
+                                    <rect key="frame" x="123" y="81" width="170" height="40"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                     <textInputTraits key="textInputTraits"/>
                                     <connections>
@@ -316,10 +317,10 @@
                                     </connections>
                                 </textField>
                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="bg_edt_login.png" translatesAutoresizingMaskIntoConstraints="NO" id="IDk-W7-j61">
-                                    <rect key="frame" x="122" y="105" width="170" height="30"/>
+                                    <rect key="frame" x="123" y="126" width="170" height="40"/>
                                 </imageView>
                                 <textField opaque="NO" clipsSubviews="YES" tag="11" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Zg0-Ec-cVf" customClass="MyUITextField">
-                                    <rect key="frame" x="122" y="105" width="170" height="30"/>
+                                    <rect key="frame" x="123" y="126" width="170" height="40"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                     <textInputTraits key="textInputTraits"/>
                                     <connections>
@@ -327,16 +328,16 @@
                                     </connections>
                                 </textField>
                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Account name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8wX-yg-ker">
-                                    <rect key="frame" x="8" y="36" width="107" height="21"/>
+                                    <rect key="frame" x="8" y="46" width="107" height="21"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                     <color key="textColor" red="0.4039215686" green="0.68627450980000004" blue="0.070588235289999995" alpha="1" colorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="bg_edt_login.png" translatesAutoresizingMaskIntoConstraints="NO" id="cMM-pm-4Qn">
-                                    <rect key="frame" x="122" y="143" width="170" height="30"/>
+                                    <rect key="frame" x="123" y="171" width="170" height="40"/>
                                 </imageView>
                                 <textField opaque="NO" clipsSubviews="YES" tag="12" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Rj4-Yg-OxD" customClass="MyUITextField">
-                                    <rect key="frame" x="122" y="143" width="170" height="30"/>
+                                    <rect key="frame" x="123" y="171" width="170" height="40"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                     <textInputTraits key="textInputTraits"/>
                                     <connections>
@@ -344,13 +345,13 @@
                                     </connections>
                                 </textField>
                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Account number" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pZZ-PI-shn">
-                                    <rect key="frame" x="7" y="109" width="125" height="22"/>
+                                    <rect key="frame" x="7" y="134" width="125" height="22"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                     <color key="textColor" red="0.4039215686" green="0.68627450980000004" blue="0.070588235289999995" alpha="1" colorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Sort code" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4bg-2D-bvd">
-                                    <rect key="frame" x="8" y="147" width="107" height="22"/>
+                                    <rect key="frame" x="8" y="178" width="107" height="22"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                     <color key="textColor" red="0.4039215686" green="0.68627450980000004" blue="0.070588235289999995" alpha="1" colorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>

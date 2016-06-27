@@ -1131,6 +1131,8 @@ BIAppDelegate* appdelegate;
     self.viewDateForPopUp.hidden = YES;
 }
 
+#pragma mark - UITableView Delegate
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     return 1;

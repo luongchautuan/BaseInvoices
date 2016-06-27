@@ -142,6 +142,8 @@ BIAppDelegate* appdelegate;
 }
 #pragma mark return to close soft keyboard
 
+
+
 - (void)tapHandler:(UIGestureRecognizer *)ges
 {
     [self.edtAddress resignFirstResponder];
