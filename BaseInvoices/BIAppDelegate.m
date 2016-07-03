@@ -54,23 +54,13 @@ static NSString *const kAllowTracking = @"allowTracking";
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
-    BIDashBoard *centerSideVC = [[BIDashBoard alloc] initWithNibName:@"BIDashBoard" bundle:nil];
-    
-    BLLeftSideVC *leftSideVC = [[BLLeftSideVC alloc] initWithNibName:@"BLLeftSideVC" bundle:nil];
-    
-    leftSideVC.delegate = centerSideVC;
-    
+    BILogin *centerSideVC = [[BILogin alloc] initWithNibName:@"BILogin" bundle:nil];
+
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:centerSideVC];
-    
-    self.drawerController = [[MMDrawerController alloc] initWithCenterViewController:nav leftDrawerViewController:leftSideVC];
-    [self.drawerController setOpenDrawerGestureModeMask:MMOpenDrawerGestureModeAll];
-    
-    [self.drawerController setCloseDrawerGestureModeMask:MMCloseDrawerGestureModeAll];
-    
-    self.window.rootViewController = self.drawerController;
+
+    self.window.rootViewController = nav;
     
     [nav.navigationBar setHidden:YES];
-//    self.window.rootViewController = nav;
 
     if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
     {

@@ -69,7 +69,6 @@ BIAppDelegate* appdelegate;
     [self.view addGestureRecognizer:tapGeusture];
     
     CGRect screenRect = [[UIScreen mainScreen] bounds];
-    CGFloat screenWidth = screenRect.size.width;
     CGFloat screenHeight = screenRect.size.height;
     
     UIView *paddingView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, screenHeight)];

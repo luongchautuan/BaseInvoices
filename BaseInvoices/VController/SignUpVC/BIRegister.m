@@ -297,7 +297,7 @@ BIAppDelegate* appdelegate;
 
 - (IBAction)onBack:(id)sender {
     BILogin *objectiveVC = [[BILogin alloc] initWithNibName:@"BILogin" bundle:nil];
-    [self.navigationController pushViewController:objectiveVC animated:YES];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 #pragma mark return to close soft keyboard

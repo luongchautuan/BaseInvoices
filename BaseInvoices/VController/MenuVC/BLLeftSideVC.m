@@ -29,17 +29,6 @@ BIAppDelegate* appdelegate;
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    if (!appdelegate.isLoginSucesss)
-    {
-        self.img_thumb.image = [UIImage imageNamed:@"no_img.jpg"];
-        self.lblDisplayName.text = @"User Default";
-    }
-    else
-    {
-        self.img_thumb.image = appdelegate.currentUser.imageUser;
-        self.lblDisplayName.text = appdelegate.currentUser.displayName;
-    }
-      
     self.myTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     
     NSDictionary *invoice = [[NSDictionary alloc] initWithObjectsAndKeys:@"Invoices", @"title", @"", @"detail", @"menu_img_invoice.png", @"icon", nil];
@@ -49,17 +38,31 @@ BIAppDelegate* appdelegate;
     NSDictionary *signout = [[NSDictionary alloc] initWithObjectsAndKeys:@"Sign Out", @"title", @"", @"detail", @"menu_img_logout.png", @"icon", nil];
     NSDictionary *bussines = [[NSDictionary alloc] initWithObjectsAndKeys:@"Business", @"title", @"", @"detail", @"business_icon.png", @"icon", nil];
     
-    if (!appdelegate.isLoginSucesss) {
+    if (!appdelegate.currentUser.isLoginSuccessFully)
+    {
+        self.img_thumb.image = [UIImage imageNamed:@"no_img.jpg"];
+        self.lblDisplayName.text = @"User Default";
+        
         signout = [[NSDictionary alloc] initWithObjectsAndKeys:@"Login", @"title", @"", @"detail", @"menu_img_logout.png", @"icon", nil];
     }
-    
+    else
+    {
+        if (appdelegate.currentUser.imageUser == nil)
+        {
+            self.img_thumb.image = [UIImage imageNamed:@"no_img.jpg"];
+        }
+        else
+            self.img_thumb.image = appdelegate.currentUser.imageUser;
+        
+        self.lblDisplayName.text = appdelegate.currentUser.displayName;
+    }
+
     //    self.img_thumb.layer.borderWidth = 1.0f;
     self.img_thumb.layer.masksToBounds = NO;
     self.img_thumb.clipsToBounds = YES;
     self.img_thumb.layer.cornerRadius = 40;
     
     arrData = [NSArray arrayWithObjects:invoice, customers, products, bussines, settings, signout, nil];
-    
     
     [self.myTableView reloadData];
 }
@@ -79,25 +82,32 @@ BIAppDelegate* appdelegate;
 }
 
 #pragma mark - TABLEVIEW
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
     return arrData.count;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
-    if (cell == nil) {
+    
+    if (cell == nil)
+    {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"cell"];
         cell.backgroundColor = [UIColor clearColor];
         cell.textLabel.textColor = [UIColor whiteColor];
         cell.detailTextLabel.textColor = [UIColor whiteColor];
     }
     
-    if (arrData.count > 0) {
+    if (arrData.count > 0)
+    {
         NSDictionary *currData = [arrData objectAtIndex:indexPath.row];
         cell.textLabel.text = [NSString stringWithFormat:@"%@", [currData objectForKey:@"title"]];
         cell.detailTextLabel.text = [NSString stringWithFormat:@"%@", [currData objectForKey:@"detail"]];
         cell.imageView.image = [UIImage imageNamed:[currData objectForKey:@"icon"]];
     }
+    
+    [cell.textLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:15.0f]];
     
     return cell;
 }

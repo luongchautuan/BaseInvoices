@@ -7,9 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "BLLeftSideVC.h"
 
-@interface BILogin : UIViewController<BLLeftSideDelegate, UIAlertViewDelegate>
+@interface BILogin : UIViewController<UIAlertViewDelegate>
 @property (weak, nonatomic) IBOutlet UIButton *btnLogin;
 @property (weak, nonatomic) IBOutlet UIButton *btnRegister;
 @property (weak, nonatomic) IBOutlet UITextField *edtUsername;

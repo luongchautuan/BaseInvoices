@@ -22,6 +22,7 @@
 #import "NSUserDefaults+RMSaveCustomObject.h"
 #import "SBJson.h"
 #import "BIAddNewBussiness.h"
+#import "MMDrawerController.h"
 
 @interface BILogin ()
 
@@ -45,9 +46,9 @@ NSMutableArray *feeds;
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+
+    appdelegate = (BIAppDelegate*)[[UIApplication sharedApplication] delegate];
     
-//    self.edtUsername.text = @"test@test.com";
-//    self.edtPassword.text = @"test";
     [self initScreen];
 }
 
@@ -78,9 +79,6 @@ NSMutableArray *feeds;
 
 - (void)viewDidAppear:(BOOL)animated
 {
-    [self closeMenu];
-    [self.mm_drawerController setOpenDrawerGestureModeMask:MMOpenDrawerGestureModeNone];
-    NSLog(@"viewDidAppear");
 }
 
 - (void)didReceiveMemoryWarning
@@ -89,19 +87,18 @@ NSMutableArray *feeds;
     // Dispose of any resources that can be recreated.
 }
 
-- (IBAction)showCat:(id)sender
-{
-    [self.mm_drawerController toggleDrawerSide:MMDrawerSideLeft animated:YES completion:nil];
-}
-
 - (IBAction)onLogin:(id)sender
 {
+    [self.view endEditing:YES];
+    [self.scrollView setContentOffset:CGPointMake(0, -20)];
+    
     [self.viewActivity setHidden:NO];
     [self.activityIndicator startAnimating];
     
-    if([self.edtPassword.text length] <1 ||[self.edtUsername.text length]<1)
+    if([self.edtPassword.text length] < 1 ||[self.edtUsername.text length] < 1)
     {
-        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Warning" message:@"Please fill all text fields" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Warning" message:@"Please fill all fields" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [alert show];
         
         [self.viewActivity setHidden:YES];
@@ -131,7 +128,7 @@ NSMutableArray *feeds;
                 {
                     if (appdelegate.businessForUser.count == 1) {
                         //Send first invoice and first businees
-                        NSString* cisRegistered = @"False";
+                        NSString* cisRegistered = @"0";
                         
                         NSString* nameBusiness = [[appdelegate.businessForUser objectAtIndex:0] bussinessName];
                         NSString* descriptionsBusiness = [[appdelegate.businessForUser objectAtIndex:0] bussinessDescription];
@@ -142,11 +139,11 @@ NSMutableArray *feeds;
                         
                         if ([[appdelegate.businessForUser objectAtIndex:0] isVatRegistered])
                         {
-                            vatRegistered = @"True";
+                            vatRegistered = @"1";
                         }
                         else
                         {
-                            vatRegistered = @"False";
+                            vatRegistered = @"0";
                         }
                         
                         NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
@@ -186,89 +183,52 @@ NSMutableArray *feeds;
                         
                     }
 
-                    NSString *data;
-                    data =[[[data valueForKey:@"data"] valueForKey:@"user"] valueForKey:@"id"];
+                    NSString *dataStr;
+                    dataStr = [[[data valueForKey:@"data"] valueForKey:@"user"] valueForKey:@"id"];
                     
-                    appdelegate.currentUser.userID = data;
+                    NSDictionary* userData = [[data valueForKey:@"data"] valueForKey:@"user"];
+                    NSString* name = [userData valueForKey:@"name"];
+                    
+                    
                     
                     BIUser* user = [[BIUser alloc] init];
                     user.userName = self.edtUsername.text;
                     user.password = self.edtPassword.text;
                     user.token = [[data valueForKey:@"data"] valueForKey:@"token"];
+                    user.displayName = name;
+                    user.isLoginSuccessFully = YES;
                     
                     appdelegate.currentUser = user;
-                    
+                    appdelegate.currentUser.userID = dataStr;
                     appdelegate.isLoginSucesss = YES;
                     
-                    BIDashBoard *pushToVC = [[BIDashBoard alloc] initWithNibName:@"BIDashBoard" bundle:nil];
-                    [self.navigationController pushViewController:pushToVC animated:YES];
+                    BIDashBoard* dashboardView = [[BIDashBoard alloc] initWithNibName:@"BIDashBoard" bundle:nil];
+                    
+                    BLLeftSideVC *leftSideVC = [[BLLeftSideVC alloc] initWithNibName:@"BLLeftSideVC" bundle:nil];
+                    
+                    leftSideVC.delegate = dashboardView;
+                    
+                    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:dashboardView];
+                    
+                    MMDrawerController* drawerController = [[MMDrawerController alloc] initWithCenterViewController:nav leftDrawerViewController:leftSideVC];
+                    [drawerController setOpenDrawerGestureModeMask:MMOpenDrawerGestureModeAll];
+                    
+                    [drawerController setCloseDrawerGestureModeMask:MMCloseDrawerGestureModeAll];
+                    
+                    [self.navigationController pushViewController:drawerController animated:YES];
 
                 }
             }
         }];
-        
-//        ASIHTTPRequest *request = [[ASIHTTPRequest alloc] initWithURL:[NSURL URLWithString:@"https://ec2-46-137-84-201.eu-west-1.compute.amazonaws.com:8443/wTaxmapp/resources/user"]];
-//        
-//        
-//        [request setTag:1];
-//        [request addBasicAuthenticationHeaderWithUsername:self.edtUsername.text andPassword:self.edtPassword.text];
-//        
-//        [request addRequestHeader:@"Content-Type" value:@"application/json"];
-//        [request setValidatesSecureCertificate:NO];
-//        [request setDelegate:self];
-//        [request startAsynchronous];
     }
 
 }
 
-- (IBAction)onRegister:(id)sender {
+
+- (IBAction)onRegister:(id)sender
+{
     BIRegister *pushToVC = [[BIRegister alloc] initWithNibName:@"BIRegister" bundle:nil];
     [self.navigationController pushViewController:pushToVC animated:YES];
-}
-
-- (void)closeMenu
-{
-}
-
-- (void)selectCategory:(int)ID
-{
-    switch (ID)
-    {
-        case 0:
-        {
-            BIDashBoard *dashboardViewController = [[BIDashBoard alloc] initWithNibName:@"BIDashBoard" bundle:nil];
-            [self.navigationController pushViewController:dashboardViewController animated:YES];
-        }
-            break;
-        case 1:
-        {
-            BICustomerViewController *customerViewController = [[BICustomerViewController alloc] initWithNibName:@"BICustomerViewController" bundle:nil];
-            [customerViewController setIsViewCustomerEdit:YES];
-            
-            [self.navigationController pushViewController:customerViewController animated:YES];
-        }
-            break;
-        case 2:
-        {
-            BIProductsViewController *educationVC = [[BIProductsViewController alloc] initWithNibName:@"BIProductsViewController" bundle:nil];
-            [self.navigationController pushViewController:educationVC animated:YES];
-        }
-            break;
-        case 3:
-        {
-            BIProfileViewController *skillVC = [[BIProfileViewController alloc] initWithNibName:@"BIProfileViewController" bundle:nil];
-            [self.navigationController pushViewController:skillVC animated:YES];
-        }
-            break;
-        case 4:
-        {
-            BILogin *referenceVC = [[BILogin alloc] initWithNibName:@"BILogin" bundle:nil];
-            [self.navigationController pushViewController:referenceVC animated:YES];
-        }
-            break;
-        default:
-            break;
-    }
 }
 
 #pragma mark return to close soft keyboard
@@ -284,13 +244,14 @@ NSMutableArray *feeds;
 
 -(void)textFieldDidBeginEditing:(UITextField *)textField
 {
-   
-    if (textField.tag==0)
+    if (textField.tag == 0)
     {
-        if (appdelegate.result.height == 480) {
+        if (appdelegate.result.height == 480)
+        {
             [self.scrollView setContentOffset:CGPointMake(0,150)];
         }
-        else [self.scrollView setContentOffset:CGPointMake(0,50)];
+        else
+            [self.scrollView setContentOffset:CGPointMake(0,50)];
     }
     
     if (textField.tag==1)
@@ -404,8 +365,6 @@ NSMutableArray *feeds;
             
             appdelegate.isLoginSucesss = YES;
             
-            BIDashBoard *pushToVC = [[BIDashBoard alloc] initWithNibName:@"BIDashBoard" bundle:nil];
-            [self.navigationController pushViewController:pushToVC animated:YES];
         }
     }
 }

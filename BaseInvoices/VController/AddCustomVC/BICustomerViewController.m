@@ -38,8 +38,10 @@ BIAppDelegate* appdelegate;
     {
         appdelegate.customerForUser = customerForUser;
     }
-    
-    
+    else
+    {
+        [self.tableView setHidden:YES];
+    }
     
     [self.tableView reloadData];
 }

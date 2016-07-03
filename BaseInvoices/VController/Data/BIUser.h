@@ -11,12 +11,13 @@
 
 @interface BIUser : NSObject
 
-@property (nonatomic)NSString* userName;
-@property (nonatomic)NSString* password;
-@property (nonatomic)NSString* displayName;
-@property (nonatomic)NSString* email;
+@property (nonatomic, strong)NSString* userName;
+@property (nonatomic, strong)NSString* password;
+@property (nonatomic, strong)NSString* displayName;
+@property (nonatomic, strong)NSString* email;
 @property (nonatomic)UIImage* imageUser;
-@property (nonatomic)NSString* userID;
+@property (nonatomic, strong)NSString* userID;
+@property (nonatomic) BOOL isLoginSuccessFully;
 
 @property (nonatomic, strong) NSString* token;
 

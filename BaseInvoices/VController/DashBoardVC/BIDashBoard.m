@@ -20,6 +20,7 @@
 #import "BIInvoice.h"
 #import "BIBusinessesViewController.h"
 #import "BIInvoiceTableViewCell.h"
+#import "SBJson.h"
 
 @interface BIDashBoard ()
 
@@ -52,6 +53,8 @@ BIAppDelegate* appdelegate;
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    [self.navigationController setNavigationBarHidden:YES];
+    
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSMutableArray* invoicesForUser = [[NSMutableArray alloc] init];
     
@@ -70,16 +73,36 @@ BIAppDelegate* appdelegate;
     [self.tableView reloadData];
 }
 
-- (void)viewDidAppear:(BOOL)animated
-{
-    [self.mm_drawerController setOpenDrawerGestureModeMask:MMOpenDrawerGestureModeAll
-     ];
-}
-
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+
+- (void)getInvoices
+{
+    [[ServiceRequest getShareInstance] serviceRequestActionName:@"/invoice" accessToken:appdelegate.currentUser.token method:@"GET" result:^(NSURLResponse *response, NSData *data, NSError *connectionError)
+    {
+        NSHTTPURLResponse* httpResponse = (NSHTTPURLResponse*)response;
+        NSInteger statusCode = [httpResponse statusCode];
+        
+        if (statusCode == 200)
+        {
+            NSString *responeString = [[NSString alloc] initWithData:data
+                                                            encoding:NSUTF8StringEncoding];
+            
+            NSLog(@"RESPIONSE: %@", responeString);
+            NSDictionary* data = [[NSDictionary alloc] init];
+            SBJsonParser *json = [SBJsonParser new];
+            data = [json objectWithString:[NSString stringWithFormat:@"%@", responeString]];
+            
+            if ([data valueForKey:@"data"] != nil)
+            {
+                
+            }
+        }
+    }];
 }
 
 - (IBAction)onShowPopUp:(id)sender
