@@ -8,8 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "BICustomer.h"
-
-@interface BIAddCustom : UIViewController<UIAlertViewDelegate>
+#import "CountryViewController.h"
+@interface BIAddCustom : UIViewController<UIAlertViewDelegate, CountryViewControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UIButton *btnBack;
 - (IBAction)onBack:(id)sender;
@@ -27,5 +27,9 @@
 @property (nonatomic)BOOL isEditCustomer;
 @property (nonatomic, retain)BICustomer* customer;
 @property (nonatomic)NSIndexPath* indexPathSelected;
+@property (weak, nonatomic) IBOutlet UITextField *txtDescription;
+@property (weak, nonatomic) IBOutlet UITextField *txtCountry;
+
+@property (nonatomic) BICustomer* customerEditting;
 
 @end

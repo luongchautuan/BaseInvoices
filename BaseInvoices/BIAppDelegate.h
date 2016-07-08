@@ -49,4 +49,10 @@
 @property (nonatomic, retain)BICurrency* currency;
 
 @property (nonatomic) CGSize result;
+
+@property (nonatomic) NSMutableArray* countries;
+@property (strong, nonatomic) NSArray *dataRows;
+
++ (BIAppDelegate*)shareAppdelegate;
+
 @end

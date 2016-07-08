@@ -12,6 +12,8 @@
 #import "NSUserDefaults+RMSaveCustomObject.h"
 #import "BLLeftSideVC.h"
 #import "GAI.h"
+#import "CountryRepository.h"
+#import "CountryListDataSource.h"
 
 @implementation BIAppDelegate
 
@@ -32,6 +34,20 @@ static NSString *const kAllowTracking = @"allowTracking";
     [GAI sharedInstance].trackUncaughtExceptions = YES;
     self.tracker = [[GAI sharedInstance] trackerWithName:@"BaseTax"
                                               trackingId:kTrackingId];
+    
+    CountryListDataSource *dataSource = [[CountryListDataSource alloc] init];
+    _dataRows = [dataSource countries];
+    
+    _countries = [[NSMutableArray alloc] init];
+    
+    for (NSDictionary* dict in _dataRows)
+    {
+        CountryRepository* country = [[CountryRepository alloc] initWithCountryName: [dict valueForKey:@"name"] countryCode: [dict valueForKey:@"code"] dialCode: [dict valueForKey:@"id"]];
+        
+        
+        [_countries addObject:country];
+    }
+
     
     self.invoicesForUser = [[NSMutableArray alloc] init];
     self.customerForUser = [[NSMutableArray alloc] init];
@@ -72,6 +88,11 @@ static NSString *const kAllowTracking = @"allowTracking";
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     return YES;
+}
+
++ (BIAppDelegate*)shareAppdelegate
+{
+    return (BIAppDelegate*) [[UIApplication sharedApplication] delegate];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application

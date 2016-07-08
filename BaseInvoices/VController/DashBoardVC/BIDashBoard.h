@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "BLLeftSideVC.h"
 
-@interface BIDashBoard : UIViewController<BLLeftSideDelegate>
+@interface BIDashBoard : UIViewController<BLLeftSideDelegate, UITableViewDelegate, UITableViewDataSource>
 @property (weak, nonatomic) IBOutlet UIButton *btnCategory;
 @property (weak, nonatomic) IBOutlet UIButton *btnAddinvoice;
 @property (weak, nonatomic) IBOutlet UIView *viewAddMore;

@@ -55,22 +55,24 @@ BIAppDelegate* appdelegate;
 {
     [self.navigationController setNavigationBarHidden:YES];
     
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSMutableArray* invoicesForUser = [[NSMutableArray alloc] init];
+//    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+//    NSMutableArray* invoicesForUser = [[NSMutableArray alloc] init];
+//    
+//    invoicesForUser = [defaults rm_customObjectForKey:@"invoicesForUser"];
+//    
+//    if (invoicesForUser.count > 0)
+//    {
+//        self.tableView.hidden = NO;
+//        appdelegate.invoicesForUser = invoicesForUser;
+//    }
+//    else
+//    {
+//        self.tableView.hidden = YES;
+//    }
+//
+//    [self.tableView reloadData];
     
-    invoicesForUser = [defaults rm_customObjectForKey:@"invoicesForUser"];
-    
-    if (invoicesForUser.count > 0)
-    {
-        self.tableView.hidden = NO;
-        appdelegate.invoicesForUser = invoicesForUser;
-    }
-    else
-    {
-        self.tableView.hidden = YES;
-    }
-
-    [self.tableView reloadData];
+    [self getInvoices];
 }
 
 - (void)didReceiveMemoryWarning
@@ -99,7 +101,44 @@ BIAppDelegate* appdelegate;
             
             if ([data valueForKey:@"data"] != nil)
             {
+                appdelegate.invoicesForUser = [[NSMutableArray alloc] init];
                 
+                for (NSDictionary* invoiceDict in [data valueForKey:@"data"])
+                {
+                    NSString* invoiceNumber = [invoiceDict valueForKey:@"invoice_no"];
+                    NSString* invoiceID = [invoiceDict valueForKey:@"id"];
+                    
+                    NSDictionary* customerDict = [invoiceDict valueForKey:@"customer"];
+                    NSDictionary* invoiceTemplateDict = [invoiceDict valueForKey:@"invoice_template"];
+                    
+                    NSString* customerName = [customerDict valueForKey:@"company_name"];
+                    NSString* invoiceTotal = [invoiceDict valueForKey:@"total"];
+                    
+                    BIInvoice* invoiceObject = [[BIInvoice alloc] init];
+                    [invoiceObject setTotalInvoices:invoiceTotal];
+                    invoiceObject.customer = [[BICustomer alloc] init];
+                    [invoiceObject.customer setCustomerBussinessName:customerName];
+                    
+                    if (invoiceNumber == nil || [invoiceNumber isEqual:[NSNull null]]) {
+                        invoiceNumber = @"";
+                    }
+                    
+                    [invoiceObject setInvoiceName:invoiceNumber];
+                    
+                    [appdelegate.invoicesForUser addObject:invoiceObject];
+                }
+                
+                if (appdelegate.invoicesForUser.count > 0)
+                {
+                    self.tableView.hidden = NO;
+                }
+                else
+                {
+                    self.tableView.hidden = YES;
+                }
+                
+                [self.tableView reloadData];
+
             }
         }
     }];
@@ -311,6 +350,11 @@ BIAppDelegate* appdelegate;
     return 10.; // you can have your own choice, of course
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 55.0f;
+}
+
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     UIView *headerView = [[UIView alloc] init];
@@ -331,10 +375,10 @@ BIAppDelegate* appdelegate;
     }
    
     BIInvoice* invoice = [appdelegate.invoicesForUser objectAtIndex:indexPath.section];
-    NSLog(@"Cutstomer: %@", invoice.bussiness.bussinessName);
-    customCell.lblInvoiceNumber.text = invoice.invoiceName;
-    customCell.lblCustomerName.text = invoice.customer.customerBussinessName;
-    customCell.lblInvoiceTotal.text = invoice.totalInvoices;
+    NSLog(@"Cutstomer: %@", invoice.invoiceName);
+    customCell.lblInvoiceNumber.text = [NSString stringWithFormat:@"#%@", invoice.invoiceName];
+    customCell.lblCustomerName.text = [NSString stringWithFormat:@"%@", invoice.customer.customerBussinessName];
+    customCell.lblInvoiceTotal.text = [NSString stringWithFormat:@"£%@", invoice.totalInvoices];
     
     return customCell;
 }

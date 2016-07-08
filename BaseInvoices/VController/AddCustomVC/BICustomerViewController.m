@@ -11,6 +11,7 @@
 #import "BIAddInvoices.h"
 #import "BIAppDelegate.h"
 #import "NSUserDefaults+RMSaveCustomObject.h"
+#import "SBJson.h"
 
 @interface BICustomerViewController ()
 
@@ -29,21 +30,61 @@ BIAppDelegate* appdelegate;
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSMutableArray* customerForUser = [[NSMutableArray alloc] init];
+    //Get All customer name from id
     
-    customerForUser = [defaults rm_customObjectForKey:@"customerForUser"];
-    
-    if (customerForUser.count > 0)
-    {
-        appdelegate.customerForUser = customerForUser;
-    }
-    else
-    {
-        [self.tableView setHidden:YES];
-    }
-    
-    [self.tableView reloadData];
+    [[ServiceRequest getShareInstance] serviceRequestActionName:@"/customer" accessToken:appdelegate.currentUser.token method:@"GET" result:^(NSURLResponse *response, NSData *dataResponse, NSError *connectionError) {
+        NSHTTPURLResponse* httpResponse = (NSHTTPURLResponse*)response;
+        NSInteger statusCode = [httpResponse statusCode];
+        
+        if (statusCode == 200)
+        {
+            NSString *responeString = [[NSString alloc] initWithData:dataResponse
+                                                            encoding:NSUTF8StringEncoding];
+            
+            NSLog(@"RESPIONSE GET ALL CUSTOMER: %@", responeString);
+            NSDictionary* dataDict = [[NSDictionary alloc] init];
+            SBJsonParser *json = [SBJsonParser new];
+            dataDict = [json objectWithString:[NSString stringWithFormat:@"%@", responeString]];
+            
+            if ([dataDict valueForKey:@"data"] != nil)
+            {
+                appdelegate.customerForUser = [[NSMutableArray alloc] init];
+                
+                for (NSDictionary* customerDic in [dataDict valueForKey:@"data"])
+                {
+                    NSString* address = [customerDic valueForKey:@"address"];
+                    NSString* addressLine1 = [customerDic valueForKey:@"address_line1"];
+                    NSString* addressLine2 = [customerDic valueForKey:@"address_line2"];
+                    NSString* city = [customerDic valueForKey:@"city"];
+                    NSString* customerName = [customerDic valueForKey:@"company_name"];
+                    NSString* contact = [customerDic valueForKey:@"contact"];
+                    NSString* countryID = [customerDic valueForKey:@"country_id"];
+                    NSString* descriptions = [customerDic valueForKey:@"description"];
+                    NSString* customerID = [customerDic valueForKey:@"id"];
+                    NSString* postCode = [customerDic valueForKey:@"postcode"];
+                    NSString* telephone = [customerDic valueForKey:@"telephone"];
+                    NSString* userID = [customerDic valueForKey:@"user_id"];
+                    NSString* email = [customerDic valueForKey:@"email"];
+                    
+                    BICustomer* customerObject = [[BICustomer alloc] init];
+                    [customerObject setCustomerBussinessName:customerName];
+                    [customerObject setCustomerID:customerID];
+                    [customerObject setCustomerCity:city];
+                    [customerObject setCustomerEmail:email];
+                    [customerObject setCustomerAddress:address];
+                    [customerObject setCustomerPostCode:postCode];
+                    [customerObject setCustomerTelephone:telephone];
+                    [customerObject setCustomerKeyContact:contact];
+                    
+                    [appdelegate.customerForUser addObject:customerObject];
+                }
+                
+                [self.tableView reloadData];
+                
+            }
+        }
+        
+    }];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -96,6 +137,8 @@ BIAppDelegate* appdelegate;
     if (cell == nil) {
         cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
     }
+    
+    [cell.textLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:15.0f]];
     
     BICustomer* customer = [appdelegate.customerForUser objectAtIndex:indexPath.row];
     cell.textLabel.text = customer.customerBussinessName;

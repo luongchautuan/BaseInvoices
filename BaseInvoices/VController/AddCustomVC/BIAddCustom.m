@@ -12,6 +12,8 @@
 #import "BIAppDelegate.h"
 #import "NSUserDefaults+RMSaveCustomObject.h"
 #import "ASIHTTPRequest.h"
+#import "SBJson.h"
+
 
 #define ACCEPTABLE_CHARECTERS @"+0123456789"
 
@@ -22,6 +24,9 @@
 BIAppDelegate* appdelegate;
 
 @implementation BIAddCustom
+{
+    int countryID;
+}
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -75,36 +80,36 @@ BIAppDelegate* appdelegate;
     CGFloat screenWidth = screenRect.size.width;
     CGFloat screenHeight = screenRect.size.height;
     
-    UIView *paddingView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, screenHeight)];
-    UIView *paddingView2 = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, screenHeight)];
-    UIView *paddingView3 = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, screenHeight)];
-    UIView *paddingView4 = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, screenHeight)];
-    UIView *paddingView5 = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, screenHeight)];
-    UIView *paddingView6 = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, screenHeight)];
-    UIView *paddingView7 = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, screenHeight)];
-//    UIView *paddingView8 = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, screenHeight)];
-//    UIView *paddingView9 = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, screenHeight)];
-    
-    self.edtAddress.leftView = paddingView;
-    self.edtAddress.leftViewMode = UITextFieldViewModeAlways;
-    
-    self.edtBussinessName.leftView = paddingView2;
-    self.edtBussinessName.leftViewMode = UITextFieldViewModeAlways;
-    
-    self.edtCity.leftView = paddingView3;
-    self.edtCity.leftViewMode = UITextFieldViewModeAlways;
-    
-    self.edtEmail.leftView = paddingView4;
-    self.edtEmail.leftViewMode = UITextFieldViewModeAlways;
-    
-    self.edtKeyContact.leftView = paddingView5;
-    self.edtKeyContact.leftViewMode = UITextFieldViewModeAlways;
-    
-    self.edtPhone.leftView = paddingView6;
-    self.edtPhone.leftViewMode = UITextFieldViewModeAlways;
-    
-    self.edtPostCode.leftView = paddingView7;
-    self.edtPostCode.leftViewMode = UITextFieldViewModeAlways;
+//    UIView *paddingView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, screenHeight)];
+//    UIView *paddingView2 = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, screenHeight)];
+//    UIView *paddingView3 = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, screenHeight)];
+//    UIView *paddingView4 = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, screenHeight)];
+//    UIView *paddingView5 = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, screenHeight)];
+//    UIView *paddingView6 = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, screenHeight)];
+//    UIView *paddingView7 = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, screenHeight)];
+////    UIView *paddingView8 = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, screenHeight)];
+////    UIView *paddingView9 = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, screenHeight)];
+//    
+//    self.edtAddress.leftView = paddingView;
+//    self.edtAddress.leftViewMode = UITextFieldViewModeAlways;
+//    
+//    self.edtBussinessName.leftView = paddingView2;
+//    self.edtBussinessName.leftViewMode = UITextFieldViewModeAlways;
+//    
+//    self.edtCity.leftView = paddingView3;
+//    self.edtCity.leftViewMode = UITextFieldViewModeAlways;
+//    
+//    self.edtEmail.leftView = paddingView4;
+//    self.edtEmail.leftViewMode = UITextFieldViewModeAlways;
+//    
+//    self.edtKeyContact.leftView = paddingView5;
+//    self.edtKeyContact.leftViewMode = UITextFieldViewModeAlways;
+//    
+//    self.edtPhone.leftView = paddingView6;
+//    self.edtPhone.leftViewMode = UITextFieldViewModeAlways;
+//    
+//    self.edtPostCode.leftView = paddingView7;
+//    self.edtPostCode.leftViewMode = UITextFieldViewModeAlways;
 }
 
 - (void)didReceiveMemoryWarning
@@ -153,6 +158,7 @@ BIAppDelegate* appdelegate;
     [self.edtKeyContact resignFirstResponder];
     [self.edtPhone resignFirstResponder];
     [self.edtPostCode resignFirstResponder];
+    [self.txtDescription resignFirstResponder];
     [self.scrollView setContentOffset:CGPointMake(0,0)];
 }
 
@@ -175,6 +181,10 @@ BIAppDelegate* appdelegate;
     if (textField.tag==6)
     {
         [self.scrollView setContentOffset:CGPointMake(0,180)];
+    }
+    if (textField.tag==7)
+    {
+        [self.scrollView setContentOffset:CGPointMake(0,220)];
     }
 }
 
@@ -245,23 +255,97 @@ BIAppDelegate* appdelegate;
             else
             {
                 //Save Customer into Server
-                ASIHTTPRequest *request = [[ASIHTTPRequest alloc] initWithURL:[NSURL URLWithString:@"https://ec2-46-137-84-201.eu-west-1.compute.amazonaws.com:8443/wsBasetaxInv/resources/customer"]];
+                [BIAppDelegate shareAppdelegate].activityIndicatorView = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+                [BIAppDelegate shareAppdelegate].activityIndicatorView.mode = MBProgressHUDAnimationFade;
                 
-                [request addBasicAuthenticationHeaderWithUsername:@"test@test.com"andPassword:@"test"];
-                
-                [request addRequestHeader:@"Content-Type" value:@"application/json"];
-                [request addRequestHeader:@"accept" value:@"application/json"];
-                
-                NSString *dataContent =[NSString stringWithFormat:@"{\"user\":{\"id\":%i},\"country\":{\"id\":%i},\"companyName\":\"%@\",\"description\":\"%@\",\"address\":\"%@\",\"addressLine1\":\"addressLine1\",\"addressLine2\":\"addressLine2\",\"city\":\"%@\",\"postcode\":\"%@\",\"telephone\":\"%@\",\"email\":\"%@\",\"contact\":\"%@\"}",[appdelegate.currentUser.userID intValue] ,[appdelegate.country intValue],@"companyName", @"description", self.edtAddress.text, self.edtCity.text, self.edtPostCode.text, self.edtPhone.text, self.edtEmail.text, self.edtKeyContact.text];
-                
-                NSLog(@"dataContent: %@", dataContent);
-                
-                [request appendPostData:[dataContent dataUsingEncoding:NSUTF8StringEncoding]];
-                
-                [request setValidatesSecureCertificate:NO];
-                [request setRequestMethod:@"POST"];
-                [request setDelegate:self];
-                [request startAsynchronous];
+                if (self.edtBussinessName.text.length == 0)
+                {
+                    [[BIAppDelegate shareAppdelegate].activityIndicatorView setHidden:YES];
+                    
+                    UIAlertView* message = [[UIAlertView alloc] initWithTitle:nil message:@"Company name cannot be empty!" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+                    [message show];
+                }
+                else
+                {
+                    //Save Customer into Server
+                    NSString* urlString = @"";
+                    NSString* method = @"";
+                    urlString = @"/customer?";
+                    
+                    ASIHTTPRequest *request = [[ASIHTTPRequest alloc] initWithURL:[NSURL URLWithString:urlString]];
+                    
+                    [request addBasicAuthenticationHeaderWithUsername:[[NSUserDefaults standardUserDefaults]valueForKey:@"Username"] andPassword:[[NSUserDefaults standardUserDefaults]valueForKey:@"Pass"]];
+                    
+                    [request addRequestHeader:@"Content-Type" value:@"application/json"];
+                    [request addRequestHeader:@"accept" value:@"application/json"];
+                    
+                    NSUserDefaults* userDefault = [NSUserDefaults standardUserDefaults];
+                    NSString* userID = [userDefault valueForKey:@"User ID"];
+                    
+                    NSString *dataContent =[NSString stringWithFormat:@"country_id=%@&company_name=%@&description=%@&address=%@&address_line1=%@&address_line2=%@&city=%@&postcode=%@&telephone=%@&email=%@&contact=%@",[NSString stringWithFormat:@"%d", countryID], self.edtBussinessName.text, self.txtDescription.text, self.edtAddress.text, @"", @"", self.edtCity.text, self.edtPostCode.text, self.edtPhone.text, self.edtEmail.text, self.edtKeyContact.text];
+                    
+                    NSLog(@"dataContent: %@", dataContent);
+                    
+                    if (self.customerEditting != nil) {
+                        method = @"PUT";
+                        
+                        [request setRequestMethod:@"PUT"];
+                        
+                        urlString = @"/customer";
+                        
+                        dataContent =[NSString stringWithFormat:@"/%@?country_id=%@&company_name=%@&description=%@&address=%@&addressLine1=%@&addressLine2=%@&city=%@&postcode=%@&telephone=%@&email=%@&contact=%@", self.customerEditting.customerID , [NSString stringWithFormat:@"%d", countryID], self.edtBussinessName.text, self.txtDescription.text, self.edtAddress.text, @"", @"", self.edtCity.text, self.edtPostCode.text, self.edtPhone.text, self.edtEmail.text, self.edtKeyContact.text];
+                    }
+                    else
+                    {
+                        method = @"POST";
+                        [request setRequestMethod:@"POST"];
+                    }
+                    
+                    dataContent = [dataContent stringByAddingPercentEscapesUsingEncoding:NSASCIIStringEncoding];
+                    
+                    
+                    if ([dataContent containsString:@"@"]) {
+                        dataContent = [dataContent stringByReplacingOccurrencesOfString:@"@" withString:@"%40"];
+                    }
+                    
+                    [[ServiceRequest getShareInstance] serviceRequestActionName:[NSString stringWithFormat:@"%@%@",urlString, dataContent] accessToken:appdelegate.currentUser.token method:method result:^(NSURLResponse *response, NSData *dataResponse, NSError *connectionError) {
+                        NSHTTPURLResponse* httpResponse = (NSHTTPURLResponse*)response;
+                        NSInteger statusCode = [httpResponse statusCode];
+                        
+                        [[BIAppDelegate shareAppdelegate].activityIndicatorView setHidden:YES];
+                        
+                        if (statusCode == 200)
+                        {
+                            NSString *responeString = [[NSString alloc] initWithData:dataResponse
+                                                                            encoding:NSUTF8StringEncoding];
+                            
+                            NSLog(@"RESPIONSE CREATE NEW CUSTOMER / SUPPLIER: %@", responeString);
+                            NSDictionary* dataDict = [[NSDictionary alloc] init];
+                            SBJsonParser *json = [SBJsonParser new];
+                            dataDict = [json objectWithString:[NSString stringWithFormat:@"%@", responeString]];
+                            
+                            if ([dataDict valueForKey:@"data"] != nil)
+                            {
+                                [[BIAppDelegate shareAppdelegate].activityIndicatorView setHidden:YES];
+                                
+                                [self.navigationController popViewControllerAnimated:YES];
+                            }
+                        }
+                        else
+                        {
+                            [[BIAppDelegate shareAppdelegate].activityIndicatorView setHidden:YES];
+                            
+                            NSString* message = @"";
+                            message = @"Cannot save customer";
+                            
+                            UIAlertView *alert = [[UIAlertView alloc]initWithTitle:nil message:message delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+                            [alert show];
+                            
+                        }
+                    }];
+                    
+                    
+                }
 
             }
         }
@@ -356,4 +440,23 @@ BIAppDelegate* appdelegate;
 {
     //Check and sugesst login first
 }
+
+#pragma mark - UIButton Sender
+- (IBAction)btnSelectCountry_Clicked:(id)sender
+{
+    CountryViewController *pushToVC = [[CountryViewController alloc] initWithNibName:@"CountryViewController" bundle:nil];
+    pushToVC.delegate = self;
+    [self presentViewController:pushToVC animated:YES completion:nil];
+
+}
+
+
+#pragma mark - CountryViewController Delegate
+
+- (void)CountrySelected:(CountryRepository *)countrySelected
+{
+    self.txtCountry.text = countrySelected.countryName;
+    countryID = [countrySelected.dialCode intValue];
+}
+
 @end

@@ -1153,15 +1153,18 @@ BIAppDelegate* appdelegate;
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (tableView == self.tableViewPaymentTerms) {
+    if (tableView == self.tableViewPaymentTerms)
+    {
         static NSString *CellIdentifier = @"newFriendCell";
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"newFriendCell"];
         
-        if (cell == nil) {
+        if (cell == nil)
+        {
             cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
         }
 
         cell.textLabel.text = [self.paymentTerms objectAtIndex:indexPath.row];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
         
         return cell;
 
@@ -1171,9 +1174,12 @@ BIAppDelegate* appdelegate;
         static NSString *CellIdentifier = @"newFriendCell";
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"newFriendCell"];
         
-        if (cell == nil) {
+        if (cell == nil)
+        {
             cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
         }
+        
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
         
         cell.textLabel.text = [[appdelegate.businessForUser objectAtIndex:indexPath.row] bussinessName];
         
