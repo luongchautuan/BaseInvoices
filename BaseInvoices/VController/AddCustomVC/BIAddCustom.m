@@ -13,7 +13,7 @@
 #import "NSUserDefaults+RMSaveCustomObject.h"
 #import "ASIHTTPRequest.h"
 #import "SBJson.h"
-
+#import "CountryRepository.h"
 
 #define ACCEPTABLE_CHARECTERS @"+0123456789"
 
@@ -26,6 +26,7 @@ BIAppDelegate* appdelegate;
 @implementation BIAddCustom
 {
     int countryID;
+     NSMutableArray* countryData;
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -45,6 +46,48 @@ BIAppDelegate* appdelegate;
     // Do any additional setup after loading the view from its nib.
     
     appdelegate = (BIAppDelegate *)[[UIApplication sharedApplication] delegate];
+    
+    NSString *filePath = [[NSBundle mainBundle] pathForResource:@"countries" ofType:@"json"];
+    NSData *data = [NSData dataWithContentsOfFile:filePath];
+    NSArray *json = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
+    
+    [countryData removeAllObjects];
+    
+    countryData = [[NSMutableArray alloc] init];
+    
+    for (NSDictionary* countryDic in json)
+    {
+        NSString* countryCode = [countryDic valueForKey:@"code"];
+        NSString* countryIDS = [countryDic valueForKey:@"id"];
+        NSString* countryName = [countryDic valueForKey:@"name"];
+        
+        CountryRepository* country = [[CountryRepository alloc] init];
+        [country setCountryCode:countryCode];
+        [country setCountryName:countryName];
+        [country setDialCode:countryIDS];
+        
+        [countryData addObject:country];
+    }
+
+    
+    if (self.customerEditting == nil)
+    {
+        self.txtCountry.text = [[countryData objectAtIndex:76] countryName];
+        countryID = [[[countryData objectAtIndex:76] dialCode] intValue];
+    }
+    else
+    {
+        countryID = [self.customerEditting.countryID intValue];
+        for (CountryRepository* country in countryData)
+        {
+            if (countryID == [country.dialCode intValue])
+            {
+                self.txtCountry.text = country.countryName;
+                break;
+            }
+        }
+    }
+
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -75,41 +118,6 @@ BIAppDelegate* appdelegate;
     UITapGestureRecognizer *tapGeusture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapHandler:)];
     tapGeusture.numberOfTapsRequired = 1;
     [self.view addGestureRecognizer:tapGeusture];
-    
-    CGRect screenRect = [[UIScreen mainScreen] bounds];
-    CGFloat screenWidth = screenRect.size.width;
-    CGFloat screenHeight = screenRect.size.height;
-    
-//    UIView *paddingView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, screenHeight)];
-//    UIView *paddingView2 = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, screenHeight)];
-//    UIView *paddingView3 = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, screenHeight)];
-//    UIView *paddingView4 = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, screenHeight)];
-//    UIView *paddingView5 = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, screenHeight)];
-//    UIView *paddingView6 = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, screenHeight)];
-//    UIView *paddingView7 = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, screenHeight)];
-////    UIView *paddingView8 = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, screenHeight)];
-////    UIView *paddingView9 = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, screenHeight)];
-//    
-//    self.edtAddress.leftView = paddingView;
-//    self.edtAddress.leftViewMode = UITextFieldViewModeAlways;
-//    
-//    self.edtBussinessName.leftView = paddingView2;
-//    self.edtBussinessName.leftViewMode = UITextFieldViewModeAlways;
-//    
-//    self.edtCity.leftView = paddingView3;
-//    self.edtCity.leftViewMode = UITextFieldViewModeAlways;
-//    
-//    self.edtEmail.leftView = paddingView4;
-//    self.edtEmail.leftViewMode = UITextFieldViewModeAlways;
-//    
-//    self.edtKeyContact.leftView = paddingView5;
-//    self.edtKeyContact.leftViewMode = UITextFieldViewModeAlways;
-//    
-//    self.edtPhone.leftView = paddingView6;
-//    self.edtPhone.leftViewMode = UITextFieldViewModeAlways;
-//    
-//    self.edtPostCode.leftView = paddingView7;
-//    self.edtPostCode.leftViewMode = UITextFieldViewModeAlways;
 }
 
 - (void)didReceiveMemoryWarning
@@ -128,7 +136,6 @@ BIAppDelegate* appdelegate;
     else
     {
         [self dismissViewControllerAnimated:YES completion:nil];
-//        [self.navigationController popViewControllerAnimated:YES];
     }
    
 }
@@ -138,7 +145,6 @@ BIAppDelegate* appdelegate;
     if (buttonIndex == 0)
     {
         [self dismissViewControllerAnimated:YES completion:nil];
-//        [self.navigationController popViewControllerAnimated:YES];
     }
     else
     {
@@ -225,7 +231,7 @@ BIAppDelegate* appdelegate;
     appdelegate.activityIndicatorView.mode = MBProgressHUDAnimationFade;
     appdelegate.activityIndicatorView.labelText = @"";
     
-    if (self.edtBussinessName.text.length > 0 && self.edtEmail.text.length > 0)
+    if (self.edtBussinessName.text.length > 0)
     {
         NSString *emailRegEx = @"[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}";
         NSPredicate *emailTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", emailRegEx];
@@ -312,7 +318,7 @@ BIAppDelegate* appdelegate;
                         NSHTTPURLResponse* httpResponse = (NSHTTPURLResponse*)response;
                         NSInteger statusCode = [httpResponse statusCode];
                         
-                        [[BIAppDelegate shareAppdelegate].activityIndicatorView setHidden:YES];
+                         [appdelegate.activityIndicatorView hide:YES];
                         
                         if (statusCode == 200)
                         {
@@ -326,14 +332,14 @@ BIAppDelegate* appdelegate;
                             
                             if ([dataDict valueForKey:@"data"] != nil)
                             {
-                                [[BIAppDelegate shareAppdelegate].activityIndicatorView setHidden:YES];
+                                 [appdelegate.activityIndicatorView hide:YES];
                                 
-                                [self.navigationController popViewControllerAnimated:YES];
+                                [self dismissViewControllerAnimated:YES completion:nil];
                             }
                         }
                         else
                         {
-                            [[BIAppDelegate shareAppdelegate].activityIndicatorView setHidden:YES];
+                             [appdelegate.activityIndicatorView hide:YES];
                             
                             NSString* message = @"";
                             message = @"Cannot save customer";

@@ -18,5 +18,6 @@
 @property (nonatomic)NSString* customerTelephone;
 @property (nonatomic)NSString* customerKeyContact;
 @property (nonatomic)NSString* customerID;
+@property (nonatomic, strong)NSString* countryID;
 
 @end

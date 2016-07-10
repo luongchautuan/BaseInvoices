@@ -31,6 +31,7 @@ BIAppDelegate* appdelegate;
 - (void)viewWillAppear:(BOOL)animated
 {
     //Get All customer name from id
+    _tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     
     [[ServiceRequest getShareInstance] serviceRequestActionName:@"/customer" accessToken:appdelegate.currentUser.token method:@"GET" result:^(NSURLResponse *response, NSData *dataResponse, NSError *connectionError) {
         NSHTTPURLResponse* httpResponse = (NSHTTPURLResponse*)response;

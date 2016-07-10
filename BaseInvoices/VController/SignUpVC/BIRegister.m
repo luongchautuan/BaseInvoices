@@ -279,18 +279,6 @@ BIAppDelegate* appdelegate;
         [appdelegate.activityIndicatorView hide:YES];
         [self.viewActivity setHidden:YES];
         [self.activityIndicator stopAnimating];
-
-        
-//        ASIHTTPRequest *request = [[ASIHTTPRequest alloc] initWithURL:[NSURL URLWithString:@"https://ec2-46-137-84-201.eu-west-1.compute.amazonaws.com:8443/wTaxmapp/resources/user"]];
-//        
-//        
-//        [request setTag:1];
-//        [request addBasicAuthenticationHeaderWithUsername:self.edtUsername.text andPassword:self.edtPassword.text];
-//        
-//        [request addRequestHeader:@"Content-Type" value:@"application/json"];
-//        [request setValidatesSecureCertificate:NO];
-//        [request setDelegate:self];
-//        [request startAsynchronous];
     }
     
 }

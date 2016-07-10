@@ -10,6 +10,7 @@
 #import "BIAddProducts.h"
 #import "BIAppDelegate.h"
 #import "NSUserDefaults+RMSaveCustomObject.h"
+#import "SBJson.h"
 
 @interface BIProductsViewController ()
 
@@ -29,20 +30,62 @@ BIAppDelegate* appdelegate;
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    _tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+    
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSMutableArray* productsForUser = [[NSMutableArray alloc] init];
     productsForUser = [defaults rm_customObjectForKey:@"productsForUser"];
 //
     NSLog(@"ProductForuser: %@", productsForUser);
     
-    if (productsForUser.count > 0) {
-        appdelegate.productsForUser = productsForUser;
-    }
-    
-    BIBussiness* bussinessForUser = [defaults rm_customObjectForKey:@"bussinessForUser"];
-    appdelegate.bussinessForUser = bussinessForUser;
-    
-    [self.tableView reloadData];
+    [[ServiceRequest getShareInstance] serviceRequestActionName:@"/product" accessToken:appdelegate.currentUser.token method:@"GET" result:^(NSURLResponse *response, NSData *dataResponse, NSError *connectionError) {
+        NSHTTPURLResponse* httpResponse = (NSHTTPURLResponse*)response;
+        NSInteger statusCode = [httpResponse statusCode];
+        
+        if (statusCode == 200)
+        {
+            NSString *responeString = [[NSString alloc] initWithData:dataResponse
+                                                            encoding:NSUTF8StringEncoding];
+            
+            NSLog(@"RESPIONSE GET ALL PRODUCT: %@", responeString);
+            NSDictionary* dataDict = [[NSDictionary alloc] init];
+            SBJsonParser *json = [SBJsonParser new];
+            dataDict = [json objectWithString:[NSString stringWithFormat:@"%@", responeString]];
+            
+            if ([dataDict valueForKey:@"data"] != nil)
+            {
+                appdelegate.productsForUser = [[NSMutableArray alloc] init];
+                
+                for (NSDictionary* productDict in [dataDict valueForKey:@"data"])
+                {
+                    NSString* productID = [productDict valueForKey:@"id"];
+                    NSString* productName = [productDict valueForKey:@"name"];
+                    NSString* unitPrict = [productDict valueForKey:@"unit_price"];
+                    NSString* productDesc = [productDict valueForKey:@"description"];
+                    NSString* tax_rate = [productDict valueForKey:@"tax_rate"];
+                    NSString* userID = [productDict valueForKey:@"user_id"];
+                    NSString* created = [productDict valueForKey:@"created"];
+                    NSString* modified = [productDict valueForKey:@"modified"];
+                    
+                    BIProduct* productObject = [[BIProduct alloc] init];
+                    [productObject setProductName:productName];
+                    [productObject setProductTaxRate:tax_rate];
+                    [productObject setNumberOfUnit:[unitPrict floatValue]];
+                    [productObject setProductUnitPrice:unitPrict];
+                    [productObject setProductDescription:productDesc];
+                    [productObject setProductID:productID];
+                    [productObject setCreated:created];
+                    [productObject setModified:modified];
+                    
+                    [appdelegate.customerForUser addObject:productObject];
+                }
+                
+                [self.tableView reloadData];
+                
+            }
+        }
+        
+    }];
 }
 
 - (void)didReceiveMemoryWarning {

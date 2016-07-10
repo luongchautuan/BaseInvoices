@@ -15,5 +15,8 @@
 @property (nonatomic)NSString* productUnitPrice;
 @property (nonatomic)NSString* productTaxRate;
 @property (nonatomic)float numberOfUnit;
+@property (nonatomic, strong) NSString* created;
+@property (nonatomic, strong) NSString* modified;
+@property (nonatomic, strong) NSString* productID;
 
 @end

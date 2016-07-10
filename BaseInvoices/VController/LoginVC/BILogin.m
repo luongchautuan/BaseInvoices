@@ -49,8 +49,8 @@ NSMutableArray *feeds;
 
     appdelegate = (BIAppDelegate*)[[UIApplication sharedApplication] delegate];
     
-    self.edtPassword.text = @"test";
-    self.edtUsername.text = @"test@test.com";
+    self.edtPassword.text = @"123456";
+    self.edtUsername.text = @"skyatnight.luong@gmail.com";
     
     [self initScreen];
 }
