@@ -95,6 +95,7 @@ NSString* vatRegistered;
         [self.txtTitle setText:@"Add New Bussiness"];
     }
     
+    vatRegistered = @"0";
     // Do any additional setup after loading the view from its nib.
 }
 
@@ -203,12 +204,12 @@ NSString* vatRegistered;
     if(onCheckedButton)
     {
         onCheckedButton = false;
-        vatRegistered = @"True";
+        vatRegistered = @"1";
     }
     else
     {
         onCheckedButton = true;
-        vatRegistered = @"False";
+        vatRegistered = @"0";
     }
     
     [self.btnCheckVat setSelected:onCheckedButton];
@@ -287,7 +288,7 @@ NSString* vatRegistered;
 - (IBAction)onSaveBusiness:(id)sender
 {
     //check login and save
-    NSString* cisRegistered = @"False";
+    NSString* cisRegistered = @"0";
     
     if (self.txtNameBussiness.text.length > 0)
     {

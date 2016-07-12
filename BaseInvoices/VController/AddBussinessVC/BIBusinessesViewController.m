@@ -48,25 +48,37 @@ BIAppDelegate* appdelegate;
             
             if ([dataDict valueForKey:@"data"] != nil)
             {
+                for (NSDictionary* businessDict in [dataDict valueForKey:@"data"])
+                {
+                    NSString* currency_id = [businessDict valueForKey:@"currency_id"];
+                    NSString* country_id = [businessDict valueForKey:@"country_id"];
+                    NSString* name = [businessDict valueForKey:@"name"];
+                    NSString* description = [businessDict valueForKey:@"description"];
+                    NSString* address = [businessDict valueForKey:@"address"];
+                    NSString* address_line1 = [businessDict valueForKey:@"address_line1"];
+                    NSString* address_line2 = [businessDict valueForKey:@"address_line2"];
+                    NSString* city = [businessDict valueForKey:@"city"];
+                    NSString* businessID = [businessDict valueForKey:@"id"];
+                    NSString* postCode = [businessDict valueForKey:@"postcode"];
+                    NSString* date_started = [businessDict valueForKey:@"date_started"];
+                    NSString* userID = [businessDict valueForKey:@"user_id"];
+                    NSString* cis_registered = [businessDict valueForKey:@"cis_registered"];
+                    NSString* vat_registered = [businessDict valueForKey:@"vat_registered"];
+                    NSString* vat_number = [businessDict valueForKey:@"vat_number"];
+                    NSString* bank_account_name = [businessDict valueForKey:@"bank_account_name"];
+                    NSString* bank_name = [businessDict valueForKey:@"bank_name"];
+                    NSString* sort_code = [businessDict valueForKey:@"sort_code"];
+                    NSString* bank_account_number = [businessDict valueForKey:@"bank_account_number"];
+                    NSString* created = [businessDict valueForKey:@"created"];
+                    NSString* modified = [businessDict valueForKey:@"modified"];                    
+                    
+                }
                 
                 [self.tableView  reloadData];
             }
             
         }
     }];
-
-    
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSMutableArray* bussinessForUser = [[NSMutableArray alloc] init];
-    
-    bussinessForUser = [defaults rm_customObjectForKey:@"bussinessesForUser"];
-    
-    if (bussinessForUser.count > 0)
-    {
-        appdelegate.businessForUser = bussinessForUser;
-    }   
-    
-    [self.tableView reloadData];
 }
 
 - (void)didReceiveMemoryWarning {

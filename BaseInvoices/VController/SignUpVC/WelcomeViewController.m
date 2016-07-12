@@ -14,6 +14,7 @@
 #import "MMDrawerController.h"
 #import "ServiceRequest.h"
 #import "SBJson.h"
+#import "BIAppDelegate.h"
 
 @interface WelcomeViewController ()
 
@@ -86,6 +87,21 @@
                 
                 [userDefault setValue:[NSNumber numberWithInt:cis_registered] forKey:@"cis_registered"];
                 [userDefault setValue:[NSNumber numberWithInt:vat_registered] forKey:@"vat_registered"];
+                
+                NSString *dataStr;
+                dataStr = [[[data valueForKey:@"data"] valueForKey:@"user"] valueForKey:@"id"];
+                
+                BIUser* user = [[BIUser alloc] init];
+                user.userName = [[NSUserDefaults standardUserDefaults]valueForKey:@"Username"];
+                user.password = [[NSUserDefaults standardUserDefaults]valueForKey:@"Pass"];
+                user.token = [[data valueForKey:@"data"] valueForKey:@"token"];
+                user.displayName = name;
+                user.isLoginSuccessFully = YES;
+                
+                [BIAppDelegate shareAppdelegate].currentUser = user;
+                [BIAppDelegate shareAppdelegate].currentUser.userID = dataStr;
+
+                [BIAppDelegate shareAppdelegate].isLoginSucesss = YES;
             }
         }
     }];
