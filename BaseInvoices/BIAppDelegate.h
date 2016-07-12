@@ -55,4 +55,6 @@
 
 + (BIAppDelegate*)shareAppdelegate;
 
+@property (strong, nonatomic) UINavigationController *navController;
+
 @end

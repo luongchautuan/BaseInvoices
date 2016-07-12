@@ -278,13 +278,6 @@ BIAppDelegate* appdelegate;
                     NSString* method = @"";
                     urlString = @"/customer?";
                     
-                    ASIHTTPRequest *request = [[ASIHTTPRequest alloc] initWithURL:[NSURL URLWithString:urlString]];
-                    
-                    [request addBasicAuthenticationHeaderWithUsername:[[NSUserDefaults standardUserDefaults]valueForKey:@"Username"] andPassword:[[NSUserDefaults standardUserDefaults]valueForKey:@"Pass"]];
-                    
-                    [request addRequestHeader:@"Content-Type" value:@"application/json"];
-                    [request addRequestHeader:@"accept" value:@"application/json"];
-                    
                     NSUserDefaults* userDefault = [NSUserDefaults standardUserDefaults];
                     NSString* userID = [userDefault valueForKey:@"User ID"];
                     
@@ -295,8 +288,6 @@ BIAppDelegate* appdelegate;
                     if (self.customerEditting != nil) {
                         method = @"PUT";
                         
-                        [request setRequestMethod:@"PUT"];
-                        
                         urlString = @"/customer";
                         
                         dataContent =[NSString stringWithFormat:@"/%@?country_id=%@&company_name=%@&description=%@&address=%@&addressLine1=%@&addressLine2=%@&city=%@&postcode=%@&telephone=%@&email=%@&contact=%@", self.customerEditting.customerID , [NSString stringWithFormat:@"%d", countryID], self.edtBussinessName.text, self.txtDescription.text, self.edtAddress.text, @"", @"", self.edtCity.text, self.edtPostCode.text, self.edtPhone.text, self.edtEmail.text, self.edtKeyContact.text];
@@ -304,7 +295,6 @@ BIAppDelegate* appdelegate;
                     else
                     {
                         method = @"POST";
-                        [request setRequestMethod:@"POST"];
                     }
                     
                     dataContent = [dataContent stringByAddingPercentEscapesUsingEncoding:NSASCIIStringEncoding];

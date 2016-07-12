@@ -410,6 +410,9 @@
 		9A3EC6281D2F8E95006BE2F9 /* Zambia.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A3EC5281D2F8E95006BE2F9 /* Zambia.png */; };
 		9A3EC6291D2F8E95006BE2F9 /* Zimbabwe.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A3EC5291D2F8E95006BE2F9 /* Zimbabwe.png */; };
 		9A3EC62C1D2F90BA006BE2F9 /* CountryListDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A3EC62B1D2F90BA006BE2F9 /* CountryListDataSource.m */; };
+		9AAB57F81D34BAC300D9F67A /* WelcomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AAB57F61D34BAC300D9F67A /* WelcomeViewController.m */; };
+		9AAB57F91D34BAC300D9F67A /* WelcomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9AAB57F71D34BAC300D9F67A /* WelcomeViewController.xib */; };
+		9AAB57FB1D34C2BE00D9F67A /* icon-arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 9AAB57FA1D34C2BE00D9F67A /* icon-arrow.png */; };
 		9AB9380B1D17908D00A5F54C /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9AB938091D17908D00A5F54C /* Default-568h@2x.png */; };
 		9AB9380C1D17908D00A5F54C /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9AB9380A1D17908D00A5F54C /* Default@2x.png */; };
 		9AB9380F1D17945C00A5F54C /* ServiceRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AB9380E1D17945C00A5F54C /* ServiceRequest.m */; };
@@ -978,6 +981,10 @@
 		9A3EC5291D2F8E95006BE2F9 /* Zimbabwe.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Zimbabwe.png; sourceTree = "<group>"; };
 		9A3EC62A1D2F90BA006BE2F9 /* CountryListDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CountryListDataSource.h; sourceTree = "<group>"; };
 		9A3EC62B1D2F90BA006BE2F9 /* CountryListDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CountryListDataSource.m; sourceTree = "<group>"; };
+		9AAB57F51D34BAC300D9F67A /* WelcomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WelcomeViewController.h; sourceTree = "<group>"; };
+		9AAB57F61D34BAC300D9F67A /* WelcomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WelcomeViewController.m; sourceTree = "<group>"; };
+		9AAB57F71D34BAC300D9F67A /* WelcomeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WelcomeViewController.xib; sourceTree = "<group>"; };
+		9AAB57FA1D34C2BE00D9F67A /* icon-arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-arrow.png"; sourceTree = "<group>"; };
 		9AB938091D17908D00A5F54C /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		9AB9380A1D17908D00A5F54C /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		9AB9380D1D17945C00A5F54C /* ServiceRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServiceRequest.h; sourceTree = "<group>"; };
@@ -1189,6 +1196,7 @@
 				6EB293001A1F6E1100F3B263 /* button_editProfile.png */,
 				6EB293011A1F6E1100F3B263 /* profile.png */,
 				6EB292F41A1F4B2000F3B263 /* SkipLogin.png */,
+				9AAB57FA1D34C2BE00D9F67A /* icon-arrow.png */,
 				6EB292F21A1F30F100F3B263 /* main screen dialogue bg.png */,
 				6EB292E21A1F0E3D00F3B263 /* card button (select).png */,
 				6EB292E31A1F0E3D00F3B263 /* Card-button.png */,
@@ -1437,6 +1445,9 @@
 		04F3D8B61A0BEA55003B10FB /* SignUpVC */ = {
 			isa = PBXGroup;
 			children = (
+				9AAB57F51D34BAC300D9F67A /* WelcomeViewController.h */,
+				9AAB57F61D34BAC300D9F67A /* WelcomeViewController.m */,
+				9AAB57F71D34BAC300D9F67A /* WelcomeViewController.xib */,
 				9AB938131D1A6EA200A5F54C /* IQDropDownTextField.h */,
 				9AB938141D1A6EA200A5F54C /* IQDropDownTextField.m */,
 				04F3D8BC1A0BEE5D003B10FB /* BIRegister.h */,
@@ -2030,6 +2041,7 @@
 				9A3EC52C1D2F8E95006BE2F9 /* Albania.png in Resources */,
 				9A3EC5391D2F8E95006BE2F9 /* Azerbaijan.png in Resources */,
 				EA4A272F1A1A820900304842 /* bg_edt_login.png in Resources */,
+				9AAB57F91D34BAC300D9F67A /* WelcomeViewController.xib in Resources */,
 				EA5C4CBD1A1BA79D00BF6F7F /* addinvoice_btn_dialog_date.png in Resources */,
 				9A3EC5891D2F8E95006BE2F9 /* Guernsey.png in Resources */,
 				EA924B741A1E811B007CBA2A /* bg_dialog_view@2x.png in Resources */,
@@ -2065,6 +2077,7 @@
 				04F3D8DE1A0BF8BC003B10FB /* btn_back.png in Resources */,
 				6EAD50D51A2A24AA002B340F /* bussinessIcon.png in Resources */,
 				9A3EC5791D2F8E95006BE2F9 /* Finland.png in Resources */,
+				9AAB57FB1D34C2BE00D9F67A /* icon-arrow.png in Resources */,
 				9A3EC53A1D2F8E95006BE2F9 /* Bahamas.png in Resources */,
 				9A3EC5F01D2F8E95006BE2F9 /* San Marino.png in Resources */,
 				9A3EC59F1D2F8E95006BE2F9 /* Jordan.png in Resources */,
@@ -2441,6 +2454,7 @@
 				9AB938181D1AA5CD00A5F54C /* MyUITextField.m in Sources */,
 				6ED7428E1A3A148F00F92A0E /* SBJsonStreamWriterState.m in Sources */,
 				6ED742871A3A148F00F92A0E /* SBJsonParser.m in Sources */,
+				9AAB57F81D34BAC300D9F67A /* WelcomeViewController.m in Sources */,
 				6E43964C1A107C3E005EF4C9 /* ASIHTTPRequest.m in Sources */,
 				04F3D8E71A0BF914003B10FB /* BIAddProducts.m in Sources */,
 				6E43964A1A107C3E005EF4C9 /* ASIDownloadCache.m in Sources */,

@@ -23,6 +23,7 @@
 #import "SBJson.h"
 #import "BIAddNewBussiness.h"
 #import "MMDrawerController.h"
+#import "WelcomeViewController.h"
 
 @interface BILogin ()
 
@@ -192,7 +193,12 @@ NSMutableArray *feeds;
                     NSDictionary* userData = [[data valueForKey:@"data"] valueForKey:@"user"];
                     NSString* name = [userData valueForKey:@"name"];
                     
+                    NSUserDefaults *userDefault= [[NSUserDefaults alloc] init];
+                    [userDefault setBool:YES forKey:@"LOGIN"];
                     
+                    [userDefault setValue:self.edtUsername.text forKey:@"Username"];
+                    
+                    [userDefault setValue:self.edtPassword.text forKey:@"Pass"];
                     
                     BIUser* user = [[BIUser alloc] init];
                     user.userName = self.edtUsername.text;
@@ -205,20 +211,9 @@ NSMutableArray *feeds;
                     appdelegate.currentUser.userID = dataStr;
                     appdelegate.isLoginSucesss = YES;
                     
-                    BIDashBoard* dashboardView = [[BIDashBoard alloc] initWithNibName:@"BIDashBoard" bundle:nil];
+                    WelcomeViewController* welcomeViewController = [[WelcomeViewController alloc] initWithNibName:@"WelcomeViewController" bundle:nil];
                     
-                    BLLeftSideVC *leftSideVC = [[BLLeftSideVC alloc] initWithNibName:@"BLLeftSideVC" bundle:nil];
-                    
-                    leftSideVC.delegate = dashboardView;
-                    
-                    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:dashboardView];
-                    
-                    MMDrawerController* drawerController = [[MMDrawerController alloc] initWithCenterViewController:nav leftDrawerViewController:leftSideVC];
-                    [drawerController setOpenDrawerGestureModeMask:MMOpenDrawerGestureModeAll];
-                    
-                    [drawerController setCloseDrawerGestureModeMask:MMCloseDrawerGestureModeAll];
-                    
-                    [self.navigationController pushViewController:drawerController animated:YES];
+                    [self.navigationController pushViewController:welcomeViewController animated:YES];
 
                 }
             }

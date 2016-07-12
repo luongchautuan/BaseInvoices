@@ -14,9 +14,11 @@
 #import "GAI.h"
 #import "CountryRepository.h"
 #import "CountryListDataSource.h"
+#import "WelcomeViewController.h"
 
 @implementation BIAppDelegate
 
+@synthesize navController;
 /******* Set your tracking ID here *******/
 static NSString *const kTrackingId = @"UA-42741504-2";
 static NSString *const kAllowTracking = @"allowTracking";
@@ -70,23 +72,34 @@ static NSString *const kAllowTracking = @"allowTracking";
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
-    BILogin *centerSideVC = [[BILogin alloc] initWithNibName:@"BILogin" bundle:nil];
-
-    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:centerSideVC];
-
-    self.window.rootViewController = nav;
-    
-    [nav.navigationBar setHidden:YES];
-
     if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
     {
         self.result = [[UIScreen mainScreen] bounds].size;
     }
-
     
     // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
+    
+    if([[NSUserDefaults standardUserDefaults] boolForKey:@"LOGIN"] == YES)
+    {
+        WelcomeViewController* welcomeViewController = [[WelcomeViewController alloc] initWithNibName:@"WelcomeViewController" bundle:nil];
+        navController = [[UINavigationController alloc]initWithRootViewController:welcomeViewController];
+    }
+    else
+    {
+        // Override point for customization after application launch.
+        BILogin *centerSideVC = [[BILogin alloc] initWithNibName:@"BILogin" bundle:nil];
+        navController = [[UINavigationController alloc]initWithRootViewController:centerSideVC];
+    }
+    
+    navController.navigationBarHidden = YES;
+    
+    self.window.rootViewController = navController;
+    
+    [self.window makeKeyAndVisible];
+
+    
     return YES;
 }
 
@@ -110,6 +123,13 @@ static NSString *const kAllowTracking = @"allowTracking";
 - (void)applicationWillEnterForeground:(UIApplication *)application
 {
     // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
+    if([[NSUserDefaults standardUserDefaults] boolForKey:@"LOGIN"] == YES)
+    {
+        WelcomeViewController* welcomeViewController = [[WelcomeViewController alloc] initWithNibName:@"WelcomeViewController" bundle:nil];
+        
+        [self.navController pushViewController:welcomeViewController animated:YES];
+    }
+
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application

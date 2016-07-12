@@ -289,7 +289,7 @@ NSString* vatRegistered;
     //check login and save
     NSString* cisRegistered = @"False";
     
-    if (self.txtNameBussiness.text.length > 0 && self.txtVat.text.length > 0 && self.txtCurrency.text.length > 0)
+    if (self.txtNameBussiness.text.length > 0)
     {
         if (appdelegate.isLoginSucesss)
         {
@@ -553,7 +553,7 @@ NSString* vatRegistered;
     }
     else
     {
-        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:nil message:@"Please fill all text fields" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:nil message:@"Business name cannot be empty!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [alert show];
     }
   

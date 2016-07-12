@@ -11,6 +11,8 @@
 #import "BIProduct.h"
 #import "BIAppDelegate.h"
 #import "NSUserDefaults+RMSaveCustomObject.h"
+#import "SBJson.h"
+
 #define ACCEPTABLE_CHARECTERS @"+0123456789."
 
 @interface BIAddProducts ()
@@ -67,26 +69,6 @@ BIAppDelegate* appdelegate;
     UITapGestureRecognizer *tapGeusture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapHandler:)];
     tapGeusture.numberOfTapsRequired = 1;
     [self.view addGestureRecognizer:tapGeusture];
-    
-    CGRect screenRect = [[UIScreen mainScreen] bounds];
-    CGFloat screenHeight = screenRect.size.height;
-    
-    UIView *paddingView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, screenHeight)];
-    UIView *paddingView2 = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, screenHeight)];
-    UIView *paddingView3 = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, screenHeight)];
-    UIView *paddingView4 = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, screenHeight)];
-    
-    self.edtName.leftView = paddingView;
-    self.edtName.leftViewMode = UITextFieldViewModeAlways;
-    
-    self.edtDesc.leftView = paddingView2;
-    self.edtDesc.leftViewMode = UITextFieldViewModeAlways;
-    
-    self.edtTaxRate.leftView = paddingView3;
-    self.edtTaxRate.leftViewMode = UITextFieldViewModeAlways;
-    
-    self.edtUnitPrice.leftView = paddingView4;
-    self.edtUnitPrice.leftViewMode = UITextFieldViewModeAlways;
 }
 
 - (void)didReceiveMemoryWarning
@@ -101,8 +83,9 @@ BIAppDelegate* appdelegate;
     self.unitPrice = self.product.productUnitPrice;
     
     NSLog(@"Currency symbol: %@", self.product.productUnitPrice );
-    NSString* amountAfterFormat = [[NSString stringWithFormat:@"%@ ", appdelegate.bussinessForUser.currencySymbol] stringByAppendingString:self.unitPrice];
+    NSString* amountAfterFormat = [NSString stringWithFormat:@"£ %@", self.unitPrice];
 
+    self.tax = self.product.productTaxRate;
     NSString* taxAfterFormat = [NSString stringWithFormat:@"%@ %%", self.product.productTaxRate];
     
     self.edtName.text = self.product.productName;
@@ -129,19 +112,21 @@ BIAppDelegate* appdelegate;
 
 - (IBAction)onSaveProduct:(id)sender
 {
-    if (self.edtName.text.length > 0 && self.edtUnitPrice.text.length > 0)
+    [BIAppDelegate shareAppdelegate].activityIndicatorView = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    [BIAppDelegate shareAppdelegate].activityIndicatorView.mode = MBProgressHUDAnimationFade;
+    
+    if (self.edtName.text.length > 0)
     {
         if (self.edtTaxRate.text.length <= 0) {
             self.tax = @"0";
             self.edtTaxRate.text = @" 0 %";
-        }
-        
+        }        
        
         if (!self.isEditProduct)
         {
             NSLog(@"Number: %@", self.edtUnitPrice.text);
             
-            if ([self.edtUnitPrice.text rangeOfString:[NSString stringWithFormat:@"%@", appdelegate.bussinessForUser.currencySymbol]].length == 0)
+            if ([self.edtUnitPrice.text rangeOfString:[NSString stringWithFormat:@"%@", @"£"]].length == 0)
             {
                 NSLog(@"Number 1: %@", self.edtUnitPrice.text);
                 if ([self.edtUnitPrice.text rangeOfString:@","].length != 0) {
@@ -167,58 +152,83 @@ BIAppDelegate* appdelegate;
                     
                     self.price = amt;
                 }
-                else{
+                else
+                {
                     self.price = self.edtUnitPrice.text;
+                     self.unitPrice = self.edtUnitPrice.text;
                 }
                
             }
-           
+        }
+        
+        //Save Customer into Server
+        NSString* urlString = @"";
+        NSString* method = @"";
+        urlString = @"/product?";
+        
+        NSString *dataContent =[NSString stringWithFormat:@"name=%@&description=%@&unit_price=%@&tax_rate=%@", self.edtName.text, self.edtDesc.text, self.unitPrice, self.tax];
+        
+        NSLog(@"dataContent: %@", dataContent);
+        
+        if (self.isEditProduct) {
+            method = @"PUT";
             
-            BIProduct* product = [[BIProduct alloc] init];
-            product.productName = self.edtName.text;
-            product.productDescription = self.edtDesc.text;
-            product.productTaxRate = self.tax;
-            product.productUnitPrice = self.price;
-            product.numberOfUnit = 1;
+            urlString = @"/product";
             
-            [appdelegate.productsForUser addObject:product];
+            dataContent =[NSString stringWithFormat:@"/%@?name=%@&description=%@&unit_price=%@&tax_rate=%@", self.product.productID , self.edtName.text, self.edtDesc.text, self.unitPrice, self.tax];
         }
         else
         {
-            NSPredicate *resultPredicate = [NSPredicate predicateWithFormat:@"productName contains[c] %@", self.edtName.text];
+            method = @"POST";
+        }
+        
+        dataContent = [dataContent stringByAddingPercentEscapesUsingEncoding:NSASCIIStringEncoding];
+        
+        
+        if ([dataContent containsString:@"@"]) {
+            dataContent = [dataContent stringByReplacingOccurrencesOfString:@"@" withString:@"%40"];
+        }
+        
+        [[ServiceRequest getShareInstance] serviceRequestActionName:[NSString stringWithFormat:@"%@%@",urlString, dataContent] accessToken:appdelegate.currentUser.token method:method result:^(NSURLResponse *response, NSData *dataResponse, NSError *connectionError) {
+            NSHTTPURLResponse* httpResponse = (NSHTTPURLResponse*)response;
+            NSInteger statusCode = [httpResponse statusCode];
             
-            for (BIProduct* product in [appdelegate.productsForUser filteredArrayUsingPredicate:resultPredicate])
+            [appdelegate.activityIndicatorView hide:YES];
+            
+            if (statusCode == 200)
             {
-                product.productName = self.edtName.text;
-                product.productDescription = self.edtDesc.text;
-                product.productTaxRate = self.edtTaxRate.text;
-                product.productUnitPrice = self.unitPrice;
-//                product.numberOfUnit = 1;
+                NSString *responeString = [[NSString alloc] initWithData:dataResponse
+                                                                encoding:NSUTF8StringEncoding];
+                
+                NSLog(@"RESPIONSE CREATE NEW CUSTOMER / SUPPLIER: %@", responeString);
+                NSDictionary* dataDict = [[NSDictionary alloc] init];
+                SBJsonParser *json = [SBJsonParser new];
+                dataDict = [json objectWithString:[NSString stringWithFormat:@"%@", responeString]];
+                
+                if ([dataDict valueForKey:@"data"] != nil)
+                {
+                    [appdelegate.activityIndicatorView hide:YES];
+                    
+                   [self dismissViewControllerAnimated:YES completion:nil];
+                }
             }
-        }
-        
-        NSLog(@"ProductForuser: %@", appdelegate.productsForUser);
-//
-//        NSMutableArray* arrayTosave = [[NSMutableArray alloc] init];
-//        arrayTosave = appdelegate.productsForUser;
-//        
-        NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
-        [defaults rm_setCustomObject:appdelegate.productsForUser forKey:@"productsForUser"];
-//        [defaults synchronize];
-        
-        if (self.isEditProduct)
-        {
-            [self.navigationController popViewControllerAnimated:YES];
-        }
-        else
-        {
-            [self dismissViewControllerAnimated:YES completion:nil];
-        }
+            else
+            {
+                [appdelegate.activityIndicatorView hide:YES];
+                
+                NSString* message = @"";
+                message = @"Cannot save customer";
+                
+                UIAlertView *alert = [[UIAlertView alloc]initWithTitle:nil message:message delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+                [alert show];
+                
+            }
+        }];
         
     }
     else
     {
-        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:nil message:@"Please fill all text fields" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:nil message:@"Product name required" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [alert show];
     }
 }
@@ -259,9 +269,6 @@ BIAppDelegate* appdelegate;
         if ([textField.text rangeOfString:@","].length != 0) {
             textField.text = [textField.text stringByReplacingOccurrencesOfString:@"," withString:@""];
         }
-//        if ([textField.text containsString:@","] ) {
-//            textField.text = [textField.text stringByReplacingOccurrencesOfString:@"," withString:@""];
-//        }
        
         self.unitPrice = textField.text;
         
@@ -270,7 +277,7 @@ BIAppDelegate* appdelegate;
         self.price = amt;
         
         NSLog(@"Currency symbol: %@", amt);
-        NSString* amountAfterFormat = [[NSString stringWithFormat:@"%@ ", appdelegate.bussinessForUser.currencySymbol] stringByAppendingString:amt];
+        NSString* amountAfterFormat = [[NSString stringWithFormat:@"%@ ", @"£"] stringByAppendingString:amt];
         
         if (textField.text.length) {
             self.edtUnitPrice.text = amountAfterFormat;
@@ -326,27 +333,26 @@ BIAppDelegate* appdelegate;
         
         if (textField.text.length > 0)
         {
+            if (fmodf([self.unitPrice floatValue], 1.0) == 0.0) {
+                self.edtUnitPrice.text = [NSString stringWithFormat:@"%d", (int)[self.unitPrice floatValue]];
+            }
+            else
                 self.edtUnitPrice.text = [NSString stringWithFormat:@"%.2f", [self.unitPrice floatValue]];
         }
     }
     
     if (textField.tag == 3)
     {
-        if ([textField.text rangeOfString:@"%%"].length != 0) {
-            textField.text = [textField.text stringByReplacingOccurrencesOfString:@"%%" withString:@""];
+        NSLog(@"TEXT: %@", self.edtTaxRate.text);
+        
+        if ([self.edtTaxRate.text containsString:@"%"]) {
+            textField.text = [textField.text stringByReplacingOccurrencesOfString:@"%" withString:@""];
             NSLog(@"Tax: %@", textField.text );
-            self.tax = textField.text;
+            self.tax = [textField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
             
             self.edtTaxRate.text = self.tax;
         }
-//        if ([textField.text containsString:@"%%"])
-//        {
-//            textField.text = [textField.text stringByReplacingOccurrencesOfString:@"%%" withString:@""];
-//            NSLog(@"Tax: %@", textField.text );
-//            self.tax = textField.text;
-//            
-//            self.edtTaxRate.text = self.tax;
-//        }
+
     }
 }
 

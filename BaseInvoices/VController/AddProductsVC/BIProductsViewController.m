@@ -60,7 +60,7 @@ BIAppDelegate* appdelegate;
                 {
                     NSString* productID = [productDict valueForKey:@"id"];
                     NSString* productName = [productDict valueForKey:@"name"];
-                    NSString* unitPrict = [productDict valueForKey:@"unit_price"];
+                    NSString* unitPrict = [NSString stringWithFormat:@"%@", [productDict valueForKey:@"unit_price"]];
                     NSString* productDesc = [productDict valueForKey:@"description"];
                     NSString* tax_rate = [productDict valueForKey:@"tax_rate"];
                     NSString* userID = [productDict valueForKey:@"user_id"];
@@ -77,7 +77,7 @@ BIAppDelegate* appdelegate;
                     [productObject setCreated:created];
                     [productObject setModified:modified];
                     
-                    [appdelegate.customerForUser addObject:productObject];
+                    [appdelegate.productsForUser addObject:productObject];
                 }
                 
                 [self.tableView reloadData];

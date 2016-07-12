@@ -11,6 +11,7 @@
 #import "BIBussiness.h"
 #import "BIAddNewBussiness.h"
 #import "NSUserDefaults+RMSaveCustomObject.h"
+#import "SBJson.h"
 
 @interface BIBusinessesViewController ()
 
@@ -29,6 +30,32 @@ BIAppDelegate* appdelegate;
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    _tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+    
+    [[ServiceRequest getShareInstance] serviceRequestActionName:@"/business" accessToken:appdelegate.currentUser.token method:@"GET" result:^(NSURLResponse *response, NSData *dataResponse, NSError *connectionError) {
+        NSHTTPURLResponse* httpResponse = (NSHTTPURLResponse*)response;
+        NSInteger statusCode = [httpResponse statusCode];
+        
+        if (statusCode == 200)
+        {
+            NSString *responeString = [[NSString alloc] initWithData:dataResponse
+                                                            encoding:NSUTF8StringEncoding];
+            
+            NSLog(@"RESPIONSE GET ALL BUSSINESS: %@", responeString);
+            NSDictionary* dataDict = [[NSDictionary alloc] init];
+            SBJsonParser *json = [SBJsonParser new];
+            dataDict = [json objectWithString:[NSString stringWithFormat:@"%@", responeString]];
+            
+            if ([dataDict valueForKey:@"data"] != nil)
+            {
+                
+                [self.tableView  reloadData];
+            }
+            
+        }
+    }];
+
+    
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSMutableArray* bussinessForUser = [[NSMutableArray alloc] init];
     
