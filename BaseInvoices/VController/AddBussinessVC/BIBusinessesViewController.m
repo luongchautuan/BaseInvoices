@@ -48,6 +48,8 @@ BIAppDelegate* appdelegate;
             
             if ([dataDict valueForKey:@"data"] != nil)
             {
+                appdelegate.businessForUser = [[NSMutableArray alloc] init];
+                
                 for (NSDictionary* businessDict in [dataDict valueForKey:@"data"])
                 {
                     NSString* currency_id = [businessDict valueForKey:@"currency_id"];
@@ -70,7 +72,20 @@ BIAppDelegate* appdelegate;
                     NSString* sort_code = [businessDict valueForKey:@"sort_code"];
                     NSString* bank_account_number = [businessDict valueForKey:@"bank_account_number"];
                     NSString* created = [businessDict valueForKey:@"created"];
-                    NSString* modified = [businessDict valueForKey:@"modified"];                    
+                    NSString* modified = [businessDict valueForKey:@"modified"];
+                    
+                    BIBussiness* businessObject = [[BIBussiness alloc] init];
+                    [businessObject setBankName:bank_name];
+                    [businessObject setBusinessID:businessID];
+                    [businessObject setBussinessVat:vat_number];
+                    [businessObject setBussinessCity:city];
+                    [businessObject setBussinessAddress:address];
+                    [businessObject setBussinessPostCode:postCode];
+                    [businessObject setBussinessDescription:description];
+                    [businessObject setBankAccountNumber:bank_account_number];
+                    [businessObject setBussinessName:name];
+                    
+                    [appdelegate.businessForUser addObject:businessObject];
                     
                 }
                 

@@ -43,7 +43,7 @@
                         <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                     <connections>
-                        <action selector="btnAddIncome_Clicked:" destination="-1" eventType="touchUpInside" id="Wmt-Bu-MZp"/>
+                        <action selector="btnCreateInvoice_Clicked:" destination="-1" eventType="touchUpInside" id="92N-ZD-oag"/>
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YlA-s2-Wp5">
