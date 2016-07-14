@@ -21,6 +21,7 @@
 #import "BIBusinessesViewController.h"
 #import "BIInvoiceTableViewCell.h"
 #import "SBJson.h"
+#import "InvoiceTemplateViewController.h"
 
 @interface BIDashBoard ()
 
@@ -167,13 +168,21 @@ BIAppDelegate* appdelegate;
             break;
         case 1:
         {
+            InvoiceTemplateViewController *invoiceTemplateViewController = [[InvoiceTemplateViewController alloc] initWithNibName:@"InvoiceTemplateViewController" bundle:nil];
+
+            [self.navigationController pushViewController:invoiceTemplateViewController animated:YES];
+        }
+            break;
+
+        case 2:
+        {
             BICustomerViewController *customerViewController = [[BICustomerViewController alloc] initWithNibName:@"BICustomerViewController" bundle:nil];
             [customerViewController setIsViewCustomerEdit:YES];
 //            [self presentViewController:customerViewController animated:YES completion:nil];
             [self.navigationController pushViewController:customerViewController animated:YES];
         }
             break;
-        case 2:
+        case 3:
         {
             BIProductsViewController *educationVC = [[BIProductsViewController alloc] initWithNibName:@"BIProductsViewController" bundle:nil];
             
@@ -182,20 +191,20 @@ BIAppDelegate* appdelegate;
             [self.navigationController pushViewController:educationVC animated:YES];
         }
             break;
-        case 4:
+        case 5:
         {
             BIProfileViewController *skillVC = [[BIProfileViewController alloc] initWithNibName:@"BIProfileViewController" bundle:nil];
             [self.navigationController pushViewController:skillVC animated:YES];
         }
             break;
-        case 3:
+        case 4:
         {
             BIBusinessesViewController *referenceVC = [[BIBusinessesViewController alloc] initWithNibName:@"BIBusinessesViewController" bundle:nil];
             [self.navigationController pushViewController:referenceVC animated:YES];
         }
             
             break;
-        case 5:
+        case 6:
         {
             appdelegate.isLoginSucesss = NO;
             

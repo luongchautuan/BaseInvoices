@@ -129,12 +129,16 @@
 @property (weak, nonatomic) IBOutlet UIButton *btnOtherPopup;
 @property (weak, nonatomic) IBOutlet UIButton *btnDateTimeDialogPopup;
 @property (weak, nonatomic) IBOutlet UIButton *btnPayTypeDialogPopup;
+
+@property (nonatomic) BOOL isFromWelcome;
+
 - (IBAction)onShowViewDateTimeFromDialogPopup:(id)sender;
 - (IBAction)onCheckCashPopup:(id)sender;
 - (IBAction)onCheckChequePopup:(id)sender;
 - (IBAction)onCheckCardPopup:(id)sender;
 - (IBAction)onCheckOtherPopup:(id)sender;
 - (IBAction)onShowViewLstDataFromDialogPopup:(id)sender;
+
 @property (weak, nonatomic) IBOutlet UITextField *txtBussiness;
 @property (weak, nonatomic) IBOutlet UILabel *lblSubTotal;
 @property (weak, nonatomic) IBOutlet UILabel *lblTaxes;
@@ -148,5 +152,8 @@
 @property (weak, nonatomic) IBOutlet UIButton *btnClosePopUpUnit;
 
 @property (weak, nonatomic) IBOutlet UIView *viewPopUpAddNumberUnit;
+
 - (void)setNewPositionOfViewListData:(int)type;
+
+
 @end

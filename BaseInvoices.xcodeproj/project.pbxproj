@@ -413,6 +413,13 @@
 		9AAB57F81D34BAC300D9F67A /* WelcomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AAB57F61D34BAC300D9F67A /* WelcomeViewController.m */; };
 		9AAB57F91D34BAC300D9F67A /* WelcomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9AAB57F71D34BAC300D9F67A /* WelcomeViewController.xib */; };
 		9AAB57FB1D34C2BE00D9F67A /* icon-arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 9AAB57FA1D34C2BE00D9F67A /* icon-arrow.png */; };
+		9AAB58061D37338000D9F67A /* InvoiceTemplateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AAB58041D37338000D9F67A /* InvoiceTemplateViewController.m */; };
+		9AAB58071D37338000D9F67A /* InvoiceTemplateViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9AAB58051D37338000D9F67A /* InvoiceTemplateViewController.xib */; };
+		9AAB580B1D37338F00D9F67A /* AddInvoiceTemplateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AAB58091D37338F00D9F67A /* AddInvoiceTemplateViewController.m */; };
+		9AAB580C1D37338F00D9F67A /* AddInvoiceTemplateViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9AAB580A1D37338F00D9F67A /* AddInvoiceTemplateViewController.xib */; };
+		9AAB580F1D37427700D9F67A /* InvoiceTemplateRepository.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AAB580E1D37427700D9F67A /* InvoiceTemplateRepository.m */; };
+		9AAB58131D374C1800D9F67A /* InvoiceTemplateTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AAB58111D374C1800D9F67A /* InvoiceTemplateTableViewCell.m */; };
+		9AAB58141D374C1800D9F67A /* InvoiceTemplateTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9AAB58121D374C1800D9F67A /* InvoiceTemplateTableViewCell.xib */; };
 		9AB9380B1D17908D00A5F54C /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9AB938091D17908D00A5F54C /* Default-568h@2x.png */; };
 		9AB9380C1D17908D00A5F54C /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9AB9380A1D17908D00A5F54C /* Default@2x.png */; };
 		9AB9380F1D17945C00A5F54C /* ServiceRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AB9380E1D17945C00A5F54C /* ServiceRequest.m */; };
@@ -985,6 +992,17 @@
 		9AAB57F61D34BAC300D9F67A /* WelcomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WelcomeViewController.m; sourceTree = "<group>"; };
 		9AAB57F71D34BAC300D9F67A /* WelcomeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WelcomeViewController.xib; sourceTree = "<group>"; };
 		9AAB57FA1D34C2BE00D9F67A /* icon-arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-arrow.png"; sourceTree = "<group>"; };
+		9AAB58031D37338000D9F67A /* InvoiceTemplateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InvoiceTemplateViewController.h; sourceTree = "<group>"; };
+		9AAB58041D37338000D9F67A /* InvoiceTemplateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InvoiceTemplateViewController.m; sourceTree = "<group>"; };
+		9AAB58051D37338000D9F67A /* InvoiceTemplateViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InvoiceTemplateViewController.xib; sourceTree = "<group>"; };
+		9AAB58081D37338F00D9F67A /* AddInvoiceTemplateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddInvoiceTemplateViewController.h; sourceTree = "<group>"; };
+		9AAB58091D37338F00D9F67A /* AddInvoiceTemplateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddInvoiceTemplateViewController.m; sourceTree = "<group>"; };
+		9AAB580A1D37338F00D9F67A /* AddInvoiceTemplateViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddInvoiceTemplateViewController.xib; sourceTree = "<group>"; };
+		9AAB580D1D37427700D9F67A /* InvoiceTemplateRepository.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InvoiceTemplateRepository.h; sourceTree = "<group>"; };
+		9AAB580E1D37427700D9F67A /* InvoiceTemplateRepository.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InvoiceTemplateRepository.m; sourceTree = "<group>"; };
+		9AAB58101D374C1800D9F67A /* InvoiceTemplateTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InvoiceTemplateTableViewCell.h; sourceTree = "<group>"; };
+		9AAB58111D374C1800D9F67A /* InvoiceTemplateTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InvoiceTemplateTableViewCell.m; sourceTree = "<group>"; };
+		9AAB58121D374C1800D9F67A /* InvoiceTemplateTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InvoiceTemplateTableViewCell.xib; sourceTree = "<group>"; };
 		9AB938091D17908D00A5F54C /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		9AB9380A1D17908D00A5F54C /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		9AB9380D1D17945C00A5F54C /* ServiceRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServiceRequest.h; sourceTree = "<group>"; };
@@ -1282,6 +1300,7 @@
 		04F3D89E1A0BE972003B10FB /* VController */ = {
 			isa = PBXGroup;
 			children = (
+				9AAB58021D37336800D9F67A /* Invoice Template */,
 				9A3EC4191D2F88EE006BE2F9 /* CountryViewController */,
 				6ED7426C1A3A146500F92A0E /* JSon */,
 				6E0C691E1A2E0BED0024853D /* GoogleAnalyticsServices */,
@@ -1391,6 +1410,8 @@
 				6EAD50E31A2AF1BA002B340F /* BICurrency.m */,
 				9A3EC62A1D2F90BA006BE2F9 /* CountryListDataSource.h */,
 				9A3EC62B1D2F90BA006BE2F9 /* CountryListDataSource.m */,
+				9AAB580D1D37427700D9F67A /* InvoiceTemplateRepository.h */,
+				9AAB580E1D37427700D9F67A /* InvoiceTemplateRepository.m */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -1940,6 +1961,22 @@
 			path = Flags;
 			sourceTree = "<group>";
 		};
+		9AAB58021D37336800D9F67A /* Invoice Template */ = {
+			isa = PBXGroup;
+			children = (
+				9AAB58031D37338000D9F67A /* InvoiceTemplateViewController.h */,
+				9AAB58041D37338000D9F67A /* InvoiceTemplateViewController.m */,
+				9AAB58051D37338000D9F67A /* InvoiceTemplateViewController.xib */,
+				9AAB58081D37338F00D9F67A /* AddInvoiceTemplateViewController.h */,
+				9AAB58091D37338F00D9F67A /* AddInvoiceTemplateViewController.m */,
+				9AAB580A1D37338F00D9F67A /* AddInvoiceTemplateViewController.xib */,
+				9AAB58101D374C1800D9F67A /* InvoiceTemplateTableViewCell.h */,
+				9AAB58111D374C1800D9F67A /* InvoiceTemplateTableViewCell.m */,
+				9AAB58121D374C1800D9F67A /* InvoiceTemplateTableViewCell.xib */,
+			);
+			name = "Invoice Template";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -2153,6 +2190,7 @@
 				6EBF226C1A1BC61E00CE1A05 /* buttonCreateFirstInvoice.png in Resources */,
 				9A3EC59B1D2F8E95006BE2F9 /* Ivory-coast.png in Resources */,
 				6EB292EE1A1F0E3E00F3B263 /* cheque button ( select).png in Resources */,
+				9AAB58141D374C1800D9F67A /* InvoiceTemplateTableViewCell.xib in Resources */,
 				EA924B721A1E811B007CBA2A /* btn_close.png in Resources */,
 				9A3EC60F1D2F8E95006BE2F9 /* Timor-Leste.png in Resources */,
 				9A3EC5A81D2F8E95006BE2F9 /* Lebanon.png in Resources */,
@@ -2361,6 +2399,7 @@
 				04F3D8E31A0BF8D4003B10FB /* BIAddCustom.xib in Resources */,
 				9A3EC59A1D2F8E95006BE2F9 /* Italy.png in Resources */,
 				9A3EC6211D2F8E95006BE2F9 /* Vatican City.png in Resources */,
+				9AAB58071D37338000D9F67A /* InvoiceTemplateViewController.xib in Resources */,
 				9A3EC5E41D2F8E95006BE2F9 /* Réunion.png in Resources */,
 				9A3EC55F1D2F8E95006BE2F9 /* Congo.png in Resources */,
 				9A3EC5D31D2F8E95006BE2F9 /* Northern Ireland.png in Resources */,
@@ -2380,6 +2419,7 @@
 				9A3EC6181D2F8E95006BE2F9 /* Tuvalu.png in Resources */,
 				6EB292F11A1F0E3E00F3B263 /* other button.png in Resources */,
 				9A3EC58E1D2F8E95006BE2F9 /* heart.png in Resources */,
+				9AAB580C1D37338F00D9F67A /* AddInvoiceTemplateViewController.xib in Resources */,
 				6E0C69B61A2E0BEE0024853D /* Readme.txt in Resources */,
 				9A3EC5A61D2F8E95006BE2F9 /* Laos.png in Resources */,
 				9A3EC5AB1D2F8E95006BE2F9 /* Libya.png in Resources */,
@@ -2423,7 +2463,10 @@
 				04F3D87B1A0BE7CA003B10FB /* main.m in Sources */,
 				6E43967D1A109718005EF4C9 /* Reachability.m in Sources */,
 				6E43965A1A107C3E005EF4C9 /* ASIS3Request.m in Sources */,
+				9AAB580F1D37427700D9F67A /* InvoiceTemplateRepository.m in Sources */,
 				6EAD50E01A2AF0F5002B340F /* BICurrencyViewController.m in Sources */,
+				9AAB58061D37338000D9F67A /* InvoiceTemplateViewController.m in Sources */,
+				9AAB58131D374C1800D9F67A /* InvoiceTemplateTableViewCell.m in Sources */,
 				6EB293061A20216700F3B263 /* BICustomer.m in Sources */,
 				9A3EC4211D2F8CF1006BE2F9 /* CountryRepository.m in Sources */,
 				6EE6D8D71A1D056C00F11239 /* BIBussiness.m in Sources */,
@@ -2476,6 +2519,7 @@
 				6EB9EBEF1A10E4FA001226F8 /* BIInvoice.m in Sources */,
 				6EAFE6A71A22C8AD00C9A1CE /* NSUserDefaults+RMSaveCustomObject.m in Sources */,
 				6E43964D1A107C3E005EF4C9 /* ASIInputStream.m in Sources */,
+				9AAB580B1D37338F00D9F67A /* AddInvoiceTemplateViewController.m in Sources */,
 				04F3D87F1A0BE7CA003B10FB /* BIAppDelegate.m in Sources */,
 				6ED742901A3A148F00F92A0E /* SBJsonUTF8Stream.m in Sources */,
 				04F3D8C41A0BEF22003B10FB /* BIAddNewBussiness.m in Sources */,

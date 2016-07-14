@@ -35,6 +35,7 @@
 @property (nonatomic, retain)NSMutableArray* productsFroAddInvoices;
 
 @property (nonatomic, retain)NSMutableArray* invoicesForUser;
+@property (nonatomic, retain)NSMutableArray* invoicesTemplate;
 @property (nonatomic)NSMutableArray* productsForUser;
 @property (nonatomic, retain)NSMutableArray* customerForUser;
 @property (nonatomic, retain)NSMutableArray* businessForUser;

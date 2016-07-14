@@ -118,7 +118,7 @@
 - (IBAction)btnCreateInvoice_Clicked:(id)sender
 {
     BIAddInvoices *addIncome = [[BIAddInvoices alloc]initWithNibName:@"BIAddInvoices" bundle:nil];
-//    [addIncome setIsFromWelcome:YES];
+    [addIncome setIsFromWelcome:YES];
     [self.navigationController pushViewController:addIncome animated:YES];
 
 }

@@ -670,10 +670,33 @@ BIAppDelegate* appdelegate;
 {
     appdelegate.currentCustomerForAddInvoice = nil;
     appdelegate.productsFroAddInvoices = [[NSMutableArray alloc] init];
-    if (self.isEditInvoice) {
-        [self dismissViewControllerAnimated:YES completion:nil];
+    
+    if (_isFromWelcome)
+    {
+        BIDashBoard* dashboardView = [[BIDashBoard alloc] initWithNibName:@"BIDashBoard" bundle:nil];
+        
+        BLLeftSideVC *leftSideVC = [[BLLeftSideVC alloc] initWithNibName:@"BLLeftSideVC" bundle:nil];
+        
+        leftSideVC.delegate = dashboardView;
+        
+        UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:dashboardView];
+        
+        MMDrawerController* drawerController = [[MMDrawerController alloc] initWithCenterViewController:nav leftDrawerViewController:leftSideVC];
+        [drawerController setOpenDrawerGestureModeMask:MMOpenDrawerGestureModeAll];
+        
+        [drawerController setCloseDrawerGestureModeMask:MMCloseDrawerGestureModeAll];
+        
+        [self.navigationController pushViewController:drawerController animated:YES];
     }
-    else [self.navigationController popViewControllerAnimated:YES];
+    else
+    {
+        if (self.isEditInvoice)
+        {
+            [self dismissViewControllerAnimated:YES completion:nil];
+        }
+        else [self.navigationController popViewControllerAnimated:YES];
+    }
+    
 }
 
 - (IBAction)onCheckedButton:(id)sender

@@ -32,6 +32,7 @@ BIAppDelegate* appdelegate;
     self.myTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     
     NSDictionary *invoice = [[NSDictionary alloc] initWithObjectsAndKeys:@"Invoices", @"title", @"", @"detail", @"menu_img_invoice.png", @"icon", nil];
+    NSDictionary *invoiceTemplate = [[NSDictionary alloc] initWithObjectsAndKeys:@"Invoices Template", @"title", @"", @"detail", @"menu_img_invoice.png", @"icon", nil];
     NSDictionary *customers = [[NSDictionary alloc] initWithObjectsAndKeys:@"Customers", @"title", @"", @"detail", @"menu_img_customer.png", @"icon", nil];
     NSDictionary *products = [[NSDictionary alloc] initWithObjectsAndKeys:@"Products", @"title", @"", @"detail", @"menu_img_product.png", @"icon", nil];
     NSDictionary *settings = [[NSDictionary alloc] initWithObjectsAndKeys:@"Settings", @"title", @"", @"detail", @"menu_img_settings.png", @"icon", nil];
@@ -62,7 +63,7 @@ BIAppDelegate* appdelegate;
     self.img_thumb.clipsToBounds = YES;
     self.img_thumb.layer.cornerRadius = 40;
     
-    arrData = [NSArray arrayWithObjects:invoice, customers, products, bussines, settings, signout, nil];
+    arrData = [NSArray arrayWithObjects:invoice, invoiceTemplate, customers, products, bussines, settings, signout, nil];
     
     [self.myTableView reloadData];
 }
