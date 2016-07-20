@@ -15,6 +15,7 @@
 #import "ServiceRequest.h"
 #import "SBJson.h"
 #import "BIAppDelegate.h"
+#import "AddInvoiceTemplateViewController.h"
 
 @interface WelcomeViewController ()
 
@@ -125,9 +126,9 @@
 
 - (IBAction)btnAddExpense_Clicked:(id)sender
 {
-//    AddExpence *addExpence = [[AddExpence alloc]initWithNibName:@"AddExpence" bundle:nil];
-//    [addExpence setIsFromWelcome:YES];
-//    [self.navigationController pushViewController:addExpence animated:YES];
+    AddInvoiceTemplateViewController *pushToVC = [[AddInvoiceTemplateViewController alloc] initWithNibName:@"AddInvoiceTemplateViewController" bundle:nil];
+    [pushToVC setIsFromWelcome:YES];
+    [self.navigationController pushViewController:pushToVC animated:YES];
 }
 
 - (IBAction)btnGoToDashboard_Clicked:(id)sender

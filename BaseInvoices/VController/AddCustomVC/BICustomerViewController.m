@@ -12,6 +12,7 @@
 #import "BIAppDelegate.h"
 #import "NSUserDefaults+RMSaveCustomObject.h"
 #import "SBJson.h"
+#import "UIViewController+MMDrawerController.h"
 
 @interface BICustomerViewController ()
 
@@ -30,6 +31,16 @@ BIAppDelegate* appdelegate;
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    if (_isFromMenu) {
+        [self.btnBack setHidden:YES];
+        [self.btnMenu setHidden:NO];
+    }
+    else
+    {
+        [self.btnMenu setHidden:YES];
+        [self.btnBack setHidden:NO];
+    }
+    
     //Get All customer name from id
     _tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     
@@ -91,6 +102,11 @@ BIAppDelegate* appdelegate;
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (IBAction)showCat:(id)sender
+{
+    [self.mm_drawerController toggleDrawerSide:MMDrawerSideLeft animated:YES completion:nil];
 }
 
 - (IBAction)onAddCustomer:(id)sender

@@ -10,8 +10,11 @@
 
 @interface BICurrency : NSObject
 
-@property (nonatomic)NSString* currencyCode;
-@property (nonatomic)NSString* currencySymbol;
-@property (nonatomic)NSString* countryAndCurrency;
+@property (nonatomic, strong)NSString* currencyCode;
+@property (nonatomic, strong)NSString* currencySymbol;
+@property (nonatomic, strong)NSString* countryAndCurrency;
+@property (nonatomic, strong) NSString* currencyID;
+@property (nonatomic, strong) NSString* currencyDesc;
+@property (nonatomic, strong) NSString* currencyName;
 
 @end

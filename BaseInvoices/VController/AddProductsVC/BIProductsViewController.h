@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BLLeftSideVC.h"
 
 @protocol BIProductsViewControllerDelegate <NSObject>
 
@@ -14,10 +15,14 @@
 
 @end
 
-@interface BIProductsViewController : UIViewController<UITableViewDataSource, UITableViewDelegate>
+@interface BIProductsViewController : UIViewController<UITableViewDataSource, UITableViewDelegate, BLLeftSideDelegate>
 
 @property (nonatomic) id<BIProductsViewControllerDelegate> delegate;
 @property (nonatomic)BOOL isViewEditProduct;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
+@property (weak, nonatomic) IBOutlet UIButton *btnMenu;
+@property (nonatomic) BOOL isFromMenu;
+
+@property (weak, nonatomic) IBOutlet UIButton *btnBack;
 @end

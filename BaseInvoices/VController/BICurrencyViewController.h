@@ -7,10 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BICurrency.h"
 
 @protocol BICurrencyViewControllerDelegate <NSObject>
 
 - (void)checkCallback;
+- (void)didSelectedCurrency:(BICurrency*)currency;
 
 @end
 
@@ -20,4 +22,5 @@
 
 @property (nonatomic)NSMutableArray* allCurrency;
 
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
 @end

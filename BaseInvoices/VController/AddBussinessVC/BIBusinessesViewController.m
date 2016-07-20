@@ -8,10 +8,10 @@
 
 #import "BIBusinessesViewController.h"
 #import "BIAppDelegate.h"
-#import "BIBussiness.h"
 #import "BIAddNewBussiness.h"
 #import "NSUserDefaults+RMSaveCustomObject.h"
 #import "SBJson.h"
+#import "UIViewController+MMDrawerController.h"
 
 @interface BIBusinessesViewController ()
 
@@ -30,6 +30,17 @@ BIAppDelegate* appdelegate;
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    if (_isFromMenu)
+    {
+        [self.btnMenu setHidden:NO];
+        [self.btnCloseViewController setHidden:YES];
+    }
+    else
+    {
+        [self.btnCloseViewController setHidden:NO];
+        [self.btnMenu setHidden:YES];
+    }
+    
     _tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     
     [[ServiceRequest getShareInstance] serviceRequestActionName:@"/business" accessToken:appdelegate.currentUser.token method:@"GET" result:^(NSURLResponse *response, NSData *dataResponse, NSError *connectionError) {
@@ -53,7 +64,16 @@ BIAppDelegate* appdelegate;
                 for (NSDictionary* businessDict in [dataDict valueForKey:@"data"])
                 {
                     NSString* currency_id = [businessDict valueForKey:@"currency_id"];
+                    NSDictionary* currencyDict =[businessDict valueForKey:@"currency"];
+                    NSString* currencyCode = [currencyDict valueForKey:@"iso"];
+                    NSString* currencyName = [currencyDict valueForKey:@"name"];
+                    NSString* currencySymbol = [currencyDict valueForKey:@"sign"];
+                    
                     NSString* country_id = [businessDict valueForKey:@"country_id"];
+                    NSDictionary* countryDict = [businessDict valueForKey:@"country"];
+                    NSString* countryName = [countryDict valueForKey:@"name"];
+                    NSString* countryCode = [countryDict valueForKey:@"code"];
+                    
                     NSString* name = [businessDict valueForKey:@"name"];
                     NSString* description = [businessDict valueForKey:@"description"];
                     NSString* address = [businessDict valueForKey:@"address"];
@@ -63,7 +83,6 @@ BIAppDelegate* appdelegate;
                     NSString* businessID = [businessDict valueForKey:@"id"];
                     NSString* postCode = [businessDict valueForKey:@"postcode"];
                     NSString* date_started = [businessDict valueForKey:@"date_started"];
-                    NSString* userID = [businessDict valueForKey:@"user_id"];
                     NSString* cis_registered = [businessDict valueForKey:@"cis_registered"];
                     NSString* vat_registered = [businessDict valueForKey:@"vat_registered"];
                     NSString* vat_number = [businessDict valueForKey:@"vat_number"];
@@ -81,9 +100,27 @@ BIAppDelegate* appdelegate;
                     [businessObject setBussinessCity:city];
                     [businessObject setBussinessAddress:address];
                     [businessObject setBussinessPostCode:postCode];
+                    [businessObject setBankSortCode:sort_code];
+                    
+                    businessObject.currency = [[BICurrency alloc] init];
+                    [businessObject.currency setCurrencyID:currency_id];
+                    [businessObject.currency setCurrencyCode:currencyCode];
+                    [businessObject.currency setCurrencyName:currencyName];
+                    [businessObject.currency setCurrencySymbol:currencySymbol];
+                    
+                    businessObject.country = [[CountryRepository alloc] init];
+                    [businessObject.country setDialCode:country_id];
+                    [businessObject.country setCountryCode:countryCode];
+                    [businessObject.country setCountryName:countryName];
+                    
+                    [businessObject setBussinessAddress1:address_line1];
+                    [businessObject setBussinessAddress2:address_line2];
                     [businessObject setBussinessDescription:description];
                     [businessObject setBankAccountNumber:bank_account_number];
                     [businessObject setBussinessName:name];
+                    [businessObject setDateStarted:date_started];
+                    [businessObject setIsCISRegistered:[cis_registered boolValue]];
+                    [businessObject setIsVatRegistered:[vat_registered boolValue]];
                     
                     [appdelegate.businessForUser addObject:businessObject];
                     
@@ -100,6 +137,12 @@ BIAppDelegate* appdelegate;
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+- (IBAction)showCat:(id)sender
+{
+    [self.mm_drawerController toggleDrawerSide:MMDrawerSideLeft animated:YES completion:nil];
+}
+
 
 - (IBAction)onAddBussiness:(id)sender
 {
@@ -136,6 +179,7 @@ BIAppDelegate* appdelegate;
     }
     
     BIBussiness* bussiness = [appdelegate.businessForUser objectAtIndex:indexPath.row];
+    [cell.textLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:15.0f]];
     cell.textLabel.text = bussiness.bussinessName;
     
     return cell;
@@ -145,22 +189,20 @@ BIAppDelegate* appdelegate;
 {
     BIBussiness* bussiness = [appdelegate.businessForUser objectAtIndex:indexPath.row];
     
-//    if (self.isViewCustomerEdit)
-//    {
+    if (self.isFromMenu)
+    {
         BIAddNewBussiness *pushToVC = [[BIAddNewBussiness alloc] initWithNibName:@"BIAddNewBussiness" bundle:nil];
         [pushToVC setIsEditBusiness:YES];
         [pushToVC setBussinessEdit:bussiness];
         [pushToVC setIndexPathSelected:indexPath];
-//
+
         [self.navigationController pushViewController:pushToVC animated:YES];
-//    }
-//    else
-//    {
-//        appdelegate.currentCustomerForAddInvoice = customer;
-//        
-//        [self.navigationController popViewControllerAnimated:YES];
-//    }
-    
+    }
+    else
+    {
+        [self.delegate didSelectedBusiness:bussiness];
+        [self.navigationController popViewControllerAnimated:YES];
+    }
 }
 
 

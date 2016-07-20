@@ -7,10 +7,24 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BLLeftSideVC.h"
+#import "BIBussiness.h"
 
-@interface BIBusinessesViewController : UIViewController
+@protocol BIBusinessViewControllerDelegate <NSObject>
+
+- (void)didSelectedBusiness:(BIBussiness*)business;
+
+@end
+
+@interface BIBusinessesViewController : UIViewController<BLLeftSideDelegate>
+
+@property (nonatomic) id<BIBusinessViewControllerDelegate> delegate;
+
 @property (weak, nonatomic) IBOutlet UIButton *btnCloseViewController;
 @property (weak, nonatomic) IBOutlet UIButton *btnAddBusiness;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (weak, nonatomic) IBOutlet UIButton *btnMenu;
+
+@property (nonatomic) BOOL isFromMenu;
 
 @end

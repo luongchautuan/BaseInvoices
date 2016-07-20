@@ -13,6 +13,8 @@
 #import "NSUserDefaults+RMSaveCustomObject.h"
 #import "SBJson.h"
 #import "InvoiceTemplateTableViewCell.h"
+#import "UIViewController+MMDrawerController.h"
+#import "AddInvoiceTemplateViewController.h"
 
 @interface InvoiceTemplateViewController ()
 
@@ -31,6 +33,17 @@ BIAppDelegate* appdelegate;
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    if (_isFromMenu)
+    {
+        [self.btnMenu setHidden:NO];
+        [self.btnBack setHidden:YES];
+    }
+    else
+    {
+        [self.btnMenu setHidden:YES];
+        [self.btnBack setHidden:NO];
+    }
+    
     _tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     
     [[ServiceRequest getShareInstance] serviceRequestActionName:@"/invoice-template" accessToken:appdelegate.currentUser.token method:@"GET" result:^(NSURLResponse *response, NSData *dataResponse, NSError *connectionError) {
@@ -90,11 +103,14 @@ BIAppDelegate* appdelegate;
     // Dispose of any resources that can be recreated.
 }
 
-- (IBAction)onAddBussiness:(id)sender
+- (IBAction)showCat:(id)sender
 {
-    BIAddNewBussiness *pushToVC = [[BIAddNewBussiness alloc] initWithNibName:@"BIAddNewBussiness" bundle:nil];
-    [pushToVC setIsEditBusiness:NO];
-    [pushToVC setAddFrom:2];
+    [self.mm_drawerController toggleDrawerSide:MMDrawerSideLeft animated:YES completion:nil];
+}
+
+- (IBAction)btnAddInvoiceTemplate_Clicked:(id)sender
+{
+    AddInvoiceTemplateViewController *pushToVC = [[AddInvoiceTemplateViewController alloc] initWithNibName:@"AddInvoiceTemplateViewController" bundle:nil];
     
     [self.navigationController pushViewController:pushToVC animated:YES];
 }
@@ -112,7 +128,12 @@ BIAppDelegate* appdelegate;
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return appdelegate.businessForUser.count;
+    return appdelegate.invoicesTemplate.count;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 124.0f;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -131,29 +152,29 @@ BIAppDelegate* appdelegate;
     customCell.lblContactName.text = invoiceTemplateObject.invoiceTemplateName;
     customCell.lblEmail.text = invoiceTemplateObject.email;
     
+    BOOL isVat = [invoiceTemplateObject.with_vat boolValue];
+    if (isVat)
+    {
+        [customCell.imgVat setImage:[UIImage imageNamed:@"bg_checked_radiobutton.png"]];
+    }
+    else
+    {
+        [customCell.imgVat setImage:[UIImage imageNamed:@"bg_uncheck_radiobutton.png"]];
+    }
+    
     return customCell;
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    BIBussiness* bussiness = [appdelegate.businessForUser objectAtIndex:indexPath.row];
+    InvoiceTemplateRepository* invoiceTemplateObject = [appdelegate.invoicesTemplate objectAtIndex:indexPath.row];
     
-    //    if (self.isViewCustomerEdit)
-    //    {
-    BIAddNewBussiness *pushToVC = [[BIAddNewBussiness alloc] initWithNibName:@"BIAddNewBussiness" bundle:nil];
-    [pushToVC setIsEditBusiness:YES];
-    [pushToVC setBussinessEdit:bussiness];
-    [pushToVC setIndexPathSelected:indexPath];
-    //
+    AddInvoiceTemplateViewController *pushToVC = [[AddInvoiceTemplateViewController alloc] initWithNibName:@"AddInvoiceTemplateViewController" bundle:nil];
+    [pushToVC setIsFromWelcome:NO];
+    [pushToVC setInvoiceBeEdited:invoiceTemplateObject];
+//    [pushToVC setIndexPathSelected:indexPath];
+
     [self.navigationController pushViewController:pushToVC animated:YES];
-    //    }
-    //    else
-    //    {
-    //        appdelegate.currentCustomerForAddInvoice = customer;
-    //
-    //        [self.navigationController popViewControllerAnimated:YES];
-    //    }
-    
 }
 
 

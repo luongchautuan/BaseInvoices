@@ -11,6 +11,7 @@
 #import "BIAppDelegate.h"
 #import "NSUserDefaults+RMSaveCustomObject.h"
 #import "SBJson.h"
+#import "UIViewController+MMDrawerController.h"
 
 @interface BIProductsViewController ()
 
@@ -30,12 +31,23 @@ BIAppDelegate* appdelegate;
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    if (_isFromMenu)
+    {
+        [self.btnMenu setHidden:NO];
+        [self.btnBack setHidden:YES];
+    }
+    else
+    {
+        [self.btnBack setHidden:NO];
+        [self.btnMenu setHidden:YES];
+    }
+    
     _tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSMutableArray* productsForUser = [[NSMutableArray alloc] init];
     productsForUser = [defaults rm_customObjectForKey:@"productsForUser"];
-//
+
     NSLog(@"ProductForuser: %@", productsForUser);
     
     [[ServiceRequest getShareInstance] serviceRequestActionName:@"/product" accessToken:appdelegate.currentUser.token method:@"GET" result:^(NSURLResponse *response, NSData *dataResponse, NSError *connectionError) {
@@ -91,6 +103,11 @@ BIAppDelegate* appdelegate;
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (IBAction)showCat:(id)sender
+{
+    [self.mm_drawerController toggleDrawerSide:MMDrawerSideLeft animated:YES completion:nil];
 }
 
 - (IBAction)onAddProduct:(id)sender

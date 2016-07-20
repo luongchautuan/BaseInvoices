@@ -11,6 +11,7 @@
 #import <MessageUI/MessageUI.h>
 #import "NDHTMLtoPDF.h"
 #import "BIProductsViewController.h"
+#import "InvoiceTemplateRepository.h"
 
 @interface BIAddInvoices : UIViewController<UITextFieldDelegate, UIPickerViewDataSource, UIPickerViewDelegate, UITableViewDelegate, UITableViewDataSource, NDHTMLtoPDFDelegate,MFMailComposeViewControllerDelegate, UIAlertViewDelegate, BIProductsViewControllerDelegate>
 {
@@ -152,6 +153,8 @@
 @property (weak, nonatomic) IBOutlet UIButton *btnClosePopUpUnit;
 
 @property (weak, nonatomic) IBOutlet UIView *viewPopUpAddNumberUnit;
+
+@property (nonatomic) InvoiceTemplateRepository* invoiceTemplateSelected;
 
 - (void)setNewPositionOfViewListData:(int)type;
 

@@ -76,7 +76,7 @@
 
 - (IBAction)btnCancel_Clicked:(id)sender
 {
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 #pragma mark - UITableView Delegate
@@ -148,7 +148,7 @@
     
     [self.delegate CountrySelected:country];
     
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 

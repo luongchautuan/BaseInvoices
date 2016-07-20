@@ -8,8 +8,9 @@
 
 #import "BICurrencyViewController.h"
 #import "BICustomCurrencyTableViewCell.h"
-#import "BICurrency.h"
+
 #import "BIAppDelegate.h"
+#import "SBJson.h"
 
 @interface BICurrencyViewController ()
 
@@ -24,33 +25,57 @@ BIAppDelegate* appdelegate;
     // Do any additional setup after loading the view from its nib.
     
     appdelegate = (BIAppDelegate *)[[UIApplication sharedApplication] delegate];
+ 
+    _tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     
-    NSString *plistPath = [[NSBundle mainBundle] pathForResource:@"CurrencyList" ofType:@"plist"];
-    
-    self.allCurrency = [[NSMutableArray alloc] initWithContentsOfFile:plistPath];
-    
-    for (NSDictionary* currency in self.allCurrency)
-    {
-        NSString* countryAndCurrencyCode = [currency valueForKey:@"Country and Currency"];
-        NSString* currencyCode = [currency valueForKey:@"Currency Code"];
-        
-        NSLocale *locale = [[NSLocale alloc] initWithLocaleIdentifier:[NSString stringWithFormat:@"%@", currencyCode]];
-        NSString *currencySymbol = [NSString stringWithFormat:@"%@",[locale displayNameForKey:NSLocaleCurrencySymbol value:[currency valueForKey:@"Currency Code"]]];
-        NSLog(@"Currency Symbol : %lu", (unsigned long)currencySymbol.length);
-        
-        BICurrency* currency = [[BICurrency alloc] init];
-        
-        if (currencySymbol.length > 0 && currencySymbol.length < 6)
-        {
-            currency.currencyCode = currencyCode;
-            currency.currencySymbol = currencySymbol;
-            currency.countryAndCurrency = countryAndCurrencyCode;
-            
-            [appdelegate.currencies addObject:currency];
-        }
-    }
+    [self getCurrencies];
 
 }
+
+- (void)getCurrencies
+{
+    [[ServiceRequest getShareInstance] serviceRequestActionName:@"/currency" accessToken:appdelegate.currentUser.token method:@"GET" result:^(NSURLResponse *response, NSData *dataResponse, NSError *connectionError) {
+        NSHTTPURLResponse* httpResponse = (NSHTTPURLResponse*)response;
+        NSInteger statusCode = [httpResponse statusCode];
+        
+        if (statusCode == 200)
+        {
+            NSString *responeString = [[NSString alloc] initWithData:dataResponse
+                                                            encoding:NSUTF8StringEncoding];
+            
+            NSLog(@"RESPIONSE GET ALL CURRENCIES: %@", responeString);
+            NSDictionary* dataDict = [[NSDictionary alloc] init];
+            SBJsonParser *json = [SBJsonParser new];
+            dataDict = [json objectWithString:[NSString stringWithFormat:@"%@", responeString]];
+            
+            if ([dataDict valueForKey:@"data"] != nil)
+            {
+                appdelegate.currencies = [[NSMutableArray alloc] init];
+                
+                for (NSDictionary* currencyDict in [dataDict valueForKey:@"data"])
+                {
+                    NSString* currencyID = [currencyDict valueForKey:@"id"];
+                    NSString* currencyCode = [currencyDict valueForKey:@"iso"];
+                    NSString* currencyName = [currencyDict valueForKey:@"name"];
+                    NSString* currencyDesc = [currencyDict valueForKey:@"description"];
+                    NSString* currencySymbol = [currencyDict valueForKey:@"sign"];
+                    
+                    BICurrency* currency = [[BICurrency alloc] init];
+                    [currency setCurrencyCode:currencyCode];
+                    [currency setCurrencySymbol:currencySymbol];
+                    [currency setCurrencyID:currencyID];
+                    [currency setCurrencyName:currencyName];
+                    [currency setCurrencyDesc:currencyDesc];
+                    
+                    [[BIAppDelegate shareAppdelegate].currencies addObject:currency];
+                }
+                
+                [self.tableView reloadData];
+            }
+        }
+    }];
+}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -84,7 +109,7 @@ BIAppDelegate* appdelegate;
         customCell = [nib objectAtIndex:0];
     }
 
-    customCell.lblCountryCode.text = [[appdelegate.currencies objectAtIndex:indexPath.row] countryAndCurrency];
+    customCell.lblCountryCode.text = [[appdelegate.currencies objectAtIndex:indexPath.row] currencyName];
     customCell.lblSymbolCode.text = [[appdelegate.currencies objectAtIndex:indexPath.row] currencySymbol];
     customCell.lblCurrencyCode.text = [[appdelegate.currencies objectAtIndex:indexPath.row] currencyCode];
     
@@ -94,8 +119,11 @@ BIAppDelegate* appdelegate;
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     appdelegate.currency = [appdelegate.currencies objectAtIndex:indexPath.row];
+    
+    [self.delegate didSelectedCurrency:[[BIAppDelegate shareAppdelegate].currencies objectAtIndex:indexPath.row]];
+    
     [self.navigationController popViewControllerAnimated:YES];
-    [self.delegate checkCallback];
+    
 }
 /*
 #pragma mark - Navigation

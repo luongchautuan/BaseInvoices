@@ -169,7 +169,7 @@ BIAppDelegate* appdelegate;
         case 1:
         {
             InvoiceTemplateViewController *invoiceTemplateViewController = [[InvoiceTemplateViewController alloc] initWithNibName:@"InvoiceTemplateViewController" bundle:nil];
-
+            [invoiceTemplateViewController setIsFromMenu:YES];
             [self.navigationController pushViewController:invoiceTemplateViewController animated:YES];
         }
             break;
@@ -178,6 +178,7 @@ BIAppDelegate* appdelegate;
         {
             BICustomerViewController *customerViewController = [[BICustomerViewController alloc] initWithNibName:@"BICustomerViewController" bundle:nil];
             [customerViewController setIsViewCustomerEdit:YES];
+            [customerViewController setIsFromMenu:YES];
 //            [self presentViewController:customerViewController animated:YES completion:nil];
             [self.navigationController pushViewController:customerViewController animated:YES];
         }
@@ -185,7 +186,7 @@ BIAppDelegate* appdelegate;
         case 3:
         {
             BIProductsViewController *educationVC = [[BIProductsViewController alloc] initWithNibName:@"BIProductsViewController" bundle:nil];
-            
+            [educationVC setIsFromMenu:YES];
             [educationVC setIsViewEditProduct:YES];
             
             [self.navigationController pushViewController:educationVC animated:YES];
@@ -200,6 +201,7 @@ BIAppDelegate* appdelegate;
         case 4:
         {
             BIBusinessesViewController *referenceVC = [[BIBusinessesViewController alloc] initWithNibName:@"BIBusinessesViewController" bundle:nil];
+            [referenceVC setIsFromMenu:YES];
             [self.navigationController pushViewController:referenceVC animated:YES];
         }
             

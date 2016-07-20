@@ -7,10 +7,17 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BLLeftSideVC.h"
 
-@interface InvoiceTemplateViewController : UIViewController
+@interface InvoiceTemplateViewController : UIViewController<BLLeftSideDelegate, UITableViewDelegate, UITableViewDataSource>
+
 @property (weak, nonatomic) IBOutlet UIButton *btnCloseViewController;
 @property (weak, nonatomic) IBOutlet UIButton *btnAddInvoiceTemplate;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (weak, nonatomic) IBOutlet UIButton *btnBack;
+
+@property (weak, nonatomic) IBOutlet UIButton *btnMenu;
+
+@property (nonatomic) BOOL isFromMenu;
 
 @end

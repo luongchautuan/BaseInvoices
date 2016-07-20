@@ -82,6 +82,26 @@ static ServiceRequest *sharedInstance = nil;
     }];
 }
 
+- (void)serviceRequestWithDataStr:(NSString *)data actionName:(NSString *)actionName accessToken:(NSString *)accessToken result:(void (^)(NSURLResponse *, NSData *, NSError *))completion
+{
+    NSData *postData = [data dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES];
+    
+    NSString *postLength = [NSString stringWithFormat:@"%lu", (unsigned long)[postData length]];
+    
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
+    [request setURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@", urlHost, actionName]]];
+    [request setHTTPMethod:@"POST"];
+    [request setValue:postLength forHTTPHeaderField:@"Content-Length"];
+    [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
+    [request setValue:[NSString stringWithFormat:@"%@",accessToken] forHTTPHeaderField:@"Authorization"];
+    [request setHTTPBody:postData];
+    
+    [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue currentQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+        completion(response, data, connectionError);
+    }];
+    
+}
+
 - (void)serviceRequestWithData:(NSData *)data actionName:(NSString *)actionName accessToken:(NSString *)accessToken result:(void (^)(NSURLResponse *, NSData *, NSError *))completion
 {
    

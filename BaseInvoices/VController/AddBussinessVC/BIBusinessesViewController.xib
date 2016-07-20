@@ -9,6 +9,7 @@
             <connections>
                 <outlet property="btnAddBusiness" destination="23U-YI-tWh" id="udl-U3-32c"/>
                 <outlet property="btnCloseViewController" destination="GUq-BA-02d" id="2Eh-uE-Rap"/>
+                <outlet property="btnMenu" destination="lyf-ga-ftE" id="W2o-43-NoZ"/>
                 <outlet property="tableView" destination="MFS-3v-jmr" id="bdN-vv-CTK"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -53,6 +54,15 @@
                                 <action selector="onCloseViewController:" destination="-1" eventType="touchUpInside" id="RNn-z2-90V"/>
                             </connections>
                         </button>
+                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lyf-ga-ftE">
+                            <rect key="frame" x="8" y="12" width="30" height="25"/>
+                            <state key="normal" backgroundImage="icon_cat.png">
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <connections>
+                                <action selector="showCat:" destination="-1" eventType="touchUpInside" id="H7a-CU-jB8"/>
+                            </connections>
+                        </button>
                     </subviews>
                     <color key="backgroundColor" red="0.47843140360000003" green="0.76470595600000002" blue="0.13725490870000001" alpha="1" colorSpace="deviceRGB"/>
                 </view>
@@ -60,10 +70,12 @@
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <nil key="simulatedTopBarMetrics"/>
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+            <point key="canvasLocation" x="-28" y="227"/>
         </view>
     </objects>
     <resources>
         <image name="backbutton.png" width="88" height="88"/>
         <image name="icon_add.png" width="49" height="49"/>
+        <image name="icon_cat.png" width="49" height="40"/>
     </resources>
 </document>

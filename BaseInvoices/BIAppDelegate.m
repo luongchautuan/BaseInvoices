@@ -44,8 +44,7 @@ static NSString *const kAllowTracking = @"allowTracking";
     
     for (NSDictionary* dict in _dataRows)
     {
-        CountryRepository* country = [[CountryRepository alloc] initWithCountryName: [dict valueForKey:@"name"] countryCode: [dict valueForKey:@"code"] dialCode: [dict valueForKey:@"id"]];
-        
+        CountryRepository* country = [[CountryRepository alloc] initWithCountryName: [dict valueForKey:@"name"] countryCode: [dict valueForKey:@"code"] dialCode: [dict valueForKey:@"id"]];        
         
         [_countries addObject:country];
     }

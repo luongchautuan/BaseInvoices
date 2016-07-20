@@ -7,13 +7,17 @@
 //
 
 #import "BIAddNewBussiness.h"
-#define ACCEPTABLE_CHARECTERS @"+0123456789."
+#import "SBJson.h"
+#import "NSDate+Utilities.h"
 #import "BIBussiness.h"
 #import "BIAppDelegate.h"
 #import "NSUserDefaults+RMSaveCustomObject.h"
 #import "BIDashBoard.h"
 #import "BIAddInvoices.h"
 #import "ASIHTTPRequest.h"
+#import "BICurrencyViewController.h"
+
+#define ACCEPTABLE_CHARECTERS @"+0123456789."
 
 @interface BIAddNewBussiness ()
 
@@ -42,13 +46,24 @@ NSString* vatRegistered;
 {
     [super viewDidLoad];
     
+    self.flatDatePicker = [[FlatDatePicker alloc] initWithParentView:self.view];
+    self.flatDatePicker.delegate = self;
+    self.flatDatePicker.title = @"";
+    
+    [_viewContent setContentSize:CGSizeMake([UIScreen mainScreen].bounds.size.width, 800)];
+    
     appdelegate = (BIAppDelegate *)[[UIApplication sharedApplication] delegate];
     
     onCheckedButton = false;
+    _isCISRegistered = false;
     
     [self.btnCheckVat setBackgroundImage:[UIImage imageNamed:@"bg_uncheck_radiobutton.png"] forState:UIControlStateNormal];
     [self.btnCheckVat setBackgroundImage:[UIImage imageNamed:@"bg_checked_radiobutton.png"] forState:UIControlStateSelected];
     [self.btnCheckVat setBackgroundImage:[UIImage imageNamed:@"bg_checked_radiobutton.png"] forState:UIControlStateHighlighted];
+    
+    [self.btnCisRegistered setBackgroundImage:[UIImage imageNamed:@"bg_uncheck_radiobutton.png"] forState:UIControlStateNormal];
+    [self.btnCisRegistered setBackgroundImage:[UIImage imageNamed:@"bg_checked_radiobutton.png"] forState:UIControlStateSelected];
+    [self.btnCisRegistered setBackgroundImage:[UIImage imageNamed:@"bg_checked_radiobutton.png"] forState:UIControlStateHighlighted];
     
     [self.txtTitle setText:@"Add New Bussiness"];
     
@@ -57,22 +72,6 @@ NSString* vatRegistered;
     tapGeusture.delegate = self;
     [self.scrollView addGestureRecognizer:tapGeusture];
     [tapGeusture setCancelsTouchesInView:NO];
-    
-    UITapGestureRecognizer *tapGeustureBank = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapHandler:)];
-    tapGeustureBank.numberOfTapsRequired = 1;
-    [self.viewPopUpMain addGestureRecognizer:tapGeustureBank];
-    [tapGeustureBank setCancelsTouchesInView:NO];
-    
-    NSLocale *locale = [NSLocale currentLocale];
-    
-    
-    NSString *currencyCode = [locale objectForKey:NSLocaleCurrencyCode];
-    
-    NSString *localCurrencySymbol = [locale objectForKey:NSLocaleCurrencySymbol];
-    
-    self.currencySymbol = localCurrencySymbol;
-    
-    NSLog(@"CUrrency Symbol: %@", localCurrencySymbol);
     
     if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
     {
@@ -83,9 +82,7 @@ NSString* vatRegistered;
             self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width, self.scrollView.frame.size.height + 50);
         }
     }
-    
-    self.txtCurrency.text = currencyCode;
-    
+
     if (self.isEditBusiness) {
         [self.txtTitle setText:@"Edit Bussiness"];
         [self loadBussinessEdit];
@@ -93,9 +90,33 @@ NSString* vatRegistered;
     else
     {
         [self.txtTitle setText:@"Add New Bussiness"];
+        
+        //Select Unit Kingdom
+        for (CountryRepository* country in [BIAppDelegate shareAppdelegate].countries)
+        {
+            if ([country.dialCode isEqualToString:@"77"])
+            {
+                _countrySelected = country;
+                _txtCountry.text= _countrySelected.countryName;
+                break;
+            }
+        }
+        
+        //Set Date today
+        NSDateFormatter* dateFormatter = [[NSDateFormatter alloc] init];
+        [dateFormatter setDateFormat:@"yyyy-MM-dd hh:mm:ss"];
+        
+        _dateStarted = [dateFormatter stringFromDate:[NSDate date]];
+        
+        [dateFormatter setDateFormat:@"dd MMM yyyy"];
+        _txtDateStarted.text = [dateFormatter stringFromDate:[NSDate date]];
+        
+        [self getCurrencies];
     }
     
     vatRegistered = @"0";
+    _cisRegisteredValue = @"0";
+    
     // Do any additional setup after loading the view from its nib.
 }
 
@@ -107,56 +128,168 @@ NSString* vatRegistered;
 
 - (void)loadBussinessEdit
 {
-    self.txtAddress.text = self.bussinessEdit.bussinessAddress;
-    self.txtCity.text = self.bussinessEdit.bussinessCity;
-    self.txtCurrency.text = self.bussinessEdit.bussinessCurrency;
-    self.txtDescription.text = self.bussinessEdit.bussinessDescription;
-    self.txtNameBussiness.text = self.bussinessEdit.bussinessName;
-    self.txtPostCode.text = self.bussinessEdit.bussinessPostCode;
-    self.txtVat.text = self.bussinessEdit.bussinessVat;
+    if (_bussinessEdit.bussinessAddress != nil && ![_bussinessEdit.bussinessAddress isEqual:[NSNull null]])
+    {
+        _txtAddress.text = _bussinessEdit.bussinessAddress;
+    }
+    
+    if (_bussinessEdit.currency != nil && ![_bussinessEdit.currency isEqual:[NSNull null]])
+    {
+        _currencySelected = _bussinessEdit.currency;
+        
+        self.txtCurrency.text = [NSString stringWithFormat:@"%@-%@", _bussinessEdit.currency.currencyCode, _bussinessEdit.currency.currencyName];
+    }
+    
+    if (_bussinessEdit.bussinessDescription != nil && ![_bussinessEdit.bussinessDescription isEqual:[NSNull null]])
+    {
+        self.txtDescription.text = _bussinessEdit.bussinessDescription;
+    }
+    
+    if (_bussinessEdit.bussinessName != nil && ![_bussinessEdit.bussinessName isEqual:[NSNull null]])
+    {
+        self.txtNameBussiness.text = _bussinessEdit.bussinessName;
+    }
+
+    if (_bussinessEdit.bussinessAddress1 != nil && ![_bussinessEdit.bussinessAddress1 isEqual:[NSNull null]])
+    {
+        _txtAddressLine1.text = _bussinessEdit.bussinessAddress1;
+    }
+    
+    if (_bussinessEdit.bussinessAddress2 != nil && ![_bussinessEdit.bussinessAddress2 isEqual:[NSNull null]])
+    {
+        _txtAddressLine2.text = _bussinessEdit.bussinessAddress2;
+    }
+    
+    if (_bussinessEdit.bussinessPostCode != nil && ![_bussinessEdit.bussinessPostCode isEqual:[NSNull null]])
+    {
+        _txtPostCode.text = _bussinessEdit.bussinessPostCode;
+    }
+    
+    if (_bussinessEdit.country != nil && ![_bussinessEdit.country isEqual:[NSNull null]])
+    {
+        _countrySelected = _bussinessEdit.country;
+        if (_bussinessEdit.country.countryName != nil && ![_bussinessEdit.country.countryName isEqual:[NSNull null]])
+        {
+            _txtCountry.text = _bussinessEdit.country.countryName;
+        }
+    }
+    
+    if (_bussinessEdit.dateStarted != nil && ![_bussinessEdit.dateStarted isEqual:[NSNull null]])
+    {
+        _dateStarted = _bussinessEdit.dateStarted;
+        
+        NSDateFormatter* dateFormatter = [[NSDateFormatter alloc] init];
+        [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+        NSDate* date = [dateFormatter dateFromString:_dateStarted];
+        
+        [dateFormatter setDateFormat:@"dd MMM yyyy"];
+        _txtDateStarted.text = [dateFormatter stringFromDate:date];
+    }
+    
     onCheckedButton = self.bussinessEdit.isVatRegistered;
-    self.txtBankDetails.text = self.bussinessEdit.bankDetails;
-    self.txtBankSortCode.text = self.bussinessEdit.bankSortCode;
-    self.txtBankAccountName.text = self.bussinessEdit.bankAccountName;
-    self.txtBankAccountNumber.text = self.bussinessEdit.bankAccountNumber;
-    self.txtBankName.text = self.bussinessEdit.bankName;
+    _isCISRegistered = self.bussinessEdit.isCISRegistered;
     
     if(onCheckedButton)
     {
         [self.btnCheckVat setSelected:onCheckedButton];
     }
  
+    if (_isCISRegistered) {
+        _cisRegisteredValue = @"1";
+        [self.btnCisRegistered setSelected:_isCISRegistered];
+    }
+    else
+    {
+        _cisRegisteredValue = @"0";
+    }
     
 }
 
-- (IBAction)onShowBankDetails:(id)sender
+- (void)getCountries
 {
-    [self.viewPopUpBanking setHidden:NO];
-    self.viewPopUpMain.frame=CGRectMake(10, -110, 300, 218);
-    [UIView beginAnimations:@"" context:nil];
-    [UIView setAnimationDuration:0.5];
-    self.viewPopUpMain.frame=CGRectMake(10, 77, 300, 218);
-    [UIView commitAnimations];
+    [[ServiceRequest getShareInstance] serviceRequestActionName:@"/country" accessToken:appdelegate.currentUser.token method:@"GET" result:^(NSURLResponse *response, NSData *dataResponse, NSError *connectionError) {
+        NSHTTPURLResponse* httpResponse = (NSHTTPURLResponse*)response;
+        NSInteger statusCode = [httpResponse statusCode];
+        
+        if (statusCode == 200)
+        {
+            NSString *responeString = [[NSString alloc] initWithData:dataResponse
+                                                            encoding:NSUTF8StringEncoding];
+            
+            NSLog(@"RESPIONSE GET ALL COUNTRIES: %@", responeString);
+            NSDictionary* dataDict = [[NSDictionary alloc] init];
+            SBJsonParser *json = [SBJsonParser new];
+            dataDict = [json objectWithString:[NSString stringWithFormat:@"%@", responeString]];
+            
+            if ([dataDict valueForKey:@"data"] != nil)
+            {
+                appdelegate.countries = [[NSMutableArray alloc] init];
+                
+                for (NSDictionary* countryDict in [dataDict valueForKey:@"data"])
+                {
+                    NSString* countryID = [countryDict valueForKey:@"id"];
+                    NSString* countryCode = [countryDict valueForKey:@"code"];
+                    NSString* countryName = [countryDict valueForKey:@"name"];
+                    
+                    CountryRepository* country = [[CountryRepository alloc] init];
+                    [country setCountryCode:countryCode];
+                    [country setCountryName:countryName];
+                    [country setDialCode:countryID];
+                    
+                    [[BIAppDelegate shareAppdelegate].countries addObject:country];
+                }
+            }
+        }
+    }];
 
 }
 
-- (IBAction)onSaveBankDetails:(id)sender
+- (void)getCurrencies
 {
-//    if (self.txtBankName.text.length > 0 && self.txtBankAccountName.text.length > 0 && self.txtBankAccountNumber.text.length > 0 && self.txtBankSortCode.text.length > 0) {
-        self.viewPopUpBanking.hidden = YES;
-        self.txtBankDetails.text = self.txtBankName.text;
-//    }
-//    else
-//    {
-//        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Warning" message:@"Please fill all text fields" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-//        [alert show];
-//    }
-    
-    [self.txtBankAccountName resignFirstResponder];
-    [self.txtBankAccountNumber resignFirstResponder];
-    [self.txtBankName resignFirstResponder];
-    [self.txtBankSortCode resignFirstResponder];
-   
+    [[ServiceRequest getShareInstance] serviceRequestActionName:@"/currency" accessToken:appdelegate.currentUser.token method:@"GET" result:^(NSURLResponse *response, NSData *dataResponse, NSError *connectionError) {
+        NSHTTPURLResponse* httpResponse = (NSHTTPURLResponse*)response;
+        NSInteger statusCode = [httpResponse statusCode];
+        
+        if (statusCode == 200)
+        {
+            NSString *responeString = [[NSString alloc] initWithData:dataResponse
+                                                            encoding:NSUTF8StringEncoding];
+            
+            NSLog(@"RESPIONSE GET ALL CURRENCIES: %@", responeString);
+            NSDictionary* dataDict = [[NSDictionary alloc] init];
+            SBJsonParser *json = [SBJsonParser new];
+            dataDict = [json objectWithString:[NSString stringWithFormat:@"%@", responeString]];
+            
+            if ([dataDict valueForKey:@"data"] != nil)
+            {
+                appdelegate.currencies = [[NSMutableArray alloc] init];
+                
+                for (NSDictionary* currencyDict in [dataDict valueForKey:@"data"])
+                {
+                    NSString* currencyID = [currencyDict valueForKey:@"id"];
+                    NSString* currencyCode = [currencyDict valueForKey:@"iso"];
+                    NSString* currencyName = [currencyDict valueForKey:@"name"];
+                    NSString* currencyDesc = [currencyDict valueForKey:@"description"];
+                    NSString* currencySymbol = [currencyDict valueForKey:@"sign"];
+                    
+                    BICurrency* currency = [[BICurrency alloc] init];
+                    [currency setCurrencyCode:currencyCode];
+                    [currency setCurrencySymbol:currencySymbol];
+                    [currency setCurrencyID:currencyID];
+                    [currency setCurrencyName:currencyName];
+                    [currency setCurrencyDesc:currencyDesc];
+                    
+                    [[BIAppDelegate shareAppdelegate].currencies addObject:currency];
+                }
+                
+                if ([BIAppDelegate shareAppdelegate].currencies.count > 0)
+                {
+                    _currencySelected = [[BIAppDelegate shareAppdelegate].currencies objectAtIndex:0];
+                    _txtCurrency.text = [NSString stringWithFormat:@"%@ - %@", _currencySelected.currencyCode, _currencySelected.currencyName];
+                }
+            }
+        }
+    }];
 }
 
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
@@ -169,19 +302,11 @@ NSString* vatRegistered;
 - (void)tapHandler:(UIGestureRecognizer *)ges
 {
     NSLog(@"Tap");
-    [self.txtCity resignFirstResponder];
     [self.txtAddress resignFirstResponder];
     [self.txtCurrency resignFirstResponder];
     [self.txtDescription resignFirstResponder];
     [self.txtNameBussiness resignFirstResponder];
-    [self.txtVat resignFirstResponder];
-    [self.txtPostCode resignFirstResponder];
-    [self.txtBankDetails resignFirstResponder];
-    [self.txtBankAccountName resignFirstResponder];
-    [self.txtBankAccountNumber resignFirstResponder];
-    [self.txtBankName resignFirstResponder];
-    [self.txtBankSortCode resignFirstResponder];
-    
+
     [self.scrollView setContentOffset:CGPointMake(0, -20)];
 }
 
@@ -215,6 +340,22 @@ NSString* vatRegistered;
     [self.btnCheckVat setSelected:onCheckedButton];
 }
 
+- (IBAction)onCheckedCIS_Clicked:(id)sender
+{
+    if(_isCISRegistered)
+    {
+        _isCISRegistered = false;
+        _cisRegisteredValue = @"0";
+    }
+    else
+    {
+        _isCISRegistered = true;
+        _cisRegisteredValue = @"1";
+    }
+    
+    [self.btnCisRegistered setSelected:_isCISRegistered];
+}
+
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
     NSInteger nextTag = textField.tag + 1;
@@ -226,17 +367,38 @@ NSString* vatRegistered;
     } else {
         // Not found, so remove keyboard.
         [textField resignFirstResponder];
-        if (appdelegate.result.height == 480) {
-            self.viewPopUpMain.frame = CGRectMake(10, 77, 300, 183);
-        }
     }
     return NO; // We do not want UITextField to insert line-breaks.
+}
+
+#pragma mark - UIButton Sender
+- (IBAction)btnSelectCountry_Clicked:(id)sender
+{
+    CountryViewController *pushToVC = [[CountryViewController alloc] initWithNibName:@"CountryViewController" bundle:nil];
+    pushToVC.delegate = self;
+    [self.navigationController pushViewController:pushToVC animated:YES];
+
+}
+
+- (IBAction)btnSelectCurrency_Clicked:(id)sender
+{
+    BICurrencyViewController *pushToVC = [[BICurrencyViewController alloc] initWithNibName:@"BICurrencyViewController" bundle:nil];
+    pushToVC.delegate = self;
+    [self.navigationController pushViewController:pushToVC animated:YES];
+}
+
+- (IBAction)btnSelectDateStarted_Clicked:(id)sender
+{
+    [self.view endEditing:YES];
+    
+    [self.flatDatePicker show];
 }
 
 #pragma mark - Text Field delegates...
 
 -(void)textFieldDidBeginEditing:(UITextField *)textField
 {
+    [self.flatDatePicker dismiss];
     
     if (textField.tag == 4)
     {
@@ -254,16 +416,6 @@ NSString* vatRegistered;
     {
         [self.scrollView setContentOffset:CGPointMake(0,50)];
     }
-    
-    if (appdelegate.result.height == 480)
-    {
-        if (textField == self.txtBankAccountNumber) {
-            if (appdelegate.result.height == 480) {
-                self.viewPopUpMain.frame = CGRectMake(self.viewPopUpMain.frame.origin.x, self.viewPopUpMain.frame.origin.y - 50, self.viewPopUpMain.frame.size.width, self.viewPopUpMain.frame.size.height);
-            }
-        }
-    }
-  
     
 }
 
@@ -288,35 +440,13 @@ NSString* vatRegistered;
 - (IBAction)onSaveBusiness:(id)sender
 {
     //check login and save
-    NSString* cisRegistered = @"0";
-    
     if (self.txtNameBussiness.text.length > 0)
     {
         if (appdelegate.isLoginSucesss)
         {
-            NSString* nameBusiness = self.txtNameBussiness.text;
-            NSString* descriptionsBusiness = self.txtDescription.text;
-            NSString* addressBussiness = self.txtAddress.text;
-            NSString* postCodeBusiness = self.txtPostCode.text;
-            
-            NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
-            
-            [dateFormatter setDateFormat:@"dd-MM-YYYY"];
-            
-            NSString *date_String = [dateFormatter stringFromDate:[NSDate date]];
-
-            NSDate *date  = [dateFormatter dateFromString:date_String];
-            
-            NSLocale *locale = [[NSLocale alloc]
-                                initWithLocaleIdentifier:@"en"];
-            [dateFormatter setLocale:locale];
-            
-            [dateFormatter setDateFormat:@"yyyy-MM-dd"];
-            NSString* dateConvert = [dateFormatter stringFromDate:date];
-
             if (self.isEditBusiness)
             {
-                NSString* dataRequest =[NSString stringWithFormat:@"name=%@&description=%@&address=%@&postcode=%@&date_started=%@&cis_registered=%@&vat_registered=%@", nameBusiness, descriptionsBusiness, addressBussiness, postCodeBusiness, dateConvert, cisRegistered, vatRegistered];
+                NSString* dataRequest =[NSString stringWithFormat:@"name=%@&description=%@&currency_id=%d&country_id=%d&address=%@&address_line1=%@&address_line2=%@&postcode=%@&date_started=%@&cis_registered=%@&vat_registered=%@", self.txtNameBussiness.text, self.txtDescription.text == nil ? @"" : self.txtDescription.text, [_currencySelected.currencyID intValue], [_countrySelected.dialCode intValue], _txtAddress.text == nil ? @"" : _txtAddress.text, _txtAddressLine1.text == nil ? @"" : _txtAddressLine1.text, _txtAddressLine2.text == nil ? @"" : _txtAddressLine2.text == nil ? @"" : _txtAddressLine2.text, _txtPostCode.text == nil ? @"" : _txtPostCode.text,_dateStarted, _cisRegisteredValue, vatRegistered];
                 
                 NSLog(@"Data Request Add Business: %@", dataRequest);
                 dataRequest = [dataRequest stringByAddingPercentEscapesUsingEncoding:NSASCIIStringEncoding];
@@ -331,29 +461,6 @@ NSString* vatRegistered;
                     NSInteger statusCode = [httpResponse statusCode];
                     if (statusCode == 200)
                     {
-                        BIBussiness* bussiness = [appdelegate.businessForUser objectAtIndex:self.indexPathSelected.row];
-                        bussiness.bussinessAddress = self.txtAddress.text;
-                        bussiness.bussinessCity = self.txtCity.text;
-                        bussiness.bussinessCurrency = self.txtCurrency.text;
-                        bussiness.bussinessDescription = self.txtDescription.text;
-                        bussiness.bussinessName = self.txtNameBussiness.text;
-                        bussiness.bussinessPostCode  = self.txtPostCode.text;
-                        bussiness.bussinessVat = self.txtVat.text;
-                        bussiness.isVatRegistered = onCheckedButton;
-                        bussiness.currencySymbol = self.currencySymbol;
-                        bussiness.bankDetails = self.txtBankDetails.text;
-                        bussiness.bankAccountName = self.txtBankAccountName.text;
-                        bussiness.bankAccountNumber = self.txtBankAccountNumber.text;
-                        bussiness.bankName = self.txtBankName.text;
-                        bussiness.bankSortCode = self.txtBankSortCode.text;
-                        
-                        NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
-                        
-                        [defaults rm_setCustomObject:bussiness forKey:@"bussinessForUser"];
-                        [defaults rm_setCustomObject:appdelegate.businessForUser forKey:@"bussinessesForUser"];
-                        
-                        [defaults setBool:YES forKey:@"bussiness"];
-                        
                         [self.navigationController popViewControllerAnimated:YES];
                     }
                 }];
@@ -361,7 +468,7 @@ NSString* vatRegistered;
             }
             else
             {
-                NSString* dataRequest =[NSString stringWithFormat:@"name=%@&description=%@&address=%@&postcode=%@&date_started=%@&cis_registered=%@&vat_registered=%@", nameBusiness, descriptionsBusiness, addressBussiness, postCodeBusiness, dateConvert, cisRegistered, vatRegistered];
+                NSString* dataRequest =[NSString stringWithFormat:@"name=%@&description=%@&currency_id=%d&country_id=%d&address=%@&address_line1=%@&address_line2=%@&postcode=%@&date_started=%@&cis_registered=%@&vat_registered=%@", self.txtNameBussiness.text, self.txtDescription.text == nil ? @"" : self.txtDescription.text, [_currencySelected.currencyID intValue], [_countrySelected.dialCode intValue], _txtAddress.text == nil ? @"" : _txtAddress.text, _txtAddressLine1.text == nil ? @"" : _txtAddressLine1.text, _txtAddressLine2.text == nil ? @"" : _txtAddressLine2.text == nil ? @"" : _txtAddressLine2.text, _txtPostCode.text == nil ? @"" : _txtPostCode.text,_dateStarted, _cisRegisteredValue, vatRegistered];
                 
                 NSLog(@"Data Request Add Business: %@", dataRequest);
                 
@@ -372,7 +479,6 @@ NSString* vatRegistered;
                     dataRequest = [dataRequest stringByReplacingOccurrencesOfString:@"@" withString:@"%40"];
                 }
                 
-                
                 [[ServiceRequest getShareInstance] serviceRequestActionName:[NSString stringWithFormat:@"/business?%@", dataRequest] accessToken:appdelegate.currentUser.token result:^(NSURLResponse *response, NSData *dataResponse, NSError *connectionError) {
                     NSHTTPURLResponse* httpResponse = (NSHTTPURLResponse*)response;
                     NSInteger statusCode = [httpResponse statusCode];
@@ -381,65 +487,10 @@ NSString* vatRegistered;
                     {
                         if (self.addFrom == 0 || self.addFrom == 2)
                         {
-                            BIBussiness* bussiness = [[BIBussiness alloc] init];
-                            bussiness.bussinessAddress = self.txtAddress.text;
-                            bussiness.bussinessCity = self.txtCity.text;
-                            bussiness.bussinessCurrency = self.txtCurrency.text;
-                            bussiness.bussinessDescription = self.txtDescription.text;
-                            bussiness.bussinessName = self.txtNameBussiness.text;
-                            bussiness.bussinessPostCode  = self.txtPostCode.text;
-                            bussiness.bussinessVat = self.txtVat.text;
-                            bussiness.isVatRegistered = onCheckedButton;
-                            bussiness.currencySymbol = self.currencySymbol;
-                            bussiness.bankDetails = self.txtBankDetails.text;
-                            bussiness.bankAccountName = self.txtBankAccountName.text;
-                            bussiness.bankAccountNumber = self.txtBankAccountNumber.text;
-                            bussiness.bankName = self.txtBankName.text;
-                            bussiness.bankSortCode = self.txtBankSortCode.text;
-                            
-                            
-                            appdelegate.bussinessForUser = bussiness;
-                            
-                            [appdelegate.businessForUser addObject:bussiness];
-                            
-                            
-                            NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
-                            [defaults rm_setCustomObject:bussiness forKey:@"bussinessForUser"];
-                            [defaults rm_setCustomObject:appdelegate.businessForUser forKey:@"bussinessesForUser"];
-                            [defaults setBool:YES forKey:@"bussiness"];
-                            
                             [self.navigationController popViewControllerAnimated:YES];
                         }
                         else if (self.addFrom == 1)
                         {
-                            BIBussiness* bussiness = [[BIBussiness alloc] init];
-                            bussiness.bussinessAddress = self.txtAddress.text;
-                            bussiness.bussinessCity = self.txtCity.text;
-                            bussiness.bussinessCurrency = self.txtCurrency.text;
-                            bussiness.bussinessDescription = self.txtDescription.text;
-                            bussiness.bussinessName = self.txtNameBussiness.text;
-                            bussiness.bussinessPostCode  = self.txtPostCode.text;
-                            bussiness.bussinessVat = self.txtVat.text;
-                            bussiness.isVatRegistered = onCheckedButton;
-                            bussiness.currencySymbol = self.currencySymbol;
-                            bussiness.bankDetails = self.txtBankDetails.text;
-                            bussiness.bankAccountName = self.txtBankAccountName.text;
-                            bussiness.bankAccountNumber = self.txtBankAccountNumber.text;
-                            bussiness.bankName = self.txtBankName.text;
-                            bussiness.bankSortCode = self.txtBankSortCode.text;
-                            
-                            
-                            appdelegate.bussinessForUser = bussiness;
-                            
-                            [appdelegate.businessForUser addObject:bussiness];
-                            
-                            
-                            NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
-                            [defaults rm_setCustomObject:bussiness forKey:@"bussinessForUser"];
-                            [defaults rm_setCustomObject:appdelegate.businessForUser forKey:@"bussinessesForUser"];
-                            
-                            [defaults setBool:YES forKey:@"bussiness"];
-                            
                             BIAddInvoices *pushToVC = [[BIAddInvoices alloc] initWithNibName:@"BIAddInvoices" bundle:nil];
                             [self.navigationController pushViewController:pushToVC animated:YES];
                         }
@@ -451,104 +502,104 @@ NSString* vatRegistered;
         }
         else
         {
-            if (self.isEditBusiness) {
-                BIBussiness* bussiness = [appdelegate.businessForUser objectAtIndex:self.indexPathSelected.row];
-                bussiness.bussinessAddress = self.txtAddress.text;
-                bussiness.bussinessCity = self.txtCity.text;
-                bussiness.bussinessCurrency = self.txtCurrency.text;
-                bussiness.bussinessDescription = self.txtDescription.text;
-                bussiness.bussinessName = self.txtNameBussiness.text;
-                bussiness.bussinessPostCode  = self.txtPostCode.text;
-                bussiness.bussinessVat = self.txtVat.text;
-                bussiness.isVatRegistered = onCheckedButton;
-                bussiness.currencySymbol = self.currencySymbol;
-                bussiness.bankDetails = self.txtBankDetails.text;
-                bussiness.bankAccountName = self.txtBankAccountName.text;
-                bussiness.bankAccountNumber = self.txtBankAccountNumber.text;
-                bussiness.bankName = self.txtBankName.text;
-                bussiness.bankSortCode = self.txtBankSortCode.text;
-                
-                NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
-                
-                [defaults rm_setCustomObject:bussiness forKey:@"bussinessForUser"];
-                [defaults rm_setCustomObject:appdelegate.businessForUser forKey:@"bussinessesForUser"];
-                
-                [defaults setBool:YES forKey:@"bussiness"];
-                
-                [self.navigationController popViewControllerAnimated:YES];
-
-            }
-            else if (self.addFrom == 0 || self.addFrom == 2)
-            {
-                BIBussiness* bussiness = [[BIBussiness alloc] init];
-                bussiness.bussinessAddress = self.txtAddress.text;
-                bussiness.bussinessCity = self.txtCity.text;
-                bussiness.bussinessCurrency = self.txtCurrency.text;
-                bussiness.bussinessDescription = self.txtDescription.text;
-                bussiness.bussinessName = self.txtNameBussiness.text;
-                bussiness.bussinessPostCode  = self.txtPostCode.text;
-                bussiness.bussinessVat = self.txtVat.text;
-                bussiness.isVatRegistered = onCheckedButton;
-                bussiness.currencySymbol = self.currencySymbol;
-                bussiness.bankDetails = self.txtBankDetails.text;
-                bussiness.bankAccountName = self.txtBankAccountName.text;
-                bussiness.bankAccountNumber = self.txtBankAccountNumber.text;
-                bussiness.bankName = self.txtBankName.text;
-                bussiness.bankSortCode = self.txtBankSortCode.text;
-                
-                
-                appdelegate.bussinessForUser = bussiness;
-                
-                if (appdelegate.businessForUser == nil)
-                {
-                    appdelegate.businessForUser = [[NSMutableArray alloc] init];
-                    [appdelegate.businessForUser addObject:bussiness];
-                }
-                
-                
-                NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
-                [defaults rm_setCustomObject:bussiness forKey:@"bussinessForUser"];
-                [defaults rm_setCustomObject:appdelegate.businessForUser forKey:@"bussinessesForUser"];
-                [defaults setBool:YES forKey:@"bussiness"];
-                
-                [self.navigationController popViewControllerAnimated:YES];
-            }
-            else if (self.addFrom == 1)
-            {
-                BIBussiness* bussiness = [[BIBussiness alloc] init];
-                bussiness.bussinessAddress = self.txtAddress.text;
-                bussiness.bussinessCity = self.txtCity.text;
-                bussiness.bussinessCurrency = self.txtCurrency.text;
-                bussiness.bussinessDescription = self.txtDescription.text;
-                bussiness.bussinessName = self.txtNameBussiness.text;
-                bussiness.bussinessPostCode  = self.txtPostCode.text;
-                bussiness.bussinessVat = self.txtVat.text;
-                bussiness.isVatRegistered = onCheckedButton;
-                bussiness.currencySymbol = self.currencySymbol;
-                bussiness.bankDetails = self.txtBankDetails.text;
-                bussiness.bankAccountName = self.txtBankAccountName.text;
-                bussiness.bankAccountNumber = self.txtBankAccountNumber.text;
-                bussiness.bankName = self.txtBankName.text;
-                bussiness.bankSortCode = self.txtBankSortCode.text;
-                
-                
-                appdelegate.bussinessForUser = bussiness;
-                
-                if (appdelegate.businessForUser == nil)
-                {
-                    appdelegate.businessForUser = [[NSMutableArray alloc] init];
-                    [appdelegate.businessForUser addObject:bussiness];
-                }
-                
-                NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
-                [defaults rm_setCustomObject:bussiness forKey:@"bussinessForUser"];
-                [defaults rm_setCustomObject:appdelegate.businessForUser forKey:@"bussinessesForUser"];
-                
-                [defaults setBool:YES forKey:@"bussiness"];
-                
-                BIAddInvoices *pushToVC = [[BIAddInvoices alloc] initWithNibName:@"BIAddInvoices" bundle:nil];
-                [self.navigationController pushViewController:pushToVC animated:YES];
-            }
+//            if (self.isEditBusiness) {
+//                BIBussiness* bussiness = [appdelegate.businessForUser objectAtIndex:self.indexPathSelected.row];
+//                bussiness.bussinessAddress = self.txtAddress.text;
+//                bussiness.bussinessCity = self.txtCity.text;
+//                bussiness.bussinessCurrency = self.txtCurrency.text;
+//                bussiness.bussinessDescription = self.txtDescription.text;
+//                bussiness.bussinessName = self.txtNameBussiness.text;
+//                bussiness.bussinessPostCode  = self.txtPostCode.text;
+//                bussiness.bussinessVat = self.txtVat.text;
+//                bussiness.isVatRegistered = onCheckedButton;
+//                bussiness.currencySymbol = self.currencySymbol;
+//                bussiness.bankDetails = self.txtBankDetails.text;
+//                bussiness.bankAccountName = self.txtBankAccountName.text;
+//                bussiness.bankAccountNumber = self.txtBankAccountNumber.text;
+//                bussiness.bankName = self.txtBankName.text;
+//                bussiness.bankSortCode = self.txtBankSortCode.text;
+//                
+//                NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
+//                
+//                [defaults rm_setCustomObject:bussiness forKey:@"bussinessForUser"];
+//                [defaults rm_setCustomObject:appdelegate.businessForUser forKey:@"bussinessesForUser"];
+//                
+//                [defaults setBool:YES forKey:@"bussiness"];
+//                
+//                [self.navigationController popViewControllerAnimated:YES];
+//
+//            }
+//            else if (self.addFrom == 0 || self.addFrom == 2)
+//            {
+//                BIBussiness* bussiness = [[BIBussiness alloc] init];
+//                bussiness.bussinessAddress = self.txtAddress.text;
+//                bussiness.bussinessCity = self.txtCity.text;
+//                bussiness.bussinessCurrency = self.txtCurrency.text;
+//                bussiness.bussinessDescription = self.txtDescription.text;
+//                bussiness.bussinessName = self.txtNameBussiness.text;
+//                bussiness.bussinessPostCode  = self.txtPostCode.text;
+//                bussiness.bussinessVat = self.txtVat.text;
+//                bussiness.isVatRegistered = onCheckedButton;
+//                bussiness.currencySymbol = self.currencySymbol;
+//                bussiness.bankDetails = self.txtBankDetails.text;
+//                bussiness.bankAccountName = self.txtBankAccountName.text;
+//                bussiness.bankAccountNumber = self.txtBankAccountNumber.text;
+//                bussiness.bankName = self.txtBankName.text;
+//                bussiness.bankSortCode = self.txtBankSortCode.text;
+//                
+//                
+//                appdelegate.bussinessForUser = bussiness;
+//                
+//                if (appdelegate.businessForUser == nil)
+//                {
+//                    appdelegate.businessForUser = [[NSMutableArray alloc] init];
+//                    [appdelegate.businessForUser addObject:bussiness];
+//                }
+//                
+//                
+//                NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
+//                [defaults rm_setCustomObject:bussiness forKey:@"bussinessForUser"];
+//                [defaults rm_setCustomObject:appdelegate.businessForUser forKey:@"bussinessesForUser"];
+//                [defaults setBool:YES forKey:@"bussiness"];
+//                
+//                [self.navigationController popViewControllerAnimated:YES];
+//            }
+//            else if (self.addFrom == 1)
+//            {
+//                BIBussiness* bussiness = [[BIBussiness alloc] init];
+//                bussiness.bussinessAddress = self.txtAddress.text;
+//                bussiness.bussinessCity = self.txtCity.text;
+//                bussiness.bussinessCurrency = self.txtCurrency.text;
+//                bussiness.bussinessDescription = self.txtDescription.text;
+//                bussiness.bussinessName = self.txtNameBussiness.text;
+//                bussiness.bussinessPostCode  = self.txtPostCode.text;
+//                bussiness.bussinessVat = self.txtVat.text;
+//                bussiness.isVatRegistered = onCheckedButton;
+//                bussiness.currencySymbol = self.currencySymbol;
+//                bussiness.bankDetails = self.txtBankDetails.text;
+//                bussiness.bankAccountName = self.txtBankAccountName.text;
+//                bussiness.bankAccountNumber = self.txtBankAccountNumber.text;
+//                bussiness.bankName = self.txtBankName.text;
+//                bussiness.bankSortCode = self.txtBankSortCode.text;
+//                
+//                
+//                appdelegate.bussinessForUser = bussiness;
+//                
+//                if (appdelegate.businessForUser == nil)
+//                {
+//                    appdelegate.businessForUser = [[NSMutableArray alloc] init];
+//                    [appdelegate.businessForUser addObject:bussiness];
+//                }
+//                
+//                NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
+//                [defaults rm_setCustomObject:bussiness forKey:@"bussinessForUser"];
+//                [defaults rm_setCustomObject:appdelegate.businessForUser forKey:@"bussinessesForUser"];
+//                
+//                [defaults setBool:YES forKey:@"bussiness"];
+//                
+//                BIAddInvoices *pushToVC = [[BIAddInvoices alloc] initWithNibName:@"BIAddInvoices" bundle:nil];
+//                [self.navigationController pushViewController:pushToVC animated:YES];
+//            }
 
         }
     }
@@ -558,5 +609,49 @@ NSString* vatRegistered;
         [alert show];
     }
   
+}
+
+- (void)CountrySelected:(CountryRepository *)countrySelected
+{
+    _countrySelected = countrySelected;
+    _txtCountry.text = _countrySelected.countryName;
+}
+
+- (void)didSelectedCurrency:(BICurrency *)currency
+{
+    _currencySelected = currency;
+    _txtCurrency.text = [NSString stringWithFormat:@"%@ - %@", _currencySelected.currencyCode, _currencySelected.currencyName];
+}
+
+#pragma mark - FlatDatePicker Delegate
+
+- (void)flatDatePicker:(FlatDatePicker*)datePicker dateDidChange:(NSDate*)date {
+    
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setLocale:[NSLocale currentLocale]];
+    [dateFormatter setDateFormat:@"dd MMM yyyy"];
+    NSString *value = [dateFormatter stringFromDate:date];
+    
+    self.txtDateStarted.text = value;
+    
+    [dateFormatter setDateFormat:@"yyyy-MM-dd hh:mm:ss"];
+    _dateStarted = [dateFormatter stringFromDate:date];
+}
+
+- (void)flatDatePicker:(FlatDatePicker*)datePicker didCancel:(UIButton*)sender {
+    
+}
+
+- (void)flatDatePicker:(FlatDatePicker*)datePicker didValid:(UIButton*)sender date:(NSDate*)date {
+    
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setLocale:[NSLocale currentLocale]];
+    [dateFormatter setDateFormat:@"dd MMM yyyy"];
+    NSString *value = [dateFormatter stringFromDate:date];
+    
+    self.txtDateStarted.text = value;
+    
+    [dateFormatter setDateFormat:@"yyyy-MM-dd hh:mm:ss"];
+    _dateStarted = [dateFormatter stringFromDate:date];
 }
 @end
