@@ -131,6 +131,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *btnDateTimeDialogPopup;
 @property (weak, nonatomic) IBOutlet UIButton *btnPayTypeDialogPopup;
 
+@property (weak, nonatomic) IBOutlet UILabel *lblProducts;
 @property (nonatomic) BOOL isFromWelcome;
 
 - (IBAction)onShowViewDateTimeFromDialogPopup:(id)sender;
@@ -155,6 +156,8 @@
 @property (weak, nonatomic) IBOutlet UIView *viewPopUpAddNumberUnit;
 
 @property (nonatomic) InvoiceTemplateRepository* invoiceTemplateSelected;
+
+@property (nonatomic, strong) NSMutableArray* productsAdded;
 
 - (void)setNewPositionOfViewListData:(int)type;
 

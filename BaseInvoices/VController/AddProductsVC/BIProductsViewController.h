@@ -8,10 +8,12 @@
 
 #import <UIKit/UIKit.h>
 #import "BLLeftSideVC.h"
+#import "BIProduct.h"
 
 @protocol BIProductsViewControllerDelegate <NSObject>
 
 - (void)checkCallback;
+- (void)didSelectedProduct:(BIProduct*)product;
 
 @end
 

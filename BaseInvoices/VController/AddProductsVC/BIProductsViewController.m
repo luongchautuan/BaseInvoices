@@ -170,11 +170,11 @@ BIAppDelegate* appdelegate;
     }
     else
     {
-        
-        [appdelegate.productsFroAddInvoices addObject:product];
+        [self.delegate didSelectedProduct:product];
+//        [appdelegate.productsFroAddInvoices addObject:product];
         
         [self dismissViewControllerAnimated:YES completion:nil];
-        [self.delegate checkCallback];
+//        [self.delegate checkCallback];
 //        [self.navigationController popViewControllerAnimated:YES];
     }
 }

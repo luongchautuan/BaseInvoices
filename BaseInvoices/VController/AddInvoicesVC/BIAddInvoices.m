@@ -42,10 +42,13 @@ BIAppDelegate* appdelegate;
 - (IBAction)onShowViewTablePaymentsTerm:(id)sender
 {
     isShowViewTablePayments = !isShowViewTablePayments;
-    if (isShowViewTablePayments) {
+    
+    if (isShowViewTablePayments)
+    {
          self.viewForTablePayments.hidden = NO;
     }
-    else  self.viewForTablePayments.hidden = YES;
+    else
+        self.viewForTablePayments.hidden = YES;
    
 }
 
@@ -143,23 +146,97 @@ BIAppDelegate* appdelegate;
                     
                 }
                 
+                if ([BIAppDelegate shareAppdelegate].invoicesTemplate.count > 0)
+                {
+                    InvoiceTemplateRepository* invoiceTemplateObject = [[BIAppDelegate shareAppdelegate].invoicesTemplate objectAtIndex:0];
+                    _txtBussiness.text = invoiceTemplateObject.invoiceTemplateName;
+                }
+                
+                [self.tableViewBusiness reloadData];
+                
             }
             
         }
     }];
 
+    
     self.paymentTerms = [[NSMutableArray alloc] initWithObjects:@"Due on reciept", @"Net 7 days", @"Net 10 days", @"Net 30 Days", nil];
     
+    
+    [self getCustomers];
 
+}
+
+- (void)getCustomers
+{
+    [[ServiceRequest getShareInstance] serviceRequestActionName:@"/customer" accessToken:appdelegate.currentUser.token method:@"GET" result:^(NSURLResponse *response, NSData *dataResponse, NSError *connectionError) {
+        NSHTTPURLResponse* httpResponse = (NSHTTPURLResponse*)response;
+        NSInteger statusCode = [httpResponse statusCode];
+        
+        if (statusCode == 200)
+        {
+            NSString *responeString = [[NSString alloc] initWithData:dataResponse
+                                                            encoding:NSUTF8StringEncoding];
+            
+            NSLog(@"RESPIONSE GET ALL CUSTOMER: %@", responeString);
+            NSDictionary* dataDict = [[NSDictionary alloc] init];
+            SBJsonParser *json = [SBJsonParser new];
+            dataDict = [json objectWithString:[NSString stringWithFormat:@"%@", responeString]];
+            
+            if ([dataDict valueForKey:@"data"] != nil)
+            {
+                appdelegate.customerForUser = [[NSMutableArray alloc] init];
+                
+                for (NSDictionary* customerDic in [dataDict valueForKey:@"data"])
+                {
+                    NSString* address = [customerDic valueForKey:@"address"];
+                    NSString* addressLine1 = [customerDic valueForKey:@"address_line1"];
+                    NSString* addressLine2 = [customerDic valueForKey:@"address_line2"];
+                    NSString* city = [customerDic valueForKey:@"city"];
+                    NSString* customerName = [customerDic valueForKey:@"company_name"];
+                    NSString* contact = [customerDic valueForKey:@"contact"];
+                    NSString* countryID = [customerDic valueForKey:@"country_id"];
+                    NSString* descriptions = [customerDic valueForKey:@"description"];
+                    NSString* customerID = [customerDic valueForKey:@"id"];
+                    NSString* postCode = [customerDic valueForKey:@"postcode"];
+                    NSString* telephone = [customerDic valueForKey:@"telephone"];
+                    NSString* userID = [customerDic valueForKey:@"user_id"];
+                    NSString* email = [customerDic valueForKey:@"email"];
+                    
+                    BICustomer* customerObject = [[BICustomer alloc] init];
+                    [customerObject setCustomerBussinessName:customerName];
+                    [customerObject setCustomerID:customerID];
+                    [customerObject setCustomerCity:city];
+                    [customerObject setCustomerEmail:email];
+                    [customerObject setCustomerAddress:address];
+                    [customerObject setCustomerPostCode:postCode];
+                    [customerObject setCustomerTelephone:telephone];
+                    [customerObject setCustomerKeyContact:contact];
+                    
+                    [appdelegate.customerForUser addObject:customerObject];
+                }
+                
+                if ([BIAppDelegate shareAppdelegate].customerForUser.count > 0)
+                {
+                    BICustomer* customerObject = [[BIAppDelegate shareAppdelegate].customerForUser objectAtIndex:0];
+                    [self.btnAddCustom setTitle:customerObject.customerBussinessName forState:UIControlStateNormal];
+                }
+                
+            }
+        }
+        
+    }];
+
+}
+
+- (void)fecthDataWithInvoiceTemplate:(InvoiceTemplateRepository*)invoiceTemplate
+{
+    _txtBussiness.text = invoiceTemplate.invoiceTemplateName;
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    if (appdelegate.currentCustomerForAddInvoice.customerBussinessName.length > 0)
-    {
-        [self.btnAddCustom setTitle:appdelegate.currentCustomerForAddInvoice.customerBussinessName forState:UIControlStateNormal];
-    }
-    
     [self initScreen];
    
     
@@ -185,14 +262,13 @@ BIAppDelegate* appdelegate;
 
 - (void)calculateAmout
 {
-    
     self.subTotal = 0;
     self.total = 0;
     self.taxes = 0;
     self.totalAmount = 0;
     
     //Calculate Subtotal, Taxes, Total and outstanding
-    for (BIProduct* product in appdelegate.productsFroAddInvoices)
+    for (BIProduct* product in _productsAdded)
     {
         NSString* priceUnit = product.productUnitPrice;
         
@@ -231,11 +307,11 @@ BIAppDelegate* appdelegate;
     
     NSString* total = [[formatter stringFromNumber:[NSNumber numberWithFloat:self.total]] substringFromIndex:1];
     
-    NSString* subTotalAfterFormat = [[NSString stringWithFormat:@"%@ ", self.bussinessSelected.currencySymbol] stringByAppendingString:subTotal];
+    NSString* subTotalAfterFormat = [[NSString stringWithFormat:@"£"] stringByAppendingString:subTotal];
     
-    NSString* taxesAfterFormat = [[NSString stringWithFormat:@"%@ ", self.bussinessSelected.currencySymbol] stringByAppendingString:taxes];
+    NSString* taxesAfterFormat = [[NSString stringWithFormat:@"£"] stringByAppendingString:taxes];
     
-    NSString* totalAfterFormat = [[NSString stringWithFormat:@"%@ ", self.bussinessSelected.currencySymbol] stringByAppendingString:total];
+    NSString* totalAfterFormat = [[NSString stringWithFormat:@"£"] stringByAppendingString:total];
     
     self.lblSubTotal.text = subTotalAfterFormat;
     self.lblTaxes.text = taxesAfterFormat;
@@ -248,7 +324,7 @@ BIAppDelegate* appdelegate;
         
         NSString* totalOutStanding = [[formatter stringFromNumber:[NSNumber numberWithFloat:self.totalAmount]] substringFromIndex:1];
         
-        NSString* subTotalAfterFormat = [[NSString stringWithFormat:@"%@ ", self.bussinessSelected.currencySymbol] stringByAppendingString:totalOutStanding];
+        NSString* subTotalAfterFormat = [[NSString stringWithFormat:@"£"] stringByAppendingString:totalOutStanding];
         
         self.lblOutStanding.text = subTotalAfterFormat;
     }
@@ -346,7 +422,7 @@ BIAppDelegate* appdelegate;
 
 - (void)updateFrameTableView
 {
-    self.tableView.frame = CGRectMake(1, 277, self.tableView.frame.size.width, appdelegate.productsFroAddInvoices.count * 28);
+    self.tableView.frame = CGRectMake(1, self.lblProducts.frame.origin.y + 21, self.tableView.frame.size.width, _productsAdded.count * 28);
     
     self.viewTotal.frame = CGRectMake(0, self.tableView.frame.origin.y + self.tableView.frame.size.height, self.viewTotal.frame.size.width, self.viewTotal.frame.size.height);
     
@@ -425,13 +501,14 @@ BIAppDelegate* appdelegate;
 {
     isShowViewBusiness = !isShowViewBusiness;
     
-    if (isShowViewBusiness) {
+    if (isShowViewBusiness)
+    {
         [self.viewBusiness setHidden:NO];
         
-        self.viewBusiness.frame=CGRectMake(20, 45, 292, 0);
+        self.viewBusiness.frame= CGRectMake(20, 45, 292, 0);
         [UIView beginAnimations:@"" context:nil];
         [UIView setAnimationDuration:0.5];
-        self.viewBusiness.frame=CGRectMake(20, 45, 292, 120);
+        self.viewBusiness.frame= CGRectMake(20, 45, 292, 120);
         [UIView commitAnimations];
     }
     else
@@ -675,18 +752,10 @@ BIAppDelegate* appdelegate;
 
 - (IBAction)onAddProduct:(id)sender
 {
-    if (self.bussinessSelected.bussinessName.length > 0 || appdelegate.bussinessForUser.bussinessName.length > 0   ) {
-        BIProductsViewController *pushToVC = [[BIProductsViewController alloc] initWithNibName:@"BIProductsViewController" bundle:nil];
-        pushToVC.delegate = self;
-        
-        [self presentViewController:pushToVC animated:YES completion:nil];
-    }
-    else
-    {
-        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:nil message:@"Please select your business first" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-        [alert show];
-    }
-  
+    BIProductsViewController *pushToVC = [[BIProductsViewController alloc] initWithNibName:@"BIProductsViewController" bundle:nil];
+    pushToVC.delegate = self;
+    
+    [self presentViewController:pushToVC animated:YES completion:nil];
 }
 
 - (IBAction)onOpenMenu:(id)sender
@@ -1199,7 +1268,7 @@ BIAppDelegate* appdelegate;
     {
         return appdelegate.invoicesTemplate.count;
     }
-    return appdelegate.productsFroAddInvoices.count;
+    return _productsAdded.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -1214,6 +1283,7 @@ BIAppDelegate* appdelegate;
             cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
         }
 
+        [cell.textLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:15.0f]];
         cell.textLabel.text = [self.paymentTerms objectAtIndex:indexPath.row];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         
@@ -1231,7 +1301,7 @@ BIAppDelegate* appdelegate;
         }
         
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        
+        [cell.textLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:15.0f]];
         cell.textLabel.text = [[appdelegate.invoicesTemplate objectAtIndex:indexPath.row] invoiceTemplateName];
         
         return cell;
@@ -1247,14 +1317,18 @@ BIAppDelegate* appdelegate;
         customCell = [nib objectAtIndex:0];
     }
     
-    BIProduct* product = [appdelegate.productsFroAddInvoices objectAtIndex:indexPath.row];
+    BIProduct* product = [_productsAdded objectAtIndex:indexPath.row];
     customCell.lblNameProduct.text = product.productName;
     
     NSLog(@"NUmber of unit:%@", product.productUnitPrice);
     
-    [customCell.quantity setTitle:[NSString stringWithFormat:@"%.1f",product.numberOfUnit] forState:UIControlStateNormal] ;
+    if (fmodf(product.numberOfUnit, 1.0) == 0.0)
+    {
+        [customCell.quantity setTitle:[NSString stringWithFormat:@"%d", (int)product.numberOfUnit] forState:UIControlStateNormal] ;
+    }
+    else [customCell.quantity setTitle:[NSString stringWithFormat:@"%.1f",product.numberOfUnit] forState:UIControlStateNormal] ;
     
-    NSString* amountAfterFormat = [[NSString stringWithFormat:@"%@ ", self.bussinessSelected.currencySymbol] stringByAppendingString:product.productUnitPrice];
+    NSString* amountAfterFormat = [[NSString stringWithFormat:@"£ "] stringByAppendingString:product.productUnitPrice];
     
     customCell.lblPrice.text = amountAfterFormat;
     
@@ -1321,9 +1395,10 @@ BIAppDelegate* appdelegate;
     }
     else if (tableView== self.tableViewBusiness)
     {
-        self.txtBussiness.text = [[appdelegate.businessForUser objectAtIndex:indexPath.row] bussinessName];
-        self.bussinessSelected = [appdelegate.businessForUser objectAtIndex:indexPath.row];
-        appdelegate.bussinessForUser = [appdelegate.businessForUser objectAtIndex:indexPath.row];
+        InvoiceTemplateRepository* invoiceTemplateObject = [[BIAppDelegate shareAppdelegate].invoicesTemplate objectAtIndex:indexPath.row];
+        _invoiceTemplateSelected = invoiceTemplateObject;
+        [self fecthDataWithInvoiceTemplate:invoiceTemplateObject];
+
         self.viewBusiness.hidden = YES;
     }
     else
@@ -1672,7 +1747,20 @@ BIAppDelegate* appdelegate;
     NSLog(@"Disconnect EMAIL");
 }
 
+#pragma mark - ProductViewController Delegate
 
+- (void)didSelectedProduct:(BIProduct *)product
+{
+    if (_productsAdded == nil) {
+        _productsAdded = [[NSMutableArray alloc] init];
+    }
+    
+    [_productsAdded addObject:product];
+    
+    [self calculateAmout];
+    [_tableView setHidden:NO];
+    [_tableView reloadData];
+}
 
 //#pragma mark UIGestureRecognizerDelegate methods
 //
