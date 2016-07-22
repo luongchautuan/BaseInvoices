@@ -26,6 +26,7 @@
     
     if (_invoiceBeEdited != nil)
     {
+        [self.lblTitle setText:@"Edit Invoice Template"];
         [self fetchData];
     }
     else
@@ -39,26 +40,26 @@
 {
     _businessSelected = _invoiceBeEdited.business;
     _txtBusinessName.text = _businessSelected.bussinessName;
-    if (_businessSelected.bussinessAddress1 == nil)
+    if (_businessSelected.bussinessAddress1 == nil || [_businessSelected.bussinessAddress1 isEqual:[NSNull null]])
     {
         _txtAddressLine1.text = @"";
     }
     else
         _txtAddressLine1.text = [NSString stringWithFormat:@"%@", _businessSelected.bussinessAddress1];
     
-    if (_businessSelected.bussinessAddress2 == nil) {
+    if (_businessSelected.bussinessAddress2 == nil || [_businessSelected.bussinessAddress2 isEqual:[NSNull null]]) {
         _txtAddressLine2.text = @"";
     }
     else
         _txtAddressLine2.text = [NSString stringWithFormat:@"%@", _businessSelected.bussinessAddress2];
 
-    if (_businessSelected.bussinessCity == nil) {
+    if (_businessSelected.bussinessCity == nil|| [_businessSelected.bussinessCity isEqual:[NSNull null]]) {
         _txtCity.text = @"";
     }
     else
         _txtCity.text = [NSString stringWithFormat:@"%@", _businessSelected.bussinessCity];
     
-    if (_businessSelected.bussinessPostCode == nil) {
+    if (_businessSelected.bussinessPostCode == nil|| [_businessSelected.bussinessPostCode isEqual:[NSNull null]]) {
         _txtPostcode.text = @"";
     }
     else
@@ -70,44 +71,44 @@
     else
         _txtCountry.text = [NSString stringWithFormat:@"%@", _businessSelected.country.countryName];
     
-    if (_invoiceBeEdited.invoiceTemplateName == nil) {
+    if (_invoiceBeEdited.invoiceTemplateName == nil|| [_invoiceBeEdited.invoiceTemplateName isEqual:[NSNull null]]) {
         _txtContactName.text = @"";
     }
     else
         _txtContactName.text = [NSString stringWithFormat:@"%@", _invoiceBeEdited.invoiceTemplateName];
     
-    if (_invoiceBeEdited.vat == nil) {
+    if (_invoiceBeEdited.vat == nil|| [_invoiceBeEdited.vat isEqual:[NSNull null]]) {
         _txtVat.text = @"";
     }
     else
         _txtVat.text = [NSString stringWithFormat:@"%@", _invoiceBeEdited.vat];
     
-    if (_invoiceBeEdited.email == nil) {
+    if (_invoiceBeEdited.email == nil|| [_invoiceBeEdited.email isEqual:[NSNull null]]) {
         _txtEmail.text = @"";
     }
     else
         _txtEmail.text = [NSString stringWithFormat:@"%@", _invoiceBeEdited.email];
 
     
-    if (_invoiceBeEdited.telephone == nil) {
+    if (_invoiceBeEdited.telephone == nil|| [_businessSelected.bussinessAddress1 isEqual:[NSNull null]]) {
         _txtTelephone.text = @"";
     }
     else
         _txtTelephone.text = [NSString stringWithFormat:@"%@", _invoiceBeEdited.telephone];
 
-    if (_invoiceBeEdited.bank_name == nil) {
+    if (_invoiceBeEdited.bank_name == nil|| [_invoiceBeEdited.bank_name isEqual:[NSNull null]]) {
         _txtBankName.text = @"";
     }
     else
         _txtBankName.text = [NSString stringWithFormat:@"%@", _invoiceBeEdited.bank_name];
     
-    if (_invoiceBeEdited.sort_code == nil) {
+    if (_invoiceBeEdited.sort_code == nil|| [_invoiceBeEdited.sort_code isEqual:[NSNull null]]) {
         _txtSortCode.text = @"";
     }
     else
         _txtSortCode.text = [NSString stringWithFormat:@"%@", _invoiceBeEdited.sort_code];
     
-    if (_invoiceBeEdited.account_number == nil) {
+    if (_invoiceBeEdited.account_number == nil|| [_invoiceBeEdited.account_number isEqual:[NSNull null]]) {
         _txtAccountNo.text = @"";
     }
     else

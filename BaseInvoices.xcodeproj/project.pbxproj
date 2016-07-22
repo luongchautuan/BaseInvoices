@@ -426,6 +426,8 @@
 		9A407F681D41FFAA0082E1CD /* UIImageView+HighlightedWebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A407F561D41FFA90082E1CD /* UIImageView+HighlightedWebCache.m */; };
 		9A407F691D41FFAA0082E1CD /* UIImageView+WebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A407F581D41FFA90082E1CD /* UIImageView+WebCache.m */; };
 		9A407F6A1D41FFAA0082E1CD /* UIView+WebCacheOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A407F5A1D41FFA90082E1CD /* UIView+WebCacheOperation.m */; };
+		9A407F6D1D4263C70082E1CD /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A407F6C1D4263C70082E1CD /* Crashlytics.framework */; };
+		9A407F6F1D4263D10082E1CD /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A407F6E1D4263D10082E1CD /* Fabric.framework */; };
 		9AAB57F81D34BAC300D9F67A /* WelcomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AAB57F61D34BAC300D9F67A /* WelcomeViewController.m */; };
 		9AAB57F91D34BAC300D9F67A /* WelcomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9AAB57F71D34BAC300D9F67A /* WelcomeViewController.xib */; };
 		9AAB57FB1D34C2BE00D9F67A /* icon-arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 9AAB57FA1D34C2BE00D9F67A /* icon-arrow.png */; };
@@ -1050,6 +1052,8 @@
 		9A407F581D41FFA90082E1CD /* UIImageView+WebCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIImageView+WebCache.m"; path = "SDWebImage/UIImageView+WebCache.m"; sourceTree = "<group>"; };
 		9A407F591D41FFA90082E1CD /* UIView+WebCacheOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIView+WebCacheOperation.h"; path = "SDWebImage/UIView+WebCacheOperation.h"; sourceTree = "<group>"; };
 		9A407F5A1D41FFA90082E1CD /* UIView+WebCacheOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIView+WebCacheOperation.m"; path = "SDWebImage/UIView+WebCacheOperation.m"; sourceTree = "<group>"; };
+		9A407F6C1D4263C70082E1CD /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
+		9A407F6E1D4263D10082E1CD /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
 		9AAB57F51D34BAC300D9F67A /* WelcomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WelcomeViewController.h; sourceTree = "<group>"; };
 		9AAB57F61D34BAC300D9F67A /* WelcomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WelcomeViewController.m; sourceTree = "<group>"; };
 		9AAB57F71D34BAC300D9F67A /* WelcomeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WelcomeViewController.xib; sourceTree = "<group>"; };
@@ -1166,10 +1170,12 @@
 				6E0C69E31A2E0BEE0024853D /* libGoogleAnalyticsServices.a in Frameworks */,
 				6E4396731A1094AC005EF4C9 /* CFNetwork.framework in Frameworks */,
 				6E4396711A1094A5005EF4C9 /* AdSupport.framework in Frameworks */,
+				9A407F6D1D4263C70082E1CD /* Crashlytics.framework in Frameworks */,
 				6E43966F1A10949D005EF4C9 /* CoreData.framework in Frameworks */,
 				6E43966D1A10948E005EF4C9 /* iAd.framework in Frameworks */,
 				6E43966A1A107E2B005EF4C9 /* libxml2.2.dylib in Frameworks */,
 				6E43966B1A107E2B005EF4C9 /* libxml2.dylib in Frameworks */,
+				9A407F6F1D4263D10082E1CD /* Fabric.framework in Frameworks */,
 				04F3D8711A0BE7CA003B10FB /* CoreGraphics.framework in Frameworks */,
 				04F3D8731A0BE7CA003B10FB /* UIKit.framework in Frameworks */,
 				04F3D86F1A0BE7CA003B10FB /* Foundation.framework in Frameworks */,
@@ -1611,6 +1617,8 @@
 		6E0EDFBC1A2785D000CB1F3F /* Framework */ = {
 			isa = PBXGroup;
 			children = (
+				9A407F6E1D4263D10082E1CD /* Fabric.framework */,
+				9A407F6C1D4263C70082E1CD /* Crashlytics.framework */,
 				6E0EDFBD1A2785D000CB1F3F /* NDHTMLtoPDF.h */,
 				6E0EDFBE1A2785D000CB1F3F /* NDHTMLtoPDF.m */,
 			);
@@ -2136,6 +2144,7 @@
 				04F3D8671A0BE7CA003B10FB /* Sources */,
 				04F3D8681A0BE7CA003B10FB /* Frameworks */,
 				04F3D8691A0BE7CA003B10FB /* Resources */,
+				9A407F701D42644E0082E1CD /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -2598,6 +2607,22 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		9A407F701D42644E0082E1CD /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "./Fabric.framework/run a438bf31ef8396214490eed41203b338efc53864 ff246730cd006bc5995ebae624defdced4e8077f9adabd13e7a2238a64d25d67";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		04F3D8671A0BE7CA003B10FB /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -2835,6 +2860,10 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Kah Tan (6A96HB5DPZ)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Kah Tan (6A96HB5DPZ)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/BaseInvoices/VController/Library/Framework",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "BaseInvoices/BaseInvoices-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
@@ -2863,6 +2892,10 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Kah Tan (6A96HB5DPZ)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Kah Tan (6A96HB5DPZ)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/BaseInvoices/VController/Library/Framework",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "BaseInvoices/BaseInvoices-Prefix.pch";
 				HEADER_SEARCH_PATHS = (

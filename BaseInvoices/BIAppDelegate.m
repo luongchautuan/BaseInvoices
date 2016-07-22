@@ -15,6 +15,8 @@
 #import "CountryRepository.h"
 #import "CountryListDataSource.h"
 #import "WelcomeViewController.h"
+#import <Fabric/Fabric.h>
+#import <Crashlytics/Crashlytics.h>
 
 @implementation BIAppDelegate
 
@@ -59,15 +61,7 @@ static NSString *const kAllowTracking = @"allowTracking";
     self.currencies = [[NSMutableArray alloc] init];
     self.currentUser = [[BIUser alloc] init];
     
-//    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-//    
-//    NSMutableArray* productsForUser = [[NSMutableArray alloc] init];
-//    productsForUser = [defaults rm_customObjectForKey:@"productsForUser"];
-//    
-//    NSMutableArray* businessForUser = [[NSMutableArray alloc] init];
-//    businessForUser =  [defaults rm_customObjectForKey:@"bussinessesForUser"];
-//    
-//    self.businessForUser = businessForUser;
+    [Fabric with:@[[Crashlytics class]]];
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     

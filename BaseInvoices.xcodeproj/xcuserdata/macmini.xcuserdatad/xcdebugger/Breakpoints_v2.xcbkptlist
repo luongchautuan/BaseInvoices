@@ -42,11 +42,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BaseInvoices/VController/AddInvoiceTemplateViewController.m"
-            timestampString = "490868837.973727"
+            timestampString = "490888042.211265"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "291"
-            endingLineNumber = "291"
+            startingLineNumber = "292"
+            endingLineNumber = "292"
             landmarkName = "-btnSaveInvoiceTemplate_Clicked:"
             landmarkType = "5">
          </BreakpointContent>
