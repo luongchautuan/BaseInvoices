@@ -180,7 +180,7 @@ BIAppDelegate* appdelegate;
     else
     {
         appdelegate.currentCustomerForAddInvoice = customer;
-        
+        [self.delegate didSelectedCustomer:customer];
         [self dismissViewControllerAnimated:YES completion:nil];
 //        [self.navigationController popViewControllerAnimated:YES];
     }

@@ -20,4 +20,6 @@
 @property (nonatomic)NSString* customerID;
 @property (nonatomic, strong)NSString* countryID;
 
+- (id)initWithDict:(NSDictionary*)dict;
+
 @end

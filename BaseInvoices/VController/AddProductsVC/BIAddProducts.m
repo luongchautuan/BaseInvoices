@@ -96,8 +96,7 @@ BIAppDelegate* appdelegate;
 
 - (IBAction)onBack:(id)sender
 {
-    [self dismissViewControllerAnimated:YES completion:nil];
-//    [self.navigationController popViewControllerAnimated:YES];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 #pragma mark return to close soft keyboard
@@ -209,7 +208,7 @@ BIAppDelegate* appdelegate;
                 {
                     [appdelegate.activityIndicatorView hide:YES];
                     
-                   [self dismissViewControllerAnimated:YES completion:nil];
+                    [self.navigationController popViewControllerAnimated:YES];
                 }
             }
             else

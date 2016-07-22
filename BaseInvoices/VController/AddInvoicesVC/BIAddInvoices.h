@@ -156,8 +156,12 @@
 @property (weak, nonatomic) IBOutlet UIView *viewPopUpAddNumberUnit;
 
 @property (nonatomic) InvoiceTemplateRepository* invoiceTemplateSelected;
+@property (nonatomic) BICustomer* customerSelected;
 
+@property (weak, nonatomic) IBOutlet UIButton *btnAutoCreateIncome;
 @property (nonatomic, strong) NSMutableArray* productsAdded;
+
+@property (nonatomic) BOOL isAutoCreateIncome;
 
 - (void)setNewPositionOfViewListData:(int)type;
 

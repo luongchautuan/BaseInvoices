@@ -16,5 +16,6 @@
 @property (nonatomic, strong) NSString* imageUrl;
 
 - (id)initWithCountryName:(NSString*)name countryCode:(NSString*)code dialCode:(NSString*)dialCode;
+- (id)initWithDict:(NSDictionary*)dict;
 
 @end

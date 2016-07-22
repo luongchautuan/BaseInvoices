@@ -14,4 +14,5 @@
 @property (weak, nonatomic) IBOutlet UILabel *lblPrice;
 @property (weak, nonatomic) IBOutlet UIButton *quantity;
 @property (weak, nonatomic) IBOutlet UIButton *btnDeleteProduct;
+@property (weak, nonatomic) IBOutlet UITextField *txtQuantity;
 @end

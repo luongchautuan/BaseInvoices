@@ -18,5 +18,8 @@
 @property (nonatomic, strong) NSString* created;
 @property (nonatomic, strong) NSString* modified;
 @property (nonatomic, strong) NSString* productID;
+@property (nonatomic) int quantityValue;
+
+- (id)initWithDict:(NSDictionary*)dict;
 
 @end

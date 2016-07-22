@@ -38,4 +38,66 @@
     
     return self;
 }
+
+- (id)initWithDict:(NSDictionary *)dict
+{
+    self = [super init];
+    
+    if (self)
+    {
+        _invoiceTemplateID = [dict valueForKey:@"id"];
+        _invoiceTemplateNumber = [dict valueForKey:@"invoice_id"];
+        _businessID = [dict valueForKey:@"business_id"];
+        _invoiceTemplateName = [dict valueForKey:@"name"];
+        _invoiceTemplateAddress = [dict valueForKey:@"address"];
+        _vat = [dict valueForKey:@"vat"];
+        _telephone = [dict valueForKey:@"telephone"];
+        _email = [dict valueForKey:@"email"];
+        _scan = [dict valueForKey:@"scan"];
+        _bank_name = [dict valueForKey:@"bank_name"];
+        _sort_code = [dict valueForKey:@"sort_code"];
+        _account_number = [dict valueForKey:@"account_number"];
+        _with_vat = [dict valueForKey:@"with_vat"];
+        _without_vat = [dict valueForKey:@"without_vat"];
+        _vat_number = [dict valueForKey:@"vat_number"];
+        _image_url = [dict valueForKey:@"image_url"];
+        _created = [dict valueForKey:@"created"];
+        _modified = [dict valueForKey:@"modified"];
+
+    }
+    
+    return self;
+}
+
+- (NSDictionary*)getInvoiceTemplate
+{
+    NSMutableDictionary* dict = [[NSMutableDictionary alloc] init];
+    
+    [dict setObject:_invoiceTemplateID forKey:@"id"];
+    [dict setObject:_userID forKey:@"user_id"];
+    [dict setObject:_invoiceTemplateID forKey:@"invoice_id"];
+    [dict setObject:_business.businessID forKey:@"business_id"];
+    [dict setObject:_invoiceTemplateName forKey:@"name"];
+    [dict setObject:_invoiceTemplateID forKey:@"address"];
+    [dict setObject:_invoiceTemplateID forKey:@"vat"];
+    [dict setObject:_invoiceTemplateID forKey:@"telephone"];
+    [dict setObject:_invoiceTemplateID forKey:@"address_line2"];
+    [dict setObject:_invoiceTemplateID forKey:@"city"];
+    [dict setObject:_invoiceTemplateID forKey:@"postcode"];
+    [dict setObject:_invoiceTemplateID forKey:@"date_started"];
+    [dict setObject:_invoiceTemplateID forKey:@"cis_registered"];
+    [dict setObject:_invoiceTemplateID forKey:@"vat_registered"];
+    [dict setObject:_invoiceTemplateID forKey:@"vat_number"];
+    [dict setObject:_invoiceTemplateID forKey:@"bank_account_name"];
+    [dict setObject:_invoiceTemplateID forKey:@"bank_name"];
+    [dict setObject:_invoiceTemplateID forKey:@"sort_code"];
+    [dict setObject:_invoiceTemplateID forKey:@"bank_account_number"];
+    [dict setObject:_invoiceTemplateID forKey:@"created"];
+    [dict setObject:_invoiceTemplateID forKey:@"modified"];
+    [dict setObject:_invoiceTemplateID forKey:@"bank_name"];
+    
+    return dict;
+    
+}
+
 @end

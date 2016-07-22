@@ -66,27 +66,11 @@ BIAppDelegate* appdelegate;
                 
                 for (NSDictionary* invoiceTemplateDict in [dataDict valueForKey:@"data"])
                 {
-                    NSString* invoiceTemplateID = [invoiceTemplateDict valueForKey:@"id"];
-                    NSString* invoiceTemplateNumber = [invoiceTemplateDict valueForKey:@"invoice_id"];
-                    NSString* businessID = [invoiceTemplateDict valueForKey:@"business_id"];
-                    NSString* invoiceTemplateName = [invoiceTemplateDict valueForKey:@"name"];
-                    NSString* invoiceTemplateAddress = [invoiceTemplateDict valueForKey:@"address"];
-                    NSString* vat = [invoiceTemplateDict valueForKey:@"vat"];
-                    NSString* telephone = [invoiceTemplateDict valueForKey:@"telephone"];
-                    NSString* email = [invoiceTemplateDict valueForKey:@"email"];
-                    NSString* scan = [invoiceTemplateDict valueForKey:@"scan"];
-                    NSString* bank_name = [invoiceTemplateDict valueForKey:@"bank_name"];
-                    NSString* sort_code = [invoiceTemplateDict valueForKey:@"sort_code"];
-                    NSString* account_number = [invoiceTemplateDict valueForKey:@"account_number"];
-                    NSString* with_vat = [invoiceTemplateDict valueForKey:@"with_vat"];
-                    NSString* without_vat = [invoiceTemplateDict valueForKey:@"without_vat"];
-                    NSString* vat_number = [invoiceTemplateDict valueForKey:@"vat_number"];
-                    NSString* image_url = [invoiceTemplateDict valueForKey:@"image_url"];
-                    NSString* created = [invoiceTemplateDict valueForKey:@"created"];
-                    NSString* modified = [invoiceTemplateDict valueForKey:@"modified"];
+                    InvoiceTemplateRepository* invoiceTemplateObject = [[InvoiceTemplateRepository alloc] initWithDict:invoiceTemplateDict];
                     
-                    InvoiceTemplateRepository* invoiceTemplateObject = [[InvoiceTemplateRepository alloc] initWithTemplateID:invoiceTemplateID invoiceTemplateNumber:invoiceTemplateNumber businessID:businessID invoiceTemplateName:invoiceTemplateName invoiceTemplateAddress:invoiceTemplateAddress vat:vat telephone:telephone email:email scan:scan bank_name:bank_name sort_code:sort_code account_number:account_number with_vat:with_vat without_vat:without_vat vat_number:vat_number image_url:image_url created:created modified:modified];
-                    
+                    BIBussiness* business = [[BIBussiness alloc] initWithDict:[invoiceTemplateDict valueForKey:@"business"]];
+
+                    [invoiceTemplateObject setBusiness:business];
                     [appdelegate.invoicesTemplate addObject:invoiceTemplateObject];
                     
                 }

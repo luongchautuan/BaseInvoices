@@ -8,8 +8,17 @@
 
 #import <UIKit/UIKit.h>
 #import "BLLeftSideVC.h"
+#import "BICustomer.h"
+
+@protocol CustomerViewControllerDelegate <NSObject>
+
+- (void)didSelectedCustomer:(BICustomer*)customer;
+
+@end
 
 @interface BICustomerViewController : UIViewController<UITableViewDataSource, UITableViewDelegate, BLLeftSideDelegate>
+
+@property (nonatomic) id <CustomerViewControllerDelegate> delegate;
 
 @property (nonatomic)BOOL isViewCustomerEdit;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;

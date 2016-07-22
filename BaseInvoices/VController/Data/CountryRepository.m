@@ -22,4 +22,19 @@
     
     return self;
 }
+
+- (id)initWithDict:(NSDictionary *)dict
+{
+    self = [super init];
+    
+    if (self)
+    {
+        self.countryName = [dict valueForKey:@"name"];
+        self.countryCode = [dict valueForKey:@"code"];
+        _dialCode = [dict valueForKey:@"id"];
+    }
+    
+    return self;
+}
+
 @end

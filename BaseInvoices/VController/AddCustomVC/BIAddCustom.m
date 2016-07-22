@@ -285,12 +285,12 @@ BIAppDelegate* appdelegate;
                     
                     NSLog(@"dataContent: %@", dataContent);
                     
-                    if (self.customerEditting != nil) {
+                    if (self.customer != nil) {
                         method = @"PUT";
                         
                         urlString = @"/customer";
                         
-                        dataContent =[NSString stringWithFormat:@"/%@?country_id=%@&company_name=%@&description=%@&address=%@&addressLine1=%@&addressLine2=%@&city=%@&postcode=%@&telephone=%@&email=%@&contact=%@", self.customerEditting.customerID , [NSString stringWithFormat:@"%d", countryID], self.edtBussinessName.text, self.txtDescription.text, self.edtAddress.text, @"", @"", self.edtCity.text, self.edtPostCode.text, self.edtPhone.text, self.edtEmail.text, self.edtKeyContact.text];
+                        dataContent =[NSString stringWithFormat:@"/%@?country_id=%@&company_name=%@&description=%@&address=%@&addressLine1=%@&addressLine2=%@&city=%@&postcode=%@&telephone=%@&email=%@&contact=%@", self.customer.customerID , [NSString stringWithFormat:@"%d", countryID], self.edtBussinessName.text, self.txtDescription.text, self.edtAddress.text, @"", @"", self.edtCity.text, self.edtPostCode.text, self.edtPhone.text, self.edtEmail.text, self.edtKeyContact.text];
                     }
                     else
                     {

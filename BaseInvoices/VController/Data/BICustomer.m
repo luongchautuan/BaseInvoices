@@ -10,4 +10,43 @@
 
 @implementation BICustomer
 
+- (id)initWithDict:(NSDictionary *)dict
+{
+    self = [super init];
+    
+    if (self)
+    {
+        _customerID = [dict valueForKey:@"id"];
+        _countryID = [dict valueForKey:@"country_id"];
+        _customerBussinessName = [dict valueForKey:@"company_name"];
+        _customerAddress = [dict valueForKey:@"address"];
+        _customerCity = [dict valueForKey:@"city"];
+        _customerPostCode = [dict valueForKey:@"postcode"];
+        _customerTelephone = [dict valueForKey:@"telephone"];
+        _customerEmail = [dict valueForKey:@"email"];
+        _customerKeyContact = [dict valueForKey:@"contact"];       
+        
+    }
+    
+    return self;
+}
+
+
+//"id":5990,
+//"user_id":4,
+//"country_id":77,
+//"company_name":"Test",
+//"description":"",
+//"address":"",
+//"address_line1":"",
+//"address_line2":"",
+//"city":"",
+//"postcode":"",
+//"telephone":"",
+//"email":"",
+//"contact":"",
+//"created":"2016-07-09 17:03:48",
+//"modified":"2016-07-09 17:03:48"
+
+
 @end

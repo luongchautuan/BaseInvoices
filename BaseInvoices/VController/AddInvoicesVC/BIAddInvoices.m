@@ -21,7 +21,7 @@
 
 #define ACCEPTABLE_CHARECTERS @".0123456789"
 
-@interface BIAddInvoices ()
+@interface BIAddInvoices ()<CustomerViewControllerDelegate>
 
 @end
 
@@ -55,11 +55,12 @@ BIAppDelegate* appdelegate;
 - (IBAction)onSaveAndSendEmail:(id)sender
 {
     self.viewForPaymentTerms.hidden = YES;
-    [self generatPdfForInvoice];
-    self.viewPdfPreview.hidden = NO;
-    [self.webViewPdf loadHTMLString:self.html baseURL:nil];
     
+    [self saveInvoice];
 //    [self generatPdfForInvoice];
+//    self.viewPdfPreview.hidden = NO;
+//    [self.webViewPdf loadHTMLString:self.html baseURL:nil];
+
 }
 - (IBAction)onSend:(id)sender
 {
@@ -76,8 +77,8 @@ BIAppDelegate* appdelegate;
 
 - (IBAction)onCloseNumberOfUnit:(id)sender
 {
-    BIProduct* product = [appdelegate.productsFroAddInvoices objectAtIndex:self.indexPathSelected.row];
-    [product setNumberOfUnit:[self.txtNumberOfUnit.text floatValue]];
+    BIProduct* product = [_productsAdded objectAtIndex:self.indexPathSelected.row];
+    [product setQuantityValue:[self.txtNumberOfUnit.text intValue]];
     
     [self calculateAmout];
     
@@ -95,75 +96,66 @@ BIAppDelegate* appdelegate;
     
     appdelegate = (BIAppDelegate *)[[UIApplication sharedApplication] delegate];
     
+    _isAutoCreateIncome = YES;
+    [self.btnAutoCreateIncome setSelected:YES];
+    
     if (self.isEditInvoice)
     {
         NSLog(@"View DId load");
         [self loadInvoiceEdit];
     }
-    
-    [[ServiceRequest getShareInstance] serviceRequestActionName:@"/invoice-template" accessToken:appdelegate.currentUser.token method:@"GET" result:^(NSURLResponse *response, NSData *dataResponse, NSError *connectionError) {
-        NSHTTPURLResponse* httpResponse = (NSHTTPURLResponse*)response;
-        NSInteger statusCode = [httpResponse statusCode];
-        
-        if (statusCode == 200)
-        {
-            NSString *responeString = [[NSString alloc] initWithData:dataResponse
-                                                            encoding:NSUTF8StringEncoding];
+    else
+    {
+        [[ServiceRequest getShareInstance] serviceRequestActionName:@"/invoice-template" accessToken:appdelegate.currentUser.token method:@"GET" result:^(NSURLResponse *response, NSData *dataResponse, NSError *connectionError) {
+            NSHTTPURLResponse* httpResponse = (NSHTTPURLResponse*)response;
+            NSInteger statusCode = [httpResponse statusCode];
             
-            NSLog(@"RESPIONSE GET ALL Invoice Template: %@", responeString);
-            NSDictionary* dataDict = [[NSDictionary alloc] init];
-            SBJsonParser *json = [SBJsonParser new];
-            dataDict = [json objectWithString:[NSString stringWithFormat:@"%@", responeString]];
-            
-            if ([dataDict valueForKey:@"data"] != nil)
+            if (statusCode == 200)
             {
-                appdelegate.invoicesTemplate = [[NSMutableArray alloc] init];
+                NSString *responeString = [[NSString alloc] initWithData:dataResponse
+                                                                encoding:NSUTF8StringEncoding];
                 
-                for (NSDictionary* invoiceTemplateDict in [dataDict valueForKey:@"data"])
+                NSLog(@"RESPIONSE GET ALL Invoice Template: %@", responeString);
+                NSDictionary* dataDict = [[NSDictionary alloc] init];
+                SBJsonParser *json = [SBJsonParser new];
+                dataDict = [json objectWithString:[NSString stringWithFormat:@"%@", responeString]];
+                
+                if ([dataDict valueForKey:@"data"] != nil)
                 {
-                    NSString* invoiceTemplateID = [invoiceTemplateDict valueForKey:@"id"];
-                    NSString* invoiceTemplateNumber = [invoiceTemplateDict valueForKey:@"invoice_id"];
-                    NSString* businessID = [invoiceTemplateDict valueForKey:@"business_id"];
-                    NSString* invoiceTemplateName = [invoiceTemplateDict valueForKey:@"name"];
-                    NSString* invoiceTemplateAddress = [invoiceTemplateDict valueForKey:@"address"];
-                    NSString* vat = [invoiceTemplateDict valueForKey:@"vat"];
-                    NSString* telephone = [invoiceTemplateDict valueForKey:@"telephone"];
-                    NSString* email = [invoiceTemplateDict valueForKey:@"email"];
-                    NSString* scan = [invoiceTemplateDict valueForKey:@"scan"];
-                    NSString* bank_name = [invoiceTemplateDict valueForKey:@"bank_name"];
-                    NSString* sort_code = [invoiceTemplateDict valueForKey:@"sort_code"];
-                    NSString* account_number = [invoiceTemplateDict valueForKey:@"account_number"];
-                    NSString* with_vat = [invoiceTemplateDict valueForKey:@"with_vat"];
-                    NSString* without_vat = [invoiceTemplateDict valueForKey:@"without_vat"];
-                    NSString* vat_number = [invoiceTemplateDict valueForKey:@"vat_number"];
-                    NSString* image_url = [invoiceTemplateDict valueForKey:@"image_url"];
-                    NSString* created = [invoiceTemplateDict valueForKey:@"created"];
-                    NSString* modified = [invoiceTemplateDict valueForKey:@"modified"];
+                    appdelegate.invoicesTemplate = [[NSMutableArray alloc] init];
                     
-                    InvoiceTemplateRepository* invoiceTemplateObject = [[InvoiceTemplateRepository alloc] initWithTemplateID:invoiceTemplateID invoiceTemplateNumber:invoiceTemplateNumber businessID:businessID invoiceTemplateName:invoiceTemplateName invoiceTemplateAddress:invoiceTemplateAddress vat:vat telephone:telephone email:email scan:scan bank_name:bank_name sort_code:sort_code account_number:account_number with_vat:with_vat without_vat:without_vat vat_number:vat_number image_url:image_url created:created modified:modified];
+                    for (NSDictionary* invoiceTemplateDict in [dataDict valueForKey:@"data"])
+                    {
+                        InvoiceTemplateRepository* invoiceTemplateObject = [[InvoiceTemplateRepository alloc] initWithDict:invoiceTemplateDict];
+                        BIBussiness* business = [[BIBussiness alloc] initWithDict:[invoiceTemplateDict valueForKey:@"business"]];
+                        
+                        [invoiceTemplateObject setBusiness:business];
+                        [appdelegate.invoicesTemplate addObject:invoiceTemplateObject];
+                        
+                    }
                     
-                    [appdelegate.invoicesTemplate addObject:invoiceTemplateObject];
+                    if ([BIAppDelegate shareAppdelegate].invoicesTemplate.count > 0)
+                    {
+                        InvoiceTemplateRepository* invoiceTemplateObject = [[BIAppDelegate shareAppdelegate].invoicesTemplate objectAtIndex:0];
+                        _txtBussiness.text = invoiceTemplateObject.invoiceTemplateName;
+                        _invoiceTemplateSelected = invoiceTemplateObject;
+                    }
+                    
+                    [self.tableViewBusiness reloadData];
                     
                 }
-                
-                if ([BIAppDelegate shareAppdelegate].invoicesTemplate.count > 0)
-                {
-                    InvoiceTemplateRepository* invoiceTemplateObject = [[BIAppDelegate shareAppdelegate].invoicesTemplate objectAtIndex:0];
-                    _txtBussiness.text = invoiceTemplateObject.invoiceTemplateName;
-                }
-                
-                [self.tableViewBusiness reloadData];
                 
             }
-            
-        }
-    }];
+        }];
 
+        [self getCustomers];
+    }
+  
     
     self.paymentTerms = [[NSMutableArray alloc] initWithObjects:@"Due on reciept", @"Net 7 days", @"Net 10 days", @"Net 30 Days", nil];
     
     
-    [self getCustomers];
+    
 
 }
 
@@ -219,6 +211,7 @@ BIAppDelegate* appdelegate;
                 if ([BIAppDelegate shareAppdelegate].customerForUser.count > 0)
                 {
                     BICustomer* customerObject = [[BIAppDelegate shareAppdelegate].customerForUser objectAtIndex:0];
+                    _customerSelected = customerObject;
                     [self.btnAddCustom setTitle:customerObject.customerBussinessName forState:UIControlStateNormal];
                 }
                 
@@ -270,22 +263,19 @@ BIAppDelegate* appdelegate;
     //Calculate Subtotal, Taxes, Total and outstanding
     for (BIProduct* product in _productsAdded)
     {
-        NSString* priceUnit = product.productUnitPrice;
+        NSString* priceUnit = [NSString stringWithFormat:@"%@", product.productUnitPrice];
         
-        if ([priceUnit rangeOfString:@","].length != 0) {
+        if ([priceUnit rangeOfString:@","].length != 0)
+        {
             priceUnit = [priceUnit stringByReplacingOccurrencesOfString:@"," withString:@""];
         }
-//        if ([priceUnit containsString:@","])
-//        {
-//          priceUnit = [priceUnit stringByReplacingOccurrencesOfString:@"," withString:@""];
-//        }
         
-        self.subTotal = self.subTotal + [priceUnit floatValue] * product.numberOfUnit;
+        self.subTotal = self.subTotal + [priceUnit floatValue] * product.quantityValue;
         
         NSLog(@"Unit: %f", [priceUnit floatValue]);
-        self.taxes = self.taxes + [priceUnit floatValue] * product.numberOfUnit * [product.productTaxRate floatValue] / 100;
+     
+        self.taxes = self.taxes + [priceUnit floatValue] * product.quantityValue * [product.productTaxRate floatValue] / 100;
     }
-
     
     self.total = self.subTotal + self.taxes;
     
@@ -334,7 +324,7 @@ BIAppDelegate* appdelegate;
         self.totalAmount = self.total;
     }
     
-    if (appdelegate.productsFroAddInvoices.count > 0)
+    if (_productsAdded.count > 0)
     {
         NSLog(@"Product Fỏ Add Invoice: %@", appdelegate.productsFroAddInvoices);
         self.tableView.hidden = NO;
@@ -395,6 +385,10 @@ BIAppDelegate* appdelegate;
     [self.btnTotal setBackgroundImage:[UIImage imageNamed:@"bg_checked_radiobutton.png"] forState:UIControlStateSelected];
     [self.btnTotal setBackgroundImage:[UIImage imageNamed:@"bg_checked_radiobutton.png"] forState:UIControlStateHighlighted];
     
+    [self.btnAutoCreateIncome setBackgroundImage:[UIImage imageNamed:@"bg_uncheck_radiobutton.png"] forState:UIControlStateNormal];
+    [self.btnAutoCreateIncome setBackgroundImage:[UIImage imageNamed:@"bg_checked_radiobutton.png"] forState:UIControlStateSelected];
+    [self.btnAutoCreateIncome setBackgroundImage:[UIImage imageNamed:@"bg_checked_radiobutton.png"] forState:UIControlStateHighlighted];
+    
     NSDate *myDate = [self.datePickerForMain date];
     NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
     [dateFormat setDateFormat:@"MM/dd/yyyy"];
@@ -422,7 +416,7 @@ BIAppDelegate* appdelegate;
 
 - (void)updateFrameTableView
 {
-    self.tableView.frame = CGRectMake(1, self.lblProducts.frame.origin.y + 21, self.tableView.frame.size.width, _productsAdded.count * 28);
+    self.tableView.frame = CGRectMake(8, self.lblProducts.frame.origin.y + 26, self.tableView.frame.size.width, _productsAdded.count * 44);
     
     self.viewTotal.frame = CGRectMake(0, self.tableView.frame.origin.y + self.tableView.frame.size.height, self.viewTotal.frame.size.width, self.viewTotal.frame.size.height);
     
@@ -445,50 +439,54 @@ BIAppDelegate* appdelegate;
 
 - (void)loadInvoiceEdit
 {
-    self.txtBussiness.text = self.invoiceEdit.bussiness.bussinessName;
+    self.txtBussiness.text = self.invoiceEdit.invoiceTemplate.invoiceTemplateName;
     self.txtInvoiceNumber.text = self.invoiceEdit.invoiceName;
     [self.btnAddCustom setTitle:self.invoiceEdit.customer.customerBussinessName forState:UIControlStateNormal];
     self.txtDateForMain.text = self.invoiceEdit.dateInvoice;
     self.txtNoteDesc.text = self.invoiceEdit.noteInvoice;
-    self.txtPaymentType.text = self.invoiceEdit.outStanding;
-    self.totalAmount = self.invoiceEdit.totalOutSanding;
+
+//    self.txtPaymentType.text = self.invoiceEdit.outStanding;
+//    self.totalAmount = self.invoiceEdit.totalOutSanding;
     
     appdelegate.bussinessForUser = self.invoiceEdit.bussiness;
-    appdelegate.currentCustomerForAddInvoice = self.invoiceEdit.customer;
+    _customerSelected = self.invoiceEdit.customer;
     checkBoxSelected = self.invoiceEdit.isPaided;
     
     [self.btnTotal setSelected:self.invoiceEdit.isPaided];
     
-    appdelegate.productsFroAddInvoices = [[NSMutableArray alloc] init];
-    appdelegate.productsFroAddInvoices = self.invoiceEdit.products;
+    _productsAdded= [[NSMutableArray alloc] init];
+    _productsAdded = self.invoiceEdit.products;
     
-    NSLog(@"Product Add: %lu", (unsigned long)appdelegate.productsFroAddInvoices.count);
+    NSLog(@"Product Add: %lu", (unsigned long)_productsAdded.count);
     
     self.bussinessSelected = self.invoiceEdit.bussiness;
     
-    if (appdelegate.currentCustomerForAddInvoice.customerBussinessName.length > 0) {
-        [self.btnAddCustom setTitle:appdelegate.currentCustomerForAddInvoice.customerBussinessName forState:UIControlStateNormal];
+    if (_customerSelected.customerBussinessName.length > 0) {
+        [self.btnAddCustom setTitle:_customerSelected.customerBussinessName forState:UIControlStateNormal];
     }
     
-    self.lblSubTotal.text = self.invoiceEdit.subInvoice;
-    self.lblTaxes.text = self.invoiceEdit.taxesInvoice;
-    self.lblTotal.text = self.invoiceEdit.totalInvoices;
+//    self.lblSubTotal.text = [NSString stringWithFormat:@"%@", self.invoiceEdit.subInvoice];
+//    self.lblTaxes.text = [NSString stringWithFormat:@"%@", self.invoiceEdit.taxesInvoice];
+//    self.lblTotal.text = [NSString stringWithFormat:@"%@", self.invoiceEdit.totalInvoices];
     
     if (checkBoxSelected)
     {
-        self.lblOutStanding.text = self.invoiceEdit.outStanding;
+//        self.lblOutStanding.text = self.invoiceEdit.outStanding;
     }
     else
     {
-        self.lblOutStanding.text = self.lblTotal.text;
+//        self.lblOutStanding.text = self.lblTotal.text;
     }
     
-    if (appdelegate.productsFroAddInvoices.count > 0)
+    if (_invoiceEdit.products.count > 0)
     {
-        
         self.tableView.hidden = NO;
     }
-    else self.tableView.hidden = YES;
+    else
+        self.tableView.hidden = YES;
+    
+    
+    [self calculateAmout];
 }
 
 - (void)initData
@@ -564,7 +562,7 @@ BIAppDelegate* appdelegate;
 - (IBAction)onSaveAndSend:(id)sender
 {
     NSLog(@"Save And Send");
-    if (appdelegate.productsFroAddInvoices.count > 0 && self.txtInvoiceNumber.text.length > 0 && self.btnAddCustom.titleLabel.text.length > 0)
+    if (_productsAdded.count > 0 && self.txtInvoiceNumber.text.length > 0 && self.btnAddCustom.titleLabel.text.length > 0)
     {
         self.viewForPaymentTerms.hidden = NO;
        
@@ -589,8 +587,17 @@ BIAppDelegate* appdelegate;
 - (IBAction)onSave:(id)sender
 {
     NSLog(@"Save");
-   [self saveInvoice];
+    self.viewForPaymentTerms.hidden = NO;
+    
+    self.viewForPaymentTermsChild.frame=CGRectMake(10, -190, 300, 192);
+    [UIView beginAnimations:@"" context:nil];
+    [UIView setAnimationDuration:0.5];
+    self.viewForPaymentTermsChild.frame=CGRectMake(10, 190, 300, 192);
+    [UIView commitAnimations];
+
+   
 }
+
 
 - (void)saveInvoice
 {
@@ -598,71 +605,48 @@ BIAppDelegate* appdelegate;
     appdelegate.activityIndicatorView.mode = MBProgressHUDAnimationFade;
     appdelegate.activityIndicatorView.labelText = @"";
     
-    if (appdelegate.productsFroAddInvoices.count > 0 && self.txtInvoiceNumber.text.length > 0 && self.txtDateForMain.text.length > 0  && self.btnAddCustom.titleLabel.text.length > 0)
+    if (_productsAdded.count > 0 && self.txtInvoiceNumber.text.length > 0 && self.txtDateForMain.text.length > 0  && self.btnAddCustom.titleLabel.text.length > 0)
     {
         //Save invoice into Server
-//        ASIHTTPRequest *request = [[ASIHTTPRequest alloc] initWithURL:[NSURL URLWithString:@" https://ec2-46-137-84-201.eu-west-1.compute.amazonaws.com:8443/wsBasetaxInv/resources/customer"]];
-//        
-//        [request addBasicAuthenticationHeaderWithUsername:@"submitmytax"andPassword:@"T75w63UC"];
-//        
-//        [request addRequestHeader:@"Content-Type" value:@"application/json"];
-//        [request addRequestHeader:@"accept" value:@"application/json"];
-//        
-//        NSString *dataContent =[NSString stringWithFormat:@"{\"user\":{\"id\":%i},\"customers\":{\"id\":%i},\"business\":{\"id\":%i},\"product\":{\"id\":%i},\"paymentType\":{\"id\":%i},\"date\":\"%@\",\"dueOn\":\"%@\",\"amount\":%f,\"vat\":%f,\"total\":%f,\"notes\":\"%@\",\"paid\":%@}",[appdelegate.currentUser.userID intValue] ,[appdelegate.country intValue],appdelegate.companyName, @"description", self.edtAddress.text, self.edtCity.text, self.edtPostCode.text, self.edtPhone.text, self.edtEmail.text, self.edtKeyContact.text];
-//        
-//        NSLog(@"dataContent: %@", dataContent);
-//        
-//        [request appendPostData:[dataContent dataUsingEncoding:NSUTF8StringEncoding]];
-//        
-//        
-//        [request setValidatesSecureCertificate:NO];
-//        [request setRequestMethod:@"POST"];
-//        [request setDelegate:self];
-//        [request startAsynchronous];
-
         
         if (!self.isEditInvoice)
         {
             BIInvoice* invoice = [[BIInvoice alloc] init];
             invoice.invoiceName = self.txtInvoiceNumber.text;
-            invoice.bussiness = self.bussinessSelected;
+            invoice.invoiceTemplate = _invoiceTemplateSelected;
             invoice.dateInvoice = self.txtDateForMain.text;
-            invoice.customer = appdelegate.currentCustomerForAddInvoice;
+            invoice.customer = _customerSelected;
             invoice.noteInvoice = self.txtNoteDesc.text;
             invoice.products = [[NSMutableArray alloc] init];
-            invoice.products = appdelegate.productsFroAddInvoices;
-            invoice.subInvoice = self.lblSubTotal.text;
-            invoice.totalInvoices = self.lblTotal.text;
-            invoice.taxesInvoice = self.lblTaxes.text;
+            invoice.products = _productsAdded;
+            invoice.subInvoice = [NSString stringWithFormat:@"%f",_subTotal];
+            invoice.totalInvoices = [NSString stringWithFormat:@"%f",_total];
+            invoice.taxesInvoice = [NSString stringWithFormat:@"%f",_taxes];
             invoice.isPaided = checkBoxSelected;
-            invoice.outStanding = self.lblOutStanding.text;
+//            invoice.outStanding = self.lblOutStanding.text;
             invoice.totalOutSanding = self.totalAmount;
+            invoice.due_selection = self.txtPaymentTerm.text;
+            [invoice setIsAutoCreateIncome:_isAutoCreateIncome];
             
-            [appdelegate.invoicesForUser addObject:invoice];
+            NSDictionary* data = [invoice getDataToSync];
+            SBJsonWriter *jsonWriter = [[SBJsonWriter alloc] init];
+            NSString *jsonString = [jsonWriter stringWithObject:data];
+
+            NSLog(@"JSON: %@", jsonString);
             
-            NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
-            [defaults rm_setCustomObject:appdelegate.invoicesForUser forKey:@"invoicesForUser"];
- 
-            if (appdelegate.isLaunchAppFirstTime)
-            {
-                NSLog(@"Is Launch App First Time");
-                 appdelegate.isLaunchAppFirstTime = NO;
-                [self.navigationController popToRootViewControllerAnimated:YES];
-            }
-            else
-            {
-                if (self.isEditInvoice) {
-                    [self dismissViewControllerAnimated:YES completion:nil];
-                }
-                else
-                {
-                    [self.navigationController popViewControllerAnimated:YES];
-                }
-                //        [self.navigationController popViewControllerAnimated:YES];
-            }
-            
-//            appdelegate.currentCustomerForAddInvoice = nil;
-//            appdelegate.productsFroAddInvoices = [[NSMutableArray alloc] init];
+            [[ServiceRequest getShareInstance] serviceRequestWithDataStr:jsonString actionName:@"/invoice" accessToken:[BIAppDelegate shareAppdelegate].currentUser.token result:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+               
+                    NSHTTPURLResponse* httpResponse = (NSHTTPURLResponse*)response;
+                    NSInteger statusCode = [httpResponse statusCode];
+                    
+                    [appdelegate.activityIndicatorView hide:YES];
+                    
+                    if (statusCode == 200)
+                    {
+//                        NSString *responeString = [[NSString alloc] initWithData:dataResponse
+//                                                                        encoding:NSUTF8StringEncoding];
+                    }
+            }];
 
         }
         else
@@ -674,7 +658,7 @@ BIAppDelegate* appdelegate;
             invoiceEdit.customer = appdelegate.currentCustomerForAddInvoice;
             invoiceEdit.noteInvoice = self.txtNoteDesc.text;
             invoiceEdit.products = [[NSMutableArray alloc] init];
-            invoiceEdit.products = appdelegate.productsFroAddInvoices;
+            invoiceEdit.products = _productsAdded;
             invoiceEdit.subInvoice = self.lblSubTotal.text;
             invoiceEdit.totalInvoices = self.lblTotal.text;
             invoiceEdit.taxesInvoice = self.lblTaxes.text;
@@ -711,14 +695,14 @@ BIAppDelegate* appdelegate;
             }
            
             appdelegate.currentCustomerForAddInvoice = nil;
-            appdelegate.productsFroAddInvoices = [[NSMutableArray alloc] init];
+            _productsAdded = [[NSMutableArray alloc] init];
         }
 
         
     }
     else
     {
-        if (appdelegate.productsFroAddInvoices.count <= 0) {
+        if (_productsAdded.count <= 0) {
             UIAlertView *alert = [[UIAlertView alloc]initWithTitle:nil message:@"Please Insert Products For Invoice" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
             [alert show];
             
@@ -747,6 +731,7 @@ BIAppDelegate* appdelegate;
 - (IBAction)onAddCustom:(id)sender
 {
     BICustomerViewController *pushToVC = [[BICustomerViewController alloc] initWithNibName:@"BICustomerViewController" bundle:nil];
+    pushToVC.delegate = self;
     [self presentViewController:pushToVC animated:YES completion:nil];
 }
 
@@ -766,7 +751,7 @@ BIAppDelegate* appdelegate;
 - (IBAction)onBack:(id)sender
 {
     appdelegate.currentCustomerForAddInvoice = nil;
-    appdelegate.productsFroAddInvoices = [[NSMutableArray alloc] init];
+    _productsAdded = [[NSMutableArray alloc] init];
     
     if (_isFromWelcome)
     {
@@ -813,6 +798,7 @@ BIAppDelegate* appdelegate;
     else
     {
         [self onVisibleOfDialogPopup:false];
+        
         checkBoxSelected = true;
         
         NSDate *myDate = [self.datePickerForPopUp date];
@@ -1220,7 +1206,7 @@ BIAppDelegate* appdelegate;
     [self.txtPaymentType resignFirstResponder];
     [self.txtNoteDescriptionPayment resignFirstResponder];
     
-     [self.scrollView setContentOffset:CGPointMake(0, -20)];
+//    [self.scrollView setContentOffset:CGPointMake(0, 0)];
 }
 
 - (IBAction)selectDateFromPopUp:(id)sender
@@ -1322,18 +1308,33 @@ BIAppDelegate* appdelegate;
     
     NSLog(@"NUmber of unit:%@", product.productUnitPrice);
     
-    if (fmodf(product.numberOfUnit, 1.0) == 0.0)
-    {
-        [customCell.quantity setTitle:[NSString stringWithFormat:@"%d", (int)product.numberOfUnit] forState:UIControlStateNormal] ;
-    }
-    else [customCell.quantity setTitle:[NSString stringWithFormat:@"%.1f",product.numberOfUnit] forState:UIControlStateNormal] ;
+    [customCell.txtQuantity setText:[NSString stringWithFormat:@"%d", product.quantityValue]];
     
-    NSString* amountAfterFormat = [[NSString stringWithFormat:@"£ "] stringByAppendingString:product.productUnitPrice];
+    CGFloat amount = [product.productUnitPrice floatValue]* product.quantityValue;
+    NSString* amountAfterFormat = @"";
+    if (fmodf(amount, 1.0) == 0.0)
+    {
+        amountAfterFormat = [[NSString stringWithFormat:@"£ "] stringByAppendingString:[NSString stringWithFormat:@"%d", (int)amount]];
+    }
+    else
+    {
+        amountAfterFormat = [[NSString stringWithFormat:@"£ "] stringByAppendingString:[NSString stringWithFormat:@"%.2f", amount]];
+    }
     
     customCell.lblPrice.text = amountAfterFormat;
     
     [customCell.btnDeleteProduct addTarget:self action:@selector(delete:) forControlEvents:UIControlEventTouchUpInside];
     [customCell.btnDeleteProduct setTag:indexPath.row];
+    
+    if(indexPath.row % 2 == 0)
+    {
+        [customCell setBackgroundColor:[UIColor colorWithRed:240.0/255.0f green:247.0/255.0f blue:231.0/255.0f alpha:1.0]];
+    }
+    else
+    {
+        [customCell setBackgroundColor:[UIColor whiteColor]];
+    }
+
     
     return customCell;
 }
@@ -1351,7 +1352,7 @@ BIAppDelegate* appdelegate;
     
     NSIndexPath* indexPath = [self.tableView indexPathForRowAtPoint:rootViewPoint];
     
-    [appdelegate.productsFroAddInvoices removeObjectAtIndex:indexPath.row];
+    [_productsAdded removeObjectAtIndex:indexPath.row];
     
     [self.tableView deleteRowsAtIndexPaths:@[indexPath]
                           withRowAnimation:UITableViewRowAnimationFade];
@@ -1405,15 +1406,15 @@ BIAppDelegate* appdelegate;
     {
         self.indexPathSelected = indexPath;
         
-        BIProduct* product = [appdelegate.productsFroAddInvoices objectAtIndex:indexPath.row];
+        BIProduct* product = [_productsAdded objectAtIndex:indexPath.row];
         self.txtProductName.text = product.productName;
-        self.txtNumberOfUnit.text = [NSString stringWithFormat:@"%.1f", product.numberOfUnit];
+        self.txtNumberOfUnit.text = [NSString stringWithFormat:@"%d", product.quantityValue];
         
         [self.viewPopUpAddNumberUnit setHidden:NO];
-        self.viewPopUpAddUnitMain.frame=CGRectMake(10, -110, 300, 107);
+        self.viewPopUpAddUnitMain.frame=CGRectMake(10, -110, 300, 130);
         [UIView beginAnimations:@"" context:nil];
         [UIView setAnimationDuration:0.5];
-        self.viewPopUpAddUnitMain.frame=CGRectMake(10, 110, 300, 107);
+        self.viewPopUpAddUnitMain.frame=CGRectMake(10, 110, 300, 130);
         [UIView commitAnimations];
     }
   
@@ -1475,7 +1476,7 @@ BIAppDelegate* appdelegate;
         NSString* amt = [[formatter stringFromNumber:[NSNumber numberWithFloat:[textField.text floatValue]]] substringFromIndex:1];
         
         NSLog(@"Currency symbol: %@", appdelegate.bussinessForUser.currencySymbol);
-        NSString* amountAfterFormat = [[NSString stringWithFormat:@"%@ ", appdelegate.bussinessForUser.currencySymbol] stringByAppendingString:amt];
+        NSString* amountAfterFormat = [[NSString stringWithFormat:@"%@ ", @"£"] stringByAppendingString:amt];
         
         if (textField.text.length) {
             self.txtPaymentType.text = amountAfterFormat;
@@ -1527,22 +1528,22 @@ BIAppDelegate* appdelegate;
 
     NSLog(@"Date: %@", dateStr);
     
-    NSString* templateInvoice = [NSString stringWithFormat:@"<!DOCTYPE html PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd\"><html><head><meta http-equiv='Content-Type'content='charset=utf-8' /><style type='text/css'>* {font-family: 'DejaVu Sans'; font-size: 16px; } table{ width: 810px; } table,th,td{ border: none; } table.tbheader td{ width: 400px; } table.tbheader span{ font-size: 20px; } table.tbcontent th{  text-align: left;  background-color:#000000 ; color:#FFFFFF;  margin-right: 0;  } table.tbfooter td{ width: 400px; } </style> <title></title> </head> <body> <div class='content'> <div class='header'> <table class='tbheader'> <tr> <td > <span style='font-family: Avqest;font-weight: bold;font-size: 54px; margin-top: 40px;font-style: italic;'>%@</span></td> <td> <span style='font-family: Avqest;font-weight: bold;'>%@</span><br/> <span>%@</span><br/> <span>%@</span><br/> <span>%@</span> </td> </tr> <tr > <td style='padding-top: 40px'> <span style='display:block;width:350px;border-bottom: 1px solid darkgrey;'></span></td> <td style='padding-top: 40px'><span style='display:block;width:250px;border-bottom: 1px solid darkgrey;'></span></td> </tr> <tr> <td><span>%@</span><br/><span>%@</span><br/><span>%@</span><br/><span>%@</span>  <br/><br/><span>VAT: %@</span> </td> <td><span style='font-size: 30px;font-family: Avqest;font-weight: bold;'>INVOICE %@</span><br/> <span style='font-size: 20px;font-family: Avqest;font-weight: bold;'>%@</span><br/> <span style='font-weight: bold;color: darkgrey'>Payment Terms: %@</span>  <br/>  <span style='font-weight: bold;color: darkgrey'></span>  <br/>  <span style='font-weight: bold;color: darkgrey'></span>  <br/>  <span style='font-weight: bold;color: darkgrey'></span>  <br/>  <span style='font-weight: bold;color: darkgrey'></span> </td>   </tr>    </table>    </div>    <div class='content'>    <table class='tbcontent'>    <thead>    <tr style='background-color:#000000'>    <th>    Quantity    </th>    <th>    Details    </th>   <th>    Descriptions    </th>  <th>    Unit Price (%@)    </th>    <th>    Tax (%%)    </th>  </tr>    </thead>    <tbody>",  self.txtBussiness.text, self.txtBussiness.text,self.bussinessSelected.bussinessAddress,appdelegate.bussinessForUser.bussinessCity, appdelegate.bussinessForUser.bussinessPostCode, appdelegate.currentCustomerForAddInvoice.customerBussinessName, appdelegate.currentCustomerForAddInvoice.customerAddress, appdelegate.currentCustomerForAddInvoice.customerCity, appdelegate.currentCustomerForAddInvoice.customerPostCode,appdelegate.bussinessForUser.bussinessVat, self.txtInvoiceNumber.text, dateStr, self.txtPaymentTerm.text, self.bussinessSelected.currencySymbol];
+    NSString* templateInvoice = [NSString stringWithFormat:@"<!DOCTYPE html PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd\"><html><head><meta http-equiv='Content-Type'content='charset=utf-8' /><style type='text/css'>* {font-family: 'DejaVu Sans'; font-size: 16px; } table{ width: 810px; } table,th,td{ border: none; } table.tbheader td{ width: 400px; } table.tbheader span{ font-size: 20px; } table.tbcontent th{  text-align: left;  background-color:#000000 ; color:#FFFFFF;  margin-right: 0;  } table.tbfooter td{ width: 400px; } </style> <title></title> </head> <body> <div class='content'> <div class='header'> <table class='tbheader'> <tr> <td > <span style='font-family: Avqest;font-weight: bold;font-size: 54px; margin-top: 40px;font-style: italic;'>%@</span></td> <td> <span style='font-family: Avqest;font-weight: bold;'>%@</span><br/> <span>%@</span><br/> <span>%@</span><br/> <span>%@</span> </td> </tr> <tr > <td style='padding-top: 40px'> <span style='display:block;width:350px;border-bottom: 1px solid darkgrey;'></span></td> <td style='padding-top: 40px'><span style='display:block;width:250px;border-bottom: 1px solid darkgrey;'></span></td> </tr> <tr> <td><span>%@</span><br/><span>%@</span><br/><span>%@</span><br/><span>%@</span>  <br/><br/><span>VAT: %@</span> </td> <td><span style='font-size: 30px;font-family: Avqest;font-weight: bold;'>INVOICE %@</span><br/> <span style='font-size: 20px;font-family: Avqest;font-weight: bold;'>%@</span><br/> <span style='font-weight: bold;color: darkgrey'>Payment Terms: %@</span>  <br/>  <span style='font-weight: bold;color: darkgrey'></span>  <br/>  <span style='font-weight: bold;color: darkgrey'></span>  <br/>  <span style='font-weight: bold;color: darkgrey'></span>  <br/>  <span style='font-weight: bold;color: darkgrey'></span> </td>   </tr>    </table>    </div>    <div class='content'>    <table class='tbcontent'>    <thead>    <tr style='background-color:#000000'>    <th>    Quantity    </th>    <th>    Details    </th>   <th>    Descriptions    </th>  <th>    Unit Price (%@)    </th>    <th>    Tax (%%)    </th>  </tr>    </thead>    <tbody>",  _invoiceTemplateSelected.business.bussinessName, _invoiceTemplateSelected.business.bussinessName, _invoiceTemplateSelected.business.bussinessAddress, _invoiceTemplateSelected.business.bussinessCity, _invoiceTemplateSelected.business.bussinessPostCode, _customerSelected.customerBussinessName, _customerSelected.customerAddress, _customerSelected.customerCity, _customerSelected.customerPostCode, _invoiceTemplateSelected.business.bussinessVat, self.txtInvoiceNumber.text, dateStr, self.txtPaymentTerm.text, @"£"];
     
     NSLog(@"Temp: %@", templateInvoice);
     
     NSString* tbody = [[NSString alloc] init];
     NSLog(@"Product: %lu", (unsigned long)appdelegate.productsFroAddInvoices.count);
     
-    for (int  i = 0; i < appdelegate.productsFroAddInvoices.count; i++)
+    for (int  i = 0; i < _productsAdded.count; i++)
     {
-        float quantity = [[appdelegate.productsFroAddInvoices objectAtIndex:i] numberOfUnit];
-        NSString* productName = [[appdelegate.productsFroAddInvoices objectAtIndex:i] productName];
-        NSString* price = [[appdelegate.productsFroAddInvoices objectAtIndex:i] productUnitPrice];
-        NSString* subTotal = [NSString stringWithFormat:@"%.2f", [price floatValue] * quantity];
-        NSString* tax = [[appdelegate.productsFroAddInvoices objectAtIndex:i] productTaxRate];
+        int quantityValue = [[_productsAdded objectAtIndex:i] quantityValue];
+        NSString* productName = [[_productsAdded objectAtIndex:i] productName];
+        NSString* price = [[_productsAdded objectAtIndex:i] productUnitPrice];
+        NSString* subTotal = [NSString stringWithFormat:@"%.2f", [price floatValue] * quantityValue];
+        NSString* tax = [[_productsAdded objectAtIndex:i] productTaxRate];
         
-        NSString* stringForRow = [NSString stringWithFormat:@" <tr>    <td>    <span>%.1f</span>    </td>    <td>%@</td> <td>%@</td>       <td>%@</td>        <td>%@</td>       </tr>", quantity, productName,self.txtNoteDesc.text, price, tax];
+        NSString* stringForRow = [NSString stringWithFormat:@" <tr>    <td>    <span>%d</span>    </td>    <td>%@</td> <td>%@</td>       <td>%@</td>        <td>%@</td>       </tr>", quantityValue, productName,self.txtNoteDesc.text, price, tax];
         
         NSLog(@"String For ROw: %@", stringForRow);
         tbody = [tbody stringByAppendingString:stringForRow];
@@ -1554,7 +1555,7 @@ BIAppDelegate* appdelegate;
     
     tbody = [tbody stringByAppendingString:rowTotal];
     
-    NSString* paymentDetails = [NSString stringWithFormat:@"   </tbody>        </table>        <table class='tbfooter'>        <tr>        <td><span style='font-size: 20px;font-family: Avqest;font-weight: bold;'>Bank Details:</span><br/><br/></td>        </tr>      <tr>                                <td><span></span><br>                                <span style='font-size: 20px;font-family: Avqest;font-weight: bold;'>Bank/Sort Code: </span>%@<br>                                <span style='font-size: 20px;font-family: Avqest;font-weight: bold;'>Account Number: </span>%@<br>                                <span style='font-size: 20px;font-family: Avqest;font-weight: bold;'>Bank Name: </span>%@<br>                                </td>                                <td><span style='font-size: 20px;font-family: Avqest;font-weight: bold;'></td>                                  </tr>        </table>        </div>        <div class='footer'>       </div>       </div>        </body>        </html>", appdelegate.bussinessForUser.bankSortCode, appdelegate.bussinessForUser.bankAccountNumber, appdelegate.bussinessForUser.bankName];
+    NSString* paymentDetails = [NSString stringWithFormat:@"   </tbody>        </table>        <table class='tbfooter'>        <tr>        <td><span style='font-size: 20px;font-family: Avqest;font-weight: bold;'>Bank Details:</span><br/><br/></td>        </tr>      <tr>                                <td><span></span><br>                                <span style='font-size: 20px;font-family: Avqest;font-weight: bold;'>Bank/Sort Code: </span>%@<br>                                <span style='font-size: 20px;font-family: Avqest;font-weight: bold;'>Account Number: </span>%@<br>                                <span style='font-size: 20px;font-family: Avqest;font-weight: bold;'>Bank Name: </span>%@<br>                                </td>                                <td><span style='font-size: 20px;font-family: Avqest;font-weight: bold;'></td>                                  </tr>        </table>        </div>        <div class='footer'>       </div>       </div>        </body>        </html>", _invoiceTemplateSelected.sort_code, _invoiceTemplateSelected.account_number, _invoiceTemplateSelected.bank_name];
      
     
     tbody = [tbody stringByAppendingString:paymentDetails];
@@ -1760,6 +1761,15 @@ BIAppDelegate* appdelegate;
     [self calculateAmout];
     [_tableView setHidden:NO];
     [_tableView reloadData];
+}
+
+
+#pragma mark - CustomerViewController Delegate
+
+- (void)didSelectedCustomer:(BICustomer *)customer
+{
+    _customerSelected = customer;
+    [self.btnAddCustom setTitle:_customerSelected.customerBussinessName forState:UIControlStateNormal];
 }
 
 //#pragma mark UIGestureRecognizerDelegate methods

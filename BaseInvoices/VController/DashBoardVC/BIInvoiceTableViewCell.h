@@ -13,4 +13,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *lblInvoiceNumber;
 @property (weak, nonatomic) IBOutlet UILabel *lblInvoiceTotal;
 @property (weak, nonatomic) IBOutlet UILabel *lblCustomerName;
+@property (weak, nonatomic) IBOutlet UIButton *btnPaid;
+@property (weak, nonatomic) IBOutlet UIImageView *imgPaid;
 @end

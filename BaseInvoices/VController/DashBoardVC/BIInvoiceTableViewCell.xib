@@ -44,10 +44,18 @@
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="bg_uncheck_radiobutton.png" translatesAutoresizingMaskIntoConstraints="NO" id="0YE-aw-2pM">
+                        <rect key="frame" x="284" y="12" width="28" height="28"/>
+                    </imageView>
+                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fx5-mS-SiI">
+                        <rect key="frame" x="284" y="12" width="28" height="30"/>
+                    </button>
                 </subviews>
             </tableViewCellContentView>
             <color key="backgroundColor" red="0.47843140360000003" green="0.76470595600000002" blue="0.13725490870000001" alpha="0.12" colorSpace="deviceRGB"/>
             <connections>
+                <outlet property="btnPaid" destination="Fx5-mS-SiI" id="N9n-G4-IeD"/>
+                <outlet property="imgPaid" destination="0YE-aw-2pM" id="Ab1-C7-d2q"/>
                 <outlet property="lblCustomerName" destination="sB2-YK-Bad" id="QeC-EG-iI2"/>
                 <outlet property="lblInvoiceNumber" destination="GDM-3S-Ku3" id="8DE-7r-4EQ"/>
                 <outlet property="lblInvoiceTotal" destination="c4u-UC-ptT" id="yG4-tV-GGC"/>
@@ -55,4 +63,7 @@
             <point key="canvasLocation" x="325" y="371.5"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="bg_uncheck_radiobutton.png" width="40" height="40"/>
+    </resources>
 </document>

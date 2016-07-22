@@ -12,6 +12,7 @@
 #import "SBJson.h"
 #import "BIDashBoard.h"
 #import "UIViewController+MMDrawerController.h"
+#import "UIImageView+WebCache.h"
 
 @interface AddInvoiceTemplateViewController ()
 
@@ -25,13 +26,100 @@
     
     if (_invoiceBeEdited != nil)
     {
-        
+        [self fetchData];
     }
     else
     {
         [self getBusiness];
     }
     [self.scrollView setContentSize:CGSizeMake([UIScreen mainScreen].bounds.size.width, 1100)];
+}
+
+- (void)fetchData
+{
+    _businessSelected = _invoiceBeEdited.business;
+    _txtBusinessName.text = _businessSelected.bussinessName;
+    if (_businessSelected.bussinessAddress1 == nil)
+    {
+        _txtAddressLine1.text = @"";
+    }
+    else
+        _txtAddressLine1.text = [NSString stringWithFormat:@"%@", _businessSelected.bussinessAddress1];
+    
+    if (_businessSelected.bussinessAddress2 == nil) {
+        _txtAddressLine2.text = @"";
+    }
+    else
+        _txtAddressLine2.text = [NSString stringWithFormat:@"%@", _businessSelected.bussinessAddress2];
+
+    if (_businessSelected.bussinessCity == nil) {
+        _txtCity.text = @"";
+    }
+    else
+        _txtCity.text = [NSString stringWithFormat:@"%@", _businessSelected.bussinessCity];
+    
+    if (_businessSelected.bussinessPostCode == nil) {
+        _txtPostcode.text = @"";
+    }
+    else
+        _txtPostcode.text = [NSString stringWithFormat:@"%@", _businessSelected.bussinessPostCode];
+    
+    if (_businessSelected.country == nil) {
+        _txtCountry.text = @"";
+    }
+    else
+        _txtCountry.text = [NSString stringWithFormat:@"%@", _businessSelected.country.countryName];
+    
+    if (_invoiceBeEdited.invoiceTemplateName == nil) {
+        _txtContactName.text = @"";
+    }
+    else
+        _txtContactName.text = [NSString stringWithFormat:@"%@", _invoiceBeEdited.invoiceTemplateName];
+    
+    if (_invoiceBeEdited.vat == nil) {
+        _txtVat.text = @"";
+    }
+    else
+        _txtVat.text = [NSString stringWithFormat:@"%@", _invoiceBeEdited.vat];
+    
+    if (_invoiceBeEdited.email == nil) {
+        _txtEmail.text = @"";
+    }
+    else
+        _txtEmail.text = [NSString stringWithFormat:@"%@", _invoiceBeEdited.email];
+
+    
+    if (_invoiceBeEdited.telephone == nil) {
+        _txtTelephone.text = @"";
+    }
+    else
+        _txtTelephone.text = [NSString stringWithFormat:@"%@", _invoiceBeEdited.telephone];
+
+    if (_invoiceBeEdited.bank_name == nil) {
+        _txtBankName.text = @"";
+    }
+    else
+        _txtBankName.text = [NSString stringWithFormat:@"%@", _invoiceBeEdited.bank_name];
+    
+    if (_invoiceBeEdited.sort_code == nil) {
+        _txtSortCode.text = @"";
+    }
+    else
+        _txtSortCode.text = [NSString stringWithFormat:@"%@", _invoiceBeEdited.sort_code];
+    
+    if (_invoiceBeEdited.account_number == nil) {
+        _txtAccountNo.text = @"";
+    }
+    else
+        _txtAccountNo.text = [NSString stringWithFormat:@"%@", _invoiceBeEdited.account_number];
+    
+    if (_invoiceBeEdited.image_url != nil)
+    {
+        [_imageView sd_setImageWithURL:[NSURL URLWithString:_invoiceBeEdited.image_url] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+            [_imageView setImage:image];
+            _imageSelected = image;
+        }];
+    }
 }
 
 - (void)getBusiness
@@ -122,6 +210,7 @@
                 if ([BIAppDelegate shareAppdelegate].businessForUser.count > 0) {
                     //Select First Object
                     BIBussiness* businessObject = [[BIAppDelegate shareAppdelegate].businessForUser objectAtIndex:0];
+                    _businessSelected = businessObject;
                     [self fetchDataWithBusiness:businessObject];
                     
                 }
@@ -216,7 +305,7 @@
         NSString* method = @"POST";
         if (_invoiceBeEdited != nil)
         {
-            actionName = [NSString stringWithFormat:@"invoice-template/%ld",(long)_invoiceBeEdited.invoiceTemplateID];
+            actionName = [NSString stringWithFormat:@"invoice-template/%@",_invoiceBeEdited.invoiceTemplateID];
             method = @"PUT";
         }
         
@@ -230,7 +319,6 @@
             {
                 NSString *responeString = [[NSString alloc] initWithData:data
                                                                 encoding:NSUTF8StringEncoding];
-                
                 NSLog(@"RESPIONSE: %@", responeString);
                 NSDictionary* data = [[NSDictionary alloc] init];
                 SBJsonParser *json = [SBJsonParser new];
@@ -238,11 +326,11 @@
                 
                 if ([data valueForKey:@"data"] != nil)
                 {
-                    NSInteger productID = [[[data valueForKey:@"data"] valueForKey:@"id"] integerValue];
+                    NSString* invoiceTemplateID = [[data valueForKey:@"data"] valueForKey:@"id"];
                     
                     NSData *imageData = UIImagePNGRepresentation(_imageSelected);
                     
-                    [[ServiceRequest getShareInstance] uploadImageWithData:imageData actionName:[NSString stringWithFormat:@"images?id=%ld&type=product", (long)productID] accessToken:[BIAppDelegate shareAppdelegate].currentUser.token result:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+                    [[ServiceRequest getShareInstance] uploadImageWithData:imageData actionName:[NSString stringWithFormat:@"/file/invoice_template/%@/upload", invoiceTemplateID] accessToken:[BIAppDelegate shareAppdelegate].currentUser.token result:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
                         
                         [[BIAppDelegate shareAppdelegate].activityIndicatorView setHidden:YES];
                         
@@ -401,6 +489,7 @@
 
 - (void)CountrySelected:(CountryRepository *)countrySelected
 {
+    _countrySelected = countrySelected;
     _txtCountry.text = countrySelected.countryName;
 }
 

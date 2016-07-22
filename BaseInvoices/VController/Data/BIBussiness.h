@@ -40,4 +40,6 @@
 @property (nonatomic, strong) BICurrency* currency;
 @property (nonatomic, strong) CountryRepository* country;
 
+- (id)initWithDict:(NSDictionary*)dict;
+
 @end

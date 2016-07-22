@@ -44,12 +44,6 @@ BIAppDelegate* appdelegate;
     
     _tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSMutableArray* productsForUser = [[NSMutableArray alloc] init];
-    productsForUser = [defaults rm_customObjectForKey:@"productsForUser"];
-
-    NSLog(@"ProductForuser: %@", productsForUser);
-    
     [[ServiceRequest getShareInstance] serviceRequestActionName:@"/product" accessToken:appdelegate.currentUser.token method:@"GET" result:^(NSURLResponse *response, NSData *dataResponse, NSError *connectionError) {
         NSHTTPURLResponse* httpResponse = (NSHTTPURLResponse*)response;
         NSInteger statusCode = [httpResponse statusCode];
@@ -88,6 +82,7 @@ BIAppDelegate* appdelegate;
                     [productObject setProductID:productID];
                     [productObject setCreated:created];
                     [productObject setModified:modified];
+                    [productObject setQuantityValue:1];
                     
                     [appdelegate.productsForUser addObject:productObject];
                 }
@@ -149,6 +144,8 @@ BIAppDelegate* appdelegate;
         cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
     }
     
+    [cell.textLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:15.0f]];
+    
     BIProduct* product = [appdelegate.productsForUser objectAtIndex:indexPath.row];
     cell.textLabel.text = product.productName;
     
@@ -164,9 +161,8 @@ BIAppDelegate* appdelegate;
         BIAddProducts *pushToVC = [[BIAddProducts alloc] initWithNibName:@"BIAddProducts" bundle:nil];
         [pushToVC setIsEditProduct:YES];
         [pushToVC setProduct:product];
-        
-        [self presentViewController:pushToVC animated:YES completion:nil];
-//        [self.navigationController pushViewController:pushToVC animated:YES];
+
+        [self.navigationController pushViewController:pushToVC animated:YES];
     }
     else
     {

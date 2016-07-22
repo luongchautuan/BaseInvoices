@@ -95,7 +95,7 @@ BIAppDelegate* appdelegate;
             NSString *responeString = [[NSString alloc] initWithData:data
                                                             encoding:NSUTF8StringEncoding];
             
-            NSLog(@"RESPIONSE: %@", responeString);
+            NSLog(@"RESPIONSE INVOICE: %@", responeString);
             NSDictionary* data = [[NSDictionary alloc] init];
             SBJsonParser *json = [SBJsonParser new];
             data = [json objectWithString:[NSString stringWithFormat:@"%@", responeString]];
@@ -106,25 +106,7 @@ BIAppDelegate* appdelegate;
                 
                 for (NSDictionary* invoiceDict in [data valueForKey:@"data"])
                 {
-                    NSString* invoiceNumber = [invoiceDict valueForKey:@"invoice_no"];
-                    NSString* invoiceID = [invoiceDict valueForKey:@"id"];
-                    
-                    NSDictionary* customerDict = [invoiceDict valueForKey:@"customer"];
-                    NSDictionary* invoiceTemplateDict = [invoiceDict valueForKey:@"invoice_template"];
-                    
-                    NSString* customerName = [customerDict valueForKey:@"company_name"];
-                    NSString* invoiceTotal = [invoiceDict valueForKey:@"total"];
-                    
-                    BIInvoice* invoiceObject = [[BIInvoice alloc] init];
-                    [invoiceObject setTotalInvoices:invoiceTotal];
-                    invoiceObject.customer = [[BICustomer alloc] init];
-                    [invoiceObject.customer setCustomerBussinessName:customerName];
-                    
-                    if (invoiceNumber == nil || [invoiceNumber isEqual:[NSNull null]]) {
-                        invoiceNumber = @"";
-                    }
-                    
-                    [invoiceObject setInvoiceName:invoiceNumber];
+                    BIInvoice* invoiceObject = [[BIInvoice alloc] initWithDict:invoiceDict];
                     
                     [appdelegate.invoicesForUser addObject:invoiceObject];
                 }
@@ -324,6 +306,17 @@ BIAppDelegate* appdelegate;
     customCell.lblCustomerName.text = [NSString stringWithFormat:@"%@", invoice.customer.customerBussinessName];
     customCell.lblInvoiceTotal.text = [NSString stringWithFormat:@"£%@", invoice.totalInvoices];
     
+    if (invoice.isPaided)
+    {
+        [customCell.imgPaid setImage:[UIImage imageNamed:@"bg_checked_radiobutton.png"]];
+    }
+    else
+    {
+        [customCell.imgPaid setImage:[UIImage imageNamed:@"bg_uncheck_radiobutton.png"]];
+         [customCell.btnPaid addTarget:self action:@selector(btnPaidInvoice_Clicked:) forControlEvents:UIControlEventTouchUpInside];
+    }
+
+    
     return customCell;
 }
 
@@ -340,10 +333,18 @@ BIAppDelegate* appdelegate;
     
 }
 
-//Get invoices info from server
--(void)getAllInvoice
+- (IBAction)btnPaidInvoice_Clicked:(id)sender
 {
+    CGPoint buttonPosition = [sender convertPoint:CGPointZero
+                                           toView:_tableView];
+    NSIndexPath *indexPath = [_tableView indexPathForRowAtPoint:buttonPosition];
+
+    BIInvoice* invoice = [appdelegate.invoicesForUser objectAtIndex:indexPath.section];
+    [invoice setIsPaided:YES];
     
+    [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+    [self.tableView beginUpdates];
+    [self.tableView endUpdates];
 }
 
 -(void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex

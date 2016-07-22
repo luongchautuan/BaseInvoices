@@ -92,7 +92,7 @@ static ServiceRequest *sharedInstance = nil;
     [request setURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@", urlHost, actionName]]];
     [request setHTTPMethod:@"POST"];
     [request setValue:postLength forHTTPHeaderField:@"Content-Length"];
-    [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
+    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
     [request setValue:[NSString stringWithFormat:@"%@",accessToken] forHTTPHeaderField:@"Authorization"];
     [request setHTTPBody:postData];
     

@@ -7,12 +7,14 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "BIBussiness.h"
 
 @interface InvoiceTemplateRepository : NSObject
 
 @property (nonatomic, strong) NSString* invoiceTemplateID;
 @property (nonatomic, strong) NSString* invoiceTemplateNumber;
 @property (nonatomic, strong) NSString* businessID;
+@property (nonatomic, strong) NSString* userID;
 @property (nonatomic, strong) NSString* invoiceTemplateName;
 @property (nonatomic, strong) NSString* invoiceTemplateAddress;
 @property (nonatomic, strong) NSString* vat;
@@ -28,7 +30,12 @@
 @property (nonatomic, strong) NSString* image_url;
 @property (nonatomic, strong) NSString* created;
 @property (nonatomic, strong) NSString* modified;
+@property (nonatomic, strong) BIBussiness* business;
 
 - (id)initWithTemplateID:(NSString*)invoiceTemplateID invoiceTemplateNumber:(NSString*)invoiceTemplateNumber businessID:(NSString*)businessID invoiceTemplateName:(NSString*)invoiceTemplateName invoiceTemplateAddress:(NSString*)invoiceTemplateAddress vat:(NSString*)vat telephone:(NSString*)telephone email:(NSString*)email scan:(NSString*)scan bank_name:(NSString*)bank_name sort_code:(NSString*)sort_code account_number:(NSString*)account_number with_vat:(NSString*)with_vat without_vat:(NSString*)without_vat vat_number:(NSString*)vat_number image_url:(NSString*)image_url created:(NSString*)created modified:(NSString*)modified;
+
+- (id)initWithDict:(NSDictionary*)dict;
+
+- (NSDictionary*)getInvoiceTemplate;
 
 @end

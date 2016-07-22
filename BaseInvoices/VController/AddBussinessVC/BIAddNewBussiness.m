@@ -400,22 +400,22 @@ NSString* vatRegistered;
 {
     [self.flatDatePicker dismiss];
     
-    if (textField.tag == 4)
-    {
-        [self.scrollView setContentOffset:CGPointMake(0,100)];
-    }
-    if (textField.tag == 5)
-    {
-        [self.scrollView setContentOffset:CGPointMake(0,180)];
-    }
-    if (textField.tag == 6)
-    {
-        [self.scrollView setContentOffset:CGPointMake(0,200)];
-    }
-    if (textField.tag == 3)
-    {
-        [self.scrollView setContentOffset:CGPointMake(0,50)];
-    }
+//    if (textField.tag == 4)
+//    {
+//        [self.scrollView setContentOffset:CGPointMake(0,100)];
+//    }
+//    if (textField.tag == 5)
+//    {
+//        [self.scrollView setContentOffset:CGPointMake(0,180)];
+//    }
+//    if (textField.tag == 6)
+//    {
+//        [self.scrollView setContentOffset:CGPointMake(0,200)];
+//    }
+//    if (textField.tag == 3)
+//    {
+//        [self.scrollView setContentOffset:CGPointMake(0,50)];
+//    }
     
 }
 
@@ -430,10 +430,10 @@ NSString* vatRegistered;
         return [string isEqualToString:filtered];
     }
     
-    if (textField.tag == 0) {
-        NSUInteger newLength = [textField.text length] + [string length] - range.length;
-        return (newLength > 4) ? NO : YES;
-    }
+//    if (textField.tag == 0) {
+//        NSUInteger newLength = [textField.text length] + [string length] - range.length;
+//        return (newLength > 4) ? NO : YES;
+//    }
     return YES;
 }
 
