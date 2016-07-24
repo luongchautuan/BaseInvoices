@@ -17,5 +17,6 @@
 
 - (id)initWithCountryName:(NSString*)name countryCode:(NSString*)code dialCode:(NSString*)dialCode;
 - (id)initWithDict:(NSDictionary*)dict;
+- (NSDictionary*)getData;
 
 @end

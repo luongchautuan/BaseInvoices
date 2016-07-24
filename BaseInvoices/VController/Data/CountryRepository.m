@@ -37,4 +37,14 @@
     return self;
 }
 
+- (NSDictionary*)getData
+{
+    NSMutableDictionary* dict = [[NSMutableDictionary alloc] init];
+    [dict setObject:_countryCode forKey:@"code"];
+    [dict setObject:_countryName forKey:@"name"];
+    [dict setObject:_dialCode forKey:@"id"];
+    
+    return dict;
+}
+
 @end

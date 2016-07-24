@@ -20,11 +20,17 @@
         _countryID = [dict valueForKey:@"country_id"];
         _customerBussinessName = [dict valueForKey:@"company_name"];
         _customerAddress = [dict valueForKey:@"address"];
+        _customerAddress1 = [dict valueForKey:@"address_line1"];
+        _customerAddress2 = [dict valueForKey:@"address_line2"];
+        _userID = [dict valueForKey:@"user_id"];
+        
         _customerCity = [dict valueForKey:@"city"];
         _customerPostCode = [dict valueForKey:@"postcode"];
         _customerTelephone = [dict valueForKey:@"telephone"];
         _customerEmail = [dict valueForKey:@"email"];
-        _customerKeyContact = [dict valueForKey:@"contact"];       
+        _customerKeyContact = [dict valueForKey:@"contact"];
+        
+        _country = [[CountryRepository alloc] initWithDict:[dict valueForKey:@"country"]];
         
     }
     

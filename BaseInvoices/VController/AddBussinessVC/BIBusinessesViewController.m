@@ -63,64 +63,7 @@ BIAppDelegate* appdelegate;
                 
                 for (NSDictionary* businessDict in [dataDict valueForKey:@"data"])
                 {
-                    NSString* currency_id = [businessDict valueForKey:@"currency_id"];
-                    NSDictionary* currencyDict =[businessDict valueForKey:@"currency"];
-                    NSString* currencyCode = [currencyDict valueForKey:@"iso"];
-                    NSString* currencyName = [currencyDict valueForKey:@"name"];
-                    NSString* currencySymbol = [currencyDict valueForKey:@"sign"];
-                    
-                    NSString* country_id = [businessDict valueForKey:@"country_id"];
-                    NSDictionary* countryDict = [businessDict valueForKey:@"country"];
-                    NSString* countryName = [countryDict valueForKey:@"name"];
-                    NSString* countryCode = [countryDict valueForKey:@"code"];
-                    
-                    NSString* name = [businessDict valueForKey:@"name"];
-                    NSString* description = [businessDict valueForKey:@"description"];
-                    NSString* address = [businessDict valueForKey:@"address"];
-                    NSString* address_line1 = [businessDict valueForKey:@"address_line1"];
-                    NSString* address_line2 = [businessDict valueForKey:@"address_line2"];
-                    NSString* city = [businessDict valueForKey:@"city"];
-                    NSString* businessID = [businessDict valueForKey:@"id"];
-                    NSString* postCode = [businessDict valueForKey:@"postcode"];
-                    NSString* date_started = [businessDict valueForKey:@"date_started"];
-                    NSString* cis_registered = [businessDict valueForKey:@"cis_registered"];
-                    NSString* vat_registered = [businessDict valueForKey:@"vat_registered"];
-                    NSString* vat_number = [businessDict valueForKey:@"vat_number"];
-                    NSString* bank_account_name = [businessDict valueForKey:@"bank_account_name"];
-                    NSString* bank_name = [businessDict valueForKey:@"bank_name"];
-                    NSString* sort_code = [businessDict valueForKey:@"sort_code"];
-                    NSString* bank_account_number = [businessDict valueForKey:@"bank_account_number"];
-                    NSString* created = [businessDict valueForKey:@"created"];
-                    NSString* modified = [businessDict valueForKey:@"modified"];
-                    
-                    BIBussiness* businessObject = [[BIBussiness alloc] init];
-                    [businessObject setBankName:bank_name];
-                    [businessObject setBusinessID:businessID];
-                    [businessObject setBussinessVat:vat_number];
-                    [businessObject setBussinessCity:city];
-                    [businessObject setBussinessAddress:address];
-                    [businessObject setBussinessPostCode:postCode];
-                    [businessObject setBankSortCode:sort_code];
-                    
-                    businessObject.currency = [[BICurrency alloc] init];
-                    [businessObject.currency setCurrencyID:currency_id];
-                    [businessObject.currency setCurrencyCode:currencyCode];
-                    [businessObject.currency setCurrencyName:currencyName];
-                    [businessObject.currency setCurrencySymbol:currencySymbol];
-                    
-                    businessObject.country = [[CountryRepository alloc] init];
-                    [businessObject.country setDialCode:country_id];
-                    [businessObject.country setCountryCode:countryCode];
-                    [businessObject.country setCountryName:countryName];
-                    
-                    [businessObject setBussinessAddress1:address_line1];
-                    [businessObject setBussinessAddress2:address_line2];
-                    [businessObject setBussinessDescription:description];
-                    [businessObject setBankAccountNumber:bank_account_number];
-                    [businessObject setBussinessName:name];
-                    [businessObject setDateStarted:date_started];
-                    [businessObject setIsCISRegistered:[cis_registered boolValue]];
-                    [businessObject setIsVatRegistered:[vat_registered boolValue]];
+                    BIBussiness* businessObject = [[BIBussiness alloc] initWithDict:businessDict];
                     
                     [appdelegate.businessForUser addObject:businessObject];
                     

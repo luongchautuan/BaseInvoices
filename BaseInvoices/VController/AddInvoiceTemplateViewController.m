@@ -69,7 +69,10 @@
         _txtCountry.text = @"";
     }
     else
+    {
+        _countrySelected = _businessSelected.country;
         _txtCountry.text = [NSString stringWithFormat:@"%@", _businessSelected.country.countryName];
+    }
     
     if (_invoiceBeEdited.invoiceTemplateName == nil|| [_invoiceBeEdited.invoiceTemplateName isEqual:[NSNull null]]) {
         _txtContactName.text = @"";
@@ -117,8 +120,16 @@
     if (_invoiceBeEdited.image_url != nil)
     {
         [_imageView sd_setImageWithURL:[NSURL URLWithString:_invoiceBeEdited.image_url] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-            [_imageView setImage:image];
-            _imageSelected = image;
+            if (image == nil || [image isEqual:[NSNull null]])
+            {
+                [_imageView setImage:[UIImage imageNamed:@"icon-attachment.png"]];
+            }
+            else
+            {
+                [_imageView setImage:image];
+                _imageSelected = image;
+            }
+
         }];
     }
 }
@@ -145,73 +156,17 @@
                 
                 for (NSDictionary* businessDict in [dataDict valueForKey:@"data"])
                 {
-                    NSString* currency_id = [businessDict valueForKey:@"currency_id"];
-                    NSDictionary* currencyDict =[businessDict valueForKey:@"currency"];
-                    NSString* currencyCode = [currencyDict valueForKey:@"iso"];
-                    NSString* currencyName = [currencyDict valueForKey:@"name"];
-                    NSString* currencySymbol = [currencyDict valueForKey:@"sign"];
-                    
-                    NSString* country_id = [businessDict valueForKey:@"country_id"];
-                    NSDictionary* countryDict = [businessDict valueForKey:@"country"];
-                    NSString* countryName = [countryDict valueForKey:@"name"];
-                    NSString* countryCode = [countryDict valueForKey:@"code"];
-                    
-                    NSString* name = [businessDict valueForKey:@"name"];
-                    NSString* description = [businessDict valueForKey:@"description"];
-                    NSString* address = [businessDict valueForKey:@"address"];
-                    NSString* address_line1 = [businessDict valueForKey:@"address_line1"];
-                    NSString* address_line2 = [businessDict valueForKey:@"address_line2"];
-                    NSString* city = [businessDict valueForKey:@"city"];
-                    NSString* businessID = [businessDict valueForKey:@"id"];
-                    NSString* postCode = [businessDict valueForKey:@"postcode"];
-                    NSString* date_started = [businessDict valueForKey:@"date_started"];
-                    NSString* cis_registered = [businessDict valueForKey:@"cis_registered"];
-                    NSString* vat_registered = [businessDict valueForKey:@"vat_registered"];
-                    NSString* vat_number = [businessDict valueForKey:@"vat_number"];
-                    NSString* bank_account_name = [businessDict valueForKey:@"bank_account_name"];
-                    NSString* bank_name = [businessDict valueForKey:@"bank_name"];
-                    NSString* sort_code = [businessDict valueForKey:@"sort_code"];
-                    NSString* bank_account_number = [businessDict valueForKey:@"bank_account_number"];
-                    NSString* created = [businessDict valueForKey:@"created"];
-                    NSString* modified = [businessDict valueForKey:@"modified"];
-                    
-                    BIBussiness* businessObject = [[BIBussiness alloc] init];
-                    [businessObject setBankName:bank_name];
-                    [businessObject setBusinessID:businessID];
-                    [businessObject setBussinessVat:vat_number];
-                    [businessObject setBussinessCity:city];
-                    [businessObject setBussinessAddress:address];
-                    [businessObject setBussinessPostCode:postCode];
-                    [businessObject setBankSortCode:sort_code];
-                    
-                    businessObject.currency = [[BICurrency alloc] init];
-                    [businessObject.currency setCurrencyID:currency_id];
-                    [businessObject.currency setCurrencyCode:currencyCode];
-                    [businessObject.currency setCurrencyName:currencyName];
-                    [businessObject.currency setCurrencySymbol:currencySymbol];
-                    
-                    businessObject.country = [[CountryRepository alloc] init];
-                    [businessObject.country setDialCode:country_id];
-                    [businessObject.country setCountryCode:countryCode];
-                    [businessObject.country setCountryName:countryName];
-                    
-                    [businessObject setBussinessAddress1:address_line1];
-                    [businessObject setBussinessAddress2:address_line2];
-                    [businessObject setBussinessDescription:description];
-                    [businessObject setBankAccountNumber:bank_account_number];
-                    [businessObject setBussinessName:name];
-                    [businessObject setDateStarted:date_started];
-                    [businessObject setIsCISRegistered:[cis_registered boolValue]];
-                    [businessObject setIsVatRegistered:[vat_registered boolValue]];
-                    
+                    BIBussiness* businessObject = [[BIBussiness alloc] initWithDict:businessDict];
                     [[BIAppDelegate shareAppdelegate].businessForUser addObject:businessObject];
                     
                 }
                 
-                if ([BIAppDelegate shareAppdelegate].businessForUser.count > 0) {
+                if ([BIAppDelegate shareAppdelegate].businessForUser.count > 0)
+                {
                     //Select First Object
                     BIBussiness* businessObject = [[BIAppDelegate shareAppdelegate].businessForUser objectAtIndex:0];
                     _businessSelected = businessObject;
+                
                     [self fetchDataWithBusiness:businessObject];
                     
                 }
@@ -231,7 +186,7 @@
     }
     if (business.bussinessAddress1 != nil && ![business.bussinessAddress1 isEqual:[NSNull null]])
     {
-        _txtAddressLine1.text = business.bussinessCity;
+        _txtAddressLine1.text = business.bussinessAddress1;
     }
     
     if (business.bussinessCity != nil && ![business.bussinessCity isEqual:[NSNull null]])
@@ -298,19 +253,34 @@
     }
     else
     {
-        NSString* strData = [NSString stringWithFormat:@"{\"business\":{\"id\":%d,\"user_id\":%d,\"currency_id\":%d,\"country_id\":%d,\"name\":%@,\"description\":%@,\"address\":%@,\"address_line1\":%@,\"address_line2\":%@,\"city\":%@,\"postcode\":"",\"date_started\":%@,\"cis_registered\":%@,\"vat_registered\":%@,\"vat_number\":%@,\"bank_account_name\":%@,\"bank_name\":%@,\"sort_code\":%@,\"bank_account_number\":%@,\"created\":%@,\"modified\":%@,\"currency\":{\"id\":%@,\"iso\":%d,\"name\":%@,\"description\":%@,\"sign\":%@},\"country\":{\"id\":%d,\"code\":%@,\"name\":%@}},\"business_id\":%d,\"name\":%@,\"address\":%@,\"vat\":%@,\"telephone\":%@,\"email\":%@,\"bank_name\":%@,\"sort_code\":%@,\"account_number\":%@,\"country_id\":%d}", [_businessSelected.businessID intValue], [[BIAppDelegate shareAppdelegate].currentUser.userID intValue], 1, [_countrySelected.dialCode intValue], _businessSelected.bussinessName, _businessSelected.bussinessDescription, _businessSelected.bussinessAddress, _txtAddressLine1.text, _txtAddressLine2.text, _txtCity.text, _txtPostcode.text, @"", @"0", [NSNumber numberWithBool:_businessSelected.isVatRegistered], _txtVat.text, _businessSelected.bankAccountName, _txtBankName.text, _txtSortCode.text, _txtAccountNo.text, @"", @"", [_businessSelected.currencyID intValue], _businessSelected.currency.currencyCode,@"", _businessSelected.currency.currencySymbol, [_countrySelected.dialCode intValue], _countrySelected.countryCode, _countrySelected.countryName, [_businessSelected.businessID intValue], _businessSelected.bussinessName, _businessSelected.bussinessAddress, _txtVat.text, _txtTelephone.text, @"", _txtBankName.text, _txtSortCode.text, _txtAccountNo.text, [_countrySelected.dialCode intValue]];
+        InvoiceTemplateRepository* invoiceTemplate = [[InvoiceTemplateRepository alloc] init];
+        invoiceTemplate.business = [[BIBussiness alloc] init];
+        [invoiceTemplate setBusiness:_businessSelected];
+        [invoiceTemplate setBusinessID:_businessSelected.businessID];
+        [invoiceTemplate setInvoiceTemplateName:_txtContactName.text];
+        [invoiceTemplate setVat_number:_txtVat.text];
+        [invoiceTemplate setTelephone:_txtTelephone.text];
+        [invoiceTemplate setEmail:_txtEmail.text];
+        [invoiceTemplate setBank_name:_txtBankName.text];
+        [invoiceTemplate setSort_code:_txtSortCode.text];
+        [invoiceTemplate setAccount_number:_txtAccountNo.text];
+        [invoiceTemplate setCountryID:_countrySelected.dialCode];
         
-        NSLog(@"DATA NEW RETAILER: %@", strData);
+        NSDictionary* data = [invoiceTemplate getInvoiteTemplateData];
+        SBJsonWriter *jsonWriter = [[SBJsonWriter alloc] init];
+        NSString *jsonString = [jsonWriter stringWithObject:data];
         
-        NSString* actionName = [NSString stringWithFormat:@"invoice-template"];
+        NSString* actionName = [NSString stringWithFormat:@"/invoice-template"];
         NSString* method = @"POST";
         if (_invoiceBeEdited != nil)
         {
-            actionName = [NSString stringWithFormat:@"invoice-template/%@",_invoiceBeEdited.invoiceTemplateID];
+            actionName = [NSString stringWithFormat:@"/invoice-template/%@",_invoiceBeEdited.invoiceTemplateID];
             method = @"PUT";
         }
         
-        [[ServiceRequest getShareInstance] serviceRequestActionName:actionName accessToken:[BIAppDelegate shareAppdelegate].currentUser.token method:method result:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+        NSLog(@"JSON POST: %@", jsonString );
+        
+        [[ServiceRequest getShareInstance]  serviceRequestWithDataStr:jsonString actionName:actionName accessToken:[BIAppDelegate shareAppdelegate].currentUser.token result:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
             NSHTTPURLResponse* httpResponse = (NSHTTPURLResponse*)response;
             NSInteger statusCode = [httpResponse statusCode];
             
@@ -359,8 +329,12 @@
                 UIAlertView* message = [[UIAlertView alloc] initWithTitle:@"Error" message:error delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
                 [message show];
             }
-            
+
         }];
+        
+//        [[ServiceRequest getShareInstance] serviceRequestActionName:actionName accessToken:[BIAppDelegate shareAppdelegate].currentUser.token method:method result:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+//            
+//        }];
         
     }
 

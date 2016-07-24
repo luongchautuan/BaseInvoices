@@ -100,4 +100,87 @@
     
 }
 
+- (NSDictionary*)getInvoiteTemplateData
+{
+    NSMutableDictionary* dict = [[NSMutableDictionary alloc] init];
+
+    [dict setObject:_business.getDataForSync forKey:@"business"];
+    [dict setObject:_business.businessID forKey:@"business_id"];
+    [dict setObject:_invoiceTemplateName forKey:@"name"];
+    if (_business.bussinessAddress == nil || [_business.bussinessAddress isEqual:[NSNull null]])
+    {
+        [dict setObject:@"" forKey:@"address"];
+    }
+    else
+    {
+        [dict setObject:_business.bussinessAddress forKey:@"address"];
+    }
+    
+    if (_vat_number == nil || [_vat_number isEqual:[NSNull null]])
+    {
+        [dict setObject:@"" forKey:@"vat"];
+    }
+    else
+    {
+        [dict setObject:_vat_number forKey:@"vat"];
+    }
+    
+    if (_telephone == nil || [_telephone isEqual:[NSNull null]])
+    {
+        [dict setObject:@"" forKey:@"telephone"];
+    }
+    else
+    {
+        [dict setObject:_telephone forKey:@"telephone"];
+    }
+    
+    if (_email == nil || [_email isEqual:[NSNull null]])
+    {
+        [dict setObject:@"" forKey:@"email"];
+    }
+    else
+    {
+        [dict setObject:_email forKey:@"email"];
+    }
+    
+    if (_bank_name == nil || [_bank_name isEqual:[NSNull null]])
+    {
+        [dict setObject:@"" forKey:@"bank_name"];
+    }
+    else
+    {
+        [dict setObject:_bank_name forKey:@"bank_name"];
+    }
+    
+    if (_sort_code == nil || [_sort_code isEqual:[NSNull null]])
+    {
+        [dict setObject:@"" forKey:@"sort_code"];
+    }
+    else
+    {
+        [dict setObject:_sort_code forKey:@"sort_code"];
+    }
+    
+    if (_account_number == nil || [_account_number isEqual:[NSNull null]])
+    {
+        [dict setObject:@"" forKey:@"account_number"];
+    }
+    else
+    {
+        [dict setObject:_account_number forKey:@"account_number"];
+    }
+    
+    if (_countryID == nil || [_countryID isEqual:[NSNull null]])
+    {
+        [dict setObject:@"" forKey:@"country_id"];
+    }
+    else
+    {
+        [dict setObject:_countryID forKey:@"country_id"];
+    }
+
+    return dict;
+
+}
+
 @end

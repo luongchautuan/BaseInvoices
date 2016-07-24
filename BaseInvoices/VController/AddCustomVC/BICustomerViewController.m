@@ -64,30 +64,7 @@ BIAppDelegate* appdelegate;
                 
                 for (NSDictionary* customerDic in [dataDict valueForKey:@"data"])
                 {
-                    NSString* address = [customerDic valueForKey:@"address"];
-                    NSString* addressLine1 = [customerDic valueForKey:@"address_line1"];
-                    NSString* addressLine2 = [customerDic valueForKey:@"address_line2"];
-                    NSString* city = [customerDic valueForKey:@"city"];
-                    NSString* customerName = [customerDic valueForKey:@"company_name"];
-                    NSString* contact = [customerDic valueForKey:@"contact"];
-                    NSString* countryID = [customerDic valueForKey:@"country_id"];
-                    NSString* descriptions = [customerDic valueForKey:@"description"];
-                    NSString* customerID = [customerDic valueForKey:@"id"];
-                    NSString* postCode = [customerDic valueForKey:@"postcode"];
-                    NSString* telephone = [customerDic valueForKey:@"telephone"];
-                    NSString* userID = [customerDic valueForKey:@"user_id"];
-                    NSString* email = [customerDic valueForKey:@"email"];
-                    
-                    BICustomer* customerObject = [[BICustomer alloc] init];
-                    [customerObject setCustomerBussinessName:customerName];
-                    [customerObject setCustomerID:customerID];
-                    [customerObject setCustomerCity:city];
-                    [customerObject setCustomerEmail:email];
-                    [customerObject setCustomerAddress:address];
-                    [customerObject setCustomerPostCode:postCode];
-                    [customerObject setCustomerTelephone:telephone];
-                    [customerObject setCustomerKeyContact:contact];
-                    
+                    BICustomer* customerObject = [[BICustomer alloc] initWithDict:customerDic];
                     [appdelegate.customerForUser addObject:customerObject];
                 }
                 

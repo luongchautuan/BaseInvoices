@@ -28,6 +28,7 @@
 @property (nonatomic)NSString* bankDetails;
 
 @property (nonatomic, strong) NSString* currencyID;
+@property (nonatomic, strong) NSString* countryID;
 
 @property (nonatomic)NSString* bankAccountName;
 @property (nonatomic)NSString* bankName;
@@ -36,10 +37,12 @@
 
 @property (nonatomic, strong) NSString* businessID;
 @property (nonatomic, strong) NSString* dateStarted;
+@property (nonatomic, strong) NSString* userID;
 
 @property (nonatomic, strong) BICurrency* currency;
 @property (nonatomic, strong) CountryRepository* country;
 
 - (id)initWithDict:(NSDictionary*)dict;
+- (NSDictionary*)getDataForSync;
 
 @end

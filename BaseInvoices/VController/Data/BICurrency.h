@@ -17,4 +17,7 @@
 @property (nonatomic, strong) NSString* currencyDesc;
 @property (nonatomic, strong) NSString* currencyName;
 
+- (id)initWithDict:(NSDictionary*)dict;
+- (NSDictionary*)getData;
+
 @end

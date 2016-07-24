@@ -41,13 +41,29 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "BaseInvoices/VController/AddInvoiceTemplateViewController.m"
-            timestampString = "490888042.211265"
+            filePath = "BaseInvoices/VController/Data/InvoiceTemplateRepository.m"
+            timestampString = "491043511.90826"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "292"
-            endingLineNumber = "292"
-            landmarkName = "-btnSaveInvoiceTemplate_Clicked:"
+            startingLineNumber = "107"
+            endingLineNumber = "107"
+            landmarkName = "-getInvoiteTemplateData"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "BaseInvoices/VController/Data/BIBussiness.m"
+            timestampString = "491043515.984292"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "59"
+            endingLineNumber = "59"
+            landmarkName = "-getDataForSync"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
