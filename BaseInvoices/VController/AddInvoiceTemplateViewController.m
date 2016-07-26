@@ -266,6 +266,10 @@
         [invoiceTemplate setAccount_number:_txtAccountNo.text];
         [invoiceTemplate setCountryID:_countrySelected.dialCode];
         
+        if (_imageSelected != nil) {
+            [invoiceTemplate setScan:@"image.png"];
+        }
+        
         NSDictionary* data = [invoiceTemplate getInvoiteTemplateData];
         SBJsonWriter *jsonWriter = [[SBJsonWriter alloc] init];
         NSString *jsonString = [jsonWriter stringWithObject:data];
@@ -280,7 +284,7 @@
         
         NSLog(@"JSON POST: %@", jsonString );
         
-        [[ServiceRequest getShareInstance]  serviceRequestWithDataStr:jsonString actionName:actionName accessToken:[BIAppDelegate shareAppdelegate].currentUser.token result:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+        [[ServiceRequest getShareInstance]  serviceRequestWithDataStr:jsonString actionName:actionName accessToken:[BIAppDelegate shareAppdelegate].currentUser.token method:method result:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
             NSHTTPURLResponse* httpResponse = (NSHTTPURLResponse*)response;
             NSInteger statusCode = [httpResponse statusCode];
             

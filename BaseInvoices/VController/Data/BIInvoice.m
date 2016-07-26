@@ -14,27 +14,48 @@
 {
     NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
     [dict setObject:_invoiceName forKey:@"invoice_no"];
-    [dict setObject:_invoiceTemplate.business.businessID forKey:@"business_id"];
-    [dict setObject:_invoiceName forKey:@"payment_type_id"];
-    [dict setObject:_invoiceTemplate.invoiceTemplateID forKey:@"invoice_template_id"];
-    
+    [dict setObject:_customer.getData forKey:@"customer"];
     [dict setObject:_customer.customerID forKey:@"customer_id"];
-    [dict setObject:[NSNumber numberWithBool:_isAutoCreateIncome] forKey:@"auto_create_income"];
-    [dict setObject:_dateInvoice forKey:@"date"];
-    [dict setObject:_due_selection forKey:@"due_selection"];
-    [dict setObject:_dateInvoice forKey:@"due_on"];
-    [dict setObject:_totalInvoices forKey:@"amount"];
+    [dict setObject:_invoiceTemplate.business.getDataForSync forKey:@"business"];
     
-    if (_invoiceTemplate.vat_number == nil || [_invoiceTemplate.vat_number isEqual:[NSNull null]])
+    [dict setObject:_invoiceTemplate.business.businessID forKey:@"business_id"];
+    NSMutableArray *invoiceDetails = [NSMutableArray new];
+    
+    for (BIProduct* product in _products)
     {
-        [dict setObject:@"" forKey:@"vat"];
+        NSMutableDictionary* productDict = [NSMutableDictionary new];
+        [productDict setObject:_invoiceTemplate.userID forKey:@"user_id"];
+        [productDict setObject:product.productID forKey:@"product_id"];
+        [productDict setObject:product.getData forKey:@"product"];
+        [productDict setObject:[NSString stringWithFormat:@"%d", product.quantityValue] forKey:@"quantity"];
+        [productDict setObject:[NSString stringWithFormat:@"%f", product.quantityValue * [product.productUnitPrice floatValue]] forKey:@"amount"];
+        
+        
+        [invoiceDetails addObject:productDict];
     }
-    else
-        [dict setObject:_invoiceTemplate.vat_number forKey:@"vat"];
     
+    [dict setObject:invoiceDetails forKey:@"invoice_details"];
+    
+    
+    [dict setObject:@"1" forKey:@"payment_type_id"];
+    [dict setObject:_invoiceTemplate.getInvoiteTemplateData forKey:@"invoice_template"];
+    [dict setObject:_invoiceTemplate.invoiceTemplateID forKey:@"invoice_template_id"];
+    [dict setObject:_dateInvoice forKey:@"date"];
+    
+    [dict setObject:_dateInvoice forKey:@"due_on"];
+    [dict setObject:_due_selection forKey:@"due_selection"];
+    [dict setObject:_noteInvoice forKey:@"notes"];
+    [dict setObject:_totalInvoices forKey:@"amount"];
     [dict setObject:_totalInvoices forKey:@"total"];
     [dict setObject:@"0" forKey:@"paid"];
-    [dict setObject:_noteInvoice forKey:@"notes"];
+    [dict setObject:@"Queried" forKey:@"status"];
+    
+    if (_isAutoCreateIncome)
+    {
+        [dict setObject:@"1" forKey:@"auto_create_income"];
+    }
+    else
+        [dict setObject:@"0" forKey:@"auto_create_income"];
     
     return dict;
 }

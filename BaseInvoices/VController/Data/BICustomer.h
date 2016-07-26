@@ -22,10 +22,12 @@
 @property (nonatomic, strong) NSString* customerTelephone;
 @property (nonatomic, strong) NSString* customerKeyContact;
 @property (nonatomic, strong) NSString* customerID;
+@property (nonatomic, strong) NSString* customerDescription;
 
 @property (nonatomic, strong)NSString* countryID;
 @property (nonatomic, strong) CountryRepository* country;
 
 - (id)initWithDict:(NSDictionary*)dict;
+- (NSDictionary*)getData;
 
 @end

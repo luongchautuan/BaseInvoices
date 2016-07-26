@@ -82,7 +82,7 @@ static ServiceRequest *sharedInstance = nil;
     }];
 }
 
-- (void)serviceRequestWithDataStr:(NSString *)data actionName:(NSString *)actionName accessToken:(NSString *)accessToken result:(void (^)(NSURLResponse *, NSData *, NSError *))completion
+- (void)serviceRequestWithDataStr:(NSString *)data actionName:(NSString *)actionName accessToken:(NSString *)accessToken method:(NSString *)method result:(void (^)(NSURLResponse *, NSData *, NSError *))completion
 {
     NSData *postData = [data dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES];
     
@@ -90,7 +90,7 @@ static ServiceRequest *sharedInstance = nil;
     
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
     [request setURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@", urlHost, actionName]]];
-    [request setHTTPMethod:@"POST"];
+    [request setHTTPMethod:method];
     [request setValue:postLength forHTTPHeaderField:@"Content-Length"];
     [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
     [request setValue:[NSString stringWithFormat:@"%@",accessToken] forHTTPHeaderField:@"Authorization"];

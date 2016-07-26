@@ -23,6 +23,6 @@
 
 - (void)serviceRequestActionName:(NSString *)actionName accessToken:(NSString *)accessToken method:(NSString*)method result:(void (^)(NSURLResponse* response, NSData* data, NSError* connectionError))completion;
 
-- (void)serviceRequestWithDataStr:(NSString *)data actionName:(NSString *)actionName accessToken:(NSString *)accessToken result:(void (^)(NSURLResponse *response, NSData *data, NSError *connectionError))completion;
+- (void)serviceRequestWithDataStr:(NSString *)data actionName:(NSString *)actionName accessToken:(NSString *)accessToken method:(NSString *)method result:(void (^)(NSURLResponse *response, NSData *data, NSError *connectionError))completion;
 
 @end

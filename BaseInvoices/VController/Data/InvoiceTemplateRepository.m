@@ -179,6 +179,15 @@
         [dict setObject:_countryID forKey:@"country_id"];
     }
 
+    if (_scan == nil || [_scan isEqual:[NSNull null]])
+    {
+        [dict setObject:@"" forKey:@"scan"];
+    }
+    else
+    {
+        [dict setObject:_scan forKey:@"scan"];
+    }
+    
     return dict;
 
 }

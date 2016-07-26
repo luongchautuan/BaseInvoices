@@ -26,4 +26,17 @@
     
     return self;
 }
+
+- (NSDictionary*)getData
+{
+    NSMutableDictionary* dict = [[NSMutableDictionary alloc] init];
+    [dict setObject:_userID forKey:@"user_id"];
+    [dict setObject:_productName forKey:@"name"];
+    [dict setObject:_productUnitPrice forKey:@"unit_price"];
+    [dict setObject:_productDescription forKey:@"description"];
+    [dict setObject:_productTaxRate forKey:@"tax_rate"];
+    [dict setObject:_productID forKey:@"id"];
+    
+    return dict;
+}
 @end
