@@ -54,6 +54,13 @@ BIAppDelegate* appdelegate;
     _isAutoCreateIncome = YES;
     [self.btnAutoCreateIncome setSelected:YES];
     
+    NSDate *myDate = [self.datePickerForMain date];
+    NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+    [dateFormat setDateFormat:@"MM-dd-yyyy"];
+    NSString *time = [dateFormat stringFromDate:myDate];
+    
+    self.txtDateForMain.text = time;
+    
     if (self.isEditInvoice)
     {
         NSLog(@"View DId load");
@@ -61,6 +68,7 @@ BIAppDelegate* appdelegate;
     }
     else
     {
+        
         [[ServiceRequest getShareInstance] serviceRequestActionName:@"/invoice-template" accessToken:appdelegate.currentUser.token method:@"GET" result:^(NSURLResponse *response, NSData *dataResponse, NSError *connectionError) {
             NSHTTPURLResponse* httpResponse = (NSHTTPURLResponse*)response;
             NSInteger statusCode = [httpResponse statusCode];
@@ -159,11 +167,6 @@ BIAppDelegate* appdelegate;
 {
     [self initScreen];
     
-    
-    //    [self calculateAmout];
-    
-    //    [self.tableView setEditing:YES animated:YES];
-    
     [self updateFrameTableView];
     
     [self.tableView reloadData];
@@ -181,7 +184,7 @@ BIAppDelegate* appdelegate;
 - (IBAction)btnViewPdf_Clicked:(id)sender
 {
     //Create New Icon
-    
+    [self saveInvoice];
 }
 
 - (IBAction)btnSendToClient_Clicked:(id)sender
@@ -376,12 +379,6 @@ BIAppDelegate* appdelegate;
     [self.btnAutoCreateIncome setBackgroundImage:[UIImage imageNamed:@"bg_checked_radiobutton.png"] forState:UIControlStateSelected];
     [self.btnAutoCreateIncome setBackgroundImage:[UIImage imageNamed:@"bg_checked_radiobutton.png"] forState:UIControlStateHighlighted];
     
-    NSDate *myDate = [self.datePickerForMain date];
-    NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
-    [dateFormat setDateFormat:@"MM/dd/yyyy"];
-    NSString *time = [dateFormat stringFromDate:myDate];
-    
-    self.txtDateForMain.text = time;
     
     self.scrollView.scrollEnabled = YES;
     
@@ -395,6 +392,31 @@ BIAppDelegate* appdelegate;
     {
         self.txtInvoiceNumber.text = [NSString stringWithFormat:@"#%lu",appdelegate.invoicesForUser.count + 1];
         [self.txtTitle setText:@"Add Invoice"];
+        
+        //Get Invoice Number
+        [[ServiceRequest getShareInstance] serviceRequestActionName:@"/invoice/generate/number" accessToken:appdelegate.currentUser.token method:@"GET" result:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+            NSHTTPURLResponse* httpResponse = (NSHTTPURLResponse*)response;
+            NSInteger statusCode = [httpResponse statusCode];
+            
+            if (statusCode == 200)
+            {
+                NSString *responeString = [[NSString alloc] initWithData:data
+                                                                encoding:NSUTF8StringEncoding];
+                
+                NSLog(@"RESPIONSE GET Invoice Number: %@", responeString);
+                NSDictionary* dataDict = [[NSDictionary alloc] init];
+                SBJsonParser *json = [SBJsonParser new];
+                dataDict = [json objectWithString:[NSString stringWithFormat:@"%@", responeString]];
+                
+                if ([dataDict valueForKey:@"data"] != nil)
+                {
+                    NSString* invoiceNumber = [dataDict valueForKey:@"data"];
+                    
+                    _txtInvoiceNumber.text = [NSString stringWithFormat:@"%@", invoiceNumber];
+                }
+            }
+        }];
+
     }
     
    
@@ -603,6 +625,61 @@ BIAppDelegate* appdelegate;
         NSDictionary* data = [invoice getDataToSync];
         SBJsonWriter *jsonWriter = [[SBJsonWriter alloc] init];
         NSString *jsonString = [jsonWriter stringWithObject:data];
+        
+        NSLog(@"JSON STRING: %@", jsonString);
+        
+        NSString* actionName = [NSString stringWithFormat:@"/invoice"];
+        NSString* method = @"POST";
+        if (_invoiceEdit != nil)
+        {
+            actionName = [NSString stringWithFormat:@"/invoice/%@",_invoiceEdit.invoiceID];
+            method = @"PUT";
+        }
+        
+        NSLog(@"JSON POST: %@", jsonString );
+        
+        [[ServiceRequest getShareInstance]  serviceRequestWithDataStr:jsonString actionName:actionName accessToken:[BIAppDelegate shareAppdelegate].currentUser.token method:method result:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+            NSHTTPURLResponse* httpResponse = (NSHTTPURLResponse*)response;
+            NSInteger statusCode = [httpResponse statusCode];
+            
+            NSLog(@"ERROR : %@", [connectionError localizedDescription]);
+            
+            if (statusCode == 200)
+            {
+                NSString *responeString = [[NSString alloc] initWithData:data
+                                                                encoding:NSUTF8StringEncoding];
+                NSLog(@"RESPIONSE: %@", responeString);
+                NSDictionary* data = [[NSDictionary alloc] init];
+                SBJsonParser *json = [SBJsonParser new];
+                data = [json objectWithString:[NSString stringWithFormat:@"%@", responeString]];
+                
+                if ([data valueForKey:@"data"] != nil)
+                {
+                    NSString* invoiceTemplateID = [[data valueForKey:@"data"] valueForKey:@"id"];
+                    
+                    NSLog(@"INVOICE ID: %@", invoiceTemplateID);
+                }
+            }
+            else
+            {
+                [[BIAppDelegate shareAppdelegate].activityIndicatorView setHidden:YES];
+                
+                NSString *responeString = [[NSString alloc] initWithData:data
+                                                                encoding:NSUTF8StringEncoding];
+                
+                NSLog(@"RESPIONSE: %@", responeString);
+                NSDictionary* data = [[NSDictionary alloc] init];
+                SBJsonParser *json = [SBJsonParser new];
+                data = [json objectWithString:[NSString stringWithFormat:@"%@", responeString]];
+                
+                NSString* error = [[data valueForKey:@"error"] objectAtIndex:0];
+                
+                UIAlertView* message = [[UIAlertView alloc] initWithTitle:@"Error" message:error delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+                [message show];
+            }
+            
+        }];
+
     }
     else
     {

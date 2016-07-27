@@ -14,22 +14,16 @@
 {
     NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
     [dict setObject:_invoiceName forKey:@"invoice_no"];
-    [dict setObject:_customer.getData forKey:@"customer"];
     [dict setObject:_customer.customerID forKey:@"customer_id"];
-    [dict setObject:_invoiceTemplate.business.getDataForSync forKey:@"business"];
-    
     [dict setObject:_invoiceTemplate.business.businessID forKey:@"business_id"];
+    
     NSMutableArray *invoiceDetails = [NSMutableArray new];
     
     for (BIProduct* product in _products)
     {
         NSMutableDictionary* productDict = [NSMutableDictionary new];
-        [productDict setObject:_invoiceTemplate.userID forKey:@"user_id"];
         [productDict setObject:product.productID forKey:@"product_id"];
-        [productDict setObject:product.getData forKey:@"product"];
-        [productDict setObject:[NSString stringWithFormat:@"%d", product.quantityValue] forKey:@"quantity"];
-        [productDict setObject:[NSString stringWithFormat:@"%f", product.quantityValue * [product.productUnitPrice floatValue]] forKey:@"amount"];
-        
+        [productDict setObject:[NSString stringWithFormat:@"%d", product.quantityValue] forKey:@"quantity"];       
         
         [invoiceDetails addObject:productDict];
     }
@@ -38,7 +32,6 @@
     
     
     [dict setObject:@"1" forKey:@"payment_type_id"];
-    [dict setObject:_invoiceTemplate.getInvoiteTemplateData forKey:@"invoice_template"];
     [dict setObject:_invoiceTemplate.invoiceTemplateID forKey:@"invoice_template_id"];
     [dict setObject:_dateInvoice forKey:@"date"];
     

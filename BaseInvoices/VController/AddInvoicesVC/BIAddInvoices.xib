@@ -732,7 +732,7 @@
                                     <rect key="frame" x="123" y="38" width="173" height="30"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 </imageView>
-                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Due on reciept" minimumFontSize="17" id="QQr-ax-Qay" customClass="MyUITextField">
+                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Due upon receipt" minimumFontSize="17" id="QQr-ax-Qay" customClass="MyUITextField">
                                     <rect key="frame" x="123" y="38" width="173" height="30"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
