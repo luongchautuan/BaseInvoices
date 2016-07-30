@@ -74,6 +74,7 @@ BIAppDelegate* appdelegate;
                     NSString* modified = [productDict valueForKey:@"modified"];
                     
                     BIProduct* productObject = [[BIProduct alloc] init];
+                    [productObject setUserID:userID];
                     [productObject setProductName:productName];
                     [productObject setProductTaxRate:tax_rate];
                     [productObject setNumberOfUnit:[unitPrict floatValue]];
@@ -108,19 +109,21 @@ BIAppDelegate* appdelegate;
 - (IBAction)onAddProduct:(id)sender
 {
     BIAddProducts *pushToVC = [[BIAddProducts alloc] initWithNibName:@"BIAddProducts" bundle:nil];
-    [self presentViewController:pushToVC animated:YES completion:nil];
-//    [self.navigationController pushViewController:pushToVC animated:YES];
+//    [self presentViewController:pushToVC animated:YES completion:nil];
+    [self.navigationController pushViewController:pushToVC animated:YES];
 }
 
 - (IBAction)onCloseViewController:(id)sender
 {
-    if (self.isViewEditProduct) {
-        [self.navigationController popViewControllerAnimated:YES];
-    }
-    else
-    {
-       [self dismissViewControllerAnimated:YES completion:nil]; 
-    }
+    [self.navigationController popViewControllerAnimated:YES];
+    
+//    if (self.isViewEditProduct) {
+//        [self.navigationController popViewControllerAnimated:YES];
+//    }
+//    else
+//    {
+//       [self dismissViewControllerAnimated:YES completion:nil]; 
+//    }
     
 
 }
@@ -169,9 +172,9 @@ BIAppDelegate* appdelegate;
         [self.delegate didSelectedProduct:product];
 //        [appdelegate.productsFroAddInvoices addObject:product];
         
-        [self dismissViewControllerAnimated:YES completion:nil];
+//        [self.navigationController pushViewController:pushToVC animated:YES];
 //        [self.delegate checkCallback];
-//        [self.navigationController popViewControllerAnimated:YES];
+        [self.navigationController popViewControllerAnimated:YES];
     }
 }
 /*

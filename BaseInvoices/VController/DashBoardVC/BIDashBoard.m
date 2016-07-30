@@ -191,7 +191,11 @@ BIAppDelegate* appdelegate;
         case 6:
         {
             appdelegate.isLoginSucesss = NO;
+            NSUserDefaults *def= [[NSUserDefaults alloc]init];
+            [def setBool:NO forKey:@"LOGIN"];
             
+            [def synchronize];
+
             BILogin *referenceVC = [[BILogin alloc] initWithNibName:@"BILogin" bundle:nil];
             [self.navigationController pushViewController:referenceVC animated:YES];
         }
@@ -201,6 +205,102 @@ BIAppDelegate* appdelegate;
     }
 }
 
+
+#pragma mark - UIButton Sender
+
+- (IBAction)btnSelectedDate_Clicked:(id)sender
+{
+    NSDate *myDate = [self.datePicker date];
+    NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+    [dateFormat setDateFormat:@"MM/dd/yyyy"];
+    NSString *time = [dateFormat stringFromDate:myDate];
+    
+    self.txtDatePaid.text = time;
+    
+    [_viewTableDate setHidden:YES];
+}
+
+- (IBAction)btnDatePaid_Clicked:(id)sender
+{
+    [_viewDatePaid setHidden:YES];
+    
+    BIInvoice* invoice = [appdelegate.invoicesForUser objectAtIndex:_indexPathSelected.section];
+    [invoice setIsPaided:YES];
+    
+    NSDictionary* data = [invoice getDataToSync];
+    SBJsonWriter *jsonWriter = [[SBJsonWriter alloc] init];
+    NSString *jsonString = [jsonWriter stringWithObject:data];
+    
+    NSLog(@"JSON STRING: %@", jsonString);
+    
+    NSString* actionName = [NSString stringWithFormat:@"/invoice/%@",invoice.invoiceID];
+    NSString* method = @"PUT";
+    
+    NSLog(@"JSON POST: %@", jsonString );
+    
+    [[ServiceRequest getShareInstance]  serviceRequestWithDataStr:jsonString actionName:actionName accessToken:[BIAppDelegate shareAppdelegate].currentUser.token method:method result:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+        NSHTTPURLResponse* httpResponse = (NSHTTPURLResponse*)response;
+        NSInteger statusCode = [httpResponse statusCode];
+        
+        NSLog(@"ERROR : %@", [connectionError localizedDescription]);
+        
+        if (statusCode == 200)
+        {
+            NSString *responeString = [[NSString alloc] initWithData:data
+                                                            encoding:NSUTF8StringEncoding];
+            NSLog(@"RESPIONSE: %@", responeString);
+            NSDictionary* data = [[NSDictionary alloc] init];
+            SBJsonParser *json = [SBJsonParser new];
+            data = [json objectWithString:[NSString stringWithFormat:@"%@", responeString]];
+            
+            if ([data valueForKey:@"data"] != nil)
+            {
+                NSString* invoiceTemplateID = [[data valueForKey:@"data"] valueForKey:@"id"];
+                
+                NSLog(@"INVOICE ID: %@", invoiceTemplateID);
+            }
+            
+            [self.tableView reloadRowsAtIndexPaths:@[_indexPathSelected] withRowAnimation:UITableViewRowAnimationNone];
+            [self.tableView beginUpdates];
+            [self.tableView endUpdates];
+        }
+        else
+        {
+            [[BIAppDelegate shareAppdelegate].activityIndicatorView setHidden:YES];
+            
+            NSString *responeString = [[NSString alloc] initWithData:data
+                                                            encoding:NSUTF8StringEncoding];
+            
+            NSLog(@"RESPIONSE: %@", responeString);
+            NSDictionary* data = [[NSDictionary alloc] init];
+            SBJsonParser *json = [SBJsonParser new];
+            data = [json objectWithString:[NSString stringWithFormat:@"%@", responeString]];
+            
+            NSString* error = [[data valueForKey:@"error"] objectAtIndex:0];
+            
+            UIAlertView* message = [[UIAlertView alloc] initWithTitle:@"Error" message:error delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+            [message show];
+        }
+        
+        _indexPathSelected = nil;
+        
+    }];
+
+}
+
+- (IBAction)btnShowDatePaid_Clicked:(id)sender
+{
+    if (_isShowingDatePaid)
+    {
+        [self.viewTableDate setHidden:YES];
+    }
+    else
+    {
+        [self.viewTableDate setHidden:NO];
+    }
+    
+    _isShowingDatePaid = !_isShowingDatePaid;
+}
 
 - (IBAction)onAddInvoice:(id)sender
 {
@@ -260,6 +360,8 @@ BIAppDelegate* appdelegate;
     NSLog(@"TAP");
     self.viewPopUp.hidden = YES;
 }
+
+#pragma mark - UITableView Delegate
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -339,12 +441,22 @@ BIAppDelegate* appdelegate;
                                            toView:_tableView];
     NSIndexPath *indexPath = [_tableView indexPathForRowAtPoint:buttonPosition];
 
-    BIInvoice* invoice = [appdelegate.invoicesForUser objectAtIndex:indexPath.section];
-    [invoice setIsPaided:YES];
+    _indexPathSelected = indexPath;
     
-    [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
-    [self.tableView beginUpdates];
-    [self.tableView endUpdates];
+    NSDate *myDate = [NSDate date];
+    NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+    [dateFormat setDateFormat:@"MM/dd/yyyy"];
+    NSString *time = [dateFormat stringFromDate:myDate];
+
+    _txtDatePaid.text = time;
+    
+    [self.viewDatePaid setHidden:NO];
+    self.viewMarkPaid.frame = CGRectMake(10, -104, 300, 250);
+    [UIView beginAnimations:@"" context:nil];
+    [UIView setAnimationDuration:0.5];
+    self.viewMarkPaid.frame = CGRectMake(10, 104, 300, 255);
+    [UIView commitAnimations];
+    
 }
 
 -(void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex

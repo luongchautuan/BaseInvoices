@@ -17,6 +17,7 @@
 @protocol AddInvoiceTemplateViewControllerDelegate <NSObject>
 
 - (void)addSuccessFully;
+- (void)addSuccessFullyWithInvoiceTemplate:(InvoiceTemplateRepository*)invoiceTemplate;
 
 @end
 
@@ -27,6 +28,8 @@
 @property (nonatomic, strong) InvoiceTemplateRepository* invoiceBeEdited;
 
 @property (nonatomic) BOOL isFromWelcome;
+@property (nonatomic) BOOL isFromAddInvoice;
+
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
 
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;

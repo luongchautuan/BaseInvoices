@@ -2872,7 +2872,7 @@
 					/usr/include/libxml2,
 				);
 				INFOPLIST_FILE = "BaseInvoices/BaseInvoices-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/BaseInvoices/VController/GoogleAnalyticsServices",
@@ -2904,7 +2904,7 @@
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 				);
 				INFOPLIST_FILE = "BaseInvoices/BaseInvoices-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/BaseInvoices/VController/GoogleAnalyticsServices",

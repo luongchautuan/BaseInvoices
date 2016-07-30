@@ -27,4 +27,5 @@
 @property (nonatomic) BOOL isFromMenu;
 
 @property (weak, nonatomic) IBOutlet UIButton *btnBack;
+
 @end

@@ -206,15 +206,11 @@ BIAppDelegate* appdelegate;
                 
                 if ([dataDict valueForKey:@"data"] != nil)
                 {
-                    [appdelegate.activityIndicatorView hide:YES];
-                    
                     [self.navigationController popViewControllerAnimated:YES];
                 }
             }
             else
             {
-                [appdelegate.activityIndicatorView hide:YES];
-                
                 NSString* message = @"";
                 message = @"Cannot save customer";
                 
@@ -227,6 +223,8 @@ BIAppDelegate* appdelegate;
     }
     else
     {
+        [appdelegate.activityIndicatorView hide:YES];
+        
         UIAlertView *alert = [[UIAlertView alloc]initWithTitle:nil message:@"Product name required" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [alert show];
     }

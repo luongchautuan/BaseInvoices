@@ -162,6 +162,7 @@
 @property (nonatomic, strong) NSMutableArray* productsAdded;
 
 @property (nonatomic) BOOL isAutoCreateIncome;
+@property (nonatomic) BOOL isPaid;
 
 - (void)setNewPositionOfViewListData:(int)type;
 

@@ -15,7 +15,7 @@
     NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
     [dict setObject:_invoiceName forKey:@"invoice_no"];
     [dict setObject:_customer.customerID forKey:@"customer_id"];
-    [dict setObject:_invoiceTemplate.business.businessID forKey:@"business_id"];
+    [dict setObject:_invoiceTemplate.businessID forKey:@"business_id"];
     
     NSMutableArray *invoiceDetails = [NSMutableArray new];
     
@@ -23,6 +23,7 @@
     {
         NSMutableDictionary* productDict = [NSMutableDictionary new];
         [productDict setObject:product.productID forKey:@"product_id"];
+        [productDict setObject:product.getData forKey:@"product"];
         [productDict setObject:[NSString stringWithFormat:@"%d", product.quantityValue] forKey:@"quantity"];       
         
         [invoiceDetails addObject:productDict];
@@ -40,8 +41,14 @@
     [dict setObject:_noteInvoice forKey:@"notes"];
     [dict setObject:_totalInvoices forKey:@"amount"];
     [dict setObject:_totalInvoices forKey:@"total"];
-    [dict setObject:@"0" forKey:@"paid"];
     [dict setObject:@"Queried" forKey:@"status"];
+
+    if (_isPaided)
+    {
+        [dict setObject:@"1" forKey:@"paid"];
+    }
+    else
+        [dict setObject:@"0" forKey:@"paid"];
     
     if (_isAutoCreateIncome)
     {
@@ -72,6 +79,7 @@
         _taxesInvoice = [dict valueForKey:@"vat"];
         _noteInvoice = [dict valueForKey:@"notes"];
         _subInvoice = [dict valueForKey:@"amount"];
+        _dateInvoice = [dict valueForKey:@"date"];
         
         _invoiceTemplate = [[InvoiceTemplateRepository alloc] initWithDict:[dict valueForKey:@"invoice_template"]];
         _customer = [[BICustomer alloc] initWithDict:[dict valueForKey:@"customer"]];

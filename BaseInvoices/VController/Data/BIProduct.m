@@ -17,6 +17,7 @@
     if (self)
     {
         _productID = [dict valueForKey:@"product_id"];
+        _userID = [dict valueForKey:@"user_id"];
         _productName = [[dict valueForKey:@"product"] valueForKey:@"name"];
         _productTaxRate = [[dict valueForKey:@"product"] valueForKey:@"tax_rate"];
         _productUnitPrice = [[dict valueForKey:@"product"] valueForKey:@"unit_price"];

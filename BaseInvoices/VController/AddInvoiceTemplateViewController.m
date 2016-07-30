@@ -303,6 +303,8 @@
                 {
                     NSString* invoiceTemplateID = [[data valueForKey:@"data"] valueForKey:@"id"];
                     
+                    InvoiceTemplateRepository* invoiceTemplateRespon = [[InvoiceTemplateRepository alloc] initWithDict:[data valueForKey:@"data"]];
+                    
                     NSData *imageData = UIImagePNGRepresentation(_imageSelected);
                     
                     [[ServiceRequest getShareInstance] uploadImageWithData:imageData actionName:[NSString stringWithFormat:@"/file/invoice_template/%@/upload", invoiceTemplateID] accessToken:[BIAppDelegate shareAppdelegate].currentUser.token result:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
@@ -310,6 +312,10 @@
                         [[BIAppDelegate shareAppdelegate].activityIndicatorView setHidden:YES];
                         
                         NSLog(@"UPLOAD IMAGE ERROR: %@", [connectionError localizedDescription]);
+                        if (_isFromAddInvoice)
+                        {
+                            [self.delegate addSuccessFullyWithInvoiceTemplate:invoiceTemplateRespon];
+                        }
                         
                         [self back];
                     }];
@@ -384,7 +390,10 @@
         
         [self.navigationController pushViewController:drawerController animated:YES];
     }
-    else [self.navigationController popViewControllerAnimated:YES];
+    else
+    {
+        [self.navigationController popViewControllerAnimated:YES];
+    }
 
 }
 #pragma mark - UIAlertView Delegate

@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "BLLeftSideVC.h"
+#import "MyUITextField.h"
 
 @interface BIDashBoard : UIViewController<BLLeftSideDelegate, UITableViewDelegate, UITableViewDataSource>
 @property (weak, nonatomic) IBOutlet UIButton *btnCategory;
@@ -23,4 +24,15 @@
 @property (weak, nonatomic) IBOutlet UIView *viewPopUp;
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+
+@property (weak, nonatomic) IBOutlet UIView *viewDatePaid;
+@property (weak, nonatomic) IBOutlet MyUITextField *txtDatePaid;
+@property (weak, nonatomic) IBOutlet UIView *viewTableDate;
+@property (weak, nonatomic) IBOutlet MyUITextField *txtAmountPaid;
+@property (weak, nonatomic) IBOutlet UIView *viewMarkPaid;
+
+@property (nonatomic, strong) NSIndexPath* indexPathSelected;
+@property (nonatomic) BOOL isShowingDatePaid;
+@property (weak, nonatomic) IBOutlet UIDatePicker *datePicker;
+
 @end

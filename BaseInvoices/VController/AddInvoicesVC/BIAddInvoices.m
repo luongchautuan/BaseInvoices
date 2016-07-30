@@ -14,14 +14,15 @@
 #import "BIAppDelegate.h"
 #import "BICustomerViewController.h"
 #import "SBJson.h"
-
+#import "Common.h"
 #import "BICustomProductTableViewCell.h"
 #import "BIInvoice.h"
 #import "NSUserDefaults+RMSaveCustomObject.h"
+#import "AddInvoiceTemplateViewController.h"
 
 #define ACCEPTABLE_CHARECTERS @".0123456789"
 
-@interface BIAddInvoices ()<CustomerViewControllerDelegate>
+@interface BIAddInvoices ()<CustomerViewControllerDelegate, AddInvoiceTemplateViewControllerDelegate>
 
 @end
 
@@ -68,53 +69,60 @@ BIAppDelegate* appdelegate;
     }
     else
     {
+        _isPaid = NO;
         
-        [[ServiceRequest getShareInstance] serviceRequestActionName:@"/invoice-template" accessToken:appdelegate.currentUser.token method:@"GET" result:^(NSURLResponse *response, NSData *dataResponse, NSError *connectionError) {
-            NSHTTPURLResponse* httpResponse = (NSHTTPURLResponse*)response;
-            NSInteger statusCode = [httpResponse statusCode];
-            
-            if (statusCode == 200)
-            {
-                NSString *responeString = [[NSString alloc] initWithData:dataResponse
-                                                                encoding:NSUTF8StringEncoding];
-                
-                NSLog(@"RESPIONSE GET ALL Invoice Template: %@", responeString);
-                NSDictionary* dataDict = [[NSDictionary alloc] init];
-                SBJsonParser *json = [SBJsonParser new];
-                dataDict = [json objectWithString:[NSString stringWithFormat:@"%@", responeString]];
-                
-                if ([dataDict valueForKey:@"data"] != nil)
-                {
-                    appdelegate.invoicesTemplate = [[NSMutableArray alloc] init];
-                    
-                    for (NSDictionary* invoiceTemplateDict in [dataDict valueForKey:@"data"])
-                    {
-                        InvoiceTemplateRepository* invoiceTemplateObject = [[InvoiceTemplateRepository alloc] initWithDict:invoiceTemplateDict];
-                        BIBussiness* business = [[BIBussiness alloc] initWithDict:[invoiceTemplateDict valueForKey:@"business"]];
-                        
-                        [invoiceTemplateObject setBusiness:business];
-                        [appdelegate.invoicesTemplate addObject:invoiceTemplateObject];
-                        
-                    }
-                    
-                    if ([BIAppDelegate shareAppdelegate].invoicesTemplate.count > 0)
-                    {
-                        InvoiceTemplateRepository* invoiceTemplateObject = [[BIAppDelegate shareAppdelegate].invoicesTemplate objectAtIndex:0];
-                        _txtBussiness.text = invoiceTemplateObject.invoiceTemplateName;
-                        _invoiceTemplateSelected = invoiceTemplateObject;
-                    }
-                    
-                    [self.tableViewBusiness reloadData];
-                    
-                }
-                
-            }
-        }];
+        [self getInvoiceTemplate];
         
         [self getCustomers];
     }
     
     self.paymentTerms = [[NSMutableArray alloc] initWithObjects:@"Due upon receipt", @"Due within 7 days", @"Due within 14 days",@"Due within 21 Days", @"Due within 30 Days", @"Paid", nil];
+}
+
+- (void)getInvoiceTemplate
+{
+    [[ServiceRequest getShareInstance] serviceRequestActionName:@"/invoice-template" accessToken:appdelegate.currentUser.token method:@"GET" result:^(NSURLResponse *response, NSData *dataResponse, NSError *connectionError) {
+        NSHTTPURLResponse* httpResponse = (NSHTTPURLResponse*)response;
+        NSInteger statusCode = [httpResponse statusCode];
+        
+        if (statusCode == 200)
+        {
+            NSString *responeString = [[NSString alloc] initWithData:dataResponse
+                                                            encoding:NSUTF8StringEncoding];
+            
+            NSLog(@"RESPIONSE GET ALL Invoice Template: %@", responeString);
+            NSDictionary* dataDict = [[NSDictionary alloc] init];
+            SBJsonParser *json = [SBJsonParser new];
+            dataDict = [json objectWithString:[NSString stringWithFormat:@"%@", responeString]];
+            
+            if ([dataDict valueForKey:@"data"] != nil)
+            {
+                appdelegate.invoicesTemplate = [[NSMutableArray alloc] init];
+                
+                for (NSDictionary* invoiceTemplateDict in [dataDict valueForKey:@"data"])
+                {
+                    InvoiceTemplateRepository* invoiceTemplateObject = [[InvoiceTemplateRepository alloc] initWithDict:invoiceTemplateDict];
+                    BIBussiness* business = [[BIBussiness alloc] initWithDict:[invoiceTemplateDict valueForKey:@"business"]];
+                    
+                    [invoiceTemplateObject setBusiness:business];
+                    [appdelegate.invoicesTemplate addObject:invoiceTemplateObject];
+                    
+                }
+                
+                if ([BIAppDelegate shareAppdelegate].invoicesTemplate.count > 0 && _invoiceTemplateSelected == nil)
+                {
+                    InvoiceTemplateRepository* invoiceTemplateObject = [[BIAppDelegate shareAppdelegate].invoicesTemplate objectAtIndex:0];
+                    _txtBussiness.text = invoiceTemplateObject.invoiceTemplateName;
+                    _invoiceTemplateSelected = invoiceTemplateObject;
+                }
+                
+                [self.tableViewBusiness reloadData];
+                
+            }
+            
+        }
+    }];
+
 }
 
 - (void)getCustomers
@@ -180,16 +188,29 @@ BIAppDelegate* appdelegate;
 
 
 #pragma mark - UIButton Sender
+- (IBAction)btnAutoCreateIncome_Clicked:(id)sender
+{
+    if (_isAutoCreateIncome)
+    {
+        [self.btnAutoCreateIncome setSelected:NO];
+    }
+    else
+    {
+        [self.btnAutoCreateIncome setSelected:YES];
+    }
+    
+    _isAutoCreateIncome = !_isAutoCreateIncome;
+}
 
 - (IBAction)btnViewPdf_Clicked:(id)sender
 {
     //Create New Icon
-    [self saveInvoice];
+    [self saveInvoiceViewPDF:YES sendToClient:NO];
 }
 
 - (IBAction)btnSendToClient_Clicked:(id)sender
 {
-    
+    [self saveInvoiceViewPDF:NO sendToClient:YES];
 }
 
 - (IBAction)onShowViewTablePaymentsTerm:(id)sender
@@ -209,7 +230,7 @@ BIAppDelegate* appdelegate;
 {
     self.viewForPaymentTerms.hidden = YES;
     
-    [self saveInvoice];
+//    [self saveInvoice];
 //    [self generatPdfForInvoice];
 //    self.viewPdfPreview.hidden = NO;
 //    [self.webViewPdf loadHTMLString:self.html baseURL:nil];
@@ -220,13 +241,15 @@ BIAppDelegate* appdelegate;
 {
     self.viewPdfPreview.hidden = YES;
     
-     [self createPDFfromHTML:self.html withName:[NSString stringWithFormat:@"Invoice %@", self.txtInvoiceNumber.text]];
+    [self backToDashboard];
+//    
+//     [self createPDFfromHTML:self.html withName:[NSString stringWithFormat:@"Invoice %@", self.txtInvoiceNumber.text]];
    
 }
 - (IBAction)onCancelSend:(id)sender
 {
      self.viewPdfPreview.hidden = YES;
-    [self saveInvoice];
+//    [self saveInvoice];
 }
 
 - (IBAction)onCloseNumberOfUnit:(id)sender
@@ -390,7 +413,7 @@ BIAppDelegate* appdelegate;
     }
     else
     {
-        self.txtInvoiceNumber.text = [NSString stringWithFormat:@"#%lu",appdelegate.invoicesForUser.count + 1];
+        //self.txtInvoiceNumber.text = [NSString stringWithFormat:@"#%lu",appdelegate.invoicesForUser.count + 1];
         [self.txtTitle setText:@"Add Invoice"];
         
         //Get Invoice Number
@@ -415,12 +438,12 @@ BIAppDelegate* appdelegate;
                     _txtInvoiceNumber.text = [NSString stringWithFormat:@"%@", invoiceNumber];
                 }
             }
+            else
+            {
+                _txtInvoiceNumber.text = [NSString stringWithFormat:@"%@", @"1"];
+            }
         }];
-
     }
-    
-   
-
 }
 
 - (void)updateFrameTableView
@@ -449,7 +472,8 @@ BIAppDelegate* appdelegate;
 - (void)loadInvoiceEdit
 {
     self.txtBussiness.text = self.invoiceEdit.invoiceTemplate.invoiceTemplateName;
-    self.txtInvoiceNumber.text = self.invoiceEdit.invoiceName;
+    self.txtInvoiceNumber.text = [NSString stringWithFormat:@"%@", self.invoiceEdit.invoiceName];
+    
     [self.btnAddCustom setTitle:self.invoiceEdit.customer.customerBussinessName forState:UIControlStateNormal];
     self.txtDateForMain.text = self.invoiceEdit.dateInvoice;
     self.txtNoteDesc.text = self.invoiceEdit.noteInvoice;
@@ -466,21 +490,8 @@ BIAppDelegate* appdelegate;
     _productsAdded= [[NSMutableArray alloc] init];
     _productsAdded = self.invoiceEdit.products;
     
-    NSLog(@"Product Add: %lu", (unsigned long)_productsAdded.count);
-    
-    self.bussinessSelected = self.invoiceEdit.bussiness;
-    
     if (_customerSelected.customerBussinessName.length > 0) {
         [self.btnAddCustom setTitle:_customerSelected.customerBussinessName forState:UIControlStateNormal];
-    }
-    
-    if (checkBoxSelected)
-    {
-//        self.lblOutStanding.text = self.invoiceEdit.outStanding;
-    }
-    else
-    {
-//        self.lblOutStanding.text = self.lblTotal.text;
     }
     
     if (_invoiceEdit.products.count > 0)
@@ -596,7 +607,7 @@ BIAppDelegate* appdelegate;
 }
 
 
-- (void)saveInvoice
+- (void)saveInvoiceViewPDF:(BOOL)isViewPF sendToClient:(BOOL)isSendClient
 {
     appdelegate.activityIndicatorView = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     appdelegate.activityIndicatorView.mode = MBProgressHUDAnimationFade;
@@ -609,7 +620,15 @@ BIAppDelegate* appdelegate;
         BIInvoice* invoice = [[BIInvoice alloc] init];
         invoice.invoiceName = self.txtInvoiceNumber.text;
         invoice.invoiceTemplate = _invoiceTemplateSelected;
-        invoice.dateInvoice = self.txtDateForMain.text;
+        
+        NSDateFormatter* dateFormatter = [[NSDateFormatter alloc] init];
+        [dateFormatter setDateFormat:@"MM-dd-yyyy"];
+        NSDate* invoiceDate = [dateFormatter dateFromString:_txtDateForMain.text];
+        
+        [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+        
+        
+        invoice.dateInvoice = [dateFormatter stringFromDate:invoiceDate];
         invoice.customer = _customerSelected;
         invoice.noteInvoice = self.txtNoteDesc.text;
         invoice.products = [[NSMutableArray alloc] init];
@@ -617,7 +636,7 @@ BIAppDelegate* appdelegate;
         invoice.subInvoice = [NSString stringWithFormat:@"%f",_subTotal];
         invoice.totalInvoices = [NSString stringWithFormat:@"%f",_total];
         invoice.taxesInvoice = [NSString stringWithFormat:@"%f",_taxes];
-        invoice.isPaided = checkBoxSelected;
+        invoice.isPaided = _isPaid;
         invoice.totalOutSanding = self.totalAmount;
         invoice.due_selection = self.txtPaymentTerm.text;
         [invoice setIsAutoCreateIncome:_isAutoCreateIncome];
@@ -643,7 +662,7 @@ BIAppDelegate* appdelegate;
             NSInteger statusCode = [httpResponse statusCode];
             
             NSLog(@"ERROR : %@", [connectionError localizedDescription]);
-            
+           
             if (statusCode == 200)
             {
                 NSString *responeString = [[NSString alloc] initWithData:data
@@ -658,6 +677,53 @@ BIAppDelegate* appdelegate;
                     NSString* invoiceTemplateID = [[data valueForKey:@"data"] valueForKey:@"id"];
                     
                     NSLog(@"INVOICE ID: %@", invoiceTemplateID);
+                    
+                    if (isViewPF)
+                    {
+                        //Export To PDF
+                        [[ServiceRequest getShareInstance] serviceRequestActionName:[NSString stringWithFormat:@"/invoice/%@/export-pdf", invoiceTemplateID] accessToken:appdelegate.currentUser.token method:@"POST" result:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+                            NSHTTPURLResponse* httpResponse = (NSHTTPURLResponse*)response;
+                            NSInteger statusCode = [httpResponse statusCode];
+
+                            [[BIAppDelegate shareAppdelegate].activityIndicatorView setHidden:YES];
+                            
+                            if (statusCode == 200)
+                            {
+                                NSString *responeString = [[NSString alloc] initWithData:data
+                                                                                encoding:NSUTF8StringEncoding];
+                                NSLog(@"RESPIONSE: %@", responeString);
+                                NSDictionary* data = [[NSDictionary alloc] init];
+                                SBJsonParser *json = [SBJsonParser new];
+                                data = [json objectWithString:[NSString stringWithFormat:@"%@", responeString]];
+                                
+                                if ([data valueForKey:@"data"] != nil)
+                                {
+                                     self.viewPdfPreview.hidden = NO;
+                                    NSLog(@"VIEW INVOICE URL %@", [NSString stringWithFormat:@"%@%@", urlHost, [data valueForKey:@"data"]]);
+                                    
+                                    [self.webViewPdf loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://basetax.co.uk%@", [data valueForKey:@"data"]]]]];
+                                }
+                            }
+                            else
+                            {
+                                [self backToDashboard];
+                            }
+                            
+                        }];
+                    }
+                    else
+                    {
+                        //Send to client
+                        [[ServiceRequest getShareInstance] serviceRequestActionName:[NSString stringWithFormat:@"/invoice/%@/send-to-client", invoiceTemplateID] accessToken:appdelegate.currentUser.token method:@"POST" result:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+                            NSHTTPURLResponse* httpResponse = (NSHTTPURLResponse*)response;
+                            NSInteger statusCode = [httpResponse statusCode];
+                            
+                            [[BIAppDelegate shareAppdelegate].activityIndicatorView setHidden:YES];
+                            
+                            [self backToDashboard];
+                        }];
+
+                    }
                 }
             }
             else
@@ -722,7 +788,7 @@ BIAppDelegate* appdelegate;
     BIProductsViewController *pushToVC = [[BIProductsViewController alloc] initWithNibName:@"BIProductsViewController" bundle:nil];
     pushToVC.delegate = self;
     
-    [self presentViewController:pushToVC animated:YES completion:nil];
+    [self.navigationController pushViewController:pushToVC animated:YES];
 }
 
 - (IBAction)onOpenMenu:(id)sender
@@ -730,11 +796,8 @@ BIAppDelegate* appdelegate;
     [self.mm_drawerController toggleDrawerSide:MMDrawerSideLeft animated:YES completion:nil];
 }
 
-- (IBAction)onBack:(id)sender
+- (void)backToDashboard
 {
-    appdelegate.currentCustomerForAddInvoice = nil;
-    _productsAdded = [[NSMutableArray alloc] init];
-    
     if (_isFromWelcome)
     {
         BIDashBoard* dashboardView = [[BIDashBoard alloc] initWithNibName:@"BIDashBoard" bundle:nil];
@@ -760,7 +823,15 @@ BIAppDelegate* appdelegate;
         }
         else [self.navigationController popViewControllerAnimated:YES];
     }
+
+}
+
+- (IBAction)onBack:(id)sender
+{
+    appdelegate.currentCustomerForAddInvoice = nil;
+    _productsAdded = [[NSMutableArray alloc] init];
     
+    [self backToDashboard];
 }
 
 - (IBAction)onCheckedButton:(id)sender
@@ -1139,7 +1210,7 @@ BIAppDelegate* appdelegate;
     }
     else if (tableView == self.tableViewBusiness)
     {
-        return appdelegate.invoicesTemplate.count;
+        return appdelegate.invoicesTemplate.count + 1;
     }
     return _productsAdded.count;
 }
@@ -1175,7 +1246,13 @@ BIAppDelegate* appdelegate;
         
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         [cell.textLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:15.0f]];
-        cell.textLabel.text = [[appdelegate.invoicesTemplate objectAtIndex:indexPath.row] invoiceTemplateName];
+        
+        if (indexPath.row == 0)
+        {
+            cell.textLabel.text = @"Add New Template";
+        }
+        else
+            cell.textLabel.text = [[appdelegate.invoicesTemplate objectAtIndex:(indexPath.row - 1)] invoiceTemplateName];
         
         return cell;
     }
@@ -1280,14 +1357,36 @@ BIAppDelegate* appdelegate;
         self.txtPaymentTerm.text = [self.paymentTerms objectAtIndex:indexPath.row];
         isShowViewTablePayments = !isShowViewTablePayments;
         self.viewForTablePayments.hidden = YES;
+        
+        //Paid
+        if (indexPath.row == 6)
+        {
+            _isPaid = YES;
+        }
+        else
+            _isPaid = NO;
     }
     else if (tableView== self.tableViewBusiness)
     {
-        InvoiceTemplateRepository* invoiceTemplateObject = [[BIAppDelegate shareAppdelegate].invoicesTemplate objectAtIndex:indexPath.row];
-        _invoiceTemplateSelected = invoiceTemplateObject;
-        [self fecthDataWithInvoiceTemplate:invoiceTemplateObject];
-
-        self.viewBusiness.hidden = YES;
+        if (indexPath.row == 0)
+        {
+            self.viewBusiness.hidden = YES;
+            
+            //Create New Invoice Template
+            AddInvoiceTemplateViewController *pushToVC = [[AddInvoiceTemplateViewController alloc] initWithNibName:@"AddInvoiceTemplateViewController" bundle:nil];
+            [pushToVC setIsFromAddInvoice:YES];
+            pushToVC.delegate = self;
+            [self.navigationController pushViewController:pushToVC animated:YES];
+        }
+        else
+        {
+            InvoiceTemplateRepository* invoiceTemplateObject = [[BIAppDelegate shareAppdelegate].invoicesTemplate objectAtIndex:(indexPath.row - 1)];
+            _invoiceTemplateSelected = invoiceTemplateObject;
+            [self fecthDataWithInvoiceTemplate:invoiceTemplateObject];
+            
+            self.viewBusiness.hidden = YES;
+        }
+      
     }
     else
     {
@@ -1581,7 +1680,7 @@ BIAppDelegate* appdelegate;
         }
         else [self dismissViewControllerAnimated:YES completion:nil];
         
-        [self saveInvoice];
+//        [self saveInvoice];
     }
 }
 
@@ -1657,6 +1756,18 @@ BIAppDelegate* appdelegate;
 {
     _customerSelected = customer;
     [self.btnAddCustom setTitle:_customerSelected.customerBussinessName forState:UIControlStateNormal];
+}
+
+#pragma mark - AddInvoiceTemplateViewController Delegate
+
+- (void)addSuccessFullyWithInvoiceTemplate:(InvoiceTemplateRepository *)invoiceTemplate
+{
+    _invoiceTemplateSelected = invoiceTemplate;
+    [self fecthDataWithInvoiceTemplate:_invoiceTemplateSelected];
+    
+    self.viewBusiness.hidden = YES;
+    
+    [self getInvoiceTemplate];
 }
 
 //#pragma mark UIGestureRecognizerDelegate methods
