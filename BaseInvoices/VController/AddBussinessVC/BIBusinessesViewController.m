@@ -42,6 +42,7 @@ BIAppDelegate* appdelegate;
     }
     
     _tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+    self.searchDisplayController.searchResultsTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     
     [[ServiceRequest getShareInstance] serviceRequestActionName:@"/business" accessToken:appdelegate.currentUser.token method:@"GET" result:^(NSURLResponse *response, NSData *dataResponse, NSError *connectionError) {
         NSHTTPURLResponse* httpResponse = (NSHTTPURLResponse*)response;
@@ -109,6 +110,11 @@ BIAppDelegate* appdelegate;
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
+    if (tableView == self.searchDisplayController.searchResultsTableView)
+    {
+        return _searchResults.count;
+    }
+    
     return appdelegate.businessForUser.count;
 }
 
@@ -122,6 +128,12 @@ BIAppDelegate* appdelegate;
     }
     
     BIBussiness* bussiness = [appdelegate.businessForUser objectAtIndex:indexPath.row];
+    
+    if (tableView == self.searchDisplayController.searchResultsTableView)
+    {
+        bussiness = [_searchResults objectAtIndex:indexPath.row];
+    }
+    
     [cell.textLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:15.0f]];
     cell.textLabel.text = bussiness.bussinessName;
     
@@ -131,6 +143,11 @@ BIAppDelegate* appdelegate;
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     BIBussiness* bussiness = [appdelegate.businessForUser objectAtIndex:indexPath.row];
+    
+    if (tableView == self.searchDisplayController.searchResultsTableView)
+    {
+        bussiness = [_searchResults objectAtIndex:indexPath.row];
+    }
     
     if (self.isFromMenu)
     {
@@ -148,7 +165,22 @@ BIAppDelegate* appdelegate;
     }
 }
 
+- (void)filterContentForSearchText:(NSString*)searchText scope:(NSString*)scope
+{
+    NSPredicate *resultPredicate = [NSPredicate predicateWithFormat:@"bussinessName contains[c] %@", searchText];
+    _searchResults = [[[appdelegate.businessForUser copy] filteredArrayUsingPredicate:resultPredicate] mutableCopy];
+    
+}
 
+-(BOOL)searchDisplayController:(UISearchController *)controller shouldReloadTableForSearchString:(NSString *)searchString
+{
+    [self filterContentForSearchText:searchString
+                               scope:[[self.searchDisplayController.searchBar scopeButtonTitles]
+                                      objectAtIndex:[self.searchDisplayController.searchBar
+                                                     selectedScopeButtonIndex]]];
+    
+    return YES;
+}
 /*
 #pragma mark - Navigation
 

@@ -43,6 +43,7 @@ BIAppDelegate* appdelegate;
     
     //Get All customer name from id
     _tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+    self.searchDisplayController.searchResultsTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     
     [[ServiceRequest getShareInstance] serviceRequestActionName:@"/customer" accessToken:appdelegate.currentUser.token method:@"GET" result:^(NSURLResponse *response, NSData *dataResponse, NSError *connectionError) {
         NSHTTPURLResponse* httpResponse = (NSHTTPURLResponse*)response;
@@ -104,8 +105,8 @@ BIAppDelegate* appdelegate;
 
 - (IBAction)onCloseViewController:(id)sender
 {
-    if (self.isViewCustomerEdit) {
-//        [self dismissViewControllerAnimated:YES completion:nil];
+    if (self.isViewCustomerEdit)
+    {
         [self.navigationController popViewControllerAnimated:YES];
     }
     else
@@ -120,6 +121,11 @@ BIAppDelegate* appdelegate;
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
+    if (tableView == self.searchDisplayController.searchResultsTableView)
+    {
+        return _searchResults.count;
+    }
+    
     return appdelegate.customerForUser.count;
 }
 
@@ -135,6 +141,11 @@ BIAppDelegate* appdelegate;
     [cell.textLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:15.0f]];
     
     BICustomer* customer = [appdelegate.customerForUser objectAtIndex:indexPath.row];
+    if (tableView == self.searchDisplayController.searchResultsTableView)
+    {
+        customer = [_searchResults objectAtIndex:indexPath.row];
+    }
+    
     cell.textLabel.text = customer.customerBussinessName;
     
     return cell;
@@ -143,6 +154,10 @@ BIAppDelegate* appdelegate;
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     BICustomer* customer = [appdelegate.customerForUser objectAtIndex:indexPath.row];
+    if (tableView == self.searchDisplayController.searchResultsTableView)
+    {
+        customer = [_searchResults objectAtIndex:indexPath.row];
+    }
     
     if (self.isViewCustomerEdit)
     {
@@ -152,18 +167,32 @@ BIAppDelegate* appdelegate;
         [pushToVC setIndexPathSelected:indexPath];
         
         [self presentViewController:pushToVC animated:YES completion:nil];
-//        [self.navigationController pushViewController:pushToVC animated:YES];
     }
     else
     {
         appdelegate.currentCustomerForAddInvoice = customer;
         [self.delegate didSelectedCustomer:customer];
         [self dismissViewControllerAnimated:YES completion:nil];
-//        [self.navigationController popViewControllerAnimated:YES];
     }
     
 }
 
+- (void)filterContentForSearchText:(NSString*)searchText scope:(NSString*)scope
+{
+    NSPredicate *resultPredicate = [NSPredicate predicateWithFormat:@"customerBussinessName contains[c] %@", searchText];
+    _searchResults = [[[appdelegate.customerForUser copy] filteredArrayUsingPredicate:resultPredicate] mutableCopy];
+    
+}
+
+-(BOOL)searchDisplayController:(UISearchController *)controller shouldReloadTableForSearchString:(NSString *)searchString
+{
+    [self filterContentForSearchText:searchString
+                               scope:[[self.searchDisplayController.searchBar scopeButtonTitles]
+                                      objectAtIndex:[self.searchDisplayController.searchBar
+                                                     selectedScopeButtonIndex]]];
+    
+    return YES;
+}
 
 /*
 #pragma mark - Navigation

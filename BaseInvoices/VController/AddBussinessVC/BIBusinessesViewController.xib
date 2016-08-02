@@ -10,6 +10,7 @@
                 <outlet property="btnAddBusiness" destination="23U-YI-tWh" id="udl-U3-32c"/>
                 <outlet property="btnCloseViewController" destination="GUq-BA-02d" id="2Eh-uE-Rap"/>
                 <outlet property="btnMenu" destination="lyf-ga-ftE" id="W2o-43-NoZ"/>
+                <outlet property="searchDisplayController" destination="haZ-38-fzt" id="4U8-rH-cjb"/>
                 <outlet property="tableView" destination="MFS-3v-jmr" id="bdN-vv-CTK"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -20,7 +21,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="MFS-3v-jmr">
-                    <rect key="frame" x="0.0" y="86" width="320" height="482"/>
+                    <rect key="frame" x="0.0" y="114" width="320" height="454"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <connections>
                         <outlet property="dataSource" destination="-1" id="xS2-hc-Uf9"/>
@@ -66,12 +67,28 @@
                     </subviews>
                     <color key="backgroundColor" red="0.47843140360000003" green="0.76470595600000002" blue="0.13725490870000001" alpha="1" colorSpace="deviceRGB"/>
                 </view>
+                <searchBar contentMode="redraw" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ko7-QP-6HQ">
+                    <rect key="frame" x="0.0" y="70" width="320" height="44"/>
+                    <textInputTraits key="textInputTraits"/>
+                    <connections>
+                        <outlet property="delegate" destination="-1" id="vBC-73-Bef"/>
+                    </connections>
+                </searchBar>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <nil key="simulatedTopBarMetrics"/>
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
             <point key="canvasLocation" x="-28" y="227"/>
         </view>
+        <searchDisplayController id="haZ-38-fzt">
+            <connections>
+                <outlet property="delegate" destination="-1" id="Qtu-bZ-ykv"/>
+                <outlet property="searchBar" destination="Ko7-QP-6HQ" id="N0g-jB-wHG"/>
+                <outlet property="searchContentsController" destination="-1" id="AYj-Ck-wl8"/>
+                <outlet property="searchResultsDataSource" destination="-1" id="V7M-aG-zlX"/>
+                <outlet property="searchResultsDelegate" destination="-1" id="Ke3-sT-LKD"/>
+            </connections>
+        </searchDisplayController>
     </objects>
     <resources>
         <image name="backbutton.png" width="88" height="88"/>

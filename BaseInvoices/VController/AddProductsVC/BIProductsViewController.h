@@ -28,4 +28,6 @@
 
 @property (weak, nonatomic) IBOutlet UIButton *btnBack;
 
+@property (nonatomic, strong) NSMutableArray* searchResults;
+
 @end

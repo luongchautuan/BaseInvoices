@@ -26,5 +26,6 @@
 @property (weak, nonatomic) IBOutlet UIButton *btnMenu;
 
 @property (nonatomic) BOOL isFromMenu;
+@property (nonatomic, strong) NSMutableArray* searchResults;
 
 @end

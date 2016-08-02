@@ -472,10 +472,20 @@ BIAppDelegate* appdelegate;
 - (void)loadInvoiceEdit
 {
     self.txtBussiness.text = self.invoiceEdit.invoiceTemplate.invoiceTemplateName;
+    _invoiceTemplateSelected = _invoiceEdit.invoiceTemplate;
+    
     self.txtInvoiceNumber.text = [NSString stringWithFormat:@"%@", self.invoiceEdit.invoiceName];
     
     [self.btnAddCustom setTitle:self.invoiceEdit.customer.customerBussinessName forState:UIControlStateNormal];
-    self.txtDateForMain.text = self.invoiceEdit.dateInvoice;
+    
+    NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+    [dateFormat setDateFormat:@"yyyy-MM-dd"];
+    NSDate* date = [dateFormat dateFromString:_invoiceEdit.dateInvoice];
+    
+    [dateFormat setDateFormat:@"MM-dd-yyyy"];
+    NSString *time = [dateFormat stringFromDate:date];
+    
+    self.txtDateForMain.text = time;
     self.txtNoteDesc.text = self.invoiceEdit.noteInvoice;
 
 //    self.txtPaymentType.text = self.invoiceEdit.outStanding;
@@ -817,11 +827,7 @@ BIAppDelegate* appdelegate;
     }
     else
     {
-        if (self.isEditInvoice)
-        {
-            [self dismissViewControllerAnimated:YES completion:nil];
-        }
-        else [self.navigationController popViewControllerAnimated:YES];
+        [self.navigationController popViewControllerAnimated:YES];
     }
 
 }

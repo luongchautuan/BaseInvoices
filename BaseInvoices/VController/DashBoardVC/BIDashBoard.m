@@ -55,24 +55,7 @@ BIAppDelegate* appdelegate;
 - (void)viewWillAppear:(BOOL)animated
 {
     [self.navigationController setNavigationBarHidden:YES];
-    
-//    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-//    NSMutableArray* invoicesForUser = [[NSMutableArray alloc] init];
-//    
-//    invoicesForUser = [defaults rm_customObjectForKey:@"invoicesForUser"];
-//    
-//    if (invoicesForUser.count > 0)
-//    {
-//        self.tableView.hidden = NO;
-//        appdelegate.invoicesForUser = invoicesForUser;
-//    }
-//    else
-//    {
-//        self.tableView.hidden = YES;
-//    }
-//
-//    [self.tableView reloadData];
-    
+   
     [self getInvoices];
 }
 
@@ -365,6 +348,11 @@ BIAppDelegate* appdelegate;
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
+    if (tableView == self.searchDisplayController.searchResultsTableView)
+    {
+        return [_searchResults count];
+    }
+    
     return appdelegate.invoicesForUser.count;
 }
 
@@ -403,6 +391,12 @@ BIAppDelegate* appdelegate;
     }
    
     BIInvoice* invoice = [appdelegate.invoicesForUser objectAtIndex:indexPath.section];
+    
+    if (tableView == self.searchDisplayController.searchResultsTableView)
+    {
+        invoice = [_searchResults objectAtIndex:indexPath.section];
+    }
+    
     NSLog(@"Cutstomer: %@", invoice.invoiceName);
     customCell.lblInvoiceNumber.text = [NSString stringWithFormat:@"#%@", invoice.invoiceName];
     customCell.lblCustomerName.text = [NSString stringWithFormat:@"%@", invoice.customer.customerBussinessName];
@@ -417,7 +411,6 @@ BIAppDelegate* appdelegate;
         [customCell.imgPaid setImage:[UIImage imageNamed:@"bg_uncheck_radiobutton.png"]];
          [customCell.btnPaid addTarget:self action:@selector(btnPaidInvoice_Clicked:) forControlEvents:UIControlEventTouchUpInside];
     }
-
     
     return customCell;
 }
@@ -431,8 +424,7 @@ BIAppDelegate* appdelegate;
     [editInvoiceViewController setInvoiceEdit:invoice];
     [editInvoiceViewController setIndexPathSelected:indexPath];
     
-    [self presentViewController:editInvoiceViewController animated:YES completion:nil];
-    
+    [self.navigationController pushViewController:editInvoiceViewController animated:YES];
 }
 
 - (IBAction)btnPaidInvoice_Clicked:(id)sender
@@ -473,6 +465,23 @@ BIAppDelegate* appdelegate;
         BILogin *referenceVC = [[BILogin alloc] initWithNibName:@"BILogin" bundle:nil];
         [self.navigationController pushViewController:referenceVC animated:YES];
     }
+}
+
+- (void)filterContentForSearchText:(NSString*)searchText scope:(NSString*)scope
+{
+    NSPredicate *resultPredicate = [NSPredicate predicateWithFormat:@"invoiceName contains[c] %@", searchText];
+    _searchResults = [[[appdelegate.invoicesForUser copy] filteredArrayUsingPredicate:resultPredicate] mutableCopy];
+    
+}
+
+-(BOOL)searchDisplayController:(UISearchController *)controller shouldReloadTableForSearchString:(NSString *)searchString
+{
+    [self filterContentForSearchText:searchString
+                               scope:[[self.searchDisplayController.searchBar scopeButtonTitles]
+                                      objectAtIndex:[self.searchDisplayController.searchBar
+                                                     selectedScopeButtonIndex]]];
+    
+    return YES;
 }
 
 @end

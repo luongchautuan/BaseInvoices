@@ -21,12 +21,12 @@ BIAppDelegate* appdelegate;
 
 @implementation BIProductsViewController
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
     appdelegate = (BIAppDelegate *)[[UIApplication sharedApplication] delegate];
-    
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -43,6 +43,7 @@ BIAppDelegate* appdelegate;
     }
     
     _tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+    self.searchDisplayController.searchResultsTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     
     [[ServiceRequest getShareInstance] serviceRequestActionName:@"/product" accessToken:appdelegate.currentUser.token method:@"GET" result:^(NSURLResponse *response, NSData *dataResponse, NSError *connectionError) {
         NSHTTPURLResponse* httpResponse = (NSHTTPURLResponse*)response;
@@ -109,23 +110,12 @@ BIAppDelegate* appdelegate;
 - (IBAction)onAddProduct:(id)sender
 {
     BIAddProducts *pushToVC = [[BIAddProducts alloc] initWithNibName:@"BIAddProducts" bundle:nil];
-//    [self presentViewController:pushToVC animated:YES completion:nil];
     [self.navigationController pushViewController:pushToVC animated:YES];
 }
 
 - (IBAction)onCloseViewController:(id)sender
 {
     [self.navigationController popViewControllerAnimated:YES];
-    
-//    if (self.isViewEditProduct) {
-//        [self.navigationController popViewControllerAnimated:YES];
-//    }
-//    else
-//    {
-//       [self dismissViewControllerAnimated:YES completion:nil]; 
-//    }
-    
-
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -135,6 +125,11 @@ BIAppDelegate* appdelegate;
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
+    if (tableView == self.searchDisplayController.searchResultsTableView)
+    {
+        return [_searchResults count];
+    }
+    
     return appdelegate.productsForUser.count;
 }
 
@@ -143,13 +138,20 @@ BIAppDelegate* appdelegate;
     static NSString *CellIdentifier = @"newFriendCell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"newFriendCell"];
     
-    if (cell == nil) {
+    if (cell == nil)
+    {
         cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
     }
     
     [cell.textLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:15.0f]];
     
+
     BIProduct* product = [appdelegate.productsForUser objectAtIndex:indexPath.row];
+    if (tableView == self.searchDisplayController.searchResultsTableView)
+    {
+        product = [_searchResults objectAtIndex:indexPath.row];
+    }
+    
     cell.textLabel.text = product.productName;
     
     return cell;
@@ -158,6 +160,11 @@ BIAppDelegate* appdelegate;
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     BIProduct* product = [appdelegate.productsForUser objectAtIndex:indexPath.row];
+    
+    if (tableView == self.searchDisplayController.searchResultsTableView)
+    {
+        product = [_searchResults objectAtIndex:indexPath.row];
+    }
     
     if (self.isViewEditProduct)
     {
@@ -170,13 +177,27 @@ BIAppDelegate* appdelegate;
     else
     {
         [self.delegate didSelectedProduct:product];
-//        [appdelegate.productsFroAddInvoices addObject:product];
-        
-//        [self.navigationController pushViewController:pushToVC animated:YES];
-//        [self.delegate checkCallback];
         [self.navigationController popViewControllerAnimated:YES];
     }
 }
+
+- (void)filterContentForSearchText:(NSString*)searchText scope:(NSString*)scope
+{
+    NSPredicate *resultPredicate = [NSPredicate predicateWithFormat:@"productName contains[c] %@", searchText];
+    _searchResults = [[[appdelegate.productsForUser copy] filteredArrayUsingPredicate:resultPredicate] mutableCopy];
+    
+}
+
+-(BOOL)searchDisplayController:(UISearchController *)controller shouldReloadTableForSearchString:(NSString *)searchString
+{
+    [self filterContentForSearchText:searchString
+                               scope:[[self.searchDisplayController.searchBar scopeButtonTitles]
+                                      objectAtIndex:[self.searchDisplayController.searchBar
+                                                     selectedScopeButtonIndex]]];
+    
+    return YES;
+}
+
 /*
 #pragma mark - Navigation
 

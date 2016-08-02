@@ -34,5 +34,6 @@
 @property (nonatomic, strong) NSIndexPath* indexPathSelected;
 @property (nonatomic) BOOL isShowingDatePaid;
 @property (weak, nonatomic) IBOutlet UIDatePicker *datePicker;
+@property (nonatomic, strong) NSMutableArray* searchResults;
 
 @end

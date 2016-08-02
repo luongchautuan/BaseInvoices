@@ -14,6 +14,7 @@
             <connections>
                 <outlet property="btnBack" destination="lGh-cF-YvG" id="C9R-zE-J5n"/>
                 <outlet property="btnMenu" destination="cO2-ob-YC9" id="Qe2-Bb-9Wy"/>
+                <outlet property="searchDisplayController" destination="Fma-2c-79D" id="pN4-Hj-w9j"/>
                 <outlet property="tableView" destination="HiW-gW-8vZ" id="ueQ-tO-3BQ"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -24,7 +25,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="HiW-gW-8vZ">
-                    <rect key="frame" x="0.0" y="78" width="320" height="482"/>
+                    <rect key="frame" x="0.0" y="114" width="320" height="454"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <connections>
                         <outlet property="dataSource" destination="-1" id="j8d-vT-Jzj"/>
@@ -70,10 +71,26 @@
                     </subviews>
                     <color key="backgroundColor" red="0.47843140360000003" green="0.76470595600000002" blue="0.13725490870000001" alpha="1" colorSpace="deviceRGB"/>
                 </view>
+                <searchBar contentMode="redraw" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qKk-aQ-pGb">
+                    <rect key="frame" x="0.0" y="70" width="320" height="44"/>
+                    <textInputTraits key="textInputTraits"/>
+                    <connections>
+                        <outlet property="delegate" destination="-1" id="bKx-65-syF"/>
+                    </connections>
+                </searchBar>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
         </view>
+        <searchDisplayController id="Fma-2c-79D">
+            <connections>
+                <outlet property="delegate" destination="-1" id="tI1-iT-fgH"/>
+                <outlet property="searchBar" destination="qKk-aQ-pGb" id="skG-Ej-cKU"/>
+                <outlet property="searchContentsController" destination="-1" id="GZX-HW-pYU"/>
+                <outlet property="searchResultsDataSource" destination="-1" id="VTN-pQ-WFq"/>
+                <outlet property="searchResultsDelegate" destination="-1" id="AGV-6H-dDv"/>
+            </connections>
+        </searchDisplayController>
     </objects>
     <resources>
         <image name="buttonclosewhite.png" width="50" height="50"/>
