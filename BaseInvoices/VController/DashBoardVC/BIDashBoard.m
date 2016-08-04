@@ -46,6 +46,7 @@ BIAppDelegate* appdelegate;
     // Do any additional setup after loading the view from its nib.
     [self.txtTitle setText:@"Dashboard"];
     [self.mm_drawerController setOpenDrawerGestureModeMask:MMOpenDrawerGestureModeAll];
+    self.searchDisplayController.searchResultsTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     
     UITapGestureRecognizer *tapGeusture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapHandler:)];
     tapGeusture.numberOfTapsRequired = 1;
@@ -469,7 +470,7 @@ BIAppDelegate* appdelegate;
 
 - (void)filterContentForSearchText:(NSString*)searchText scope:(NSString*)scope
 {
-    NSPredicate *resultPredicate = [NSPredicate predicateWithFormat:@"invoiceName contains[c] %@", searchText];
+    NSPredicate *resultPredicate = [NSPredicate predicateWithFormat:@"customer.customerBussinessName contains[c] %@", searchText];
     _searchResults = [[[appdelegate.invoicesForUser copy] filteredArrayUsingPredicate:resultPredicate] mutableCopy];
     
 }

@@ -41,6 +41,7 @@
     [dict setObject:_noteInvoice forKey:@"notes"];
     [dict setObject:_totalInvoices forKey:@"amount"];
     [dict setObject:_totalInvoices forKey:@"total"];
+    [dict setObject:_taxesInvoice forKey:@"vat"];
     [dict setObject:@"Queried" forKey:@"status"];
 
     if (_isPaided)
