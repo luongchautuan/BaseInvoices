@@ -83,7 +83,8 @@ NSString* vatRegistered;
         }
     }
 
-    if (self.isEditBusiness) {
+    if (self.isEditBusiness)
+    {
         [self.txtTitle setText:@"Edit Bussiness"];
         [self loadBussinessEdit];
     }
@@ -111,7 +112,7 @@ NSString* vatRegistered;
         [dateFormatter setDateFormat:@"dd MMM yyyy"];
         _txtDateStarted.text = [dateFormatter stringFromDate:[NSDate date]];
         
-        [self getCurrencies];
+//        [self getCurrencies];
     }
     
     vatRegistered = @"0";
